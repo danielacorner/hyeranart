@@ -13,6 +13,8 @@ import PaintingStack from "../components/PaintingStack"
 
 // 3d tilt https://codepen.io/dimaZubkov/pen/XqoGeW
 
+// https://www.npmjs.com/package/react-tilt
+
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
