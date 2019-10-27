@@ -18,7 +18,6 @@ import PaintingStack from "../components/PaintingStack"
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <h1>Hyeran Art</h1>
     <PaintingStack />
 
     <Link to="/works-large/">Large Works</Link>

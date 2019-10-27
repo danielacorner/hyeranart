@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import styled from "styled-components/macro"
 
 const IMG_HEIGHT_PX = 200
+const IMG_HEIGHT_COLLAPSED_PX = 70
 
 const StackContainerStyles = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ const StackContainerStyles = styled.div`
     max-height: ${IMG_HEIGHT_PX * 0.8}px;
     transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
     &:not(.expanded) {
-      max-height: 80px;
+      max-height: ${IMG_HEIGHT_COLLAPSED_PX}px;
     }
   }
 `

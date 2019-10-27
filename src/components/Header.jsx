@@ -1,8 +1,9 @@
 import { Link } from "gatsby"
-import PropTypes from "prop-types"
 import React from "react"
 
-const Header = ({ siteTitle }) => (
+const DropdownLinkMenu = ({ path, name, subPages }) => <div>hi</div>
+
+export default ({ siteTitle, pagesArr }) => (
   <header
     style={{
       background: `rebeccapurple`,
@@ -27,16 +28,13 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
+      {pagesArr.map(({ path, name, subPages }) =>
+        subPages ? (
+          <DropdownLinkMenu path={path} name={name} subPages={subPages} />
+        ) : (
+          <Link to={path}>{name}</Link>
+        )
+      )}
     </div>
   </header>
 )
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
-}
-
-export default Header
