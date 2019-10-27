@@ -2,19 +2,26 @@ import React from "react"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import PaintingStack from "../components/PaintingStack"
+
+// inspiration:
+// https://abstractartcollective.com
+// enter animations http://abstractartcollective.com/penny-arnst/
+
+// http://bomomo.com/
+
+// 3d tilt https://codepen.io/dimaZubkov/pen/XqoGeW
 
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
+    <h1>Hyeran Art</h1>
+    <PaintingStack />
+
+    <Link to="/works-large/">Large Works</Link>
+    <Link to="/works-medium/">Medium Works</Link>
+    <Link to="/works-small/">Small Works</Link>
   </Layout>
 )
 
