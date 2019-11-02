@@ -2,6 +2,7 @@ import React from "react"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
+import Carousel from "../components/Carousel"
 
 // inspiration:
 // https://abstractartcollective.com
@@ -13,11 +14,14 @@ import SEO from "../components/seo"
 
 // https://www.npmjs.com/package/react-tilt
 
-export default () => (
+const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
+    <Carousel />
     {/* <Link to="/works-large/">Large Works</Link>
     <Link to="/works-medium/">Medium Works</Link>
     <Link to="/works-small/">Small Works</Link> */}
   </Layout>
 )
+
+export default IndexPage

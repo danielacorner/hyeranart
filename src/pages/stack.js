@@ -2,6 +2,7 @@ import React from "react"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
+import PaintingStack from "../components/PaintingStack"
 
 // inspiration:
 // https://abstractartcollective.com
@@ -16,6 +17,7 @@ import SEO from "../components/seo"
 export default () => (
   <Layout>
     <SEO title="Home" />
+    <PaintingStack />
     {/* <Link to="/works-large/">Large Works</Link>
     <Link to="/works-medium/">Medium Works</Link>
     <Link to="/works-small/">Small Works</Link> */}
