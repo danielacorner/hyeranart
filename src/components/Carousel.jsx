@@ -7,22 +7,31 @@ import ArrowLeftIcon from "@material-ui/icons/ArrowBackIos"
 import ArrowRightIcon from "@material-ui/icons/ArrowForwardIos"
 import { IconButton } from "@material-ui/core"
 import { animated, useSpring } from "react-spring"
+import { useImagesQuery } from "./queries"
 
 const CAROUSEL_MAX_WIDTH = 960
+const NAV_HEIGHT = 64
 
 const CarouselStyles = styled.div`
   max-width: ${CAROUSEL_MAX_WIDTH}px;
-  max-height: 100vh;
+  max-height: calc(100vh - ${NAV_HEIGHT}px);
   margin: auto;
+  display: grid;
+  align-items: center;
+  align-content: center;
   .images-wrapper {
     display: grid;
     grid-auto-flow: column;
-  }
-  .img-wrapper {
-    max-width: ${CAROUSEL_MAX_WIDTH}px;
-    width: 100vw;
-    img {
-      width: 100%;
+    height: 100%;
+    .img-wrapper {
+      display: grid;
+      align-items: center;
+      height: 100%;
+      max-width: ${CAROUSEL_MAX_WIDTH}px;
+      width: 100vw;
+      img {
+        width: 100%;
+      }
     }
   }
   position: relative;
@@ -48,16 +57,7 @@ const CarouselStyles = styled.div`
 `
 
 export default () => {
-  const data = useStaticQuery(imagesQuery)
-
-  const images = [
-    data.image1.childImageSharp.fluid,
-    data.image2.childImageSharp.fluid,
-    data.image3.childImageSharp.fluid,
-    data.image4.childImageSharp.fluid,
-    data.image5.childImageSharp.fluid,
-    data.image6.childImageSharp.fluid,
-  ]
+  const images = useImagesQuery()
 
   const [selectedImgIndex, setSelectedImgIndex] = useState(0)
 
