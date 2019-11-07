@@ -1,6 +1,6 @@
 import { Link } from "gatsby"
 import React from "react"
-import styled from "styled-components/macro"
+import styled from "styled-components"
 
 const HeaderStyles = styled.header`
   height: 64px;
