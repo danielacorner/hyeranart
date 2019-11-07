@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import Img from "gatsby-image"
 import ArrowLeftIcon from "@material-ui/icons/ArrowBackIos"
@@ -58,8 +58,16 @@ export default () => {
   const images = useImagesQuery()
 
   const [selectedImgIndex, setSelectedImgIndex] = useState(0)
+  const [carouselWidth, setCarouselWidth] = useState(0)
 
-  const carouselWidth = Math.min(window.innerWidth, CAROUSEL_MAX_WIDTH)
+  useEffect(() => {
+    // window is not defined during gatsby build
+    // must wait until we're in the browser
+    const newCarouselWidth = Math.min(window.innerWidth, CAROUSEL_MAX_WIDTH)
+    if (newCarouselWidth !== carouselWidth) {
+      setCarouselWidth(newCarouselWidth)
+    }
+  })
 
   const handlePrevious = () => {
     const prevIndex = selectedImgIndex - 1
