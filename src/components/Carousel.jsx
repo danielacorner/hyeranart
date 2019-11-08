@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react"
-import styled from "styled-components"
+import React, { useState, useEffect, useRef } from "react"
+import styled from "styled-components/macro"
 import Img from "gatsby-image"
 import ArrowRightIcon from "@material-ui/icons/ArrowForwardIos"
 import { IconButton } from "@material-ui/core"
 import { animated, useSpring } from "react-spring"
 import { useImagesQuery } from "./queries"
+import Tilt from "react-tilt"
 
 const ArrowLeftIcon = () => (
   <ArrowRightIcon style={{ transform: "rotate(180deg)" }} />
@@ -23,7 +24,8 @@ const CarouselStyles = styled.div`
   .gatsby-image-wrapper {
     height: 100%;
   }
-  .images-wrapper {
+  .animated-images-wrapper {
+    position: relative;
     display: grid;
     grid-auto-flow: column;
     height: 100%;
@@ -34,6 +36,7 @@ const CarouselStyles = styled.div`
       max-height: calc(100vh - ${NAV_HEIGHT}px);
       max-width: ${CAROUSEL_MAX_WIDTH}px;
       width: 100vw;
+      cursor: pointer;
       img {
         width: 100%;
         height: 100%;
@@ -41,6 +44,7 @@ const CarouselStyles = styled.div`
       }
     }
   }
+
   position: relative;
   .arrow-wrapper {
     position: absolute;
@@ -64,13 +68,29 @@ const CarouselStyles = styled.div`
       /* background-color: rgba(255, 255, 255, 0.16); */
     }
   }
+  .animated-modal-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
 `
+export function usePrevious(value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
 
 export default () => {
   const images = useImagesQuery()
 
   const [selectedImgIndex, setSelectedImgIndex] = useState(0)
+  const prevSelectedImgIndex = usePrevious(selectedImgIndex)
   const [carouselWidth, setCarouselWidth] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     // window is not defined during gatsby build
@@ -89,10 +109,12 @@ export default () => {
   })
 
   const handlePrevious = () => {
+    setIsModalOpen(false)
     const prevIndex = selectedImgIndex - 1
     setSelectedImgIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
   }
   const handleNext = () => {
+    setIsModalOpen(false)
     const nextIndex = selectedImgIndex + 1
     setSelectedImgIndex(nextIndex > images.length - 1 ? 0 : nextIndex)
   }
@@ -107,6 +129,12 @@ export default () => {
     transform: `translate(${-selectedImgIndex * carouselWidth}px,0)`,
   })
 
+  const springModalOpen = useSpring({
+    transform: `scale(${isModalOpen ? 0.8 : 1})`,
+    pointerEvents: isModalOpen ? "auto" : "none",
+    opacity: isModalOpen ? 1 : 0,
+  })
+
   return (
     <CarouselStyles>
       <div className="arrow-wrapper arrow-left">
@@ -114,18 +142,48 @@ export default () => {
           <ArrowLeftIcon />
         </IconButton>
       </div>
-      <animated.div className="images-wrapper" style={springLeftRight}>
+
+      <animated.div className="animated-images-wrapper" style={springLeftRight}>
         {images.map((image, idx) => (
-          <div className="img-wrapper">
-            <Img key={idx} title={"hi"} fluid={image} />
+          <div
+            key={idx}
+            className="img-wrapper"
+            onClick={() => setIsModalOpen(!isModalOpen)}
+          >
+            <Img title={"hi"} fluid={image} />
           </div>
         ))}
       </animated.div>
+
       <div className="arrow-wrapper arrow-right">
         <IconButton onClick={handleNext}>
           <ArrowRightIcon />
         </IconButton>
       </div>
+
+      <animated.div className="animated-modal-wrapper" style={springModalOpen}>
+        <Tilt
+          options={{
+            // https://www.npmjs.com/package/react-tilt
+            max: 20,
+            perspective: 800,
+          }}
+        >
+          <div className="img-wrapper" onClick={() => setIsModalOpen(false)}>
+            <Img
+              title={"hi"}
+              fluid={
+                images[
+                  prevSelectedImgIndex ||
+                    (prevSelectedImgIndex === 0
+                      ? prevSelectedImgIndex
+                      : selectedImgIndex)
+                ]
+              }
+            />
+          </div>
+        </Tilt>
+      </animated.div>
     </CarouselStyles>
   )
 }
