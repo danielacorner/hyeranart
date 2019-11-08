@@ -45,6 +45,48 @@ export const useImagesQuery = () => {
           }
         }
       }
+      image7: file(relativePath: { eq: "hyeran7.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1240) {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
+      image8: file(relativePath: { eq: "hyeran8.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1240) {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
+      image9: file(relativePath: { eq: "hyeran9.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1240) {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
+      image10: file(relativePath: { eq: "hyeran10.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1240) {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
+      image11: file(relativePath: { eq: "hyeran11.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1240) {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
+      image12: file(relativePath: { eq: "hyeran12.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1240) {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
     }
   `)
 
@@ -55,6 +97,12 @@ export const useImagesQuery = () => {
     data.image4.childImageSharp.fluid,
     data.image5.childImageSharp.fluid,
     data.image6.childImageSharp.fluid,
+    data.image7.childImageSharp.fluid,
+    data.image8.childImageSharp.fluid,
+    data.image9.childImageSharp.fluid,
+    data.image10.childImageSharp.fluid,
+    data.image11.childImageSharp.fluid,
+    data.image12.childImageSharp.fluid,
   ]
 
   return images
