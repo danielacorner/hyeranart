@@ -129,10 +129,13 @@ export default () => {
     transform: `translate(${-selectedImgIndex * carouselWidth}px,0)`,
   })
 
-  const springModalOpen = useSpring({
-    transform: `scale(${isModalOpen ? 0.8 : 1})`,
-    pointerEvents: isModalOpen ? "auto" : "none",
+  const springModalBackground = useSpring({
     opacity: isModalOpen ? 1 : 0,
+    pointerEvents: isModalOpen ? "auto" : "none",
+    background: `hsla(0,0%,30%,${isModalOpen ? 0.8 : 0})`,
+  })
+  const springModalImage = useSpring({
+    transform: `scale(${isModalOpen ? 0.8 : 1})`,
   })
 
   return (
@@ -161,15 +164,22 @@ export default () => {
         </IconButton>
       </div>
 
-      <animated.div className="animated-modal-wrapper" style={springModalOpen}>
+      <animated.div
+        className="animated-modal-wrapper"
+        style={springModalBackground}
+      >
         <Tilt
           options={{
             // https://www.npmjs.com/package/react-tilt
-            max: 20,
-            perspective: 800,
+            max: 10,
+            perspective: 1000,
           }}
         >
-          <div className="img-wrapper" onClick={() => setIsModalOpen(false)}>
+          <animated.div
+            className="img-wrapper"
+            style={springModalImage}
+            onClick={() => setIsModalOpen(false)}
+          >
             <Img
               title={"hi"}
               fluid={
@@ -181,7 +191,7 @@ export default () => {
                 ]
               }
             />
-          </div>
+          </animated.div>
         </Tilt>
       </animated.div>
     </CarouselStyles>
