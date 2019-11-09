@@ -2,7 +2,7 @@ import React from "react"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
-import Carousel from "../components/Carousel"
+import Carousel from "../components/Carousel/Carousel"
 
 // inspiration:
 // https://abstractartcollective.com
