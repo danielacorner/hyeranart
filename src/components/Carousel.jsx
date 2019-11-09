@@ -12,6 +12,8 @@ const ArrowLeftIcon = () => (
 )
 
 const CAROUSEL_MAX_WIDTH = 960
+const IMG_WIDTH = 960
+const CANVAS_THICKNESS = 30
 const NAV_HEIGHT = 64
 
 const CarouselStyles = styled.div`
@@ -43,6 +45,44 @@ const CarouselStyles = styled.div`
         /* object-fit: contain !important; */
       }
     }
+  }
+
+  .cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+  .cube__face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+  .cube__face--front {
+    transform: rotateY(0deg) translateZ(${CANVAS_THICKNESS / 2}px);
+  }
+  .cube__face--right {
+    width: ${CANVAS_THICKNESS}px;
+    transform: rotateY(90deg) translateZ(${IMG_WIDTH - CANVAS_THICKNESS / 2}px);
+  }
+  .cube__face--back {
+    transform: rotateY(180deg) translateZ(${CANVAS_THICKNESS / 2}px);
+  }
+  .cube__face--left {
+    width: ${CANVAS_THICKNESS}px;
+    transform: rotateY(-90deg) translateZ(${CANVAS_THICKNESS / 2}px);
+  }
+  .cube__face--top {
+    height: ${CANVAS_THICKNESS}px;
+    transform: rotateX(90deg) translateZ(${CANVAS_THICKNESS / 2}px);
+  }
+  .cube__face--bottom {
+    height: ${CANVAS_THICKNESS}px;
+    transform: rotateX(-90deg) translateZ(${IMG_WIDTH - CANVAS_THICKNESS}px);
   }
 
   position: relative;
@@ -135,7 +175,8 @@ export default () => {
     background: `hsla(0,0%,30%,${isModalOpen ? 0.8 : 0})`,
   })
   const springModalImage = useSpring({
-    transform: `scale(${isModalOpen ? 0.8 : 1})`,
+    transform: `scale(${isModalOpen ? 0.8 : 1}) translateZ(${-CANVAS_THICKNESS /
+      2}px)`,
   })
 
   return (
@@ -171,26 +212,35 @@ export default () => {
         <Tilt
           options={{
             // https://www.npmjs.com/package/react-tilt
-            max: 10,
-            perspective: 1000,
+            max: 45,
           }}
+          style={{
+            height: "100%",
+          }}
+          className="scene"
         >
           <animated.div
-            className="img-wrapper"
+            className="img-wrapper cube"
             style={springModalImage}
             onClick={() => setIsModalOpen(false)}
           >
-            <Img
-              title={"hi"}
-              fluid={
-                images[
-                  prevSelectedImgIndex ||
-                    (prevSelectedImgIndex === 0
-                      ? prevSelectedImgIndex
-                      : selectedImgIndex)
-                ]
-              }
-            />
+            <div className="cube__face cube__face--front">
+              <Img
+                title={"hi"}
+                fluid={
+                  images[
+                    prevSelectedImgIndex ||
+                      (prevSelectedImgIndex === 0
+                        ? prevSelectedImgIndex
+                        : selectedImgIndex)
+                  ]
+                }
+              />
+            </div>
+            <div className="cube__face cube__face--right"></div>
+            <div className="cube__face cube__face--left"></div>
+            <div className="cube__face cube__face--top"></div>
+            <div className="cube__face cube__face--bottom"></div>
           </animated.div>
         </Tilt>
       </animated.div>
