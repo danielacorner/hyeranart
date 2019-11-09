@@ -6,6 +6,7 @@ import { IconButton } from "@material-ui/core"
 import { animated, useSpring } from "react-spring"
 import { useImagesQuery } from "./queries"
 import Tilt from "react-tilt"
+import ContainerDimensions from "react-container-dimensions"
 
 const ArrowLeftIcon = () => (
   <ArrowRightIcon style={{ transform: "rotate(180deg)" }} />
@@ -13,8 +14,10 @@ const ArrowLeftIcon = () => (
 
 const CAROUSEL_MAX_WIDTH = 960
 const IMG_WIDTH = 960
-const CANVAS_THICKNESS = 30
+const CANVAS_THICKNESS = 60
 const NAV_HEIGHT = 64
+const CANVAS_BACKGROUND_COLOR = "hsl(0,0%,90%)"
+const CANVAS_BORDER_COLOR = "hsl(0,0%,80%)"
 
 const CarouselStyles = styled.div`
   max-width: ${CAROUSEL_MAX_WIDTH}px;
@@ -47,6 +50,9 @@ const CarouselStyles = styled.div`
     }
   }
 
+  .scene {
+    transform-style: preserve-3d;
+  }
   .cube {
     width: 100%;
     height: 100%;
@@ -59,8 +65,8 @@ const CarouselStyles = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: ${CANVAS_BACKGROUND_COLOR};
+    border: 1px solid ${CANVAS_BORDER_COLOR};
   }
   .cube__face--front {
     transform: rotateY(0deg) translateZ(${CANVAS_THICKNESS / 2}px);
@@ -82,7 +88,7 @@ const CarouselStyles = styled.div`
   }
   .cube__face--bottom {
     height: ${CANVAS_THICKNESS}px;
-    transform: rotateX(-90deg) translateZ(${IMG_WIDTH - CANVAS_THICKNESS}px);
+    transform: rotateX(-90deg) translateZ(${props => props.imageHeight}px);
   }
 
   position: relative;
@@ -123,6 +129,8 @@ export function usePrevious(value) {
   })
   return ref.current
 }
+
+const CubeStyles = styled.div``
 
 export default () => {
   const images = useImagesQuery()
@@ -175,9 +183,11 @@ export default () => {
     background: `hsla(0,0%,30%,${isModalOpen ? 0.8 : 0})`,
   })
   const springModalImage = useSpring({
-    transform: `scale(${isModalOpen ? 0.8 : 1}) translateZ(${-CANVAS_THICKNESS /
-      2}px)`,
+    transform: `scale(${isModalOpen ? 0.8 : 1})`,
   })
+
+  // TODO
+  const IMAGE_HEIGHT = 756
 
   return (
     <CarouselStyles>
@@ -212,36 +222,47 @@ export default () => {
         <Tilt
           options={{
             // https://www.npmjs.com/package/react-tilt
-            max: 45,
+            max: 60,
+            perspective: 8000,
           }}
           style={{
             height: "100%",
           }}
           className="scene"
         >
-          <animated.div
-            className="img-wrapper cube"
-            style={springModalImage}
-            onClick={() => setIsModalOpen(false)}
-          >
-            <div className="cube__face cube__face--front">
-              <Img
-                title={"hi"}
-                fluid={
-                  images[
-                    prevSelectedImgIndex ||
-                      (prevSelectedImgIndex === 0
-                        ? prevSelectedImgIndex
-                        : selectedImgIndex)
-                  ]
-                }
-              />
-            </div>
-            <div className="cube__face cube__face--right"></div>
-            <div className="cube__face cube__face--left"></div>
-            <div className="cube__face cube__face--top"></div>
-            <div className="cube__face cube__face--bottom"></div>
-          </animated.div>
+          <ContainerDimensions>
+            {({ height }) => (
+              <animated.div
+                className="img-wrapper cube"
+                style={springModalImage}
+                onClick={() => setIsModalOpen(false)}
+              >
+                <div className="cube__face cube__face--front">
+                  <Img
+                    title={"hi"}
+                    fluid={
+                      images[
+                        prevSelectedImgIndex ||
+                          (prevSelectedImgIndex === 0
+                            ? prevSelectedImgIndex
+                            : selectedImgIndex)
+                      ]
+                    }
+                  />
+                </div>
+                <div className="cube__face cube__face--right"></div>
+                <div className="cube__face cube__face--left"></div>
+                <div className="cube__face cube__face--top"></div>
+                <div
+                  className="cube__face cube__face--bottom"
+                  style={{
+                    transform: `rotateX(-90deg) translateZ(${height -
+                      CANVAS_THICKNESS / 2}px)`,
+                  }}
+                ></div>
+              </animated.div>
+            )}
+          </ContainerDimensions>
         </Tilt>
       </animated.div>
     </CarouselStyles>
