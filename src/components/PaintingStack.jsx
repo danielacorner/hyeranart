@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
+import { useSpring, animated } from "react-spring"
 
 const IMG_HEIGHT_PX = 220
 const IMG_HEIGHT_COLLAPSED_PX = 70
@@ -9,21 +10,21 @@ const StackContainerStyles = styled.div`
   display: flex;
   flex-direction: column;
   .img-container {
-    max-height: ${IMG_HEIGHT_PX}px;
-    margin-top: 10px;
-    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-    position: relative;
+    margin-top: 20px;
     .canvas-background {
-      transition: all 0.5s ease-in-out;
-      transform: scale(0.98);
-      box-shadow: 0px 4px 2px #0000007d;
+      position: relative;
+      margin: auto;
+      width: 50vw;
       &:before,
       &:after {
+        left: 0;
+        right: 0;
         position: absolute;
         content: "";
-        background: hsla(0, 0%, 90%);
       }
       &:before {
+        background: hsla(0, 0%, 90%);
+        border: 1px solid hsla(0, 0%, 50%, 0.1);
         top: ${CANVAS_OFFSET_PX / 2}px;
         bottom: -${CANVAS_OFFSET_PX / 2}px;
         left: 100%;
@@ -31,6 +32,8 @@ const StackContainerStyles = styled.div`
         transform: skew(0deg, 45deg);
       }
       &:after {
+        background: hsla(0, 0%, 70%);
+        border: 1px solid hsla(0, 0%, 50%, 0.4);
         top: 100%;
         right: -${CANVAS_OFFSET_PX / 2}px;
         left: ${CANVAS_OFFSET_PX / 2}px;
@@ -38,36 +41,38 @@ const StackContainerStyles = styled.div`
         transform: skew(45deg, 0deg);
       }
     }
-    &.expanded {
-      .canvas-background {
-        transform: scale(1);
-        box-shadow: 0px 4px 7px #0000007d;
-      }
-    }
-    &:not(.expanded) {
-      max-height: ${IMG_HEIGHT_COLLAPSED_PX}px;
-      .canvas-background {
-        transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-      }
-    }
   }
 `
 
-const StackedImage = ({ idx, expandSelf, isExpanded }) => (
-  <div
-    onClick={expandSelf}
-    className={`img-container${isExpanded ? " expanded" : ""}`}
-  >
-    <div
-      className="canvas-background"
-      style={{
-        backgroundImage: `url(https://picsum.photos/${500 +
-          idx}/${IMG_HEIGHT_PX})`,
-        height: IMG_HEIGHT_PX,
-      }}
-    ></div>
-  </div>
-)
+const StackedImage = ({ idx, expandSelf, isExpanded }) => {
+  const springBoxShadow = useSpring({
+    transform: `scale(${isExpanded ? 1 : 0.98})`,
+    boxShadow: `${
+      isExpanded ? `3px 6px 8px` : `0px 4px 2px`
+    } rgba(0, 0, 0, 0.31)`,
+  })
+  const springMaxHeight = useSpring({
+    maxHeight: isExpanded ? IMG_HEIGHT_PX : IMG_HEIGHT_COLLAPSED_PX,
+  })
+  return (
+    <animated.div
+      key={idx}
+      onClick={expandSelf}
+      className={`img-container`}
+      style={springMaxHeight}
+    >
+      <animated.div
+        className="canvas-background"
+        style={{
+          backgroundImage: `url(https://picsum.photos/${500 +
+            idx}/${IMG_HEIGHT_PX})`,
+          height: IMG_HEIGHT_PX,
+          ...springBoxShadow,
+        }}
+      ></animated.div>
+    </animated.div>
+  )
+}
 
 export default () => {
   const [expandedImgIndex, setExpandedImgIndex] = useState(null)
