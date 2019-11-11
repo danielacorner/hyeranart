@@ -2,6 +2,8 @@ import React from "react"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
+import MasonryGrid from "../components/Masonry/MasonryGrid"
+import { useImagesQuery } from "../components/queries"
 
 // inspiration:
 // https://abstractartcollective.com
@@ -13,11 +15,14 @@ import SEO from "../components/seo"
 
 // https://www.npmjs.com/package/react-tilt
 
-export default () => (
-  <Layout>
-    <SEO title="Home" />
-    {/* <Link to="/works-large/">Large Works</Link>
-    <Link to="/works-medium/">Medium Works</Link>
-    <Link to="/works-small/">Small Works</Link> */}
-  </Layout>
-)
+export default () => {
+  const imgFluidArray = useImagesQuery()
+  console.log("⚡🚨: imgFluidArray", imgFluidArray)
+
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <MasonryGrid imgFluidArray={imgFluidArray} />
+    </Layout>
+  )
+}

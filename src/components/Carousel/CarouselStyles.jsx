@@ -2,7 +2,7 @@ import styled from "styled-components/macro"
 const CAROUSEL_MAX_WIDTH = 960
 const IMG_WIDTH = 960
 const CANVAS_THICKNESS = 60
-const NAV_HEIGHT = 64
+export const NAV_HEIGHT = 64
 const CANVAS_BACKGROUND_COLOR = "hsl(0,0%,90%)"
 const CANVAS_BORDER_COLOR = "hsl(0,0%,80%)"
 

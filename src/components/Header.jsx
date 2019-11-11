@@ -12,6 +12,10 @@ const HeaderStyles = styled.header`
 
 const pagesArr = [
   {
+    name: "home",
+    path: "/",
+  },
+  {
     name: "stack",
     path: "/stack",
   },
@@ -20,7 +24,7 @@ const pagesArr = [
     path: "/carousel",
   },
   {
-    name: "Works",
+    name: "works",
     path: "/works",
     // subPages: [
     //   { name: "Large", path: "/works/large" },
@@ -29,7 +33,7 @@ const pagesArr = [
     // ],
   },
   {
-    name: "About",
+    name: "about",
     path: "/about",
   },
 ]
