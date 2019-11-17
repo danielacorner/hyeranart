@@ -3,7 +3,7 @@ import Img from "gatsby-image"
 import ArrowRightIcon from "@material-ui/icons/ArrowForwardIos"
 import { IconButton } from "@material-ui/core"
 import { animated, useSpring } from "react-spring"
-import { useImagesQuery } from "../queries"
+// import { useImagesQuery } from "../queries"
 import Tilt from "react-tilt"
 import ContainerDimensions from "react-container-dimensions"
 import { CarouselStyles } from "./CarouselStyles"
@@ -24,7 +24,8 @@ export function usePrevious(value) {
 }
 
 export default () => {
-  const images = useImagesQuery()
+  const images = []
+  // const images = useImagesQuery()
 
   const [selectedImgIndex, setSelectedImgIndex] = useState(0)
   const prevSelectedImgIndex = usePrevious(selectedImgIndex)

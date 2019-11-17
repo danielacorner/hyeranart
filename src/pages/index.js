@@ -3,7 +3,7 @@ import React from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
-import { useImagesQuery } from "../components/queries"
+// import { useImagesQuery } from "../components/queries"
 
 // inspiration:
 // https://abstractartcollective.com
@@ -16,7 +16,8 @@ import { useImagesQuery } from "../components/queries"
 // https://www.npmjs.com/package/react-tilt
 
 export default () => {
-  const imgFluidArray = useImagesQuery()
+  const imgFluidArray = []
+  // const imgFluidArray = useImagesQuery()
   console.log("⚡🚨: imgFluidArray", imgFluidArray)
 
   return (
