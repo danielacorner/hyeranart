@@ -24,7 +24,7 @@ collections:
         default: null
         media_library:
           config:
-            multiple: false
+            multiple: true
       - { name: title, label: Title }
       - { name: path, label: Path (web address after / e.g. my-work-name) }
       - { name: date, label: Date, required: false, widget: datetime }
