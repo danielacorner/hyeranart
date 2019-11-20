@@ -2,8 +2,15 @@ backend:
   name: github
   repo: dcorn068/hyeranart
 
-media_folder: static/assets
-public_folder: assets
+# https://www.netlifycms.org/docs/configuration-options/#media-library
+media_folder: static/images/uploads
+public_folder: images/uploads
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: dypooxy9q
+    api_key: 857318985278727
+site_url: https://hyeranart.netlify.com
 
 collections:
   - name: painting
@@ -31,8 +38,6 @@ collections:
           max: 9999999,
           valueType: int,
         }
-
-  # collections of paintings
   - name: collection
     label: Collection of Works
     folder: markdown-collections
