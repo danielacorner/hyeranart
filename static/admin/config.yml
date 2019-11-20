@@ -27,12 +27,28 @@ collections:
             multiple: false
       - { name: title, label: Title }
       - { name: path, label: Path (web address after / e.g. my-work-name) }
-      - { name: date, label: Date (optional), widget: datetime }
-      - { name: caption, label: Caption (optional), widget: markdown }
-      - { name: moreInfo, label: More information (optional), widget: markdown }
+      - {
+          name: date,
+          label: Date (optional),
+          required: false,
+          widget: datetime,
+        }
+      - {
+          name: caption,
+          label: Caption (optional),
+          required: false,
+          widget: markdown,
+        }
+      - {
+          name: moreInfo,
+          label: More information (optional),
+          required: false,
+          widget: markdown,
+        }
       - {
           name: price,
           label: Price ($ / optional),
+          required: false,
           widget: number,
           min: 1,
           max: 9999999,
@@ -55,12 +71,28 @@ collections:
           name: path,
           label: Path (web address after / e.g. my-collection-name),
         }
-      - { name: date, label: Date (optional), widget: datetime }
-      - { name: caption, label: Caption (optional), widget: markdown }
-      - { name: moreInfo, label: More information (optional), widget: markdown }
+      - {
+          name: date,
+          label: Date (optional),
+          required: false,
+          widget: datetime,
+        }
+      - {
+          name: caption,
+          label: Caption (optional),
+          required: false,
+          widget: markdown,
+        }
+      - {
+          name: moreInfo,
+          label: More information (optional),
+          required: false,
+          widget: markdown,
+        }
       - {
           name: price,
           label: Price ($ / optional),
+          required: false,
           widget: number,
           min: 1,
           max: 9999999,
