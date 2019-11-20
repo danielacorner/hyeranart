@@ -10,14 +10,14 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/markdown-collections`,
+        path: `${__dirname}/markdown-collections`,
         name: `markdown-collections`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/markdown-paintings`,
+        path: `${__dirname}/markdown-paintings`,
         name: `markdown-paintings`,
       },
     },
