@@ -6,12 +6,58 @@ media_folder: static/assets
 public_folder: assets
 
 collections:
-  - name: blog
-    label: Blog
-    folder: markdown-pages
+  - name: painting
+    label: Single Work
+    folder: markdown-paintings
     create: true
     fields:
-      - { name: path, label: Path }
-      - { name: date, label: Date, widget: datetime }
+      - name: Image
+        label: Image
+        widget: image
+        default: null
+        media_library:
+          config:
+            multiple: false
       - { name: title, label: Title }
-      - { name: body, label: Body, widget: markdown }
+      - { name: path, label: Path (web address after / e.g. my-work-name) }
+      - { name: date, label: Date (optional), widget: datetime }
+      - { name: caption, label: Caption (optional), widget: markdown }
+      - { name: moreInfo, label: More information (optional), widget: markdown }
+      - {
+          name: price,
+          label: Price ($ / optional),
+          widget: number,
+          min: 1,
+          max: 9999999,
+          valueType: int,
+        }
+
+  # collections of paintings
+  - name: collection
+    label: Collection of Works
+    folder: markdown-collections
+    create: true
+    fields:
+      - name: Image
+        label: Image
+        widget: image
+        default: null
+        media_library:
+          config:
+            multiple: true
+      - { name: title, label: Title }
+      - {
+          name: path,
+          label: Path (web address after / e.g. my-collection-name),
+        }
+      - { name: date, label: Date (optional), widget: datetime }
+      - { name: caption, label: Caption (optional), widget: markdown }
+      - { name: moreInfo, label: More information (optional), widget: markdown }
+      - {
+          name: price,
+          label: Price ($ / optional),
+          widget: number,
+          min: 1,
+          max: 9999999,
+          valueType: int,
+        }
