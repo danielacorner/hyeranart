@@ -27,31 +27,19 @@ collections:
             multiple: false
       - { name: title, label: Title }
       - { name: path, label: Path (web address after / e.g. my-work-name) }
-      - {
-          name: date,
-          label: Date (optional),
-          required: false,
-          widget: datetime,
-        }
-      - {
-          name: caption,
-          label: Caption (optional),
-          required: false,
-          widget: markdown,
-        }
+      - { name: date, label: Date, required: false, widget: datetime }
+      - { name: caption, label: Caption, required: false, widget: markdown }
       - {
           name: moreInfo,
-          label: More information (optional),
+          label: More information,
           required: false,
           widget: markdown,
         }
       - {
           name: price,
-          label: Price ($ / optional),
+          label: Price ($),
           required: false,
           widget: number,
-          min: 1,
-          max: 9999999,
           valueType: int,
         }
   - name: collection
@@ -71,30 +59,18 @@ collections:
           name: path,
           label: Path (web address after / e.g. my-collection-name),
         }
-      - {
-          name: date,
-          label: Date (optional),
-          required: false,
-          widget: datetime,
-        }
-      - {
-          name: caption,
-          label: Caption (optional),
-          required: false,
-          widget: markdown,
-        }
+      - { name: date, label: Date, required: false, widget: datetime }
+      - { name: caption, label: Caption, required: false, widget: markdown }
       - {
           name: moreInfo,
-          label: More information (optional),
+          label: More information,
           required: false,
           widget: markdown,
         }
       - {
           name: price,
-          label: Price ($ / optional),
+          label: Price ($),
           required: false,
           widget: number,
-          min: 1,
-          max: 9999999,
           valueType: int,
         }
