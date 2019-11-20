@@ -10,6 +10,7 @@ media_library:
   config:
     cloud_name: dypooxy9q
     api_key: 857318985278727
+    multiple: true
 site_url: https://hyeranart.netlify.com
 
 collections:
@@ -22,13 +23,18 @@ collections:
         label: Image
         widget: image
         default: null
+        allow_multiple: true
         media_library:
           config:
             multiple: true
       - { name: title, label: Title }
-      - { name: path, label: Path (web address after / e.g. my-work-name) }
+      - {
+          name: path,
+          label: Path (web address after / ),
+          hint: e.g. my-work-name,
+        }
       - { name: date, label: Date, required: false, widget: datetime }
-      - { name: caption, label: Caption, required: false, widget: markdown }
+      - { name: caption, label: Caption, required: false, widget: text }
       - {
           name: moreInfo,
           label: More information,
@@ -51,16 +57,18 @@ collections:
         label: Image
         widget: image
         default: null
+        allow_multiple: true
         media_library:
           config:
             multiple: true
       - { name: title, label: Title }
       - {
           name: path,
-          label: Path (web address after / e.g. my-collection-name),
+          label: Path (web address after / ),
+          hint: e.g. my-work-name,
         }
       - { name: date, label: Date, required: false, widget: datetime }
-      - { name: caption, label: Caption, required: false, widget: markdown }
+      - { name: caption, label: Caption, required: false, widget: text }
       - {
           name: moreInfo,
           label: More information,
