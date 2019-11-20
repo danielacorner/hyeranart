@@ -53,14 +53,19 @@ collections:
     folder: markdown-collections
     create: true
     fields:
-      - name: Image
-        label: Image
-        widget: image
-        default: null
-        allow_multiple: true
-        media_library:
-          config:
-            multiple: true
+      - label: Images
+        name: images
+        widget: list
+        fields:
+          - {
+              name: Image,
+              label: Image,
+              widget: image,
+              default: null,
+              allow_multiple: true,
+              media_library: { config: { multiple: true } },
+            }
+          - { name: caption, label: Caption, required: false, widget: text }
       - { name: title, label: Title }
       - {
           name: path,
