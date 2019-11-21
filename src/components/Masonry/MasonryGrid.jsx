@@ -50,13 +50,30 @@ export default () => {
           }
         }
       }
+      allFile(filter: { extension: { eq: "jpg" } }) {
+        edges {
+          node {
+            id
+            childImageSharp {
+              fluid(maxWidth: 1240) {
+                ...GatsbyImageSharpFluid_tracedSVG
+              }
+            }
+          }
+        }
+      }
     }
   `)
-  const imagesDataArr = data.allMarkdownRemark.edges.map(e => ({
-    ...e.node.frontmatter,
-    id: e.node.id,
+  const imagesDataArr = data.allMarkdownRemark.edges.map(d => ({
+    ...d.node.frontmatter,
+    id: d.node.id,
   }))
-  console.log("⚡🚨: imagesDataArr", imagesDataArr)
+  const imagesArr = data.allFile.edges.map(d => ({
+    ...d.node.childImageSharp.fluid,
+    id: d.node.id,
+  }))
+  // TODO: filter for only images that have info
+
   return (
     <MasonryStyles>
       <Masonry
@@ -65,8 +82,8 @@ export default () => {
         columnClassName={"masonry-grid_column"}
       >
         {imagesDataArr.map(
-          ({ id, Image, caption, date, moreInfo, path, price, title }) => (
-            <Img key={id} fluid={Image} />
+          ({ id, Image, caption, date, moreInfo, path, price, title }, idx) => (
+            <Img key={id} fluid={imagesArr[idx]} />
           )
         )}
       </Masonry>
