@@ -3,6 +3,7 @@ import React from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
+import { useStaticQuery, graphql } from "gatsby"
 // import { useImagesQuery } from "../components/queries"
 
 // inspiration:
@@ -16,14 +17,25 @@ import MasonryGrid from "../components/Masonry/MasonryGrid"
 // https://www.npmjs.com/package/react-tilt
 
 export default () => {
-  const imgFluidArray = []
-  // const imgFluidArray = useImagesQuery()
-  console.log("⚡🚨: imgFluidArray", imgFluidArray)
+  const allDirectoriesData = useStaticQuery(graphql`
+    query RecipePageByID {
+      allDirectory {
+        edges {
+          node {
+            id
+            relativePath
+          }
+        }
+      }
+    }
+  `)
+  const allDirectoriesArr = allDirectoriesData.allDirectory.edges
+  console.log("⚡🚨: allDirectoriesArr", allDirectoriesArr)
 
   return (
     <Layout>
       <SEO title="Home" />
-      <MasonryGrid imgFluidArray={imgFluidArray} />
+      <MasonryGrid />
     </Layout>
   )
 }

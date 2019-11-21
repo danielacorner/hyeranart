@@ -3,6 +3,7 @@ import Masonry from "react-masonry-css"
 import Img from "gatsby-image"
 import styled from "styled-components/macro"
 import { NAV_HEIGHT } from "../Carousel/CarouselStyles"
+import { useStaticQuery, graphql } from "gatsby"
 
 const GRID_GAP = 30
 
@@ -30,7 +31,32 @@ const breakpointColumnsObj = {
   500: 1,
 }
 
-export default ({ imgFluidArray }) => {
+export default () => {
+  const data = useStaticQuery(graphql`
+    query AllMarkdownQuery {
+      allMarkdownRemark {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              path
+              date
+              caption
+              moreInfo
+              price
+              Image
+            }
+          }
+        }
+      }
+    }
+  `)
+  const imagesDataArr = data.allMarkdownRemark.edges.map(e => ({
+    ...e.node.frontmatter,
+    id: e.node.id,
+  }))
+  console.log("⚡🚨: imagesDataArr", imagesDataArr)
   return (
     <MasonryStyles>
       <Masonry
@@ -38,9 +64,11 @@ export default ({ imgFluidArray }) => {
         className={"masonry-grid"}
         columnClassName={"masonry-grid_column"}
       >
-        {imgFluidArray.map(fluid => (
-          <Img key={fluid} fluid={fluid} />
-        ))}
+        {imagesDataArr.map(
+          ({ id, Image, caption, date, moreInfo, path, price, title }) => (
+            <Img key={id} fluid={Image} />
+          )
+        )}
       </Masonry>
     </MasonryStyles>
   )
