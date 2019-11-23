@@ -1,6 +1,8 @@
 ---
 Image: /images/uploads/hyeran1.jpg
 title: Example 1
+width: 8
+height: 8
 path: example-1
 date: 2019-11-20T03:53:09.587Z
 caption: Hey I'm a caption over here
