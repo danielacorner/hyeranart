@@ -7,12 +7,15 @@ const CANVAS_BACKGROUND_COLOR = "hsl(0,0%,90%)"
 const CANVAS_BORDER_COLOR = "hsl(0,0%,80%)"
 
 export const get3DCanvasStyles = thicknessPx => `
- .scene {
+ .scene, &.scene {
+    width: fit-content;
+    height: fit-content;
     transform-style: preserve-3d;
+    position: relative;
   }
   .cube {
     width: 100%;
-    height: 100%;
+    height: fit-content;
     position: relative;
     transform-style: preserve-3d;
   }
@@ -26,24 +29,24 @@ export const get3DCanvasStyles = thicknessPx => `
     border: 1px solid ${CANVAS_BORDER_COLOR};
   }
   .cube__face--front {
-    transform: rotateY(0deg) translateZ(${CANVAS_THICKNESS / 2}px);
+    transform: rotateY(0deg) translateZ(${thicknessPx / 2}px);
   }
   .cube__face--right {
-    width: ${CANVAS_THICKNESS}px;
+    width: ${thicknessPx}px;
   }
   .cube__face--back {
-    transform: rotateY(180deg) translateZ(${CANVAS_THICKNESS / 2}px);
+    transform: rotateY(180deg) translateZ(${thicknessPx / 2}px);
   }
   .cube__face--left {
-    width: ${CANVAS_THICKNESS}px;
-    transform: rotateY(-90deg) translateZ(${CANVAS_THICKNESS / 2}px);
+    width: ${thicknessPx}px;
+    transform: rotateY(-90deg) translateZ(${thicknessPx / 2}px);
   }
   .cube__face--top {
-    height: ${CANVAS_THICKNESS}px;
-    transform: rotateX(90deg) translateZ(${CANVAS_THICKNESS / 2}px);
+    height: ${thicknessPx}px;
+    transform: rotateX(90deg) translateZ(${thicknessPx / 2}px);
   }
   .cube__face--bottom {
-    height: ${CANVAS_THICKNESS}px;
+    height: ${thicknessPx}px;
   }
 `
 

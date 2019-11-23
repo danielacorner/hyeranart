@@ -5,10 +5,9 @@ import styled from "styled-components/macro"
 import { NAV_HEIGHT, get3DCanvasStyles } from "../Carousel/CarouselStyles"
 import { useImagesQuery } from "../queries"
 import { useSpring, animated } from "react-spring"
-import ContainerDimensions from "react-container-dimensions"
 
 const GRID_GAP = 30
-const CANVAS_THICKNESS = 60
+const CANVAS_THICKNESS = 30
 
 const MasonryStyles = styled.div`
   width: 100%;
@@ -23,11 +22,22 @@ const MasonryStyles = styled.div`
     background-clip: padding-box;
   }
   .gatsby-image-wrapper {
-    margin-bottom: ${GRID_GAP}px;
   }
-  ${get3DCanvasStyles(CANVAS_THICKNESS)}
 `
-const ImgWrapperStyles = styled.div``
+const SceneWrapperStyles = styled.div`
+  ${get3DCanvasStyles(CANVAS_THICKNESS)}
+  margin-bottom: ${GRID_GAP}px;
+  perspective:3000;
+`
+
+const ImgWrapperStyles = styled.div`
+  width: 100%;
+  height: 100%;
+  * {
+    width: 100%;
+    height: 100%;
+  }
+`
 
 const breakpointColumnsObj = {
   default: 4,
@@ -41,7 +51,6 @@ const AnimatedImage = ({ fluid }) => {
   const [mousePstn, setMousePstn] = useState([null, null])
   const [xPct, yPct] = mousePstn
   const handleMouseOver = event => {
-    console.log(event)
     if (!isHovered) {
       setIsHovered(true)
     }
@@ -58,45 +67,60 @@ const AnimatedImage = ({ fluid }) => {
     setIsHovered(false)
     setMousePstn([null, null])
   }
+  console.log(
+    "⚡🚨: AnimatedImage -> !xPct ? 0 : (0.5 - xPct) * 60",
+    !xPct ? 0 : (0.5 - xPct) * 60
+  )
+  console.log(
+    "⚡🚨: AnimatedImage -> !yPct ? 0 : (0.5 - yPct) * 60",
+    !yPct ? 0 : (0.5 - yPct) * 60
+  )
   const springOnHover = useSpring({
-    transform: `translateY(${isHovered ? -4 : 0}px) scale(${
-      isHovered ? 1.04 : 1
-    }) rotateY(${!xPct ? 0 : (0.5 - xPct) * 60}deg) rotateX(${
-      !yPct ? 0 : (0.5 - yPct) * 60
-    }deg)`,
+    transform: `translateZ(${CANVAS_THICKNESS}px) translateY(${
+      isHovered ? -4 : 0
+    }px) scale(${isHovered ? 1.04 : 1}) rotateY(${
+      !xPct ? 0 : (0.5 - xPct) * 60
+    }deg) rotateX(${!yPct ? 0 : (0.5 - yPct) * 60}deg)`,
+  })
+  const springOpacity = useSpring({
     opacity: 1 - xPct / 3 + yPct / 4,
   })
+
+  // TODO: pass in from dataset
+  const width = 300
+  const height = 300
   return (
-    <ContainerDimensions>
-      {({ height, width }) => (
-        <animated.div
-          className="cube"
-          onMouseOut={handleMouseOut}
-          onMouseMove={handleMouseOver}
-          style={springOnHover}
-        >
-          <ImgWrapperStyles className="cube__face cube__face--front">
+    <SceneWrapperStyles className="scene">
+      <animated.div
+        className="cube"
+        onMouseOut={handleMouseOut}
+        onMouseMove={handleMouseOver}
+        style={{ ...springOnHover, width, height }}
+      >
+        <ImgWrapperStyles className="cube__face cube__face--front">
+          <animated.div style={springOpacity}>
             <Img fluid={fluid} />
-          </ImgWrapperStyles>
-          <div
-            className="cube__face cube__face--right"
-            style={{
-              transform: `rotateY(90deg) translateZ(${width -
-                CANVAS_THICKNESS / 2}px)`,
-            }}
-          ></div>
-          <div className="cube__face cube__face--left"></div>
-          <div className="cube__face cube__face--top"></div>
-          <div
-            className="cube__face cube__face--bottom"
-            style={{
-              transform: `rotateX(-90deg) translateZ(${height -
-                CANVAS_THICKNESS / 2}px)`,
-            }}
-          ></div>
-        </animated.div>
-      )}
-    </ContainerDimensions>
+          </animated.div>
+        </ImgWrapperStyles>
+        <div
+          className="cube__face cube__face--right"
+          style={{
+            transform: `rotateY(90deg) translateZ(${width -
+              CANVAS_THICKNESS / 2}px)`,
+          }}
+        ></div>
+
+        <div className="cube__face cube__face--left"></div>
+        <div className="cube__face cube__face--top"></div>
+        <div
+          className="cube__face cube__face--bottom"
+          style={{
+            transform: `rotateX(-90deg) translateZ(${height -
+              CANVAS_THICKNESS / 2}px)`,
+          }}
+        ></div>
+      </animated.div>
+    </SceneWrapperStyles>
   )
 }
 
