@@ -18,6 +18,7 @@ collections:
     label: Single Work
     folder: markdown-paintings
     create: true
+    slug: "{{slug}}"
     fields:
       - name: Image
         label: Image
@@ -28,13 +29,8 @@ collections:
           config:
             multiple: true
       - { name: title, label: Title }
-      - { name: width, label: Width (inches), widget: number }
       - { name: height, label: Height (inches), widget: number }
-      - {
-          name: path,
-          label: Path (web address after / ),
-          hint: e.g. my-work-name,
-        }
+      - { name: width, label: Width (inches), widget: number }
       - { name: date, label: Date, required: false, widget: datetime }
       - { name: caption, label: Caption, required: false, widget: text }
       - {
@@ -54,6 +50,7 @@ collections:
     label: Collection of Works
     folder: markdown-collections
     create: true
+    slug: "collection_{{slug}}"
     fields:
       - label: Images
         name: images
@@ -67,16 +64,11 @@ collections:
               allow_multiple: true,
               media_library: { config: { multiple: true } },
             }
+          - { name: height, label: Height (inches), widget: number }
+          - { name: width, label: Width (inches), widget: number }
           - { name: caption, label: Caption, required: false, widget: text }
           - { name: price, label: Price ($), required: false, widget: number }
       - { name: title, label: Title }
-      - { name: width, label: Width (inches), widget: number }
-      - { name: height, label: Height (inches), widget: number }
-      - {
-          name: path,
-          label: Path (web address after / ),
-          hint: e.g. my-work-name,
-        }
       - { name: date, label: Date, required: false, widget: datetime }
       - { name: caption, label: Caption, required: false, widget: text }
       - {
@@ -85,10 +77,19 @@ collections:
           required: false,
           widget: markdown,
         }
-      - {
-          name: price,
-          label: Price ($),
-          required: false,
-          widget: number,
-          valueType: int,
-        }
+  - label: "Pages"
+    name: "pages"
+    files:
+      - label: "About Page"
+        name: "about"
+        file: "site/content/about.yml"
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Intro, name: intro, widget: markdown }
+          - label: Team
+            name: team
+            widget: list
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Position, name: position, widget: string }
+              - { label: Photo, name: photo, widget: image }

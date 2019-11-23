@@ -72,11 +72,11 @@ const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
     transform: `translateZ(${CANVAS_THICKNESS}px) translateY(${
       isHovered ? -4 : 0
     }px) scale(${isHovered ? 1.04 : 1}) rotateY(${
-      !xPct ? 0 : (0.5 - xPct) * 60
-    }deg) rotateX(${!yPct ? 0 : (0.5 - yPct) * 60}deg)`,
+      !xPct ? 0 : (0.5 - xPct) * 40
+    }deg) rotateX(${!yPct ? 0 : (0.5 - yPct) * 40}deg)`,
   })
   const springOpacity = useSpring({
-    opacity: 1 - xPct / 3 + yPct / 4,
+    opacity: 1 - xPct / 4 + yPct / 3,
   })
 
   // TODO: pass in from dataset

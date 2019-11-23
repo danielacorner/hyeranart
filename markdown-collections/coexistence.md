@@ -11,7 +11,6 @@ images:
 title: Coexistence
 width: 0
 height: 0
-path: hi
+path: collection_coexistence
 date: 2019-11-23T17:57:05.303Z
 ---
-
