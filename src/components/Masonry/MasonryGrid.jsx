@@ -46,7 +46,7 @@ const breakpointColumnsObj = {
   500: 1,
 }
 
-const AnimatedImage = ({ fluid }) => {
+const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
   const [isHovered, setIsHovered] = useState(false)
   const [mousePstn, setMousePstn] = useState([null, null])
   const [xPct, yPct] = mousePstn
@@ -87,8 +87,8 @@ const AnimatedImage = ({ fluid }) => {
   })
 
   // TODO: pass in from dataset
-  const width = 300
-  const height = 300
+  const width = widthInches * 8
+  const height = heightInches * 8
   return (
     <SceneWrapperStyles className="scene">
       <animated.div
@@ -136,8 +136,27 @@ export default () => {
         columnClassName={"masonry-grid_column"}
       >
         {imagesDataArr.map(
-          ({ id, Image, caption, date, moreInfo, path, price, title }, idx) => (
-            <AnimatedImage key={id} fluid={imagesArr[idx]} />
+          (
+            {
+              id,
+              Image,
+              caption,
+              date,
+              moreInfo,
+              path,
+              price,
+              title,
+              widthInches,
+              heightInches,
+            },
+            idx
+          ) => (
+            <AnimatedImage
+              key={id}
+              fluid={imagesArr[idx]}
+              widthInches={widthInches}
+              heightInches={heightInches}
+            />
           )
         )}
       </Masonry>

@@ -14,6 +14,8 @@ export const useImagesQuery = () => {
               caption
               moreInfo
               price
+              widthInches
+              heightInches
               Image
             }
           }

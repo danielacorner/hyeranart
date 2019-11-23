@@ -28,6 +28,8 @@ collections:
           config:
             multiple: true
       - { name: title, label: Title }
+      - { name: widthInches, label: Width (inches), widget: number }
+      - { name: heightInches, label: Height (inches), widget: number }
       - {
           name: path,
           label: Path (web address after / ),
@@ -68,6 +70,8 @@ collections:
           - { name: caption, label: Caption, required: false, widget: text }
           - { name: price, label: Price ($), required: false, widget: number }
       - { name: title, label: Title }
+      - { name: widthInches, label: Width (inches), widget: number }
+      - { name: heightInches, label: Height (inches), widget: number }
       - {
           name: path,
           label: Path (web address after / ),
