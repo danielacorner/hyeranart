@@ -14,8 +14,8 @@ export const useImagesQuery = () => {
               caption
               moreInfo
               price
-              widthInches
-              heightInches
+              width
+              height
               Image
             }
           }
@@ -40,6 +40,7 @@ export const useImagesQuery = () => {
     ...d.node.frontmatter,
     id: d.node.id,
   }))
+  console.log("⚡🚨: imagesDataArr", imagesDataArr)
   const imagesArr = data.allFile.edges.map(d => ({
     ...d.node.childImageSharp.fluid,
     id: d.node.id,

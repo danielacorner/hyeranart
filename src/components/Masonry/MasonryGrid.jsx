@@ -67,14 +67,7 @@ const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
     setIsHovered(false)
     setMousePstn([null, null])
   }
-  console.log(
-    "⚡🚨: AnimatedImage -> !xPct ? 0 : (0.5 - xPct) * 60",
-    !xPct ? 0 : (0.5 - xPct) * 60
-  )
-  console.log(
-    "⚡🚨: AnimatedImage -> !yPct ? 0 : (0.5 - yPct) * 60",
-    !yPct ? 0 : (0.5 - yPct) * 60
-  )
+
   const springOnHover = useSpring({
     transform: `translateZ(${CANVAS_THICKNESS}px) translateY(${
       isHovered ? -4 : 0
@@ -87,8 +80,8 @@ const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
   })
 
   // TODO: pass in from dataset
-  const width = widthInches * 8
-  const height = heightInches * 8
+  const width = widthInches * 32
+  const height = heightInches * 32
   return (
     <SceneWrapperStyles className="scene">
       <animated.div
@@ -146,16 +139,16 @@ export default () => {
               path,
               price,
               title,
-              widthInches,
-              heightInches,
+              width,
+              height,
             },
             idx
           ) => (
             <AnimatedImage
               key={id}
               fluid={imagesArr[idx]}
-              widthInches={widthInches}
-              heightInches={heightInches}
+              widthInches={width}
+              heightInches={height}
             />
           )
         )}
