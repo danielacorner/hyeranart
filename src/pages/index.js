@@ -4,7 +4,6 @@ import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
 import { useStaticQuery, graphql } from "gatsby"
-// import { useImagesQuery } from "../components/queries"
 
 // inspiration:
 // https://abstractartcollective.com

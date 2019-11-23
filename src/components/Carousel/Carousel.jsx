@@ -3,7 +3,7 @@ import Img from "gatsby-image"
 import ArrowRightIcon from "@material-ui/icons/ArrowForwardIos"
 import { IconButton } from "@material-ui/core"
 import { animated, useSpring } from "react-spring"
-// import { useImagesQuery } from "../queries"
+import { useImagesQuery } from "../queries"
 import Tilt from "react-tilt"
 import ContainerDimensions from "react-container-dimensions"
 import { CarouselStyles } from "./CarouselStyles"
@@ -24,8 +24,7 @@ export function usePrevious(value) {
 }
 
 export default () => {
-  const images = []
-  // const images = useImagesQuery()
+  const { /* imagesDataArr, */ imagesArr } = useImagesQuery()
 
   const [selectedImgIndex, setSelectedImgIndex] = useState(0)
   const prevSelectedImgIndex = usePrevious(selectedImgIndex)
@@ -51,12 +50,12 @@ export default () => {
   const handlePrevious = () => {
     setIsModalOpen(false)
     const prevIndex = selectedImgIndex - 1
-    setSelectedImgIndex(prevIndex < 0 ? images.length - 1 : prevIndex)
+    setSelectedImgIndex(prevIndex < 0 ? imagesArr.length - 1 : prevIndex)
   }
   const handleNext = () => {
     setIsModalOpen(false)
     const nextIndex = selectedImgIndex + 1
-    setSelectedImgIndex(nextIndex > images.length - 1 ? 0 : nextIndex)
+    setSelectedImgIndex(nextIndex > imagesArr.length - 1 ? 0 : nextIndex)
   }
   const handleKeydown = event => {
     if (["ArrowRight", "ArrowDown"].includes(event.key)) {
@@ -87,7 +86,7 @@ export default () => {
       </div>
 
       <animated.div className="animated-images-wrapper" style={springLeftRight}>
-        {images.map((image, idx) => (
+        {imagesArr.map((image, idx) => (
           <div
             key={idx}
             className="img-wrapper"
@@ -130,7 +129,7 @@ export default () => {
                   <Img
                     title={"hi"}
                     fluid={
-                      images[
+                      imagesArr[
                         prevSelectedImgIndex ||
                           (prevSelectedImgIndex === 0
                             ? prevSelectedImgIndex

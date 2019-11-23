@@ -6,38 +6,8 @@ export const NAV_HEIGHT = 64
 const CANVAS_BACKGROUND_COLOR = "hsl(0,0%,90%)"
 const CANVAS_BORDER_COLOR = "hsl(0,0%,80%)"
 
-export const CarouselStyles = styled.div`
-  max-width: ${CAROUSEL_MAX_WIDTH}px;
-  max-height: calc(100vh - ${NAV_HEIGHT}px);
-  margin: auto;
-  display: grid;
-  align-items: center;
-  align-content: center;
-  .gatsby-image-wrapper {
-    height: 100%;
-  }
-  .animated-images-wrapper {
-    position: relative;
-    display: grid;
-    grid-auto-flow: column;
-    height: 100%;
-    .img-wrapper {
-      display: grid;
-      align-items: center;
-      height: 100%;
-      max-height: calc(100vh - ${NAV_HEIGHT}px);
-      max-width: ${CAROUSEL_MAX_WIDTH}px;
-      width: 100vw;
-      cursor: pointer;
-      img {
-        width: 100%;
-        height: 100%;
-        /* object-fit: contain !important; */
-      }
-    }
-  }
-
-  .scene {
+export const get3DCanvasStyles = thicknessPx => `
+ .scene {
     transform-style: preserve-3d;
   }
   .cube {
@@ -75,6 +45,40 @@ export const CarouselStyles = styled.div`
   .cube__face--bottom {
     height: ${CANVAS_THICKNESS}px;
   }
+`
+
+export const CarouselStyles = styled.div`
+  max-width: ${CAROUSEL_MAX_WIDTH}px;
+  max-height: calc(100vh - ${NAV_HEIGHT}px);
+  margin: auto;
+  display: grid;
+  align-items: center;
+  align-content: center;
+  .gatsby-image-wrapper {
+    height: 100%;
+  }
+  .animated-images-wrapper {
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    height: 100%;
+    .img-wrapper {
+      display: grid;
+      align-items: center;
+      height: 100%;
+      max-height: calc(100vh - ${NAV_HEIGHT}px);
+      max-width: ${CAROUSEL_MAX_WIDTH}px;
+      width: 100vw;
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+        /* object-fit: contain !important; */
+      }
+    }
+  }
+
+  ${get3DCanvasStyles(CANVAS_THICKNESS)}
 
   position: relative;
   .arrow-wrapper {

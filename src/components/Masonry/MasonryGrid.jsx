@@ -1,11 +1,14 @@
-import React from "react"
+import React, { useState } from "react"
 import Masonry from "react-masonry-css"
 import Img from "gatsby-image"
 import styled from "styled-components/macro"
-import { NAV_HEIGHT } from "../Carousel/CarouselStyles"
-import { useStaticQuery, graphql } from "gatsby"
+import { NAV_HEIGHT, get3DCanvasStyles } from "../Carousel/CarouselStyles"
+import { useImagesQuery } from "../queries"
+import { useSpring, animated } from "react-spring"
+import ContainerDimensions from "react-container-dimensions"
 
 const GRID_GAP = 30
+const CANVAS_THICKNESS = 60
 
 const MasonryStyles = styled.div`
   width: 100%;
@@ -22,7 +25,9 @@ const MasonryStyles = styled.div`
   .gatsby-image-wrapper {
     margin-bottom: ${GRID_GAP}px;
   }
+  ${get3DCanvasStyles(CANVAS_THICKNESS)}
 `
+const ImgWrapperStyles = styled.div``
 
 const breakpointColumnsObj = {
   default: 4,
@@ -31,47 +36,72 @@ const breakpointColumnsObj = {
   500: 1,
 }
 
-export default () => {
-  const data = useStaticQuery(graphql`
-    query AllMarkdownQuery {
-      allMarkdownRemark {
-        edges {
-          node {
-            id
-            frontmatter {
-              title
-              path
-              date
-              caption
-              moreInfo
-              price
-              Image
-            }
-          }
-        }
-      }
-      allFile(filter: { extension: { eq: "jpg" } }) {
-        edges {
-          node {
-            id
-            childImageSharp {
-              fluid(maxWidth: 1240) {
-                ...GatsbyImageSharpFluid_tracedSVG
-              }
-            }
-          }
-        }
-      }
+const AnimatedImage = ({ fluid }) => {
+  const [isHovered, setIsHovered] = useState(false)
+  const [mousePstn, setMousePstn] = useState([null, null])
+  const [xPct, yPct] = mousePstn
+  const handleMouseOver = event => {
+    console.log(event)
+    if (!isHovered) {
+      setIsHovered(true)
     }
-  `)
-  const imagesDataArr = data.allMarkdownRemark.edges.map(d => ({
-    ...d.node.frontmatter,
-    id: d.node.id,
-  }))
-  const imagesArr = data.allFile.edges.map(d => ({
-    ...d.node.childImageSharp.fluid,
-    id: d.node.id,
-  }))
+    const bbox = event.target.getBoundingClientRect()
+
+    const mouseXPosnOnImage = event.pageX - bbox.left
+    const mouseXPosnPct = mouseXPosnOnImage / bbox.width
+
+    const mouseYPosnOnImage = event.pageY - bbox.top
+    const mouseYPosnPct = mouseYPosnOnImage / bbox.height
+    setMousePstn([1 - mouseXPosnPct, mouseYPosnPct])
+  }
+  const handleMouseOut = () => {
+    setIsHovered(false)
+    setMousePstn([null, null])
+  }
+  const springOnHover = useSpring({
+    transform: `translateY(${isHovered ? -4 : 0}px) scale(${
+      isHovered ? 1.04 : 1
+    }) rotateY(${!xPct ? 0 : (0.5 - xPct) * 60}deg) rotateX(${
+      !yPct ? 0 : (0.5 - yPct) * 60
+    }deg)`,
+    opacity: 1 - xPct / 3 + yPct / 4,
+  })
+  return (
+    <ContainerDimensions>
+      {({ height, width }) => (
+        <animated.div
+          className="cube"
+          onMouseOut={handleMouseOut}
+          onMouseMove={handleMouseOver}
+          style={springOnHover}
+        >
+          <ImgWrapperStyles className="cube__face cube__face--front">
+            <Img fluid={fluid} />
+          </ImgWrapperStyles>
+          <div
+            className="cube__face cube__face--right"
+            style={{
+              transform: `rotateY(90deg) translateZ(${width -
+                CANVAS_THICKNESS / 2}px)`,
+            }}
+          ></div>
+          <div className="cube__face cube__face--left"></div>
+          <div className="cube__face cube__face--top"></div>
+          <div
+            className="cube__face cube__face--bottom"
+            style={{
+              transform: `rotateX(-90deg) translateZ(${height -
+                CANVAS_THICKNESS / 2}px)`,
+            }}
+          ></div>
+        </animated.div>
+      )}
+    </ContainerDimensions>
+  )
+}
+
+export default () => {
+  const { imagesDataArr, imagesArr } = useImagesQuery()
   // TODO: filter for only images that have info
 
   return (
@@ -83,7 +113,7 @@ export default () => {
       >
         {imagesDataArr.map(
           ({ id, Image, caption, date, moreInfo, path, price, title }, idx) => (
-            <Img key={id} fluid={imagesArr[idx]} />
+            <AnimatedImage key={id} fluid={imagesArr[idx]} />
           )
         )}
       </Masonry>
