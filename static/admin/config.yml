@@ -29,8 +29,13 @@ collections:
           config:
             multiple: true
       - { name: title, label: Title }
-      - { name: height, label: Height (inches), widget: number }
-      - { name: width, label: Width (inches), widget: number }
+      - {
+          name: height,
+          label: Height (inches),
+          widget: number,
+          valueType: float,
+        }
+      - { name: width, label: Width (inches), widget: number, valueType: float }
       - { name: depth, label: Depth (inches), widget: number, valueType: float }
       - { name: date, label: Date, required: false, widget: datetime }
       - { name: caption, label: Caption, required: false, widget: text }
@@ -65,8 +70,18 @@ collections:
               allow_multiple: true,
               media_library: { config: { multiple: true } },
             }
-          - { name: height, label: Height (inches), widget: number }
-          - { name: width, label: Width (inches), widget: number }
+          - {
+              name: height,
+              label: Height (inches),
+              widget: number,
+              valueType: float,
+            }
+          - {
+              name: width,
+              label: Width (inches),
+              widget: number,
+              valueType: float,
+            }
           - {
               name: depth,
               label: Depth (inches),
