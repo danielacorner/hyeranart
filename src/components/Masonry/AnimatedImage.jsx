@@ -32,10 +32,10 @@ const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
     }
     const bbox = event.target.getBoundingClientRect()
 
-    const mouseXPosnOnImage = event.pageX - bbox.left
+    const mouseXPosnOnImage = event.clientX - bbox.left
     const mouseXPosnPct = mouseXPosnOnImage / bbox.width
 
-    const mouseYPosnOnImage = event.pageY - bbox.top
+    const mouseYPosnOnImage = event.clientY - bbox.top
     const mouseYPosnPct = mouseYPosnOnImage / bbox.height
     setMousePstn([1 - mouseXPosnPct, mouseYPosnPct])
   }
