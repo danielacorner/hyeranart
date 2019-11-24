@@ -15,11 +15,10 @@ const MasonryStyles = styled.div`
     grid-auto-flow: dense;
     grid-template-columns: repeat(auto-fill, minmax(${GRID_SIZE}px, 1fr));
     width: auto;
-    /* padding-left: ${GRID_GAP}px; */
   }
   .gatsby-image-wrapper {
   }
-  .grid-item{
+  .grid-item {
   }
 `
 

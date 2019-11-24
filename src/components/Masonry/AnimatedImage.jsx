@@ -3,13 +3,12 @@ import Img from "gatsby-image"
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components/macro"
 import { get3DCanvasStyles } from "../Carousel/CarouselStyles"
-import { GRID_GAP, GRID_SIZE } from "./MasonryGrid"
+import { GRID_SIZE } from "./MasonryGrid"
 
 const CANVAS_THICKNESS = 30
 
 const SceneWrapperStyles = styled.div`
   ${get3DCanvasStyles(CANVAS_THICKNESS)}
-  margin-bottom: ${GRID_GAP}px;
   perspective:3000;
 `
 
