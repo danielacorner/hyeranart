@@ -1,5 +1,4 @@
 ---
-Image: /images/uploads/coexistence-19-ll.jpg
 images:
   - Image: /images/uploads/coexistence-19-ll.jpg
   - Image: /images/uploads/coexistence-17-ii.jpg

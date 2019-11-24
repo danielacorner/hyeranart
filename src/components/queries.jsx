@@ -39,17 +39,22 @@ export const useImagesQuery = () => {
     id: node.id,
     relativePath: node.relativePath,
   }))
-  console.log("⚡🚨: imagesArr", imagesArr)
 
-  const imagesDataArr = data.allMarkdownRemark.edges.map(({ node }, idx) => ({
-    ...node.frontmatter,
-    id: node.id,
-    // find matching image in imagesArr
-    fluid: imagesArr.find(({ relativePath }) =>
-      node.frontmatter.Image.includes(relativePath)
-    ),
-  }))
-  console.log("⚡🚨: imagesDataArr", imagesDataArr)
+  const allImagesDataArr = data.allMarkdownRemark.edges.map(
+    ({ node }, idx) => ({
+      ...node.frontmatter,
+      id: node.id,
+      // find matching image in imagesArr
+      fluid: !node.frontmatter.Image
+        ? null
+        : imagesArr.find(({ relativePath }) =>
+            node.frontmatter.Image.includes(relativePath)
+          ),
+    })
+  )
+  // split into collections vs images
+  const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))
+  const collectionsDataArr = allImagesDataArr.filter(d => !Boolean(d.fluid))
 
-  return { imagesDataArr, imagesArr }
+  return { imagesDataArr, collectionsDataArr, imagesArr }
 }
