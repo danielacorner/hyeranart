@@ -52,8 +52,8 @@ export default () => {
               <div
                 className="grid-item"
                 style={{
-                  gridColumn: `span ${width + GRID_GAP / GRID_SIZE}`,
-                  gridRow: `span ${height + GRID_GAP / GRID_SIZE}`, // doesn't work?
+                  gridColumn: `span ${Math.ceil(width) + GRID_GAP / GRID_SIZE}`,
+                  gridRow: `span ${Math.ceil(height) + GRID_GAP / GRID_SIZE}`, // doesn't work?
                   paddingTop: GRID_GAP,
                 }}
               >
