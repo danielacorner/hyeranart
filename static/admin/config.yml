@@ -31,6 +31,7 @@ collections:
       - { name: title, label: Title }
       - { name: height, label: Height (inches), widget: number }
       - { name: width, label: Width (inches), widget: number }
+      - { name: depth, label: Depth (inches), widget: number }
       - { name: date, label: Date, required: false, widget: datetime }
       - { name: caption, label: Caption, required: false, widget: text }
       - {
@@ -66,6 +67,7 @@ collections:
             }
           - { name: height, label: Height (inches), widget: number }
           - { name: width, label: Width (inches), widget: number }
+          - { name: depth, label: Depth (inches), widget: number }
           - { name: caption, label: Caption, required: false, widget: text }
           - { name: price, label: Price ($), required: false, widget: number }
       - { name: title, label: Title }
