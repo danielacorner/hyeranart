@@ -80,8 +80,8 @@ const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
   })
 
   // TODO: pass in from dataset
-  const width = widthInches * 32
-  const height = heightInches * 32
+  const width = widthInches * 16
+  const height = heightInches * 16
   return (
     <SceneWrapperStyles className="scene">
       <animated.div
@@ -128,30 +128,33 @@ export default () => {
         className={"masonry-grid"}
         columnClassName={"masonry-grid_column"}
       >
-        {imagesDataArr.map(
-          (
-            {
-              id,
-              Image,
-              caption,
-              date,
-              moreInfo,
-              path,
-              price,
-              title,
-              width,
-              height,
-            },
-            idx
-          ) => (
-            <AnimatedImage
-              key={id}
-              fluid={imagesArr[idx]}
-              widthInches={width}
-              heightInches={height}
-            />
-          )
-        )}
+        {imagesDataArr
+          .filter(img => Boolean(img.fluid))
+          .map(
+            (
+              {
+                id,
+                Image,
+                caption,
+                date,
+                moreInfo,
+                path,
+                price,
+                title,
+                width,
+                height,
+                fluid,
+              },
+              idx
+            ) => (
+              <AnimatedImage
+                key={id}
+                fluid={fluid}
+                widthInches={width}
+                heightInches={height}
+              />
+            )
+          )}
       </Masonry>
     </MasonryStyles>
   )

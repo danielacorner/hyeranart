@@ -11,9 +11,6 @@ export const useImagesQuery = () => {
               title
               path
               date
-              caption
-              moreInfo
-              price
               width
               height
               Image
@@ -25,6 +22,7 @@ export const useImagesQuery = () => {
         edges {
           node {
             id
+            relativePath
             childImageSharp {
               fluid(maxWidth: 1240) {
                 ...GatsbyImageSharpFluid_tracedSVG
@@ -36,15 +34,22 @@ export const useImagesQuery = () => {
     }
   `)
 
-  const imagesDataArr = data.allMarkdownRemark.edges.map(d => ({
-    ...d.node.frontmatter,
-    id: d.node.id,
+  const imagesArr = data.allFile.edges.map(({ node }) => ({
+    ...node.childImageSharp.fluid,
+    id: node.id,
+    relativePath: node.relativePath,
+  }))
+  console.log("⚡🚨: imagesArr", imagesArr)
+
+  const imagesDataArr = data.allMarkdownRemark.edges.map(({ node }, idx) => ({
+    ...node.frontmatter,
+    id: node.id,
+    // find matching image in imagesArr
+    fluid: imagesArr.find(({ relativePath }) =>
+      node.frontmatter.Image.includes(relativePath)
+    ),
   }))
   console.log("⚡🚨: imagesDataArr", imagesDataArr)
-  const imagesArr = data.allFile.edges.map(d => ({
-    ...d.node.childImageSharp.fluid,
-    id: d.node.id,
-  }))
 
   return { imagesDataArr, imagesArr }
 }

@@ -1,4 +1,5 @@
 ---
+Image: /images/uploads/coexistence-19-ll.jpg
 images:
   - Image: /images/uploads/coexistence-19-ll.jpg
   - Image: /images/uploads/coexistence-17-ii.jpg
@@ -9,8 +10,10 @@ images:
   - Image: /images/uploads/coexistence-6-iii.jpg
   - Image: /images/uploads/coexistence-6-triptych.jpg
 title: Coexistence
-width: 0
-height: 0
+caption:
+moreInfo:
+width: 8
+height: 8
 path: collection_coexistence
 date: 2019-11-23T17:57:05.303Z
 ---
