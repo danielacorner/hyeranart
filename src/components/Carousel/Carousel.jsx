@@ -6,7 +6,7 @@ import { animated, useSpring } from "react-spring"
 import { useImagesQuery } from "../queries"
 import Tilt from "react-tilt"
 import ContainerDimensions from "react-container-dimensions"
-import { CarouselStyles } from "./CarouselStyles"
+import { CarouselStyles, Scene3DCanvasStyles } from "./CarouselStyles"
 
 const ArrowLeftIcon = () => (
   <ArrowRightIcon style={{ transform: "rotate(180deg)" }} />
@@ -78,87 +78,92 @@ export default () => {
   })
 
   return (
-    <CarouselStyles>
-      <div className="arrow-wrapper arrow-left">
-        <IconButton onClick={handlePrevious}>
-          <ArrowLeftIcon />
-        </IconButton>
-      </div>
+    <Scene3DCanvasStyles thicknessPx={CANVAS_THICKNESS}>
+      <CarouselStyles>
+        <div className="arrow-wrapper arrow-left">
+          <IconButton onClick={handlePrevious}>
+            <ArrowLeftIcon />
+          </IconButton>
+        </div>
 
-      <animated.div className="animated-images-wrapper" style={springLeftRight}>
-        {imagesArr.map((image, idx) => (
-          <div
-            key={idx}
-            className="img-wrapper"
-            onClick={() => setIsModalOpen(!isModalOpen)}
-          >
-            <Img title={"hi"} fluid={image} />
-          </div>
-        ))}
-      </animated.div>
-
-      <div className="arrow-wrapper arrow-right">
-        <IconButton onClick={handleNext}>
-          <ArrowRightIcon />
-        </IconButton>
-      </div>
-
-      <animated.div
-        className="animated-modal-wrapper"
-        style={springModalBackground}
-      >
-        <Tilt
-          options={{
-            // https://www.npmjs.com/package/react-tilt
-            max: 30,
-            perspective: 8000,
-          }}
-          style={{
-            height: "100%",
-          }}
-          className="scene"
+        <animated.div
+          className="animated-images-wrapper"
+          style={springLeftRight}
         >
-          <ContainerDimensions>
-            {({ height, width }) => (
-              <animated.div
-                className="img-wrapper cube"
-                style={springModalImage}
-                onClick={() => setIsModalOpen(false)}
-              >
-                <div className="cube__face cube__face--front">
-                  <Img
-                    title={"hi"}
-                    fluid={
-                      imagesArr[
-                        prevSelectedImgIndex ||
-                          (prevSelectedImgIndex === 0
-                            ? prevSelectedImgIndex
-                            : selectedImgIndex)
-                      ]
-                    }
-                  />
-                </div>
-                <div
-                  className="cube__face cube__face--right"
-                  style={{
-                    transform: `rotateY(90deg) translateZ(${width -
-                      CANVAS_THICKNESS / 2}px)`,
-                  }}
-                ></div>
-                <div className="cube__face cube__face--left"></div>
-                <div className="cube__face cube__face--top"></div>
-                <div
-                  className="cube__face cube__face--bottom"
-                  style={{
-                    transform: `rotateX(-90deg) translateZ(${height -
-                      CANVAS_THICKNESS / 2}px)`,
-                  }}
-                ></div>
-              </animated.div>
-            )}
-          </ContainerDimensions>
-        </Tilt>
-      </animated.div>
-    </CarouselStyles>
+          {imagesArr.map((image, idx) => (
+            <div
+              key={idx}
+              className="img-wrapper"
+              onClick={() => setIsModalOpen(!isModalOpen)}
+            >
+              <Img title={"hi"} fluid={image} />
+            </div>
+          ))}
+        </animated.div>
+
+        <div className="arrow-wrapper arrow-right">
+          <IconButton onClick={handleNext}>
+            <ArrowRightIcon />
+          </IconButton>
+        </div>
+
+        <animated.div
+          className="animated-modal-wrapper"
+          style={springModalBackground}
+        >
+          <Tilt
+            options={{
+              // https://www.npmjs.com/package/react-tilt
+              max: 30,
+              perspective: 8000,
+            }}
+            style={{
+              height: "100%",
+            }}
+            className="scene"
+          >
+            <ContainerDimensions>
+              {({ height, width }) => (
+                <animated.div
+                  className="img-wrapper cube"
+                  style={springModalImage}
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <div className="cube__face cube__face--front">
+                    <Img
+                      title={"hi"}
+                      fluid={
+                        imagesArr[
+                          prevSelectedImgIndex ||
+                            (prevSelectedImgIndex === 0
+                              ? prevSelectedImgIndex
+                              : selectedImgIndex)
+                        ]
+                      }
+                    />
+                  </div>
+                  <div
+                    className="cube__face cube__face--right"
+                    style={{
+                      transform: `rotateY(90deg) translateZ(${width -
+                        CANVAS_THICKNESS / 2}px)`,
+                    }}
+                  ></div>
+                  <div className="cube__face cube__face--left"></div>
+                  <div className="cube__face cube__face--top"></div>
+                  <div
+                    className="cube__face cube__face--bottom"
+                    style={{
+                      transform: `rotateX(-90deg) translateZ(${height -
+                        CANVAS_THICKNESS / 2}px)`,
+                    }}
+                  ></div>
+                </animated.div>
+              )}
+            </ContainerDimensions>
+          </Tilt>
+        </animated.div>
+      </CarouselStyles>
+    </Scene3DCanvasStyles>
   )
 }

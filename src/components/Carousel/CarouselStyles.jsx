@@ -6,8 +6,10 @@ export const NAV_HEIGHT = 64
 const CANVAS_BACKGROUND_COLOR = "hsl(0,0%,90%)"
 const CANVAS_BORDER_COLOR = "hsl(0,0%,80%)"
 
-export const get3DCanvasStyles = thicknessPx => `
- .scene, &.scene {
+export const Scene3DCanvasStyles = styled.div`
+  perspective: 3000;
+  .scene,
+  &.scene {
     width: fit-content;
     height: fit-content;
     transform-style: preserve-3d;
@@ -29,24 +31,24 @@ export const get3DCanvasStyles = thicknessPx => `
     border: 1px solid ${CANVAS_BORDER_COLOR};
   }
   .cube__face--front {
-    transform: rotateY(0deg) translateZ(${thicknessPx / 2}px);
+    transform: rotateY(0deg) translateZ(${props => props.thicknessPx / 2}px);
   }
   .cube__face--right {
-    width: ${thicknessPx}px;
+    width: ${props => props.thicknessPx}px;
   }
   .cube__face--back {
-    transform: rotateY(180deg) translateZ(${thicknessPx / 2}px);
+    transform: rotateY(180deg) translateZ(${props => props.thicknessPx / 2}px);
   }
   .cube__face--left {
-    width: ${thicknessPx}px;
-    transform: rotateY(-90deg) translateZ(${thicknessPx / 2}px);
+    width: ${props => props.thicknessPx}px;
+    transform: rotateY(-90deg) translateZ(${props => props.thicknessPx / 2}px);
   }
   .cube__face--top {
-    height: ${thicknessPx}px;
-    transform: rotateX(90deg) translateZ(${thicknessPx / 2}px);
+    height: ${props => props.thicknessPx}px;
+    transform: rotateX(90deg) translateZ(${props => props.thicknessPx / 2}px);
   }
   .cube__face--bottom {
-    height: ${thicknessPx}px;
+    height: ${props => props.thicknessPx}px;
   }
 `
 
@@ -80,8 +82,6 @@ export const CarouselStyles = styled.div`
       }
     }
   }
-
-  ${get3DCanvasStyles(CANVAS_THICKNESS)}
 
   position: relative;
   .arrow-wrapper {

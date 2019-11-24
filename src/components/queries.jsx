@@ -13,6 +13,7 @@ export const useImagesQuery = () => {
               date
               width
               height
+              depth
               Image
             }
           }
@@ -51,6 +52,10 @@ export const useImagesQuery = () => {
             node.frontmatter.Image.includes(relativePath)
           ),
     })
+  )
+  console.log(
+    "⚡🚨: data.allMarkdownRemark.edges",
+    data.allMarkdownRemark.edges
   )
   // split into collections vs images
   const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))

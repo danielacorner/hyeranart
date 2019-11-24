@@ -2,15 +2,8 @@ import React, { useState } from "react"
 import Img from "gatsby-image"
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components/macro"
-import { get3DCanvasStyles } from "../Carousel/CarouselStyles"
+import { Scene3DCanvasStyles } from "../Carousel/CarouselStyles"
 import { GRID_SIZE } from "./MasonryGrid"
-
-const CANVAS_THICKNESS = 30
-
-const SceneWrapperStyles = styled.div`
-  ${get3DCanvasStyles(CANVAS_THICKNESS)}
-  perspective:3000;
-`
 
 const ImgWrapperStyles = styled.div`
   width: 100%;
@@ -21,7 +14,14 @@ const ImgWrapperStyles = styled.div`
   }
 `
 
-const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
+const AnimatedImage = ({ fluid, widthInches, heightInches, depthInches }) => {
+  // TODO: set these as span row and col values
+  // grid-column: span ${width}
+  // grid-row: span ${height}
+  // https://youtu.be/OkCnhz__aFM?t=365
+  const width = widthInches * GRID_SIZE
+  const height = heightInches * GRID_SIZE
+  const depthPx = depthInches * GRID_SIZE
   const [isHovered, setIsHovered] = useState(false)
   const [mousePstn, setMousePstn] = useState([null, null])
   const [xPct, yPct] = mousePstn
@@ -44,7 +44,7 @@ const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
   }
 
   const springOnHover = useSpring({
-    transform: `translateZ(${CANVAS_THICKNESS}px) translateY(${
+    transform: `translateZ(${depthPx}px) translateY(${
       isHovered ? -4 : 0
     }px) scale(${isHovered ? 1.04 : 1}) rotateY(${
       !xPct ? 0 : (0.5 - xPct) * 40
@@ -54,15 +54,8 @@ const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
     opacity: 1 - xPct / 4 + yPct / 3,
   })
 
-  // TODO: set these as span row and col values
-  // grid-column: span ${width}
-  // grid-row: span ${height}
-  // https://youtu.be/OkCnhz__aFM?t=365
-  // const depth = depthInches
-  const width = widthInches * GRID_SIZE
-  const height = heightInches * GRID_SIZE
   return (
-    <SceneWrapperStyles className="scene">
+    <Scene3DCanvasStyles className="scene" thicknessPx={depthPx}>
       <animated.div
         className="cube"
         onMouseOut={handleMouseOut}
@@ -77,8 +70,7 @@ const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
         <div
           className="cube__face cube__face--right"
           style={{
-            transform: `rotateY(90deg) translateZ(${width -
-              CANVAS_THICKNESS / 2}px)`,
+            transform: `rotateY(90deg) translateZ(${width - depthPx / 2}px)`,
           }}
         ></div>
 
@@ -87,12 +79,11 @@ const AnimatedImage = ({ fluid, widthInches, heightInches }) => {
         <div
           className="cube__face cube__face--bottom"
           style={{
-            transform: `rotateX(-90deg) translateZ(${height -
-              CANVAS_THICKNESS / 2}px)`,
+            transform: `rotateX(-90deg) translateZ(${height - depthPx / 2}px)`,
           }}
         ></div>
       </animated.div>
-    </SceneWrapperStyles>
+    </Scene3DCanvasStyles>
   )
 }
 
