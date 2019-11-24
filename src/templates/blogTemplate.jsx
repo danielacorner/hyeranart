@@ -1,4 +1,4 @@
-export {}
+export default () => null
 // import React from "react"
 // import { graphql } from "gatsby"
 
