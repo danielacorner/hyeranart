@@ -5,6 +5,6 @@ height: 24
 width: 20
 depth: 0.8
 date: 2019-11-24T17:34:22.552Z
-price: 185
+price: ''
 ---
 
