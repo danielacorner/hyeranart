@@ -61,6 +61,7 @@ export default () => {
               >
                 <AnimatedImage
                   key={id}
+                  title={title}
                   fluid={fluid}
                   depthInches={depth}
                   widthInches={width}

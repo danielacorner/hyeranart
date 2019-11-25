@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import Img from "gatsby-image"
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components/macro"
-import { Scene3DCanvasStyles } from "../Carousel/CarouselStyles"
 import { GRID_SIZE } from "./MasonryGrid"
+import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
 
 const ImgWrapperStyles = styled.div`
   width: 100%;
@@ -14,7 +14,13 @@ const ImgWrapperStyles = styled.div`
   }
 `
 
-const AnimatedImage = ({ fluid, widthInches, heightInches, depthInches }) => {
+const AnimatedImage = ({
+  title,
+  fluid,
+  widthInches,
+  heightInches,
+  depthInches,
+}) => {
   // TODO: set these as span row and col values
   // grid-column: span ${width}
   // grid-row: span ${height}
@@ -24,7 +30,7 @@ const AnimatedImage = ({ fluid, widthInches, heightInches, depthInches }) => {
   const depthPx = depthInches * GRID_SIZE
   const [isHovered, setIsHovered] = useState(false)
   const [mousePstn, setMousePstn] = useState([null, null])
-  const [xPct, yPct] = mousePstn
+  const [rightPct, bottomPct] = mousePstn
   const handleMouseOver = event => {
     if (!isHovered) {
       setIsHovered(true)
@@ -47,13 +53,16 @@ const AnimatedImage = ({ fluid, widthInches, heightInches, depthInches }) => {
     transform: `translateZ(${depthPx}px) translateY(${
       isHovered ? -4 : 0
     }px) scale(${isHovered ? 1.04 : 1}) rotateY(${
-      !xPct ? 0 : (0.5 - xPct) * 40
-    }deg) rotateX(${!yPct ? 0 : (0.5 - yPct) * 40}deg)`,
+      !rightPct ? 0 : (0.5 - rightPct) * 40
+    }deg) rotateX(${!bottomPct ? 0 : (0.5 - bottomPct) * 40}deg)`,
   })
   // TODO: add white, black transparent backgrounds on top
   // TODO: & render one or the other opaque to simulate light/shadow
-  const springOpacity = useSpring({
-    opacity: 1 - xPct / 4 + yPct / 3,
+  const springOpacityWhite = useSpring({
+    opacity: rightPct / 4 - bottomPct / 3,
+  })
+  const springOpacityBlack = useSpring({
+    opacity: bottomPct / 4 - rightPct / 4,
   })
 
   return (
@@ -64,10 +73,18 @@ const AnimatedImage = ({ fluid, widthInches, heightInches, depthInches }) => {
         onMouseMove={handleMouseOver}
         style={{ ...springOnHover, width, height }}
       >
-        <ImgWrapperStyles className="cube__face cube__face--front">
-          <animated.div style={springOpacity}>
+        <ImgWrapperStyles className={`${title} cube__face cube__face--front`}>
+          <div>
             <Img fluid={fluid} />
-          </animated.div>
+            <animated.div
+              style={springOpacityWhite}
+              className="overlay overlay-white"
+            />
+            <animated.div
+              style={springOpacityBlack}
+              className="overlay overlay-black"
+            />
+          </div>
         </ImgWrapperStyles>
         <div
           className="cube__face cube__face--right"
@@ -75,7 +92,6 @@ const AnimatedImage = ({ fluid, widthInches, heightInches, depthInches }) => {
             transform: `rotateY(90deg) translateZ(${width - depthPx / 2}px)`,
           }}
         ></div>
-
         <div className="cube__face cube__face--left"></div>
         <div className="cube__face cube__face--top"></div>
         <div

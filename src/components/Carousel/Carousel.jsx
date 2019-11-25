@@ -6,7 +6,8 @@ import { animated, useSpring } from "react-spring"
 import { useImagesQuery } from "../queries"
 import Tilt from "react-tilt"
 import ContainerDimensions from "react-container-dimensions"
-import { CarouselStyles, Scene3DCanvasStyles } from "./CarouselStyles"
+import { CarouselStyles } from "./CarouselStyles"
+import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
 
 const ArrowLeftIcon = () => (
   <ArrowRightIcon style={{ transform: "rotate(180deg)" }} />
