@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import Img from "gatsby-image"
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components/macro"
-import { GRID_SIZE } from "./MasonryGrid"
 import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
 
 const ImgWrapperStyles = styled.div`
@@ -20,14 +19,15 @@ const AnimatedImage = ({
   widthInches,
   heightInches,
   depthInches,
+  gridSize,
 }) => {
   // TODO: set these as span row and col values
   // grid-column: span ${width}
   // grid-row: span ${height}
   // https://youtu.be/OkCnhz__aFM?t=365
-  const width = widthInches * GRID_SIZE
-  const height = heightInches * GRID_SIZE
-  const depthPx = depthInches * GRID_SIZE
+  const width = widthInches * gridSize
+  const height = heightInches * gridSize
+  const depthPx = depthInches * gridSize
   const [isHovered, setIsHovered] = useState(false)
   const [mousePstn, setMousePstn] = useState([null, null])
   const [rightPct, bottomPct] = mousePstn

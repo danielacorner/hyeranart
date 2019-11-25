@@ -44,7 +44,6 @@ collections:
           widget: number,
           valueType: int,
         }
-      - { name: caption, label: Caption, required: false, widget: text }
       - {
           name: moreInfo,
           label: More information,
@@ -89,11 +88,9 @@ collections:
               valueType: float,
             }
           - { name: price, label: Price ($), required: false, widget: number }
-          - { name: caption, label: Caption, required: false, widget: text }
           - { name: date, label: Date, required: false, widget: datetime }
       - { name: title, label: Title }
       - { name: date, label: Date, required: false, widget: datetime }
-      - { name: caption, label: Caption, required: false, widget: text }
       - {
           name: moreInfo,
           label: More information,
