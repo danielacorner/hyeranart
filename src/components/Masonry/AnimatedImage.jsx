@@ -50,6 +50,8 @@ const AnimatedImage = ({ fluid, widthInches, heightInches, depthInches }) => {
       !xPct ? 0 : (0.5 - xPct) * 40
     }deg) rotateX(${!yPct ? 0 : (0.5 - yPct) * 40}deg)`,
   })
+  // TODO: add white, black transparent backgrounds on top
+  // TODO: & render one or the other opaque to simulate light/shadow
   const springOpacity = useSpring({
     opacity: 1 - xPct / 4 + yPct / 3,
   })

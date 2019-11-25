@@ -15,6 +15,8 @@ const MasonryStyles = styled.div`
     grid-auto-flow: dense;
     grid-template-columns: repeat(auto-fill, minmax(${GRID_SIZE}px, 1fr));
     width: auto;
+    place-items: center center;
+    place-content: center center;
   }
   .gatsby-image-wrapper {
   }

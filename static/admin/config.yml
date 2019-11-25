@@ -37,14 +37,6 @@ collections:
         }
       - { name: width, label: Width (inches), widget: number, valueType: float }
       - { name: depth, label: Depth (inches), widget: number, valueType: float }
-      - { name: date, label: Date, required: false, widget: datetime }
-      - { name: caption, label: Caption, required: false, widget: text }
-      - {
-          name: moreInfo,
-          label: More information,
-          required: false,
-          widget: markdown,
-        }
       - {
           name: price,
           label: Price ($),
@@ -52,6 +44,14 @@ collections:
           widget: number,
           valueType: int,
         }
+      - { name: caption, label: Caption, required: false, widget: text }
+      - {
+          name: moreInfo,
+          label: More information,
+          required: false,
+          widget: markdown,
+        }
+      - { name: date, label: Date, required: false, widget: datetime }
   - name: collection
     label: Collection of Works
     folder: markdown-collections
@@ -88,8 +88,9 @@ collections:
               widget: number,
               valueType: float,
             }
-          - { name: caption, label: Caption, required: false, widget: text }
           - { name: price, label: Price ($), required: false, widget: number }
+          - { name: caption, label: Caption, required: false, widget: text }
+          - { name: date, label: Date, required: false, widget: datetime }
       - { name: title, label: Title }
       - { name: date, label: Date, required: false, widget: datetime }
       - { name: caption, label: Caption, required: false, widget: text }
@@ -99,12 +100,12 @@ collections:
           required: false,
           widget: markdown,
         }
-  - label: "Pages"
-    name: "pages"
+  - label: Pages
+    name: pages
     files:
-      - label: "About Page"
-        name: "about"
-        file: "site/content/about.yml"
+      - label: About Page
+        name: about
+        file: site/content/about.yml
         fields:
           - { label: Title, name: title, widget: string }
           - { label: Intro, name: intro, widget: markdown }
