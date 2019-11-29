@@ -53,10 +53,7 @@ export const useImagesQuery = () => {
           ),
     })
   )
-  console.log(
-    "⚡🚨: data.allMarkdownRemark.edges",
-    data.allMarkdownRemark.edges
-  )
+
   // split into collections vs images
   const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))
   const collectionsDataArr = allImagesDataArr.filter(d => !Boolean(d.fluid))

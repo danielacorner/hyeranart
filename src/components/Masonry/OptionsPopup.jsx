@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { useTransition, animated } from "react-spring"
 import styled from "styled-components/macro"
 
@@ -13,19 +13,12 @@ const OptionsPopupStyles = styled.div`
 
 const POPUP_HEIGHT = 50
 
-export default ({ isSelected }) => {
+export default () => {
   const buttonsToDisplay = [
     { text: "see in a room" },
     { text: "make an offer" },
   ]
-  const [buttons, setButtons] = useState([])
-
-  useEffect(() => {
-    setButtons(buttonsToDisplay)
-    return () => setButtons([])
-  })
-
-  const transitions = useTransition(buttons, item => item.text, {
+  const transitions = useTransition(buttonsToDisplay, item => item.text, {
     from: { transform: `translate3d(0,0px,0)` },
     enter: {
       transform: `translate3d(0,0px,0)`,
