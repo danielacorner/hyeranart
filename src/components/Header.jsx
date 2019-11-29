@@ -1,13 +1,12 @@
-import { Link } from "gatsby"
 import React from "react"
 import styled from "styled-components"
 
 const HeaderStyles = styled.header`
-  height: 64px;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 1em;
-  place-items: center center;
+  h1 {
+    margin: 1em 0 0;
+    text-align: center;
+    font-family: "Carme", sans-serif;
+  }
 `
 
 const pagesArr = [
@@ -40,8 +39,6 @@ const pagesArr = [
 
 export default () => (
   <HeaderStyles>
-    {pagesArr.map(({ path, name, subPages }) => (
-      <Link to={path}>{name}</Link>
-    ))}
+    <h1>Hyeran</h1>
   </HeaderStyles>
 )

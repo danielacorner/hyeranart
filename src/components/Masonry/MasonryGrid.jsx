@@ -64,6 +64,7 @@ export default () => {
               idx
             ) => (
               <div
+                key={id}
                 className="grid-item"
                 style={{
                   gridColumn: `span ${Math.ceil(width * gridMultiplier) +
@@ -74,7 +75,6 @@ export default () => {
                 }}
               >
                 <AnimatedImage
-                  key={id}
                   gridSize={gridSize}
                   title={title}
                   fluid={fluid}

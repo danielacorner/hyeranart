@@ -3,6 +3,9 @@ import Img from "gatsby-image"
 import { useSpring, animated } from "react-spring"
 import styled from "styled-components/macro"
 import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
+import { ClickAwayListener } from "@material-ui/core"
+import { OptionsPopupStyles } from "./OptionsPopupStyles"
+import OptionsPopup from "./OptionsPopup"
 
 const ImgWrapperStyles = styled.div`
   width: 100%;
@@ -25,7 +28,6 @@ const AnimatedImage = ({
   depthInches,
   gridSize,
 }) => {
-  // TODO: set these as span row and col values
   // grid-column: span ${width}
   // grid-row: span ${height}
   // https://youtu.be/OkCnhz__aFM?t=365
@@ -74,43 +76,61 @@ const AnimatedImage = ({
     config: { tension: SPRING_TENSION, mass: 2, clamp: true },
   })
 
+  const [isSelected, setIsSelected] = useState(false)
+
+  const handleClick = () => setIsSelected(true)
+  const handleBlur = () => setIsSelected(false)
+
   return (
-    <Scene3DCanvasStyles className="scene" thicknessPx={depthPx}>
-      <animated.div
-        className="cube"
-        onMouseOut={handleMouseOut}
-        onMouseMove={handleMouseOver}
-        style={{ ...springOnHover, width, height }}
-      >
-        <ImgWrapperStyles className={`${title} cube__face cube__face--front`}>
-          <div>
-            <Img fluid={fluid} />
-            <animated.div
-              style={springOpacityWhite}
-              className="overlay overlay-white"
-            />
-            <animated.div
-              style={springOpacityBlack}
-              className="overlay overlay-black"
-            />
-          </div>
-        </ImgWrapperStyles>
-        <div
-          className="cube__face cube__face--right"
-          style={{
-            transform: `rotateY(90deg) translateZ(${width - depthPx / 2}px)`,
-          }}
-        ></div>
-        <div className="cube__face cube__face--left"></div>
-        <div className="cube__face cube__face--top"></div>
-        <div
-          className="cube__face cube__face--bottom"
-          style={{
-            transform: `rotateX(-90deg) translateZ(${height - depthPx / 2}px)`,
-          }}
-        ></div>
-      </animated.div>
-    </Scene3DCanvasStyles>
+    <ClickAwayListener onClickAway={handleBlur}>
+      <div style={{ position: "relative" }}>
+        <OptionsPopup isSelected={isSelected} />
+        <Scene3DCanvasStyles
+          className="scene"
+          thicknessPx={depthPx}
+          onClick={handleClick}
+        >
+          <animated.div
+            className="cube"
+            onMouseOut={handleMouseOut}
+            onMouseMove={handleMouseOver}
+            style={{ ...springOnHover, width, height }}
+          >
+            <ImgWrapperStyles
+              className={`${title} cube__face cube__face--front`}
+            >
+              <div>
+                <Img fluid={fluid} />
+                <animated.div
+                  style={springOpacityWhite}
+                  className="overlay overlay-white"
+                />
+                <animated.div
+                  style={springOpacityBlack}
+                  className="overlay overlay-black"
+                />
+              </div>
+            </ImgWrapperStyles>
+            <div
+              className="cube__face cube__face--right"
+              style={{
+                transform: `rotateY(90deg) translateZ(${width -
+                  depthPx / 2}px)`,
+              }}
+            ></div>
+            <div className="cube__face cube__face--left"></div>
+            <div className="cube__face cube__face--top"></div>
+            <div
+              className="cube__face cube__face--bottom"
+              style={{
+                transform: `rotateX(-90deg) translateZ(${height -
+                  depthPx / 2}px)`,
+              }}
+            ></div>
+          </animated.div>
+        </Scene3DCanvasStyles>
+      </div>
+    </ClickAwayListener>
   )
 }
 
