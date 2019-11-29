@@ -13,6 +13,10 @@ const ImgWrapperStyles = styled.div`
   }
 `
 
+const TILT_DEG = 30
+const LIGHT_SHADOW_PCT = TILT_DEG / 2
+const SPRING_TENSION = 120
+
 const AnimatedImage = ({
   title,
   fluid,
@@ -53,16 +57,21 @@ const AnimatedImage = ({
     transform: `translateZ(${depthPx}px) translateY(${
       isHovered ? -4 : 0
     }px) scale(${isHovered ? 1.04 : 1}) rotateY(${
-      !rightPct ? 0 : (0.5 - rightPct) * 40
-    }deg) rotateX(${!bottomPct ? 0 : (0.5 - bottomPct) * 40}deg)`,
+      !rightPct ? 0 : (0.5 - rightPct) * TILT_DEG
+    }deg) rotateX(${!bottomPct ? 0 : (0.5 - bottomPct) * TILT_DEG}deg)`,
+    config: { tension: SPRING_TENSION },
   })
-  // TODO: add white, black transparent backgrounds on top
-  // TODO: & render one or the other opaque to simulate light/shadow
+
+  const lightnessPct = rightPct - bottomPct
+  const darknessPct = bottomPct - rightPct
+
   const springOpacityWhite = useSpring({
-    opacity: rightPct / 4 - bottomPct / 3,
+    opacity: lightnessPct * (LIGHT_SHADOW_PCT / 100),
+    config: { tension: SPRING_TENSION, mass: 2, clamp: true },
   })
   const springOpacityBlack = useSpring({
-    opacity: bottomPct / 4 - rightPct / 4,
+    opacity: darknessPct * (LIGHT_SHADOW_PCT / 100),
+    config: { tension: SPRING_TENSION, mass: 2, clamp: true },
   })
 
   return (

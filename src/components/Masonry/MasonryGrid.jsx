@@ -6,7 +6,7 @@ import AnimatedImage from "./AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { useMediaQuery } from "@material-ui/core"
 
-const GRID_GAP = 32
+const GRID_GAP = 16 * 3
 const GRID_SIZE = 16
 
 const MasonryStyles = styled.div`
