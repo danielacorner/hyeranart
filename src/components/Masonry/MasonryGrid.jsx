@@ -29,63 +29,78 @@ const MasonryStyles = styled.div`
   }
 `
 
-export default () => {
+const MasonryGridWrapper = () => {
   const { imagesDataArr } = useImagesQuery()
-  // TODO: filter for only images that have info
-
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABLET}px)`)
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const gridMultiplier = isTabletOrLarger ? 1 : isMobileOrLarger ? 0.8 : 0.7
 
   const gridSize = GRID_SIZE * gridMultiplier
   const gridGap = GRID_GAP * gridMultiplier
+  return (
+    <MasonryGridMemoized
+      imagesDataArr={imagesDataArr.filter(img => Boolean(img.fluid))}
+      gridSize={gridSize}
+      gridGap={gridGap}
+      gridMultiplier={gridMultiplier}
+    />
+  )
+}
+
+const MasonryGrid = ({ imagesDataArr, gridSize, gridGap, gridMultiplier }) => {
+  console.log("⚡🚨: imagesDataArr", imagesDataArr)
 
   return (
     <MasonryStyles gridSize={gridSize}>
       <div className={"masonry-grid"}>
-        {imagesDataArr
-          .filter(img => Boolean(img.fluid))
-          .map(
-            (
-              {
-                id,
-                Image,
-                caption,
-                date,
-                moreInfo,
-                path,
-                price,
-                title,
-                width,
-                height,
-                depth,
-                fluid,
-              },
-              idx
-            ) => (
-              <div
-                key={id}
-                className="grid-item"
-                style={{
-                  gridColumn: `span ${Math.ceil(width * gridMultiplier) +
-                    gridGap / gridSize}`,
-                  gridRow: `span ${Math.ceil(height * gridMultiplier) +
-                    gridGap / gridSize}`, // doesn't work?
-                  paddingTop: GRID_GAP,
-                }}
-              >
-                <AnimatedImage
-                  gridSize={gridSize}
-                  title={title}
-                  fluid={fluid}
-                  depthInches={depth}
-                  widthInches={width * gridMultiplier}
-                  heightInches={height * gridMultiplier}
-                />
-              </div>
-            )
-          )}
+        {imagesDataArr.map(
+          (
+            {
+              id,
+              Image,
+              caption,
+              date,
+              moreInfo,
+              path,
+              price,
+              title,
+              width,
+              height,
+              depth,
+              fluid,
+            },
+            idx
+          ) => (
+            <div
+              key={id}
+              className="grid-item"
+              style={{
+                gridColumn: `span ${Math.ceil(width * gridMultiplier) +
+                  gridGap / gridSize}`,
+                gridRow: `span ${Math.ceil(height * gridMultiplier) +
+                  gridGap / gridSize}`, // doesn't work?
+                paddingTop: GRID_GAP,
+              }}
+            >
+              <AnimatedImage
+                gridSize={gridSize}
+                title={title}
+                fluid={fluid}
+                depthInches={depth}
+                widthInches={width * gridMultiplier}
+                heightInches={height * gridMultiplier}
+              />
+            </div>
+          )
+        )}
       </div>
     </MasonryStyles>
   )
 }
+
+const areEqual = (prevProps, nextProps) =>
+  prevProps.imagesDataArr.length === nextProps.imagesDataArr.length
+
+const MasonryGridMemoized = React.memo(MasonryGrid, areEqual)
+
+export default MasonryGridWrapper

@@ -7,6 +7,7 @@
   "dependencies": {
     "@material-ui/core": "^4.7.0",
     "@material-ui/icons": "^4.5.1",
+    "@welldone-software/why-did-you-render": "^3.3.9",
     "gatsby": "^2.17.4",
     "gatsby-image": "^2.2.29",
     "gatsby-plugin-manifest": "^2.2.23",

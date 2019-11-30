@@ -5,6 +5,10 @@ import SEO from "../components/seo"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
 import { useStaticQuery, graphql } from "gatsby"
 
+if (process.env.NODE_ENV !== "production") {
+  const whyDidYouRender = require("@welldone-software/why-did-you-render")
+  whyDidYouRender(React)
+}
 // inspiration:
 // https://abstractartcollective.com
 // enter animations http://abstractartcollective.com/penny-arnst/
