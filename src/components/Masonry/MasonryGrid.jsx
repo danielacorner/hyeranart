@@ -34,10 +34,12 @@ const MasonryGridWrapper = () => {
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABLET}px)`)
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const gridMultiplier = isTabletOrLarger ? 1 : isMobileOrLarger ? 0.8 : 0.7
+  console.log("⚡🚨: MasonryGridWrapper -> gridMultiplier", gridMultiplier)
 
   const gridSize = GRID_SIZE * gridMultiplier
   const gridGap = GRID_GAP * gridMultiplier
   const gridGapSpan = Math.round(gridGap / gridSize)
+  console.log("⚡🚨: MasonryGridWrapper -> gridSize", gridSize)
 
   return (
     <MasonryGridMemoized
@@ -110,9 +112,6 @@ const MasonryGrid = ({
   )
 }
 
-const areEqual = (prevProps, nextProps) =>
-  prevProps.imagesDataArr.length === nextProps.imagesDataArr.length
-
-const MasonryGridMemoized = React.memo(MasonryGrid, areEqual)
+const MasonryGridMemoized = React.memo(MasonryGrid)
 
 export default MasonryGridWrapper
