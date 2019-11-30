@@ -6,7 +6,7 @@ import AnimatedImage from "./AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { useMediaQuery } from "@material-ui/core"
 
-const GRID_GAP = 16 * 3
+const GRID_GAP = 16 * 4
 const GRID_SIZE = 16
 
 const MasonryStyles = styled.div`
@@ -37,17 +37,24 @@ const MasonryGridWrapper = () => {
 
   const gridSize = GRID_SIZE * gridMultiplier
   const gridGap = GRID_GAP * gridMultiplier
+  const gridGapSpan = Math.round(gridGap / gridSize)
+
   return (
     <MasonryGridMemoized
       imagesDataArr={imagesDataArr.filter(img => Boolean(img.fluid))}
       gridSize={gridSize}
-      gridGap={gridGap}
+      gridGapSpan={gridGapSpan}
       gridMultiplier={gridMultiplier}
     />
   )
 }
 
-const MasonryGrid = ({ imagesDataArr, gridSize, gridGap, gridMultiplier }) => {
+const MasonryGrid = ({
+  imagesDataArr,
+  gridSize,
+  gridGapSpan,
+  gridMultiplier,
+}) => {
   console.log("⚡🚨: imagesDataArr", imagesDataArr)
 
   return (
@@ -70,28 +77,33 @@ const MasonryGrid = ({ imagesDataArr, gridSize, gridGap, gridMultiplier }) => {
               fluid,
             },
             idx
-          ) => (
-            <div
-              key={id}
-              className="grid-item"
-              style={{
-                gridColumn: `span ${Math.ceil(width * gridMultiplier) +
-                  gridGap / gridSize}`,
-                gridRow: `span ${Math.ceil(height * gridMultiplier) +
-                  gridGap / gridSize}`, // doesn't work?
-                paddingTop: GRID_GAP,
-              }}
-            >
-              <AnimatedImage
-                gridSize={gridSize}
-                title={title}
-                fluid={fluid}
-                depthInches={depth}
-                widthInches={width * gridMultiplier}
-                heightInches={height * gridMultiplier}
-              />
-            </div>
-          )
+          ) => {
+            const widthInches = width * gridMultiplier
+            const heightInches = height * gridMultiplier
+            const xSpan = Math.ceil(widthInches + gridGapSpan + 2) // ? what's with the +2?
+            const ySpan = Math.ceil(heightInches + gridGapSpan)
+            console.log("⚡🚨: xSpan", xSpan)
+            return (
+              <div
+                key={id}
+                className="grid-item"
+                style={{
+                  gridColumn: `span ${xSpan}`,
+                  gridRow: `span ${ySpan}`, // doesn't work?
+                  paddingTop: GRID_GAP,
+                }}
+              >
+                <AnimatedImage
+                  gridSize={gridSize}
+                  title={title}
+                  fluid={fluid}
+                  depthInches={depth}
+                  widthInches={width * gridMultiplier}
+                  heightInches={height * gridMultiplier}
+                />
+              </div>
+            )
+          }
         )}
       </div>
     </MasonryStyles>

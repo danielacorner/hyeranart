@@ -1,7 +1,21 @@
 import React from "react"
 import { useTransition, animated } from "react-spring"
 import styled from "styled-components/macro"
-import { SeeInARoomButton } from "./OptionsButtons"
+import { SeeInARoomButton, ZoomButton, CommentsButton } from "./OptionsButtons"
+
+const POPUP_HEIGHT = 56
+const BUTTON_WIDTH = 40
+const BUTTON_MARGIN = 6
+
+const getInitialTransform = (idx, length) => {
+  const x = getX(idx, length)
+  return { transform: `translate3d(${-4 * x}px,0px,0) scale(0.2)`, opacity: 0 }
+}
+const getX = (idx, length) => {
+  const xPct = idx / (length - 1)
+  const x = (xPct - 0.5) * (2 * BUTTON_MARGIN)
+  return x
+}
 
 const OptionsPopupStyles = styled.div`
   position: absolute;
@@ -10,27 +24,37 @@ const OptionsPopupStyles = styled.div`
   right: 0;
   bottom: 0;
   display: flex;
+  justify-content: center;
+  .animationWrapper {
+    width: ${BUTTON_WIDTH}px;
+    margin: 0 ${BUTTON_MARGIN}px;
+  }
 `
-
-const POPUP_HEIGHT = 50
 
 export default ({ isSelected, title }) => {
   const buttonsToDisplay = [
-    { iconButton: <SeeInARoomButton />, text: "see in a room" },
-    { iconButton: <SeeInARoomButton />, text: "make an offer" },
+    { idx: 0, iconButton: <SeeInARoomButton />, text: "See in a room" },
+    { idx: 1, iconButton: <ZoomButton />, text: "View full-screen" },
+    { idx: 2, iconButton: <CommentsButton />, text: "Make an offer" },
   ]
   const transitions = useTransition(
     buttonsToDisplay,
     item => item.text + title,
     {
-      from: { transform: `translate3d(0,0px,0)` },
-      enter: {
-        transform: `translate3d(0,0px,0)`,
+      from: ({ idx }) => getInitialTransform(idx, buttonsToDisplay.length),
+      enter: ({ idx }) => getInitialTransform(idx, buttonsToDisplay.length),
+      update: ({ idx }) => {
+        const x = getX(idx, buttonsToDisplay.length)
+        const y = isSelected ? POPUP_HEIGHT : 0
+        const scale = isSelected ? 1 : 0.2
+        return {
+          transform: `translate3d(${
+            isSelected ? x : -4 * x
+          }px,-${y}px,0) scale(${scale})`,
+          opacity: 1,
+        }
       },
-      update: {
-        transform: `translate3d(0,-${isSelected ? POPUP_HEIGHT : 0}px,0)`,
-      },
-      leave: { transform: `translate3d(0,0px,0)` },
+      leave: ({ idx }) => getInitialTransform(idx, buttonsToDisplay.length),
       trail: 75,
     }
   )
