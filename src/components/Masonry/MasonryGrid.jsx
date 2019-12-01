@@ -5,6 +5,7 @@ import { useImagesQuery } from "../queries"
 import AnimatedImage from "./AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { useMediaQuery } from "@material-ui/core"
+import { kebabCase } from "lodash"
 
 const GRID_GAP = 16 * 5
 const GRID_SIZE = 16
@@ -34,12 +35,10 @@ const MasonryGridWrapper = () => {
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABLET}px)`)
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const gridMultiplier = isTabletOrLarger ? 1 : isMobileOrLarger ? 0.8 : 0.7
-  console.log("⚡🚨: MasonryGridWrapper -> gridMultiplier", gridMultiplier)
 
   const gridSize = GRID_SIZE * gridMultiplier
   const gridGap = GRID_GAP * gridMultiplier
   const gridGapSpan = Math.round(gridGap / gridSize)
-  console.log("⚡🚨: MasonryGridWrapper -> gridSize", gridSize)
 
   return (
     <MasonryGridMemoized
@@ -59,8 +58,6 @@ const MasonryGrid = ({
   gridGap,
   gridMultiplier,
 }) => {
-  console.log("⚡🚨: imagesDataArr", imagesDataArr)
-
   return (
     <MasonryStyles gridSize={gridSize}>
       <div className={"masonry-grid"}>
@@ -79,14 +76,16 @@ const MasonryGrid = ({
               height,
               depth,
               fluid,
+              // viewInARoomLink, // TODO
             },
             idx
           ) => {
+            console.log("⚡🚨: fluid", fluid)
+            console.log("⚡🚨: Image", Image)
             const widthInches = width * gridMultiplier
             const heightInches = height * gridMultiplier
             const xSpan = Math.ceil(widthInches + gridGapSpan)
             const ySpan = Math.ceil(heightInches + gridGapSpan)
-            console.log("⚡🚨: xSpan", xSpan)
             return (
               <div
                 key={id}
@@ -105,6 +104,8 @@ const MasonryGrid = ({
                   depthInches={depth}
                   widthInches={width * gridMultiplier}
                   heightInches={height * gridMultiplier}
+                  fullScreenLink={Image}
+                  inARoomLink={null}
                 />
               </div>
             )

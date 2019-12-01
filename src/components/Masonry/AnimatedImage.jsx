@@ -35,6 +35,8 @@ const AnimatedImage = ({
   depthPx,
   handleClick,
   clickOutsideRef,
+  fullScreenLink,
+  inARoomLink,
 }) => (
   <div
     onClick={handleClick}
@@ -44,6 +46,8 @@ const AnimatedImage = ({
     }}
   >
     <OptionsPopup
+      fullScreenLink={fullScreenLink}
+      inARoomLink={inARoomLink}
       isSelected={isSelected}
       title={title}
       gridGap={gridGap}
@@ -100,6 +104,8 @@ const AnimatedImageWrapper = ({
   depthInches,
   gridSize,
   gridGap,
+  fullScreenLink,
+  inARoomLink,
 }) => {
   // grid-column: span ${width}
   // grid-row: span ${height}
@@ -184,6 +190,8 @@ const AnimatedImageWrapper = ({
       fluid={fluid}
       isSelected={isSelected}
       gridGap={gridGap}
+      fullScreenLink={fullScreenLink}
+      inARoomLink={inARoomLink}
     />
   )
 }

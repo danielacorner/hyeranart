@@ -33,7 +33,6 @@ export default () => {
     }
   `)
   const allDirectoriesArr = allDirectoriesData.allDirectory.edges
-  console.log("⚡🚨: allDirectoriesArr", allDirectoriesArr)
 
   return (
     <Layout>

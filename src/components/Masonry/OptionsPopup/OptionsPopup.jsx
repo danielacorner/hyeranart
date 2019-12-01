@@ -30,14 +30,45 @@ const OptionsPopupStyles = styled.div`
   }
 `
 
-export default ({ isSelected, title, gridGap, height }) => {
+export default ({
+  isSelected,
+  title,
+  fullScreenLink,
+  inARoomLink,
+  gridGap,
+  height,
+}) => {
   const popupHeight = gridGap * 0.7 + height * ((SCALE_ON_HOVER - 1) / 2)
-  console.log("⚡🚨: gridGap", gridGap)
+
+  const handleMakeAnOffer = () => null
+
+  console.log("⚡🚨: inARoomLink", inARoomLink)
   const buttonsToDisplay = [
-    { idx: 0, iconButton: <SeeInARoomButton />, text: "See in a room" },
-    { idx: 1, iconButton: <ZoomButton />, text: "View full-screen" },
-    { idx: 2, iconButton: <CommentsButton />, text: "Make an offer" },
+    {
+      idx: 0,
+      iconButton: (
+        <a href={inARoomLink} target="_blank" rel="noopener noreferrer">
+          <SeeInARoomButton />
+        </a>
+      ),
+      text: "See in a room",
+    },
+    {
+      idx: 1,
+      iconButton: (
+        <a href={fullScreenLink} target="_blank" rel="noopener noreferrer">
+          <ZoomButton />
+        </a>
+      ),
+      text: "View full-screen",
+    },
+    {
+      idx: 2,
+      iconButton: <CommentsButton onClick={handleMakeAnOffer} />,
+      text: "Make an offer",
+    },
   ]
+
   const transitions = useTransition(
     buttonsToDisplay,
     item => item.text + title,
