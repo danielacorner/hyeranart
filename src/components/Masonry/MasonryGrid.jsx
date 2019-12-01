@@ -6,7 +6,7 @@ import AnimatedImage from "./AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { useMediaQuery } from "@material-ui/core"
 
-const GRID_GAP = 16 * 4
+const GRID_GAP = 16 * 5
 const GRID_SIZE = 16
 
 const MasonryStyles = styled.div`
@@ -46,6 +46,7 @@ const MasonryGridWrapper = () => {
       imagesDataArr={imagesDataArr.filter(img => Boolean(img.fluid))}
       gridSize={gridSize}
       gridGapSpan={gridGapSpan}
+      gridGap={gridGap}
       gridMultiplier={gridMultiplier}
     />
   )
@@ -55,6 +56,7 @@ const MasonryGrid = ({
   imagesDataArr,
   gridSize,
   gridGapSpan,
+  gridGap,
   gridMultiplier,
 }) => {
   console.log("⚡🚨: imagesDataArr", imagesDataArr)
@@ -82,7 +84,7 @@ const MasonryGrid = ({
           ) => {
             const widthInches = width * gridMultiplier
             const heightInches = height * gridMultiplier
-            const xSpan = Math.ceil(widthInches + gridGapSpan + 2) // ? what's with the +2?
+            const xSpan = Math.ceil(widthInches + gridGapSpan)
             const ySpan = Math.ceil(heightInches + gridGapSpan)
             console.log("⚡🚨: xSpan", xSpan)
             return (
@@ -97,6 +99,7 @@ const MasonryGrid = ({
               >
                 <AnimatedImage
                   gridSize={gridSize}
+                  gridGap={gridGap}
                   title={title}
                   fluid={fluid}
                   depthInches={depth}

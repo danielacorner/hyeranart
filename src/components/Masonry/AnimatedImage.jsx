@@ -15,11 +15,13 @@ const ImgWrapperStyles = styled.div`
   }
 `
 
+export const SCALE_ON_HOVER = 1.04
 const TILT_DEG = 30
 const LIGHT_SHADOW_PCT = TILT_DEG / 2
 const SPRING_TENSION = 120
 
 const AnimatedImage = ({
+  gridGap,
   isSelected,
   handleMouseOut,
   handleMouseOver,
@@ -41,7 +43,12 @@ const AnimatedImage = ({
       position: "relative",
     }}
   >
-    <OptionsPopup isSelected={isSelected} title={title} />
+    <OptionsPopup
+      isSelected={isSelected}
+      title={title}
+      gridGap={gridGap}
+      height={height}
+    />
     <Scene3DCanvasStyles className="scene" thicknessPx={depthPx}>
       <animated.div
         className="cube"
@@ -92,6 +99,7 @@ const AnimatedImageWrapper = ({
   heightInches,
   depthInches,
   gridSize,
+  gridGap,
 }) => {
   // grid-column: span ${width}
   // grid-row: span ${height}
@@ -142,7 +150,7 @@ const AnimatedImageWrapper = ({
   const springOnHover = useSpring({
     transform: `translateZ(${depthPx}px) translateY(${
       isHovered ? -4 : 0
-    }px) scale(${isHovered ? 1.04 : 1}) rotateY(${
+    }px) scale(${isHovered ? SCALE_ON_HOVER : 1}) rotateY(${
       !rightPct ? 0 : (0.5 - rightPct) * TILT_DEG
     }deg) rotateX(${!bottomPct ? 0 : (0.5 - bottomPct) * TILT_DEG}deg)`,
     config: { tension: SPRING_TENSION },
@@ -175,6 +183,7 @@ const AnimatedImageWrapper = ({
       title={title}
       fluid={fluid}
       isSelected={isSelected}
+      gridGap={gridGap}
     />
   )
 }

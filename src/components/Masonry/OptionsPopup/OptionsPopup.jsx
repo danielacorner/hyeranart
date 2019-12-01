@@ -2,8 +2,8 @@ import React from "react"
 import { useTransition, animated } from "react-spring"
 import styled from "styled-components/macro"
 import { SeeInARoomButton, ZoomButton, CommentsButton } from "./OptionsButtons"
+import { SCALE_ON_HOVER } from "../AnimatedImage"
 
-const POPUP_HEIGHT = 56
 const BUTTON_WIDTH = 40
 const BUTTON_MARGIN = 6
 
@@ -22,7 +22,6 @@ const OptionsPopupStyles = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
   display: flex;
   justify-content: center;
   .animationWrapper {
@@ -31,7 +30,9 @@ const OptionsPopupStyles = styled.div`
   }
 `
 
-export default ({ isSelected, title }) => {
+export default ({ isSelected, title, gridGap, height }) => {
+  const popupHeight = gridGap * 0.7 + height * ((SCALE_ON_HOVER - 1) / 2)
+  console.log("⚡🚨: gridGap", gridGap)
   const buttonsToDisplay = [
     { idx: 0, iconButton: <SeeInARoomButton />, text: "See in a room" },
     { idx: 1, iconButton: <ZoomButton />, text: "View full-screen" },
@@ -45,7 +46,7 @@ export default ({ isSelected, title }) => {
       enter: ({ idx }) => getInitialTransform(idx, buttonsToDisplay.length),
       update: ({ idx }) => {
         const x = getX(idx, buttonsToDisplay.length)
-        const y = isSelected ? POPUP_HEIGHT : 0
+        const y = isSelected ? -popupHeight : 0
         const scale = isSelected ? 1 : 0.2
         return {
           transform: `translate3d(${
