@@ -30,7 +30,7 @@ const OptionsPopupStyles = styled.div`
   }
 `
 
-export default ({
+const OptionsPopup = ({
   isSelected,
   title,
   fullScreenLink,
@@ -39,10 +39,10 @@ export default ({
   height,
 }) => {
   const popupHeight = gridGap * 0.7 + height * ((SCALE_ON_HOVER - 1) / 2)
+  console.log("⚡🚨: popupHeight", popupHeight)
 
   const handleMakeAnOffer = () => null
 
-  console.log("⚡🚨: inARoomLink", inARoomLink)
   const buttonsToDisplay = [
     {
       idx: 0,
@@ -101,3 +101,5 @@ export default ({
     </OptionsPopupStyles>
   )
 }
+
+export default React.memo(OptionsPopup)
