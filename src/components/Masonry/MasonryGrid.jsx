@@ -79,8 +79,6 @@ const MasonryGrid = ({
             },
             idx
           ) => {
-            console.log("⚡🚨: fluid", fluid)
-            console.log("⚡🚨: Image", Image)
             const widthInches = width * gridMultiplier
             const heightInches = height * gridMultiplier
             const xSpan = Math.ceil(widthInches + gridGapSpan)

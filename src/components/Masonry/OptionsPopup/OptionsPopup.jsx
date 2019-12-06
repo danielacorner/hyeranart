@@ -39,7 +39,6 @@ const OptionsPopup = ({
   height,
 }) => {
   const popupHeight = gridGap * 0.7 + height * ((SCALE_ON_HOVER - 1) / 2)
-  console.log("⚡🚨: popupHeight", popupHeight)
 
   const handleMakeAnOffer = () => null
 
