@@ -30,6 +30,8 @@ const TopNavStyles = styled.div`
     right: 10px;
     pointer-events: ${props => (props.isModalOpen ? "auto" : "none")};
     .popupContainer {
+      position: relative;
+      margin-top: 8px;
       flex-grow: 1;
       @media (min-width: ${BREAKPOINTS.TABLET}px) {
         flex-grow: 0;
@@ -49,7 +51,10 @@ const TopNavStyles = styled.div`
     }
   }
   .popupOpenButton {
-    margin: 4px 10px 0 0;
+    margin: 8px 10px 0 0;
+    .MuiSvgIcon-root {
+      transform: scaleY(1.2);
+    }
   }
   .popupCloseButton {
     position: absolute;
