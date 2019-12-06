@@ -7,6 +7,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import SideNav from "../components/Nav/SideNav"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
+import TopNav from "../components/Nav/TopNav"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
@@ -43,7 +44,7 @@ export default () => {
     <Layout>
       <SEO title="Home" />
       <div style={{ display: "flex" }}>
-        {isTabletOrLarger && <SideNav />}
+        {isTabletOrLarger ? <SideNav /> : <TopNav />}
         <MasonryGrid />
       </div>
     </Layout>
