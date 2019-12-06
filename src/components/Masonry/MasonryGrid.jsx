@@ -5,7 +5,6 @@ import { useImagesQuery } from "../queries"
 import AnimatedImage from "./AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { useMediaQuery } from "@material-ui/core"
-import { kebabCase } from "lodash"
 
 const GRID_GAP = 16 * 5
 const GRID_SIZE = 16

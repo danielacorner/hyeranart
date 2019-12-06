@@ -4,6 +4,9 @@ import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
 import { useStaticQuery, graphql } from "gatsby"
+import SideNav from "../components/Nav/SideNav"
+import { useMediaQuery } from "@material-ui/core"
+import { BREAKPOINTS } from "../utils/constants"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
@@ -34,10 +37,15 @@ export default () => {
   `)
   const allDirectoriesArr = allDirectoriesData.allDirectory.edges
 
+  const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABTOP}px)`)
+
   return (
     <Layout>
       <SEO title="Home" />
-      <MasonryGrid />
+      <div style={{ display: "flex" }}>
+        {isTabletOrLarger && <SideNav />}
+        <MasonryGrid />
+      </div>
     </Layout>
   )
 }
