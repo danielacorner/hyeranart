@@ -32,10 +32,15 @@ if (process.env.NODE_ENV !== "production") {
 
 const HomePageStyles = styled.div`
   .paginationWrapper {
+    font-family: system-ui;
     width: fit-content;
     margin: 3em auto;
     display: flex;
     align-items: center;
+    .currentPageInfo {
+      width: 120px;
+      text-align: center;
+    }
   }
 `
 
