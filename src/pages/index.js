@@ -61,6 +61,7 @@ export default () => {
   const NUM_PER_PAGE = 6
   const NUM_PAGES = 6 //TODO
   const imageSpreads = [
+    //TODO: reduce from imagesDataArr
     imagesDataArr.slice(0, NUM_PER_PAGE),
     imagesDataArr.slice(NUM_PER_PAGE, NUM_PER_PAGE * 2),
     imagesDataArr.slice(NUM_PER_PAGE * 2, NUM_PER_PAGE * 3),
@@ -80,7 +81,7 @@ export default () => {
           <MasonryGrid imagesDataArr={imageSpreads[currentPageIdx]} />
         </div>
         <div className="paginationWrapper">
-          <IconButton disabled={currentPageIdx <= 0} onClick={handleNext}>
+          <IconButton disabled={currentPageIdx <= 0} onClick={handlePrev}>
             <BackIcon />
           </IconButton>
           <div className="currentPageInfo">
@@ -88,7 +89,7 @@ export default () => {
           </div>
           <IconButton
             disabled={currentPageIdx >= NUM_PAGES - 1}
-            onClick={handlePrev}
+            onClick={handleNext}
           >
             <ForwardIcon />
           </IconButton>
