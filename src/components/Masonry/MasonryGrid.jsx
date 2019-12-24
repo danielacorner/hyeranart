@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components/macro"
 import { NAV_HEIGHT } from "../Carousel/CarouselStyles"
-import { useImagesQuery } from "../queries"
 import AnimatedImage from "./AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { useMediaQuery } from "@material-ui/core"
@@ -29,8 +28,7 @@ const MasonryStyles = styled.div`
   }
 `
 
-const MasonryGridWrapper = () => {
-  const { imagesDataArr } = useImagesQuery()
+const MasonryGridWrapper = ({ imagesDataArr }) => {
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABLET}px)`)
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const gridMultiplier = isTabletOrLarger ? 1 : isMobileOrLarger ? 0.8 : 0.7
