@@ -82,7 +82,7 @@ const OptionsPopup = ({
           transform: `translate3d(${
             isSelected ? x : -4 * x
           }px,-${y}px,0) scale(${scale})`,
-          opacity: 1,
+          opacity: isSelected ? 1 : 0,
         }
       },
       leave: ({ idx }) => getInitialTransform(idx, buttonsToDisplay.length),

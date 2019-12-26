@@ -37,6 +37,9 @@ const HomePageStyles = styled.div`
       overflow: hidden !important;
     }
   }
+  .masonry-grid {
+    margin: 0 1em;
+  }
 `
 
 export default () => {
