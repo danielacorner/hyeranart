@@ -67,12 +67,8 @@ export default () => {
     }
     return acc
   }, [])
-  const handleNext = () => {
-    setCurrentPageIdx(currentPageIdx + 1)
-  }
-  const handlePrev = () => {
-    setCurrentPageIdx(currentPageIdx - 1)
-  }
+  const handleNext = () => setCurrentPageIdx(currentPageIdx + 1)
+  const handlePrev = () => setCurrentPageIdx(currentPageIdx - 1)
 
   const firstItemNum = currentPageIdx * NUM_PER_PAGE + 1
   const lastItemNum = firstItemNum + NUM_PER_PAGE
@@ -80,10 +76,7 @@ export default () => {
   const numPages = Math.ceil(numItems / NUM_PER_PAGE)
   const slidesArr = [...Array(numPages)]
 
-  const handleChangeIndex = index => {
-    setCurrentPageIdx(index)
-    console.log("🌟🚨: index", index)
-  }
+  const handleChangeIndex = index => setCurrentPageIdx(index)
   return (
     <Layout>
       <HomePageStyles>

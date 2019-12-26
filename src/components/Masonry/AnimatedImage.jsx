@@ -5,6 +5,7 @@ import styled from "styled-components/macro"
 import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
 import OptionsPopup from "./OptionsPopup/OptionsPopup"
 import { useOnClickOutside } from "../../utils/customHooks"
+import PaintingMetadata from "./PaintingMetadata"
 
 const ImgWrapperStyles = styled.div`
   width: 100%;
@@ -37,6 +38,7 @@ const AnimatedImage = ({
   clickOutsideRef,
   fullScreenLink,
   inARoomLink,
+  metadata,
 }) => (
   <div
     onClick={handleClick}
@@ -76,6 +78,7 @@ const AnimatedImage = ({
               className="overlay overlay-black"
             />
           </div>
+          <PaintingMetadata metadata={metadata} />
         </ImgWrapperStyles>
         <div
           className="cube__face cube__face--right"
@@ -113,7 +116,14 @@ const AnimatedImageWrapper = ({
   const width = widthInches * gridSize
   const height = heightInches * gridSize
   const depthPx = depthInches * gridSize
-
+  // TODO: are any not paintings?
+  const metadata = {
+    widthInches,
+    heightInches,
+    depthInches,
+    title,
+    type: "Painting",
+  }
   const [isSelected, setIsSelected] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [mousePstn, setMousePstn] = useState([null, null])
@@ -192,6 +202,7 @@ const AnimatedImageWrapper = ({
       gridGap={gridGap}
       fullScreenLink={fullScreenLink}
       inARoomLink={inARoomLink}
+      metadata={metadata}
     />
   )
 }

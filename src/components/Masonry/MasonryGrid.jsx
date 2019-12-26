@@ -73,7 +73,7 @@ const MasonryGrid = ({
               height,
               depth,
               fluid,
-              // viewInARoomLink, // TODO
+              // viewInARoomLink, // TODO: link to saatchiart page
             },
             idx
           ) => {
@@ -88,7 +88,7 @@ const MasonryGrid = ({
                 style={{
                   gridColumn: `span ${xSpan}`,
                   gridRow: `span ${ySpan}`, // doesn't work?
-                  paddingTop: GRID_GAP,
+                  marginTop: GRID_GAP,
                 }}
               >
                 <AnimatedImage
