@@ -26,6 +26,7 @@
     "react-helmet": "^5.2.1",
     "react-masonry-css": "^1.0.14",
     "react-spring": "^8.0.27",
+    "react-swipeable-views": "^0.13.3",
     "react-tilt": "^0.1.4",
     "react-vanilla-tilt": "^1.0.0",
     "styled-components": "^4.4.0"

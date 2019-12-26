@@ -12,6 +12,7 @@ import { useImagesQuery } from "../components/queries"
 import { useState } from "react"
 import styled from "styled-components/macro"
 import Pagination from "../components/Pagination"
+import SwipeableViews from "react-swipeable-views"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
@@ -30,7 +31,13 @@ if (process.env.NODE_ENV !== "production") {
 // TODO: page flips of "magazine spreads"
 // TODO: link paintings to saatchiart
 
-const HomePageStyles = styled.div``
+const HomePageStyles = styled.div`
+  .react-swipeable-view-container {
+    [data-swipeable="true"] {
+      overflow: hidden !important;
+    }
+  }
+`
 
 export default () => {
   const allDirectoriesData = useStaticQuery(graphql`
@@ -62,24 +69,39 @@ export default () => {
   }, [])
   const handleNext = () => {
     setCurrentPageIdx(currentPageIdx + 1)
-    window.scrollTo({ top: 0, behavior: "auto" })
   }
   const handlePrev = () => {
     setCurrentPageIdx(currentPageIdx - 1)
-    window.scrollTo({ top: 0, behavior: "auto" })
   }
 
   const firstItemNum = currentPageIdx * NUM_PER_PAGE + 1
   const lastItemNum = firstItemNum + NUM_PER_PAGE
   const numItems = imagesDataArr.length
   const numPages = Math.ceil(numItems / NUM_PER_PAGE)
+  const slidesArr = [...Array(numPages)]
+
+  const handleChangeIndex = index => {
+    setCurrentPageIdx(index)
+    console.log("🌟🚨: index", index)
+  }
   return (
     <Layout>
       <HomePageStyles>
         <SEO title="Home" />
         <div style={{ display: "flex" }}>
           {isTabletOrLarger ? <SideNav /> : <TopNav />}
-          <MasonryGrid imagesDataArr={imageSpreads[currentPageIdx]} />
+          <SwipeableViews
+            className="swipeable"
+            index={currentPageIdx}
+            onChangeIndex={handleChangeIndex}
+            enableMouseEvents={true}
+          >
+            {slidesArr.map((_, idx) => (
+              <div key={idx} className={`swipeable-slide slide-${idx}`}>
+                <MasonryGrid imagesDataArr={imageSpreads[idx]} />
+              </div>
+            ))}
+          </SwipeableViews>
         </div>
         <Pagination
           currentPageIdx={currentPageIdx}
