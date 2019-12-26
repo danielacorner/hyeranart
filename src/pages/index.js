@@ -64,13 +64,16 @@ export default () => {
   console.log("🌟🚨: imagesDataArr", imagesDataArr)
   const [currentPageIdx, setCurrentPageIdx] = useState(0)
   const NUM_PER_PAGE = 6
-  const NUM_PAGES = 6 //TODO
-  const imageSpreads = [
-    //TODO: reduce from imagesDataArr
-    imagesDataArr.slice(0, NUM_PER_PAGE),
-    imagesDataArr.slice(NUM_PER_PAGE, NUM_PER_PAGE * 2),
-    imagesDataArr.slice(NUM_PER_PAGE * 2, NUM_PER_PAGE * 3),
-  ]
+
+  const imageSpreads = imagesDataArr.reduce((acc, image, idx) => {
+    const idxInSpreads = Math.floor(idx / NUM_PER_PAGE)
+    if (acc[idxInSpreads]) {
+      acc[idxInSpreads].push(image)
+    } else {
+      acc[idxInSpreads] = [image]
+    }
+    return acc
+  }, [])
   const handleNext = () => setCurrentPageIdx(currentPageIdx + 1)
   const handlePrev = () => setCurrentPageIdx(currentPageIdx - 1)
 
@@ -90,12 +93,9 @@ export default () => {
             <BackIcon />
           </IconButton>
           <div className="currentPageInfo">
-            {firstItemNum} - {lastItemNum} of {numItems}
+            {firstItemNum} - {Math.min(lastItemNum, numItems)} of {numItems}
           </div>
-          <IconButton
-            disabled={currentPageIdx >= NUM_PAGES - 1}
-            onClick={handleNext}
-          >
+          <IconButton disabled={lastItemNum >= numItems} onClick={handleNext}>
             <ForwardIcon />
           </IconButton>
         </div>
