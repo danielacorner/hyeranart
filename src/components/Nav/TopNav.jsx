@@ -1,11 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import styled from "styled-components/macro"
 import { BREAKPOINTS } from "../../utils/constants"
-import { SECTION_LINKS, COLLECTION_LINKS, LINK_CSS } from "./SideNav"
+import { SECTION_LINKS, COLLECTION_LINKS, LinksUlStyles } from "./SideNav"
 import MenuIcon from "@material-ui/icons/Menu"
 import CloseIcon from "@material-ui/icons/Close"
 import { IconButton } from "@material-ui/core"
 import { useSpring, animated } from "react-spring"
+import { camelCase } from "lodash"
+import { useOnClickOutside } from "../../utils/customHooks"
 
 const TopNavStyles = styled.div`
   position: absolute;
@@ -56,11 +58,7 @@ const TopNavStyles = styled.div`
     top: 0;
     right: 0;
   }
-  a {
-    ${LINK_CSS}
-  }
   li {
-    list-style-type: none;
     margin: 0;
   }
   ul {
@@ -88,33 +86,50 @@ export default () => {
     transform: `scale(${isModalOpen ? 1 : 0.97})`,
     config: { mass: 0.4, tension: 270 },
   })
+  const ref = useRef()
+  useOnClickOutside(ref, () => setIsModalOpen(false))
+
   return (
     <TopNavStyles isModalOpen={isModalOpen}>
       <IconButton className="popupOpenButton" onClick={toggleModal}>
         <MenuIcon />
       </IconButton>
       <animated.div style={springScaleUp} className="popupAnimated">
-        <div className="popupContainer">
+        <div ref={ref} className="popupContainer">
           <IconButton className="popupCloseButton" onClick={toggleModal}>
             <CloseIcon />
           </IconButton>
           <div className="linksContainer">
-            <ul className="sectionLinks">
-              {SECTION_LINKS.map(({ url, text }) => (
+            <LinksUlStyles className="sectionLinks">
+              {SECTION_LINKS.map(({ type, url, text }) => (
                 // TODO: replace with Link once in-site
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  <li>{text}</li>
-                </a>
+                <li className={camelCase(text)}>
+                  <a
+                    className={`${camelCase(text)} ${type}`}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {text}
+                  </a>
+                </li>
               ))}
-            </ul>
-            <ul className="collectionLinks">
-              {COLLECTION_LINKS.map(({ url, text }) => (
+            </LinksUlStyles>
+            <LinksUlStyles className="collectionLinks">
+              {COLLECTION_LINKS.map(({ type, url, text }) => (
                 // TODO: replace with Link once in-site
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  <li>{text}</li>
-                </a>
+                <li className={camelCase(text)}>
+                  <a
+                    className={`${camelCase(text)} ${type}`}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {text}
+                  </a>
+                </li>
               ))}
-            </ul>
+            </LinksUlStyles>
           </div>
         </div>
       </animated.div>

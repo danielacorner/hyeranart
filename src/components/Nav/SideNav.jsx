@@ -23,12 +23,15 @@ import { camelCase } from "lodash"
 //     }
 // `
 
-export const LINK_CSS = `
+export const LinksUlStyles = styled.ul`
   a {
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     text-decoration: none;
     text-shadow: 1px 1px rgba(0, 0, 0, 0.03);
     color: black;
+    &.section {
+      color: #999999;
+    }
     &:active {
       color: white;
     }
@@ -40,7 +43,8 @@ export const LINK_CSS = `
     }
   }
   li {
-    padding:4px;
+    list-style-type: none;
+    padding: 4px;
     margin-bottom: 0.3rem;
     &:hover {
       background: #ffff66;
@@ -62,15 +66,8 @@ const SideNavStyles = styled.div`
   ul {
     width: 96px;
   }
-  ${LINK_CSS}
-  a {
-    &.section {
-      color: #999999;
-    }
-  }
   li {
     width: fit-content;
-    list-style-type: none;
     line-height: normal;
   }
 `
@@ -154,7 +151,7 @@ const ALL_LINKS = [...SECTION_LINKS, ...COLLECTION_LINKS]
 
 export default () => (
   <SideNavStyles>
-    <ul>
+    <LinksUlStyles>
       {ALL_LINKS.map(({ type, url, text }) => (
         // TODO: replace with Link once in-site
         <li className={camelCase(text)}>
@@ -168,6 +165,6 @@ export default () => (
           </a>
         </li>
       ))}
-    </ul>
+    </LinksUlStyles>
   </SideNavStyles>
 )
