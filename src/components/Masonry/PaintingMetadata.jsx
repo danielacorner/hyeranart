@@ -16,11 +16,13 @@ const MetadataStyles = styled.div`
 `
 export default ({ metadata }) => {
   const { heightInches, widthInches, depthInches, title, type } = metadata
+  const heightTrimmed = Number(heightInches.toFixed(2))
+  const widthTrimmed = Number(widthInches.toFixed(2))
   return (
     <MetadataStyles>
       <div className="title">{title}</div>
       <div className="details">
-        {type}, {heightInches} H x {widthInches} W x {depthInches} in
+        {type}, {heightTrimmed} H x {widthTrimmed} W x {depthInches} in
       </div>
     </MetadataStyles>
   )
