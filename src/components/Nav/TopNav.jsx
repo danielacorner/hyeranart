@@ -1,12 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components/macro"
-import { Link } from "gatsby"
 import { BREAKPOINTS } from "../../utils/constants"
-import {
-  SECTION_LINKS,
-  COLLECTION_LINKS,
-  HOVER_UNDERLINE_LI_CSS,
-} from "./SideNav"
+import { SECTION_LINKS, COLLECTION_LINKS, LINK_CSS } from "./SideNav"
 import MenuIcon from "@material-ui/icons/Menu"
 import CloseIcon from "@material-ui/icons/Close"
 import { IconButton } from "@material-ui/core"
@@ -62,17 +57,11 @@ const TopNavStyles = styled.div`
     right: 0;
   }
   a {
-    text-decoration: none;
-    color: black;
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.03);
-    &:hover {
-      color: rgba(0, 0, 0, 0.8);
-    }
+    ${LINK_CSS}
   }
   li {
+    list-style-type: none;
     margin: 0;
-    ${HOVER_UNDERLINE_LI_CSS}
   }
   ul {
     margin: 0;
@@ -112,16 +101,18 @@ export default () => {
           <div className="linksContainer">
             <ul className="sectionLinks">
               {SECTION_LINKS.map(({ url, text }) => (
-                <Link href={url} target="_blank" rel="noopener noreferrer">
+                // TODO: replace with Link once in-site
+                <a href={url} target="_blank" rel="noopener noreferrer">
                   <li>{text}</li>
-                </Link>
+                </a>
               ))}
             </ul>
             <ul className="collectionLinks">
               {COLLECTION_LINKS.map(({ url, text }) => (
-                <Link href={url} target="_blank" rel="noopener noreferrer">
+                // TODO: replace with Link once in-site
+                <a href={url} target="_blank" rel="noopener noreferrer">
                   <li>{text}</li>
-                </Link>
+                </a>
               ))}
             </ul>
           </div>

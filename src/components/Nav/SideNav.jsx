@@ -1,71 +1,152 @@
 import React from "react"
 import styled from "styled-components/macro"
-import { Link } from "gatsby"
+import { camelCase } from "lodash"
 
-export const HOVER_UNDERLINE_LI_CSS = `
-    list-style-type: none;
-    width: fit-content;
-    position: relative;
-    &:after {
-      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      position: absolute;
-      content: "";
-      height: 1px;
-      width: 0%;
-      left: 50%;
-      bottom: 0;
-      background: cornflowerblue;
+// export const HOVER_UNDERLINE_LI_CSS = `
+//     width: fit-content;
+//     position: relative;
+//     &:after {
+//       transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+//       position: absolute;
+//       content: "";
+//       height: 1px;
+//       width: 0%;
+//       left: 50%;
+//       bottom: 0;
+//       background: cornflowerblue;
+//     }
+//     &:hover {
+//       &:after {
+//         left: 0%;
+//         width: 100%;
+//       }
+//     }
+// `
+
+export const LINK_CSS = `
+  a {
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    text-decoration: none;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.03);
+    color: black;
+    &:active {
+      color: white;
     }
+    &.saatchiart {
+      text-decoration: underline;
+    }
+    &.theOtherArtFairBrooklyn {
+      line-height: 1.4em;
+    }
+  }
+  li {
+    padding:4px;
+    margin-bottom: 0.3rem;
     &:hover {
-      &:after {
-        left: 0%;
-        width: 100%;
-      }
+      background: #ffff66;
     }
-
+    &:active {
+      background: black;
+    }
+  }
 `
 
 const SideNavStyles = styled.div`
   height: fit-content;
   width: fit-content;
-  font-size: 14px;
+  font-size: 12px;
   font-family: system-ui;
   position: sticky;
   top: 1em;
   margin-top: 3em;
+  ul {
+    width: 96px;
+  }
+  ${LINK_CSS}
   a {
-    text-decoration: none;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.03);
+    &.section {
+      color: #999999;
+    }
   }
   li {
+    width: fit-content;
+    list-style-type: none;
     line-height: normal;
-    ${HOVER_UNDERLINE_LI_CSS}
   }
 `
 
 export const SECTION_LINKS = [
-  { text: "saatchiart", url: "http://www.saatchiart.com/hyeran" },
-  { text: "About Hyeran", url: "http://hyeran.ca/About-Hyeran" },
-  { text: "Events", url: "http://hyeran.ca/Events" },
-  { text: "Contact", url: "http://hyeran.ca/Contact" },
+  {
+    type: "section",
+    text: "saatchiart",
+    url: "https://www.saatchiart.com/hyeran",
+  },
+  {
+    type: "section",
+    text: "About Hyeran",
+    url: "https://hyeran.ca/About-Hyeran",
+  },
+  { type: "section", text: "Events", url: "https://hyeran.ca/Events" },
+  { type: "section", text: "Contact", url: "https://hyeran.ca/Contact" },
 ]
 export const COLLECTION_LINKS = [
-  { text: "Coexistence III", url: "http://hyeran.ca/Coexistence-III" },
-  { text: "Coexistence II", url: "http://hyeran.ca/Coexistence-II-1" },
-  { text: "Coexistence I", url: "http://hyeran.ca/Coexistence-I" },
-  { text: "Correlation III", url: "http://hyeran.ca/Correlation-III" },
-  { text: "Correlation II", url: "http://hyeran.ca/Correlation-II" },
-  { text: "Correlation I", url: "http://hyeran.ca/Correlation-I" },
-  { text: "Life", url: "http://hyeran.ca/Life" },
-  { text: "Be Yourself", url: "http://hyeran.ca/Be-Yourself" },
-  { text: "Self Portrait", url: "http://hyeran.ca/Self-Portrait" },
-  { text: "Interaction", url: "http://hyeran.ca/Interaction" },
-  { text: "In-Flux", url: "http://hyeran.ca/In-Flux" },
-  { text: "Exploration", url: "http://hyeran.ca/Exploration" },
-  { text: "Remember", url: "http://hyeran.ca/Remember" },
   {
+    type: "collection",
+    text: "Coexistence III",
+    url: "https://hyeran.ca/Coexistence-III",
+  },
+  {
+    type: "collection",
+    text: "Coexistence II",
+    url: "https://hyeran.ca/Coexistence-II-1",
+  },
+  {
+    type: "collection",
+    text: "Coexistence I",
+    url: "https://hyeran.ca/Coexistence-I",
+  },
+  {
+    type: "collection",
+    text: "Correlation III",
+    url: "https://hyeran.ca/Correlation-III",
+  },
+  {
+    type: "collection",
+    text: "Correlation II",
+    url: "https://hyeran.ca/Correlation-II",
+  },
+  {
+    type: "collection",
+    text: "Correlation I",
+    url: "https://hyeran.ca/Correlation-I",
+  },
+  { type: "collection", text: "Life", url: "https://hyeran.ca/Life" },
+  {
+    type: "collection",
+    text: "Be Yourself",
+    url: "https://hyeran.ca/Be-Yourself",
+  },
+  {
+    type: "collection",
+    text: "Self Portrait",
+    url: "https://hyeran.ca/Self-Portrait",
+  },
+  {
+    type: "collection",
+    text: "Interaction",
+    url: "https://hyeran.ca/Interaction",
+  },
+  { type: "collection", text: "In-Flux", url: "https://hyeran.ca/In-Flux" },
+  {
+    type: "collection",
+    text: "Exploration",
+    url: "https://hyeran.ca/Exploration",
+  },
+  { type: "collection", text: "Remember", url: "https://hyeran.ca/Remember" },
+  {
+    type: "collection",
     text: "The Other Art Fair Brooklyn",
-    url: "http://hyeran.ca/The-Other-Art-Fair-Brooklyn",
+    url: "https://hyeran.ca/The-Other-Art-Fair-Brooklyn",
   },
 ]
 
@@ -74,10 +155,18 @@ const ALL_LINKS = [...SECTION_LINKS, ...COLLECTION_LINKS]
 export default () => (
   <SideNavStyles>
     <ul>
-      {ALL_LINKS.map(({ url, text }) => (
-        <Link href={url} target="_blank" rel="noopener noreferrer">
-          <li>{text}</li>
-        </Link>
+      {ALL_LINKS.map(({ type, url, text }) => (
+        // TODO: replace with Link once in-site
+        <li className={camelCase(text)}>
+          <a
+            className={`${camelCase(text)} ${type}`}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {text}
+          </a>
+        </li>
       ))}
     </ul>
   </SideNavStyles>
