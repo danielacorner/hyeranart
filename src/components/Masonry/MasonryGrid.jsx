@@ -1,15 +1,16 @@
 import React from "react"
 import styled from "styled-components/macro"
 import { NAV_HEIGHT } from "../Carousel/CarouselStyles"
-import AnimatedImage from "./AnimatedImage"
+import AnimatedImage from "../AnimatedImage/AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { useMediaQuery } from "@material-ui/core"
 
-const GRID_GAP = 16 * 5
 const GRID_SIZE = 16
+const GRID_GAP = 16 * 5
 
 const MasonryStyles = styled.div`
   width: 100%;
+  padding-bottom: 2em;
   min-height: calc(100vh - ${NAV_HEIGHT}px);
   .masonry-grid {
     display: grid;
@@ -31,7 +32,7 @@ const MasonryStyles = styled.div`
 const MasonryGridWrapper = ({ imagesDataArr }) => {
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABLET}px)`)
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
-  const gridMultiplier = isTabletOrLarger ? 1 : isMobileOrLarger ? 0.8 : 0.5
+  const gridMultiplier = isTabletOrLarger ? 1 : isMobileOrLarger ? 0.8 : 0.6
 
   const gridSize = GRID_SIZE * gridMultiplier
   const gridGap = GRID_GAP * gridMultiplier
@@ -88,7 +89,7 @@ const MasonryGrid = ({
                 style={{
                   gridColumn: `span ${xSpan}`,
                   gridRow: `span ${ySpan}`, // doesn't work?
-                  marginTop: GRID_GAP,
+                  marginTop: gridGap,
                 }}
               >
                 <AnimatedImage

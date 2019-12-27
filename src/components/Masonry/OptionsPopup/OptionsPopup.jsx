@@ -2,7 +2,7 @@ import React from "react"
 import { useTransition, animated } from "react-spring"
 import styled from "styled-components/macro"
 import { SeeInARoomButton, ZoomButton, CommentsButton } from "./OptionsButtons"
-import { SCALE_ON_HOVER } from "../AnimatedImage"
+import { SCALE_ON_HOVER } from "../../AnimatedImage/AnimatedImage"
 
 const BUTTON_WIDTH = 40
 const BUTTON_MARGIN = 6

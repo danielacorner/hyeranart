@@ -4,20 +4,22 @@ import { BREAKPOINTS } from "../../utils/constants"
 
 const MetadataStyles = styled.div`
   pointer-events: none;
-  margin-top: 0.5em;
-  height: auto;
+  margin-top: 0.25em;
+  height: auto !important;
   .title {
     margin-bottom: 0.25em;
+    line-height: normal;
   }
   .details {
+    line-height: 1em;
     color: hsla(0, 0%, 0%, 0.5);
   }
   .title,
   .details {
-    line-height: normal;
     font-size: 0.5em;
   }
   @media (min-width: ${BREAKPOINTS.MOBILE}px) {
+    margin-top: 0.5em;
     .title,
     .details {
       font-size: 0.6em;
