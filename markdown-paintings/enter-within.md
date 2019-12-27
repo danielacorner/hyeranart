@@ -1,10 +1,11 @@
 ---
 Image: /images/uploads/enterwithin.jpg
 title: Enter Within
-path: enter_within
-width: 24
 height: 18
+width: 24
 depth: 1.5
-date: 2019-11-23T17:51:20.371Z
 price: 2020
+saatchiLink: 'https://www.saatchiart.com/art/Painting-Enter-within/189576/6471211/view'
+date: 2019-11-23T17:51:20.371Z
 ---
+
