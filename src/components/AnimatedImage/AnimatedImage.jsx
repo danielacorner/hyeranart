@@ -4,7 +4,7 @@ import { AnimatedImageContent } from "./AnimatedImageContent"
 import { SpringInOut } from "../Animated/Springs"
 import styled from "styled-components/macro"
 import { Portal } from "@material-ui/core"
-import ButtonsDrawer, { DRAWER_HEIGHT_PX } from "../ButtonsDrawer"
+import { DRAWER_HEIGHT_PX } from "../ButtonsDrawer"
 
 export const SCALE_ON_HOVER = 1.04
 const TILT_DEG = 30
@@ -30,6 +30,34 @@ const ModalWrapperStyles = styled.div`
 `
 const AnimatedImageStyles = styled.div``
 
+const AnimatedImagePortal = props => (
+  <Portal>
+    <ModalWrapperStyles isSelected={props.isSelected}>
+      <SpringInOut
+        in={props.isSelected}
+        widthPx={props.width}
+        heightPx={props.height}
+      >
+        <AnimatedImageContent
+          width={props.width}
+          height={props.height}
+          depthPx={props.depthPx}
+          handleMouseOver={props.handleMouseOver}
+          handleMouseOut={props.handleMouseOut}
+          handleClick={props.handleClick}
+          springOnHover={props.springOnHover}
+          springOpacityWhite={props.springOpacityWhite}
+          springOpacityBlack={props.springOpacityBlack}
+          title={props.title}
+          fluid={props.fluid}
+          metadata={props.metadata}
+          isModalImage={true}
+        />
+      </SpringInOut>
+    </ModalWrapperStyles>
+  </Portal>
+)
+
 const AnimatedImage = ({
   title,
   fluid,
@@ -37,9 +65,8 @@ const AnimatedImage = ({
   heightInches,
   depthInches,
   gridSize,
-  gridGap,
   fullScreenLink,
-  inARoomLink,
+  saatchiLink,
   setSelectedImgMetadata,
   isSelected,
 }) => {
@@ -56,6 +83,7 @@ const AnimatedImage = ({
     depthInches,
     title,
     fullScreenLink,
+    saatchiLink,
     type: "Painting",
   }
   const [isHovered, setIsHovered] = useState(false)
@@ -114,39 +142,33 @@ const AnimatedImage = ({
         width={width}
         height={height}
         depthPx={depthPx}
-        handleMouseOver={handleMouseOver}
-        handleMouseOut={handleMouseOut}
+        handleMouseOver={isSelected ? () => null : handleMouseOver}
+        handleMouseOut={isSelected ? () => null : handleMouseOut}
         handleClick={handleClick}
-        springOnHover={springOnHover}
-        springOpacityWhite={springOpacityWhite}
-        springOpacityBlack={springOpacityBlack}
+        springOnHover={isSelected ? null : springOnHover}
+        springOpacityWhite={isSelected ? { opacity: 0 } : springOpacityWhite}
+        springOpacityBlack={isSelected ? { opacity: 0 } : springOpacityBlack}
         title={title}
         fluid={fluid}
         metadata={metadata}
         isModalImage={false}
       />
       {isSelected && (
-        <Portal>
-          <ModalWrapperStyles isSelected={isSelected}>
-            <SpringInOut in={isSelected} widthPx={width} heightPx={height}>
-              <AnimatedImageContent
-                width={width}
-                height={height}
-                depthPx={depthPx}
-                handleMouseOver={handleMouseOver}
-                handleMouseOut={handleMouseOut}
-                handleClick={handleClick}
-                springOnHover={springOnHover}
-                springOpacityWhite={springOpacityWhite}
-                springOpacityBlack={springOpacityBlack}
-                title={title}
-                fluid={fluid}
-                metadata={metadata}
-                isModalImage={true}
-              />
-            </SpringInOut>
-          </ModalWrapperStyles>
-        </Portal>
+        <AnimatedImagePortal
+          width={width}
+          height={height}
+          depthPx={depthPx}
+          metadata={metadata}
+          handleMouseOver={handleMouseOver}
+          handleMouseOut={handleMouseOut}
+          handleClick={handleClick}
+          springOnHover={springOnHover}
+          springOpacityWhite={springOpacityWhite}
+          springOpacityBlack={springOpacityBlack}
+          title={title}
+          fluid={fluid}
+          isSelected={isSelected}
+        />
       )}
     </AnimatedImageStyles>
   )

@@ -77,7 +77,7 @@ const MasonryGrid = ({
               height,
               depth,
               fluid,
-              // viewInARoomLink, // TODO: link to saatchiart page
+              // TODO: saatchiLink
             },
             idx
           ) => {
@@ -108,7 +108,7 @@ const MasonryGrid = ({
                   widthInches={width * gridMultiplier}
                   heightInches={height * gridMultiplier}
                   fullScreenLink={Image}
-                  inARoomLink={null}
+                  saatchiLink={"#TODO"}
                 />
               </div>
             )
