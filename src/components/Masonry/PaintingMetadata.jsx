@@ -27,6 +27,14 @@ const MetadataStyles = styled.div`
   }
 `
 export default ({ metadata, isLarge }) => {
+  if (!metadata) {
+    return (
+      <MetadataStyles isLarge={isLarge}>
+        <div className="title"></div>
+        <div className="details"></div>
+      </MetadataStyles>
+    )
+  }
   const { heightInches, widthInches, depthInches, title, type } = metadata
   const heightTrimmed = Number(heightInches.toFixed(2))
   const widthTrimmed = Number(widthInches.toFixed(2))

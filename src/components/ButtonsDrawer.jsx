@@ -5,17 +5,22 @@ import SALogo from "./Masonry/OptionsPopup/SALogo"
 import OpenInNewIcon from "@material-ui/icons/OpenInNewRounded"
 import ZoomIcon from "@material-ui/icons/ZoomIn"
 import PaintingMetadata from "./Masonry/PaintingMetadata"
+import { BREAKPOINTS } from "../utils/constants"
 
 export const DRAWER_HEIGHT_PX = 128
 
 const DrawerContentsStyles = styled.div`
-  padding: 0.5em;
+  padding: 0.5em 1em;
   height: ${DRAWER_HEIGHT_PX}px;
   position: relative;
   .buttonsWrapper {
     position: absolute;
     bottom: 8px;
     right: 8px;
+    @media (min-width: ${BREAKPOINTS.MOBILE}px) {
+      bottom: 1em;
+      right: 1em;
+    }
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -37,9 +42,9 @@ const DrawerContentsStyles = styled.div`
   }
 `
 
-const OptionsButtons = ({ saatchiLink, fullPageLink }) => (
+const OptionsButtons = ({ saatchiLink, fullScreenLink }) => (
   <div className="buttonsWrapper">
-    <a href={fullPageLink} target="_blank" rel="noopener noreferrer">
+    <a href={fullScreenLink} target="_blank" rel="noopener noreferrer">
       <Button className="btnOpen" startIcon={<ZoomIcon />} variant="outlined">
         Open Image
       </Button>
@@ -65,17 +70,14 @@ const OptionsButtons = ({ saatchiLink, fullPageLink }) => (
   </div>
 )
 
-export default ({
-  onBackdropClick,
-  open,
-  saatchiLink,
-  fullPageLink,
-  metadata,
-}) => (
+export default ({ onBackdropClick, open, metadata }) => (
   <Drawer anchor="bottom" open={open} ModalProps={{ onBackdropClick }}>
     <DrawerContentsStyles>
       <PaintingMetadata isLarge={true} metadata={metadata} />
-      <OptionsButtons saatchiLink={saatchiLink} fullPageLink={fullPageLink} />
+      <OptionsButtons
+        saatchiLink={metadata && metadata.saatchiLink}
+        fullScreenLink={metadata && metadata.fullScreenLink}
+      />
     </DrawerContentsStyles>
   </Drawer>
 )

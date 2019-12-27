@@ -40,6 +40,8 @@ const AnimatedImage = ({
   gridGap,
   fullScreenLink,
   inARoomLink,
+  setSelectedImgMetadata,
+  isSelected,
 }) => {
   // grid-column: span ${width}
   // grid-row: span ${height}
@@ -53,9 +55,9 @@ const AnimatedImage = ({
     heightInches,
     depthInches,
     title,
+    fullScreenLink,
     type: "Painting",
   }
-  const [isSelected, setIsSelected] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [mousePstn, setMousePstn] = useState([null, null])
   const [rightPct, bottomPct] = mousePstn
@@ -81,13 +83,7 @@ const AnimatedImage = ({
 
   const handleClick = () => {
     if (!isSelected) {
-      setIsSelected(true)
-    }
-  }
-
-  const handleClickAway = () => {
-    if (isSelected) {
-      setIsSelected(false)
+      setSelectedImgMetadata(metadata)
     }
   }
 
@@ -130,7 +126,6 @@ const AnimatedImage = ({
         isModalImage={false}
       />
       {isSelected && (
-        // TODO:
         <Portal>
           <ModalWrapperStyles isSelected={isSelected}>
             <SpringInOut in={isSelected} widthPx={width} heightPx={height}>
@@ -150,13 +145,6 @@ const AnimatedImage = ({
                 isModalImage={true}
               />
             </SpringInOut>
-            <ButtonsDrawer
-              onBackdropClick={handleClickAway}
-              open={isSelected}
-              saatchiLink={"#TODO"}
-              fullPageLink={""}
-              metadata={metadata}
-            />
           </ModalWrapperStyles>
         </Portal>
       )}
