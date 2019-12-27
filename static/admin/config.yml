@@ -45,12 +45,18 @@ collections:
           valueType: int,
         }
       - {
+          name: saatchiLink,
+          label: Link to Saatchi Art,
+          required: false,
+          widget: string,
+        }
+      - {
           name: moreInfo,
           label: More information,
           required: false,
           widget: markdown,
         }
-      - { name: date, label: Date, required: false, widget: datetime }
+      - { name: date, label: Date, required: false, widget: date }
   - name: collection
     label: Collection of Works
     folder: markdown-collections
