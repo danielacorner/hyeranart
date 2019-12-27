@@ -12,15 +12,11 @@ export const useImagesQuery = () => {
               moreInfo
               width
               height
-              path
               date
               Image
               depth
               price
               saatchiLink
-              images {
-                Image
-              }
             }
           }
         }

@@ -63,6 +63,7 @@ collections:
     create: true
     slug: "collection_{{slug}}"
     fields:
+      - { name: title, label: Title }
       - label: Images
         name: images
         widget: list
@@ -74,12 +75,8 @@ collections:
               collection: painting,
               searchFields: [title],
               valueField: title,
-              displayFields: [title, height, width, depth, price],
               default: null,
-              multiple: true,
-              media_library: { config: { multiple: true } },
             }
-      - { name: title, label: Title }
       - { name: date, label: Date, required: false, widget: date }
       - {
           name: saatchiLink,
