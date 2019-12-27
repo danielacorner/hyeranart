@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react"
+import React, { useState } from "react"
 import { useSpring } from "react-spring"
-import { useOnClickOutside } from "../../utils/customHooks"
 import { AnimatedImageContent } from "./AnimatedImageContent"
 import { SpringInOut } from "../Animated/Springs"
 import styled from "styled-components/macro"
 import { Portal } from "@material-ui/core"
+import ButtonsDrawer, { DRAWER_HEIGHT_PX } from "../ButtonsDrawer"
 
 export const SCALE_ON_HOVER = 1.04
 const TILT_DEG = 30
@@ -17,14 +17,16 @@ const ModalWrapperStyles = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  height: 100vh;
+  height: calc(100vh - ${DRAWER_HEIGHT_PX}px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  place-items: center;
+  align-items: center;
   transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-  pointer-events: ${props => (props.in ? "auto" : "none")};
-  background: ${props => (props.in ? "hsla(0,0%,0%,0.3)" : "none")};
+  pointer-events: none;
+  .springUpDownWrapper {
+    pointer-events: ${props => (props.isSelected ? "auto" : "none")};
+  }
 `
 const AnimatedImageStyles = styled.div``
 
@@ -89,9 +91,6 @@ const AnimatedImage = ({
     }
   }
 
-  const clickOutsideRef = useRef()
-  useOnClickOutside(clickOutsideRef, handleClickAway)
-
   const springOnHover = useSpring({
     transform: `translateZ(${depthPx}px) translateY(${
       isHovered ? -4 : 0
@@ -116,7 +115,6 @@ const AnimatedImage = ({
   return (
     <AnimatedImageStyles>
       <AnimatedImageContent
-        clickOutsideRef={clickOutsideRef}
         width={width}
         height={height}
         depthPx={depthPx}
@@ -128,39 +126,40 @@ const AnimatedImage = ({
         springOpacityBlack={springOpacityBlack}
         title={title}
         fluid={fluid}
-        isSelected={isSelected}
-        gridGap={gridGap}
-        fullScreenLink={fullScreenLink}
-        inARoomLink={inARoomLink}
         metadata={metadata}
         isModalImage={false}
       />
-      <Portal>
-        <ModalWrapperStyles in={isSelected}>
-          <SpringInOut in={isSelected} widthPx={width} heightPx={height}>
-            <AnimatedImageContent
-              clickOutsideRef={clickOutsideRef}
-              width={width}
-              height={height}
-              depthPx={depthPx}
-              handleMouseOver={handleMouseOver}
-              handleMouseOut={handleMouseOut}
-              handleClick={handleClick}
-              springOnHover={springOnHover}
-              springOpacityWhite={springOpacityWhite}
-              springOpacityBlack={springOpacityBlack}
-              title={title}
-              fluid={fluid}
-              isSelected={isSelected}
-              gridGap={gridGap}
-              fullScreenLink={fullScreenLink}
-              inARoomLink={inARoomLink}
+      {isSelected && (
+        // TODO:
+        <Portal>
+          <ModalWrapperStyles isSelected={isSelected}>
+            <SpringInOut in={isSelected} widthPx={width} heightPx={height}>
+              <AnimatedImageContent
+                width={width}
+                height={height}
+                depthPx={depthPx}
+                handleMouseOver={handleMouseOver}
+                handleMouseOut={handleMouseOut}
+                handleClick={handleClick}
+                springOnHover={springOnHover}
+                springOpacityWhite={springOpacityWhite}
+                springOpacityBlack={springOpacityBlack}
+                title={title}
+                fluid={fluid}
+                metadata={metadata}
+                isModalImage={true}
+              />
+            </SpringInOut>
+            <ButtonsDrawer
+              onBackdropClick={handleClickAway}
+              open={isSelected}
+              saatchiLink={"#TODO"}
+              fullPageLink={""}
               metadata={metadata}
-              isModalImage={true}
             />
-          </SpringInOut>
-        </ModalWrapperStyles>
-      </Portal>
+          </ModalWrapperStyles>
+        </Portal>
+      )}
     </AnimatedImageStyles>
   )
 }

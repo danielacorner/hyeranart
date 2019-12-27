@@ -3,7 +3,6 @@ import Img from "gatsby-image"
 import { animated } from "react-spring"
 import styled from "styled-components/macro"
 import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
-import OptionsPopup from "../Masonry/OptionsPopup/OptionsPopup"
 import PaintingMetadata from "../Masonry/PaintingMetadata"
 
 const ImgWrapperStyles = styled.div`
@@ -16,8 +15,6 @@ const ImgWrapperStyles = styled.div`
 `
 
 export const AnimatedImageContent = ({
-  gridGap,
-  isSelected,
   handleMouseOut,
   handleMouseOver,
   springOnHover,
@@ -29,28 +26,15 @@ export const AnimatedImageContent = ({
   height,
   depthPx,
   handleClick,
-  clickOutsideRef,
-  fullScreenLink,
-  inARoomLink,
   metadata,
   isModalImage,
 }) => (
   <div
     onClick={handleClick}
-    ref={clickOutsideRef}
     style={{
       position: "relative",
     }}
   >
-    {/* TODO: Zoomed-in Modal with full-screen + Saatchi buttons */}
-    {/* <OptionsPopup
-      fullScreenLink={fullScreenLink}
-      inARoomLink={inARoomLink}
-      isSelected={isSelected}
-      title={title}
-      gridGap={gridGap}
-      height={height}
-    /> */}
     <Scene3DCanvasStyles className="scene" thicknessPx={depthPx}>
       <animated.div
         className="cube"

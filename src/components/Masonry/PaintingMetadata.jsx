@@ -16,23 +16,23 @@ const MetadataStyles = styled.div`
   }
   .title,
   .details {
-    font-size: 0.5em;
+    font-size: ${props => (props.isLarge ? 2 : 1) * 0.5}em;
   }
   @media (min-width: ${BREAKPOINTS.MOBILE}px) {
     margin-top: 0.5em;
     .title,
     .details {
-      font-size: 0.6em;
+      font-size: ${props => (props.isLarge ? 2 : 1) * 0.6}em;
     }
   }
 `
-export default ({ metadata }) => {
+export default ({ metadata, isLarge }) => {
   const { heightInches, widthInches, depthInches, title, type } = metadata
   const heightTrimmed = Number(heightInches.toFixed(2))
   const widthTrimmed = Number(widthInches.toFixed(2))
   const depthTrimmed = Number(depthInches.toFixed(2))
   return (
-    <MetadataStyles>
+    <MetadataStyles isLarge={isLarge}>
       <div className="title">{title}</div>
       <div className="details">
         {type}, {heightTrimmed} H x {widthTrimmed} W x {depthTrimmed} in

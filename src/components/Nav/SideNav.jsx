@@ -154,7 +154,7 @@ export default () => (
     <LinksUlStyles>
       {ALL_LINKS.map(({ type, url, text }) => (
         // TODO: replace with Link once in-site
-        <li className={camelCase(text)}>
+        <li key={url} className={camelCase(text)}>
           <a
             className={`${camelCase(text)} ${type}`}
             href={url}
