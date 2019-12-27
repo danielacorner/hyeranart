@@ -17,6 +17,9 @@ export const useImagesQuery = () => {
               depth
               price
               saatchiLink
+              images {
+                Image
+              }
             }
           }
         }
@@ -59,6 +62,7 @@ export const useImagesQuery = () => {
   // split into collections vs images
   const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))
 
+  // TODO: need to add imagesData to images of collectionsData?
   const collectionsDataArr = allImagesDataArr.filter(d => Boolean(d.images))
 
   return { imagesDataArr, collectionsDataArr, imagesArr }

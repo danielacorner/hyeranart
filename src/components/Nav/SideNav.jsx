@@ -158,6 +158,7 @@ export default () => {
     url: `collections/${kebabCase(collection.title)}`,
     images: collection.images,
   }))
+  console.log("🌟🚨: COLLECTION_LINKS_ARR", COLLECTION_LINKS_ARR)
   return (
     <SideNavStyles>
       <LinksUlStyles>
