@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components/macro"
-import { camelCase } from "lodash"
+import { camelCase, kebabCase } from "lodash"
+import { useImagesQuery } from "../queries"
 
 // export const HOVER_UNDERLINE_LI_CSS = `
 //     width: fit-content;
@@ -149,22 +150,31 @@ export const COLLECTION_LINKS = [
 
 const ALL_LINKS = [...SECTION_LINKS, ...COLLECTION_LINKS]
 
-export default () => (
-  <SideNavStyles>
-    <LinksUlStyles>
-      {ALL_LINKS.map(({ type, url, text }) => (
-        // TODO: replace with Link once in-site
-        <li key={url} className={camelCase(text)}>
-          <a
-            className={`${camelCase(text)} ${type}`}
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {text}
-          </a>
-        </li>
-      ))}
-    </LinksUlStyles>
-  </SideNavStyles>
-)
+export default () => {
+  const { collectionsDataArr } = useImagesQuery()
+  const COLLECTION_LINKS_ARR = collectionsDataArr.map(collection => ({
+    type: "collection",
+    text: collection.title,
+    url: `collections/${kebabCase(collection.title)}`,
+    images: collection.images,
+  }))
+  return (
+    <SideNavStyles>
+      <LinksUlStyles>
+        {[...ALL_LINKS, ...COLLECTION_LINKS_ARR].map(({ type, url, text }) => (
+          // TODO: replace with Link once in-site
+          <li key={url} className={camelCase(text)}>
+            <a
+              className={`${camelCase(text)} ${type}`}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {text}
+            </a>
+          </li>
+        ))}
+      </LinksUlStyles>
+    </SideNavStyles>
+  )
+}

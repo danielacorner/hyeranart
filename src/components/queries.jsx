@@ -9,12 +9,18 @@ export const useImagesQuery = () => {
             id
             frontmatter {
               title
-              path
-              date
+              moreInfo
               width
               height
-              depth
+              path
+              date
               Image
+              depth
+              price
+              saatchiLink
+              images {
+                Image
+              }
             }
           }
         }
@@ -56,7 +62,8 @@ export const useImagesQuery = () => {
 
   // split into collections vs images
   const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))
-  const collectionsDataArr = allImagesDataArr.filter(d => !Boolean(d.fluid))
+
+  const collectionsDataArr = allImagesDataArr.filter(d => Boolean(d.images))
 
   return { imagesDataArr, collectionsDataArr, imagesArr }
 }

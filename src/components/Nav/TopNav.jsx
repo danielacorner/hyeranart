@@ -102,6 +102,7 @@ export default () => {
           <div className="linksContainer">
             <LinksUlStyles className="sectionLinks">
               {SECTION_LINKS.map(({ type, url, text }) => (
+                // TODO: replace with data from admin page
                 // TODO: replace with Link once in-site
                 <li key={url} className={camelCase(text)}>
                   <a

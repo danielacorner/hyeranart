@@ -70,37 +70,15 @@ collections:
           - {
               name: Image,
               label: Image,
-              widget: image,
+              widget: relation,
+              collection: painting,
+              searchFields: [title],
+              valueField: title,
+              displayFields: [title, height, width, depth, price],
               default: null,
-              allow_multiple: true,
+              multiple: true,
               media_library: { config: { multiple: true } },
             }
-          - {
-              name: height,
-              label: Height (inches),
-              widget: number,
-              valueType: float,
-            }
-          - {
-              name: width,
-              label: Width (inches),
-              widget: number,
-              valueType: float,
-            }
-          - {
-              name: depth,
-              label: Depth (inches),
-              widget: number,
-              valueType: float,
-            }
-          - { name: price, label: Price ($), required: false, widget: number }
-          - {
-              name: saatchiLink,
-              label: Link to Saatchi Art,
-              required: false,
-              widget: string,
-            }
-          - { name: date, label: Date, required: false, widget: date }
       - { name: title, label: Title }
       - { name: date, label: Date, required: false, widget: date }
       - {

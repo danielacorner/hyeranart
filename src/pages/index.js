@@ -3,7 +3,6 @@ import React from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
-import { useStaticQuery, graphql } from "gatsby"
 import SideNav from "../components/Nav/SideNav"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
@@ -43,19 +42,6 @@ const HomePageStyles = styled.div`
 `
 
 export default () => {
-  const allDirectoriesData = useStaticQuery(graphql`
-    query RecipePageByID {
-      allDirectory {
-        edges {
-          node {
-            id
-            relativePath
-          }
-        }
-      }
-    }
-  `)
-
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABTOP}px)`)
   const { imagesDataArr } = useImagesQuery()
   const [currentPageIdx, setCurrentPageIdx] = useState(0)
