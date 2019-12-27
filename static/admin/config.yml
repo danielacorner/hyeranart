@@ -88,9 +88,21 @@ collections:
               valueType: float,
             }
           - { name: price, label: Price ($), required: false, widget: number }
-          - { name: date, label: Date, required: false, widget: datetime }
+          - {
+              name: saatchiLink,
+              label: Link to Saatchi Art,
+              required: false,
+              widget: string,
+            }
+          - { name: date, label: Date, required: false, widget: date }
       - { name: title, label: Title }
-      - { name: date, label: Date, required: false, widget: datetime }
+      - { name: date, label: Date, required: false, widget: date }
+      - {
+          name: saatchiLink,
+          label: Link to Saatchi Art,
+          required: false,
+          widget: string,
+        }
       - {
           name: moreInfo,
           label: More information,

@@ -77,7 +77,7 @@ const MasonryGrid = ({
               height,
               depth,
               fluid,
-              // TODO: saatchiLink
+              saatchiLink,
             },
             idx
           ) => {
@@ -108,7 +108,7 @@ const MasonryGrid = ({
                   widthInches={width * gridMultiplier}
                   heightInches={height * gridMultiplier}
                   fullScreenLink={Image}
-                  saatchiLink={"#TODO"}
+                  saatchiLink={saatchiLink}
                 />
               </div>
             )
