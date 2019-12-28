@@ -9,16 +9,19 @@ const CollectionStyles = styled.div`
   padding-left: 70px;
   h1 {
     font-size: 24px;
+    margin-bottom: -40px;
     font-weight: normal;
     font-family: "Carme", sans-serif;
+  }
+  .masonryWrapper {
+    padding-bottom: 140px;
+    margin-left: -36px;
   }
 `
 
 export default function Template({ pageContext }) {
   const { images, title, moreInfo, saatchiLink } = pageContext
   const { imagesDataArr } = useImagesQuery()
-  console.log("🌟🚨: Template -> imagesDataArr", imagesDataArr)
-  console.log("🌟🚨: Template -> images", images)
   const imageTitlesArr = images.map(img => img.Image)
   const imagesDataArrForCollection = imagesDataArr.filter(image =>
     imageTitlesArr.includes(image.title)
@@ -28,7 +31,9 @@ export default function Template({ pageContext }) {
       <CollectionStyles>
         <div className="blog-post">
           <h1>{title}</h1>
-          <MasonryGrid imagesDataArr={imagesDataArrForCollection} />
+          <div className="masonryWrapper">
+            <MasonryGrid imagesDataArr={imagesDataArrForCollection} />
+          </div>
           <div
             className="blog-post-content"
             dangerouslySetInnerHTML={{ __html: moreInfo }}

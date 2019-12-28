@@ -45,7 +45,15 @@ const DrawerContentsStyles = styled.div`
 const OptionsButtons = ({ saatchiLink, fullScreenLink }) => (
   <div className="buttonsWrapper">
     <a href={fullScreenLink} target="_blank" rel="noopener noreferrer">
-      <Button className="btnOpen" startIcon={<ZoomIcon />} variant="outlined">
+      <Button
+        className="btnOpen"
+        startIcon={
+          <div style={{ width: 24, height: 24, transform: "translateY(-1px)" }}>
+            <ZoomIcon />
+          </div>
+        }
+        variant="outlined"
+      >
         Open Image
       </Button>
     </a>
@@ -57,14 +65,9 @@ const OptionsButtons = ({ saatchiLink, fullScreenLink }) => (
             <SALogo />
           </div>
         }
-        endIcon={
-          <div style={{ width: 24, height: 24, transform: "scale(0.7)" }}>
-            <OpenInNewIcon />
-          </div>
-        }
         variant="outlined"
       >
-        Saatchi Art
+        View on Saatchi Art
       </Button>
     </a>
   </div>
