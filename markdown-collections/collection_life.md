@@ -6,7 +6,7 @@ images:
   - Image: One Step at a Time
   - Image: Departure
   - Image: Kiss
-date: 2019-12-28T19:02:53.860Z
+date: 2017-09-01T18:02:53.860Z
 saatchiLink: >-
   https://www.saatchiart.com/art-collection/Abstract-Figurative-Paintings-featured/189576/224497/view
 moreInfo: >-
