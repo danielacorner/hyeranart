@@ -62,8 +62,13 @@ export const useImagesQuery = () => {
   // split into collections vs images
   const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))
 
-  // TODO: need to add imagesData to images of collectionsData?
-  const collectionsDataArr = allImagesDataArr.filter(d => Boolean(d.images))
+  const collectionsDataArr = allImagesDataArr
+    .filter(d => Boolean(d.images))
+    // sort by date, most recent first
+    .sort(
+      (prev, next) =>
+        new Date(next.date).getTime() - new Date(prev.date).getTime()
+    )
 
   return { imagesDataArr, collectionsDataArr, imagesArr }
 }

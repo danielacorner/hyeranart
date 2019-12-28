@@ -128,6 +128,7 @@ const ALL_LINKS = [...SECTION_LINKS, ...COLLECTION_LINKS]
 
 export default () => {
   const { collectionsDataArr } = useImagesQuery()
+  console.log("🌟🚨: collectionsDataArr", collectionsDataArr)
   const COLLECTION_LINKS_ARR = collectionsDataArr.map(collection => ({
     type: "collection",
     text: collection.title,
