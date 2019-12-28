@@ -44,17 +44,18 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     // for collections (nodes with multiple images), create pages
     if (Boolean(node.frontmatter.images)) {
       console.log(
-        "🌟🚨: exports.createPages -> node.frontmatter.title",
-        kebabCase(node.frontmatter.title)
+        "🌟🚨: exports.createPages -> node.frontmatter",
+        node.frontmatter
       )
+      const { saatchiLink, moreInfo, images, title } = node.frontmatter
       createPage({
         path: `/collections/${kebabCase(node.frontmatter.title)}`,
         component: collectionPageTemplate,
         context: {
-          title: node.frontmatter.title,
-          images: node.frontmatter.images,
-          saatchiLink: node.frontmatter.saatchiLink,
-          moreInfo: node.frontmatter.moreInfo,
+          title,
+          images,
+          saatchiLink,
+          moreInfo,
         }, // additional data can be passed via context
       })
     }

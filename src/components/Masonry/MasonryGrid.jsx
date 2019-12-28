@@ -31,6 +31,7 @@ const MasonryStyles = styled.div`
 `
 
 const MasonryGridWrapper = ({ imagesDataArr }) => {
+  console.log("🌟🚨: MasonryGridWrapper -> imagesDataArr", imagesDataArr)
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABLET}px)`)
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const gridMultiplier = isTabletOrLarger ? 1 : isMobileOrLarger ? 0.8 : 0.6

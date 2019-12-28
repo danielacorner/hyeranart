@@ -1,7 +1,8 @@
 import React from "react"
 import styled from "styled-components/macro"
 import { camelCase, kebabCase } from "lodash"
-import { useImagesQuery } from "../queries"
+import { useImagesQuery } from "../../utils/queries"
+import { Link } from "gatsby"
 
 // export const HOVER_UNDERLINE_LI_CSS = `
 //     width: fit-content;
@@ -74,6 +75,11 @@ const SideNavStyles = styled.div`
 `
 
 export const SECTION_LINKS = [
+  {
+    type: "section",
+    text: "Home",
+    url: "/",
+  },
   {
     type: "section",
     text: "saatchiart",
@@ -165,14 +171,14 @@ export default () => {
         {[...ALL_LINKS, ...COLLECTION_LINKS_ARR].map(({ type, url, text }) => (
           // TODO: replace with Link once in-site
           <li key={url} className={camelCase(text)}>
-            <a
+            <Link
               className={`${camelCase(text)} ${type}`}
-              href={url}
+              to={url}
               target="_blank"
               rel="noopener noreferrer"
             >
               {text}
-            </a>
+            </Link>
           </li>
         ))}
       </LinksUlStyles>

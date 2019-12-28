@@ -8,6 +8,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
+import SideNav from "../components/Nav/SideNav"
+import { useMediaQuery } from "@material-ui/core"
+import { BREAKPOINTS } from "../utils/constants"
+import TopNav from "../components/Nav/TopNav"
 
 import "./layout.css"
 
@@ -23,13 +27,18 @@ const Layout = ({ children }) => {
     }
   `)
 
+  const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABTOP}px)`)
+
   return (
     <>
       <div
         style={{
           margin: `0 auto`,
+          display: "flex",
         }}
       >
+        {isTabletOrLarger ? <SideNav /> : <TopNav />}
+
         <main>{children}</main>
       </div>
     </>
