@@ -7,11 +7,14 @@ import { useImagesQuery } from "../utils/queries"
 const CollectionStyles = styled.div`
   padding-top: 70px;
   padding-left: 70px;
-  h1 {
-    font-size: 24px;
+  .description {
+    padding-right: 70px;
     margin-bottom: -40px;
-    font-weight: normal;
-    font-family: "Carme", sans-serif;
+    h1 {
+      font-size: 24px;
+      font-weight: normal;
+      font-family: "Carme", sans-serif;
+    }
   }
   .masonryWrapper {
     padding-bottom: 140px;
@@ -30,15 +33,15 @@ export default function Template({ pageContext }) {
   return (
     <Layout>
       <CollectionStyles>
-        <div className="blog-post">
+        <div className="description">
           <h1>{title}</h1>
           <div
             className="collectionInfo"
             dangerouslySetInnerHTML={{ __html: moreInfo }}
           />
-          <div className="masonryWrapper">
-            <MasonryGrid imagesDataArr={imagesDataArrForCollection} />
-          </div>
+        </div>
+        <div className="masonryWrapper">
+          <MasonryGrid imagesDataArr={imagesDataArrForCollection} />
         </div>
       </CollectionStyles>
     </Layout>
