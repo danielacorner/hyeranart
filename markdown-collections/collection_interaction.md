@@ -13,7 +13,7 @@ images:
   - Image: Tenth Interaction
   - Image: Eleventh Interaction
   - Image: Fourteenth Interaction
-date: 2019-12-28T19:34:08.793Z
+date: 2015-01-01T19:34:08.793Z
 saatchiLink: >-
   https://www.saatchiart.com/art-collection/Interaction-featured/189576/219786/view
 moreInfo: >-
