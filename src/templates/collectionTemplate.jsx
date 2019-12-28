@@ -21,6 +21,7 @@ const CollectionStyles = styled.div`
 
 export default function Template({ pageContext }) {
   const { images, title, moreInfo, saatchiLink } = pageContext
+  console.log(moreInfo)
   const { imagesDataArr } = useImagesQuery()
   const imageTitlesArr = images.map(img => img.Image)
   const imagesDataArrForCollection = imagesDataArr.filter(image =>
@@ -31,13 +32,13 @@ export default function Template({ pageContext }) {
       <CollectionStyles>
         <div className="blog-post">
           <h1>{title}</h1>
+          <div
+            className="collectionInfo"
+            dangerouslySetInnerHTML={{ __html: moreInfo }}
+          />
           <div className="masonryWrapper">
             <MasonryGrid imagesDataArr={imagesDataArrForCollection} />
           </div>
-          <div
-            className="blog-post-content"
-            dangerouslySetInnerHTML={{ __html: moreInfo }}
-          />
         </div>
       </CollectionStyles>
     </Layout>

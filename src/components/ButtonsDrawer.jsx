@@ -57,19 +57,21 @@ const OptionsButtons = ({ saatchiLink, fullScreenLink }) => (
         Open Image
       </Button>
     </a>
-    <a href={saatchiLink} target="_blank" rel="noopener noreferrer">
-      <Button
-        className="btnSaatchi"
-        startIcon={
-          <div style={{ width: 24, height: 24, transform: "scale(1.5)" }}>
-            <SALogo />
-          </div>
-        }
-        variant="outlined"
-      >
-        View on Saatchi Art
-      </Button>
-    </a>
+    {saatchiLink && (
+      <a href={saatchiLink} target="_blank" rel="noopener noreferrer">
+        <Button
+          className="btnSaatchi"
+          startIcon={
+            <div style={{ width: 24, height: 24, transform: "scale(1.5)" }}>
+              <SALogo />
+            </div>
+          }
+          variant="outlined"
+        >
+          View on Saatchi Art
+        </Button>
+      </a>
+    )}
   </div>
 )
 

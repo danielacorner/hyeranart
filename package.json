@@ -29,6 +29,8 @@
     "react-swipeable-views": "^0.13.3",
     "react-tilt": "^0.1.4",
     "react-vanilla-tilt": "^1.0.0",
+    "remark": "^11.0.2",
+    "remark-html": "^10.0.0",
     "styled-components": "^4.4.0"
   },
   "devDependencies": {

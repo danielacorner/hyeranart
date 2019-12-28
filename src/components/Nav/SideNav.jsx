@@ -94,22 +94,6 @@ export const SECTION_LINKS = [
   { type: "section", text: "Contact", url: "https://hyeran.ca/Contact" },
 ]
 export const COLLECTION_LINKS = [
-  { type: "collection", text: "Life", url: "https://hyeran.ca/Life" },
-  {
-    type: "collection",
-    text: "Be Yourself",
-    url: "https://hyeran.ca/Be-Yourself",
-  },
-  {
-    type: "collection",
-    text: "Self Portrait",
-    url: "https://hyeran.ca/Self-Portrait",
-  },
-  {
-    type: "collection",
-    text: "Interaction",
-    url: "https://hyeran.ca/Interaction",
-  },
   { type: "collection", text: "In-Flux", url: "https://hyeran.ca/In-Flux" },
   {
     type: "collection",

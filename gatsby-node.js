@@ -61,3 +61,21 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
   })
 }
+
+// convert markdown to html (e.g. moreInfo section)
+const remark = require("remark")
+const remarkHTML = require("remark-html")
+
+exports.onCreateNode = ({ node }) => {
+  if (!node.frontmatter) {
+    return node
+  }
+  const markdown = node.frontmatter.moreInfo
+  if (markdown) {
+    node.frontmatter.moreInfo = remark()
+      .use(remarkHTML)
+      .processSync(markdown)
+      .toString()
+  }
+  return node
+}
