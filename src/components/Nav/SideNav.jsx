@@ -94,36 +94,6 @@ export const SECTION_LINKS = [
   { type: "section", text: "Contact", url: "https://hyeran.ca/Contact" },
 ]
 export const COLLECTION_LINKS = [
-  {
-    type: "collection",
-    text: "Coexistence III",
-    url: "https://hyeran.ca/Coexistence-III",
-  },
-  {
-    type: "collection",
-    text: "Coexistence II",
-    url: "https://hyeran.ca/Coexistence-II-1",
-  },
-  {
-    type: "collection",
-    text: "Coexistence I",
-    url: "https://hyeran.ca/Coexistence-I",
-  },
-  {
-    type: "collection",
-    text: "Correlation III",
-    url: "https://hyeran.ca/Correlation-III",
-  },
-  {
-    type: "collection",
-    text: "Correlation II",
-    url: "https://hyeran.ca/Correlation-II",
-  },
-  {
-    type: "collection",
-    text: "Correlation I",
-    url: "https://hyeran.ca/Correlation-I",
-  },
   { type: "collection", text: "Life", url: "https://hyeran.ca/Life" },
   {
     type: "collection",
