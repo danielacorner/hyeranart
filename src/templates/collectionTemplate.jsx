@@ -57,7 +57,7 @@ export default function Template({ pageContext }) {
               saatchiLink={saatchiLink}
               style={{
                 transform: "scale(0.8)",
-                transformOrigin: "top left",
+                transformOrigin: `top ${isMobileOrLarger ? "right" : "left"}`,
                 ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
               }}
             />
