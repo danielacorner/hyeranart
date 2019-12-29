@@ -7,6 +7,10 @@ images:
   - Image: 45th Correlation
   - Image: Coexistence 11-II
   - Image: 'Coexistence 10, Triptych'
+  - Image: Coexistence 12
+  - Image: 'Nineteenth Correlation, Diptych'
+  - Image: 43rd Correlation
+  - Image: Coexistence 11-I
 date: 2011-01-02T01:22:13.384Z
 moreInfo: >-
   ![The Other Art Fair Brooklyn](/images/uploads/bklyn.jpg)
