@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components/macro"
 
 import { IconButton } from "@material-ui/core"
@@ -8,13 +8,13 @@ import MobileStepper from "@material-ui/core/MobileStepper"
 const PaginationStyles = styled.div`
   display: flex;
   justify-content: center;
-  height: 96px;
-  margin-bottom: 2em;
+  height: 82px;
   position: relative;
+  margin-bottom: 3em;
   .paginationContent {
     font-family: system-ui;
     width: fit-content;
-    margin: 3em auto;
+    margin: auto;
     display: flex;
     align-items: center;
     .currentPageInfo {
@@ -33,9 +33,17 @@ const PaginationStyles = styled.div`
       }
     }
   }
+  .MuiMobileStepper-root {
+    background: none;
+  }
+  .MuiMobileStepper-dot {
+    cursor: pointer;
+    margin: 0 3px;
+  }
 `
 
 export default ({
+  setCurrentPageIdx,
   currentPageIdx,
   handlePrev,
   firstItemNum,
@@ -43,26 +51,45 @@ export default ({
   numItems,
   numPages,
   handleNext,
-}) => (
-  <PaginationStyles className="paginationWrapper">
-    <div className="paginationContent">
-      <div className="stepperWrapper">
-        <MobileStepper
-          variant="dots"
-          steps={numPages}
-          position="static"
-          activeStep={currentPageIdx}
-        />
+}) => {
+  useEffect(() => {
+    document
+      .querySelectorAll(".MuiMobileStepper-dot")
+      .forEach((stepper, idx) =>
+        stepper.addEventListener("click", () => setCurrentPageIdx(idx))
+      )
+
+    return () => {
+      document
+        .querySelectorAll(".MuiMobileStepper-dot")
+        .forEach((stepper, idx) =>
+          stepper.removeEventListener("click", () => setCurrentPageIdx(idx))
+        )
+    }
+  }, [])
+  return (
+    <PaginationStyles className="paginationWrapper">
+      <div className="paginationContent">
+        <div className="stepperWrapper">
+          <MobileStepper
+            variant="dots"
+            steps={numPages}
+            position="static"
+            activeStep={currentPageIdx}
+          />
+        </div>
+        <IconButton disabled={currentPageIdx <= 0} onClick={handlePrev}>
+          <ForwardIcon
+            style={{ transform: "rotate(180deg) translateX(2px)" }}
+          />
+        </IconButton>
+        <div className="currentPageInfo">
+          {firstItemNum} - {Math.min(lastItemNum, numItems)} of {numItems}
+        </div>
+        <IconButton disabled={lastItemNum >= numItems} onClick={handleNext}>
+          <ForwardIcon />
+        </IconButton>
       </div>
-      <IconButton disabled={currentPageIdx <= 0} onClick={handlePrev}>
-        <ForwardIcon style={{ transform: "rotate(180deg) translateX(2px)" }} />
-      </IconButton>
-      <div className="currentPageInfo">
-        {firstItemNum} - {Math.min(lastItemNum, numItems)} of {numItems}
-      </div>
-      <IconButton disabled={lastItemNum >= numItems} onClick={handleNext}>
-        <ForwardIcon />
-      </IconButton>
-    </div>
-  </PaginationStyles>
-)
+    </PaginationStyles>
+  )
+}

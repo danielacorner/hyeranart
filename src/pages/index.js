@@ -25,10 +25,14 @@ const HomePageStyles = styled.div`
   }
 `
 
+// TODO: adjustable NUM_PER_PAGE?
+const NUM_PER_PAGE = 6
+
 export default () => {
   const { imagesDataArr } = useImagesQuery()
+  // TODO: consider performance using react-swipeable-views-utils virtualization
+  // https://react-swipeable-views.com/demos/demos/
   const [currentPageIdx, setCurrentPageIdx] = useState(0)
-  const NUM_PER_PAGE = 6
 
   const imageSpreads = imagesDataArr.reduce((acc, image, idx) => {
     const idxInSpreads = Math.floor(idx / NUM_PER_PAGE)
@@ -46,9 +50,12 @@ export default () => {
   const lastItemNum = firstItemNum + NUM_PER_PAGE
   const numItems = imagesDataArr.length
   const numPages = Math.ceil(numItems / NUM_PER_PAGE)
-  const slidesArr = [...Array(numPages)]
+  const allPagesNums = [...Array(numPages).keys()]
 
   const handleChangeIndex = index => setCurrentPageIdx(index)
+  const handleFilterToNearestSlides = () => {
+    // when we switch slides, "virtualize" so that only the nearest three slides are rendered
+  }
   return (
     <Layout>
       <HomePageStyles>
@@ -58,14 +65,16 @@ export default () => {
           index={currentPageIdx}
           onChangeIndex={handleChangeIndex}
           enableMouseEvents={true}
+          onTransitionEnd={handleFilterToNearestSlides}
         >
-          {slidesArr.map((_, idx) => (
+          {allPagesNums.map(idx => (
             <div key={idx} className={`swipeable-slide slide-${idx}`}>
               <MasonryGrid imagesDataArr={imageSpreads[idx]} />
             </div>
           ))}
         </SwipeableViews>
         <Pagination
+          setCurrentPageIdx={setCurrentPageIdx}
           currentPageIdx={currentPageIdx}
           handlePrev={handlePrev}
           firstItemNum={firstItemNum}

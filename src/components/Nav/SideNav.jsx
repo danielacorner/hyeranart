@@ -112,14 +112,12 @@ const ALL_LINKS = [...SECTION_LINKS, ...COLLECTION_LINKS]
 
 export default () => {
   const { collectionsDataArr } = useImagesQuery()
-  console.log("🌟🚨: collectionsDataArr", collectionsDataArr)
   const COLLECTION_LINKS_ARR = collectionsDataArr.map(collection => ({
     type: "collection",
     text: collection.title,
     url: `collections/${kebabCase(collection.title)}`,
     images: collection.images,
   }))
-  console.log("🌟🚨: COLLECTION_LINKS_ARR", COLLECTION_LINKS_ARR)
   return (
     <SideNavStyles>
       <LinksUlStyles>
