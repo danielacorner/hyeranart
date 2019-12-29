@@ -66,7 +66,7 @@ export default ({
           stepper.removeEventListener("click", () => setCurrentPageIdx(idx))
         )
     }
-  }, [])
+  }, [setCurrentPageIdx])
   return (
     <PaginationStyles className="paginationWrapper">
       <div className="paginationContent">

@@ -2,7 +2,6 @@ import React from "react"
 import { Drawer, Button } from "@material-ui/core"
 import styled from "styled-components/macro"
 import SALogo from "./Masonry/OptionsPopup/SALogo"
-import OpenInNewIcon from "@material-ui/icons/OpenInNewRounded"
 import ZoomIcon from "@material-ui/icons/ZoomIn"
 import PaintingMetadata from "./Masonry/PaintingMetadata"
 import { BREAKPOINTS } from "../utils/constants"
@@ -36,10 +35,6 @@ const DrawerContentsStyles = styled.div`
   .btnSaatchi {
     margin-left: 12px;
   }
-  .MuiButton-endIcon {
-    margin-left: 2px;
-    margin-right: -8px;
-  }
 `
 
 const OptionsButtons = ({ saatchiLink, fullScreenLink }) => (
@@ -57,23 +52,33 @@ const OptionsButtons = ({ saatchiLink, fullScreenLink }) => (
         Open Image
       </Button>
     </a>
-    {saatchiLink && (
-      <a href={saatchiLink} target="_blank" rel="noopener noreferrer">
-        <Button
-          className="btnSaatchi"
-          startIcon={
-            <div style={{ width: 24, height: 24, transform: "scale(1.5)" }}>
-              <SALogo />
-            </div>
-          }
-          variant="outlined"
-        >
-          View on Saatchi Art
-        </Button>
-      </a>
-    )}
+    {saatchiLink && <SaatchiButton saatchiLink={saatchiLink} />}
   </div>
 )
+
+export function SaatchiButton({ saatchiLink, style = {} }) {
+  return (
+    <a
+      style={{ textDecoration: "none", ...style }}
+      href={saatchiLink}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Button
+        style={{ textTransform: "none" }}
+        className="btnSaatchi"
+        startIcon={
+          <div style={{ width: 24, height: 24, transform: "scale(1.5)" }}>
+            <SALogo />
+          </div>
+        }
+        variant="outlined"
+      >
+        View on Saatchi Art
+      </Button>
+    </a>
+  )
+}
 
 export default ({ onBackdropClick, open, metadata }) => (
   <Drawer anchor="bottom" open={open} ModalProps={{ onBackdropClick }}>

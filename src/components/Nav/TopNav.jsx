@@ -1,13 +1,14 @@
 import React, { useState, useRef } from "react"
 import styled from "styled-components/macro"
 import { BREAKPOINTS } from "../../utils/constants"
-import { SECTION_LINKS, COLLECTION_LINKS, LinksUlStyles } from "./SideNav"
+import { SECTION_LINKS, LinksUlStyles, NavLink } from "./SideNav"
 import MenuIcon from "@material-ui/icons/Menu"
 import CloseIcon from "@material-ui/icons/Close"
 import { IconButton } from "@material-ui/core"
 import { useSpring, animated } from "react-spring"
-import { camelCase } from "lodash"
+import { camelCase, kebabCase } from "lodash"
 import { useOnClickOutside } from "../../utils/customHooks"
+import { useImagesQuery } from "../../utils/queries"
 
 const TopNavStyles = styled.div`
   position: absolute;
@@ -59,7 +60,10 @@ const TopNavStyles = styled.div`
     right: 0;
   }
   li {
+    width: fit-content;
+    line-height: 2em;
     margin: 0;
+    padding: 0 4px;
   }
   ul {
     margin: 0;
@@ -89,6 +93,13 @@ export default () => {
   const ref = useRef()
   useOnClickOutside(ref, () => setIsModalOpen(false))
 
+  const { collectionsDataArr } = useImagesQuery()
+  const COLLECTION_LINKS_ARR = collectionsDataArr.map(collection => ({
+    type: "collection",
+    text: collection.title,
+    url: `collections/${kebabCase(collection.title)}`,
+    images: collection.images,
+  }))
   return (
     <TopNavStyles isModalOpen={isModalOpen}>
       <IconButton className="popupOpenButton" onClick={toggleModal}>
@@ -117,18 +128,8 @@ export default () => {
               ))}
             </LinksUlStyles>
             <LinksUlStyles className="collectionLinks">
-              {COLLECTION_LINKS.map(({ type, url, text }) => (
-                // TODO: replace with Link once in-site
-                <li key={url} className={camelCase(text)}>
-                  <a
-                    className={`${camelCase(text)} ${type}`}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {text}
-                  </a>
-                </li>
+              {COLLECTION_LINKS_ARR.map(({ type, url, text }) => (
+                <NavLink key={url} type={type} url={url} text={text} />
               ))}
             </LinksUlStyles>
           </div>

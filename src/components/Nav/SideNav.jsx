@@ -34,7 +34,8 @@ export const LinksUlStyles = styled.ul`
     &.section {
       color: #999999;
     }
-    &:active {
+    &:active,
+    &.current {
       color: white;
     }
     &.saatchiart {
@@ -51,7 +52,8 @@ export const LinksUlStyles = styled.ul`
     &:hover {
       background: #ffff66;
     }
-    &:active {
+    &:active,
+    &.current {
       background: black;
     }
   }
@@ -74,6 +76,7 @@ const SideNavStyles = styled.div`
   }
 `
 
+// TODO: pull section links from CMS
 export const SECTION_LINKS = [
   {
     type: "section",
@@ -93,22 +96,6 @@ export const SECTION_LINKS = [
   { type: "section", text: "Events", url: "https://hyeran.ca/Events" },
   { type: "section", text: "Contact", url: "https://hyeran.ca/Contact" },
 ]
-export const COLLECTION_LINKS = [
-  { type: "collection", text: "In-Flux", url: "https://hyeran.ca/In-Flux" },
-  {
-    type: "collection",
-    text: "Exploration",
-    url: "https://hyeran.ca/Exploration",
-  },
-  { type: "collection", text: "Remember", url: "https://hyeran.ca/Remember" },
-  {
-    type: "collection",
-    text: "The Other Art Fair Brooklyn",
-    url: "https://hyeran.ca/The-Other-Art-Fair-Brooklyn",
-  },
-]
-
-const ALL_LINKS = [...SECTION_LINKS, ...COLLECTION_LINKS]
 
 export default () => {
   const { collectionsDataArr } = useImagesQuery()
@@ -121,20 +108,28 @@ export default () => {
   return (
     <SideNavStyles>
       <LinksUlStyles>
-        {[...ALL_LINKS, ...COLLECTION_LINKS_ARR].map(({ type, url, text }) => (
-          // TODO: replace with Link once in-site
-          <li key={url} className={camelCase(text)}>
-            <Link
-              className={`${camelCase(text)} ${type}`}
-              to={url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {text}
-            </Link>
-          </li>
-        ))}
+        {[...SECTION_LINKS, ...COLLECTION_LINKS_ARR].map(
+          ({ type, url, text }) => (
+            <NavLink key={url} type={type} url={url} text={text} />
+          )
+        )}
       </LinksUlStyles>
     </SideNavStyles>
+  )
+}
+
+export function NavLink({ type, url, text }) {
+  const isCurrent = `/${url}` === window.location.pathname
+  return (
+    <li className={`${camelCase(text)}${isCurrent ? " current" : ""}`}>
+      <Link
+        className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
+        to={url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {text}
+      </Link>
+    </li>
   )
 }
