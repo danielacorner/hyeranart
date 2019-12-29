@@ -8,7 +8,7 @@ images:
   - Image: 'In-Flux 9, Diptych'
   - Image: 'In-Flux 8, Diptych'
   - Image: 'In-Flux 6, Diptych'
-date: 2019-12-29T01:02:49.017Z
+date: 2014-01-02T01:02:49.017Z
 moreInfo: >-
   A personal philosophy about the intricate balance and spirituality of the
   universe pervades this piece. The work represents the two essential opposing
