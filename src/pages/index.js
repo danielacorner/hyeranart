@@ -1,89 +1,67 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
-import MasonryGrid from "../components/Masonry/MasonryGrid"
-import { useImagesQuery } from "../utils/queries"
-import { useState } from "react"
-import styled from "styled-components/macro"
-import Pagination from "../components/Pagination"
-import SwipeableViews from "react-swipeable-views"
+import SplashPageCover, {
+  splashPageStyles,
+} from "../components/SplashPageCover"
+import Gallery from "../components/Masonry/Gallery"
+import { animated, useSpring } from "react-spring"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
   whyDidYouRender(React)
 }
 
-const HomePageStyles = styled.div`
-  .react-swipeable-view-container {
-    [data-swipeable="true"] {
-      overflow: hidden !important;
-    }
-  }
-  .masonry-grid {
-    margin: 0 1em;
-  }
-`
-
-// TODO: adjustable NUM_PER_PAGE?
-const NUM_PER_PAGE = 6
-
 export default () => {
-  const { imagesDataArr } = useImagesQuery()
-  // TODO: consider performance using react-swipeable-views-utils virtualization
-  // https://react-swipeable-views.com/demos/demos/
-  const [currentPageIdx, setCurrentPageIdx] = useState(0)
+  const [isSplashPageClicked, setIsSplashPageClicked] = useState(false)
+  const [isHomePageEntered, setIsHomePageEntered] = useState(false)
 
-  const imageSpreads = imagesDataArr.reduce((acc, image, idx) => {
-    const idxInSpreads = Math.floor(idx / NUM_PER_PAGE)
-    if (acc[idxInSpreads]) {
-      acc[idxInSpreads].push(image)
+  const toggleOverflowHidden = isHidden => {
+    if (isHidden) {
+      document.querySelector("html").classList.add("overflowHidden")
     } else {
-      acc[idxInSpreads] = [image]
+      document.querySelector("html").classList.remove("overflowHidden")
     }
-    return acc
-  }, [])
-  const handleNext = () => setCurrentPageIdx(currentPageIdx + 1)
-  const handlePrev = () => setCurrentPageIdx(currentPageIdx - 1)
-
-  const firstItemNum = currentPageIdx * NUM_PER_PAGE + 1
-  const lastItemNum = firstItemNum + NUM_PER_PAGE
-  const numItems = imagesDataArr.length
-  const numPages = Math.ceil(numItems / NUM_PER_PAGE)
-  const allPagesNums = [...Array(numPages).keys()]
-
-  const handleChangeIndex = index => setCurrentPageIdx(index)
-  const handleFilterToNearestSlides = () => {
-    // when we switch slides, "virtualize" so that only the nearest three slides are rendered
   }
+
+  useEffect(() => {
+    toggleOverflowHidden(true)
+    return () => {
+      toggleOverflowHidden(false)
+    }
+  })
+
+  const springSplashPage = useSpring({
+    opacity: isSplashPageClicked ? 0 : 1,
+    transform: `translateY(${isSplashPageClicked ? -64 : 0}px)`,
+    onRest: () => {
+      setIsHomePageEntered(true)
+      toggleOverflowHidden(false)
+    },
+  })
+
+  const springHomePage = useSpring({
+    opacity: isHomePageEntered ? 1 : 0,
+    transform: `translateY(${isHomePageEntered ? 0 : -64}px)`,
+  })
+
+  const handleClick = () => {
+    setIsSplashPageClicked(true)
+  }
+
   return (
     <Layout>
-      <HomePageStyles>
-        <SEO title="Home" />
-        <SwipeableViews
-          className="swipeable"
-          index={currentPageIdx}
-          onChangeIndex={handleChangeIndex}
-          enableMouseEvents={true}
-          onTransitionEnd={handleFilterToNearestSlides}
-        >
-          {allPagesNums.map(idx => (
-            <div key={idx} className={`swipeable-slide slide-${idx}`}>
-              <MasonryGrid imagesDataArr={imageSpreads[idx]} />
-            </div>
-          ))}
-        </SwipeableViews>
-        <Pagination
-          setCurrentPageIdx={setCurrentPageIdx}
-          currentPageIdx={currentPageIdx}
-          handlePrev={handlePrev}
-          firstItemNum={firstItemNum}
-          lastItemNum={lastItemNum}
-          numItems={numItems}
-          numPages={numPages}
-          handleNext={handleNext}
-        />
-      </HomePageStyles>
+      <SEO title="Home" />
+      <animated.div className="animatedWrapper homePage" style={springHomePage}>
+        <Gallery />
+      </animated.div>
+      <animated.div
+        className="animatedWrapper splashPage"
+        style={{ ...splashPageStyles, ...springSplashPage }}
+      >
+        <SplashPageCover handleClick={handleClick} />
+      </animated.div>
     </Layout>
   )
 }
