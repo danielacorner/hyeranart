@@ -7,7 +7,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import SideNav from "../components/Nav/SideNav"
+import SideNav, { SIDENAV_WIDTH } from "../components/Nav/SideNav"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import TopNav from "../components/Nav/TopNav"
@@ -20,7 +20,10 @@ const LayoutStyles = styled.div`
   display: flex;
   min-height: 100vh;
   main {
-    width: 100%;
+    width: 100vw;
+    @media (min-width: ${BREAKPOINTS.TABTOP}px) {
+      width: calc(100vw - ${SIDENAV_WIDTH}px);
+    }
     height: 100%;
   }
 `

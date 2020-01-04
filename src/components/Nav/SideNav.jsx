@@ -59,9 +59,11 @@ export const LinksUlStyles = styled.ul`
   }
 `
 
+export const SIDENAV_WIDTH = 122
+
 const SideNavStyles = styled.div`
   height: fit-content;
-  width: fit-content;
+  width: ${SIDENAV_WIDTH}px;
   font-size: 12px;
   font-family: system-ui;
   position: sticky;
