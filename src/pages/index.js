@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import SplashPageCover, {
@@ -36,6 +35,7 @@ export default () => {
     opacity: isSplashPageClicked ? 0 : 1,
     transform: `translateY(${isSplashPageClicked ? -64 : 0}px)`,
     onRest: () => {
+      window.history.pushState("", "", "/home")
       setIsHomePageEntered(true)
       toggleOverflowHidden(false)
     },
