@@ -22,6 +22,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           node {
             frontmatter {
               title
+              date
               saatchiLink
               moreInfo
               images {
@@ -47,7 +48,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         "🌟🚨: exports.createPages -> node.frontmatter",
         node.frontmatter
       )
-      const { saatchiLink, moreInfo, images, title } = node.frontmatter
+      const { saatchiLink, moreInfo, images, title, date } = node.frontmatter
       createPage({
         path: `/collections/${kebabCase(node.frontmatter.title)}`,
         component: collectionPageTemplate,
@@ -56,6 +57,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           images,
           saatchiLink,
           moreInfo,
+          date,
         }, // additional data can be passed via context
       })
     }

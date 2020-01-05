@@ -35,7 +35,8 @@ export default () => {
     opacity: isSplashPageClicked ? 0 : 1,
     transform: `translateY(${isSplashPageClicked ? -64 : 0}px)`,
     onRest: () => {
-      window.history.pushState("", "", "/home")
+      // set pathname to /gallery so we don't have to go through the splash page again
+      window.history.pushState("", "", "/gallery")
       setIsHomePageEntered(true)
       toggleOverflowHidden(false)
     },
@@ -58,7 +59,15 @@ export default () => {
       </animated.div>
       <animated.div
         className="animatedWrapper splashPage"
-        style={{ ...splashPageStyles, ...springSplashPage }}
+        style={{
+          ...splashPageStyles,
+          ...springSplashPage,
+          ...(isSplashPageClicked
+            ? {
+                pointerEvents: "none",
+              }
+            : {}),
+        }}
       >
         <SplashPageCover handleClick={handleClick} />
       </animated.div>

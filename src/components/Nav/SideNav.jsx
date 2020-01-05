@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components/macro"
 import { camelCase, kebabCase } from "lodash"
 import { useImagesQuery } from "../../utils/queries"
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 
 // export const HOVER_UNDERLINE_LI_CSS = `
 //     width: fit-content;
@@ -82,8 +82,8 @@ const SideNavStyles = styled.div`
 export const SECTION_LINKS = [
   {
     type: "section",
-    text: "Home",
-    url: "/",
+    text: "Gallery",
+    url: "/gallery",
   },
   {
     type: "section",
@@ -99,7 +99,7 @@ export const SECTION_LINKS = [
   { type: "section", text: "Contact", url: "https://hyeran.ca/Contact" },
 ]
 
-export default () => {
+export default ({ handleNavigate }) => {
   const { collectionsDataArr } = useImagesQuery()
   const COLLECTION_LINKS_ARR = collectionsDataArr.map(collection => ({
     type: "collection",
@@ -111,8 +111,15 @@ export default () => {
     <SideNavStyles>
       <LinksUlStyles>
         {[...SECTION_LINKS, ...COLLECTION_LINKS_ARR].map(
-          ({ type, url, text }) => (
-            <NavLink key={url} type={type} url={url} text={text} />
+          ({ type, url, text }, idx) => (
+            <NavLink
+              key={url}
+              idx={idx}
+              type={type}
+              url={url}
+              text={text}
+              handleNavigate={handleNavigate}
+            />
           )
         )}
       </LinksUlStyles>
@@ -120,11 +127,16 @@ export default () => {
   )
 }
 
-export function NavLink({ type, url, text }) {
+export function NavLink({ type, url, text, handleNavigate, idx }) {
   const isCurrent = `/${url}` === window.location.pathname
+  const onNavigate = e => {
+    e.preventDefault()
+    handleNavigate({ navigateFn: () => navigate(url), idx })
+  }
   return (
     <li className={`${camelCase(text)}${isCurrent ? " current" : ""}`}>
       <Link
+        onClick={onNavigate}
         className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
         to={url}
         target="_blank"

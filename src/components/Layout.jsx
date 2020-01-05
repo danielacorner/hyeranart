@@ -5,15 +5,17 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
+import React, { useState, useRef } from "react"
 import PropTypes from "prop-types"
 import SideNav, { SIDENAV_WIDTH } from "../components/Nav/SideNav"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import TopNav from "../components/Nav/TopNav"
 import styled from "styled-components/macro"
-
+import { useSpring, animated } from "react-spring"
 import "./layout.css"
+
+export const SPRING_UP_DOWN_PX = 30
 
 const LayoutStyles = styled.div`
   margin: 0 auto;
@@ -30,11 +32,45 @@ const LayoutStyles = styled.div`
 
 const Layout = ({ children }) => {
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABTOP}px)`)
+  const [isMounted, setIsMounted] = useState(true)
+  const [isMovingDown, setIsMovingDown] = useState(true)
+
+  const navigateFnRef = useRef(() => null)
+
+  const springExit = useSpring({
+    opacity: isMounted ? 1 : 0,
+    transform: `translateY(${
+      isMounted ? 0 : isMovingDown ? SPRING_UP_DOWN_PX : -SPRING_UP_DOWN_PX
+    }px)`,
+    config: { friction: 5, tension: 100, clamp: true },
+    onRest: () => {
+      if (!isMounted) {
+        setIsMounted(true)
+        navigateFnRef.current()
+      }
+    },
+  })
+
+  const handleNavigate = ({ navigateFn, idx }) => {
+    navigateFnRef.current = navigateFn
+
+    setIsMounted(false)
+
+    const prevIdx = window.localStorage.getItem("prevIdx")
+
+    setIsMovingDown(idx < prevIdx)
+
+    window.localStorage.setItem("prevIdx", idx)
+  }
 
   return (
     <LayoutStyles>
-      {isTabletOrLarger ? <SideNav /> : <TopNav />}
-      <main>{children}</main>
+      {isTabletOrLarger ? (
+        <SideNav handleNavigate={handleNavigate} />
+      ) : (
+        <TopNav handleNavigate={handleNavigate} />
+      )}
+      <animated.main style={springExit}>{children}</animated.main>
     </LayoutStyles>
   )
 }
