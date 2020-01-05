@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import MasonryGrid from "./MasonryGrid"
 import { useImagesQuery } from "../../utils/queries"
@@ -6,6 +6,8 @@ import { useState } from "react"
 import styled from "styled-components/macro"
 import Pagination from "../Pagination"
 import SwipeableViews from "react-swipeable-views"
+import { animated, useSpring } from "react-spring"
+import { SPRING_UP_DOWN_PX } from "../Layout"
 
 const GalleryStyles = styled.div`
   height: 100%;
@@ -27,7 +29,6 @@ export default () => {
   // TODO: consider performance using react-swipeable-views-utils virtualization
   // https://react-swipeable-views.com/demos/demos/
   const [currentPageIdx, setCurrentPageIdx] = useState(0)
-
   const imageSpreads = imagesDataArr.reduce((acc, image, idx) => {
     const idxInSpreads = Math.floor(idx / NUM_PER_PAGE)
     if (acc[idxInSpreads]) {
@@ -50,31 +51,42 @@ export default () => {
   const handleFilterToNearestSlides = () => {
     // when we switch slides, "virtualize" so that only the nearest three slides are rendered
   }
+
+  const [isMounted, setIsMounted] = useState(0)
+  useEffect(() => {
+    setIsMounted(true)
+  })
+  const springEnter = useSpring({
+    opacity: isMounted ? 1 : 0,
+    transform: `translateY(${isMounted ? 0 : -SPRING_UP_DOWN_PX}px)`,
+  })
   return (
-    <GalleryStyles>
-      <SwipeableViews
-        className="swipeable"
-        index={currentPageIdx}
-        onChangeIndex={handleChangeIndex}
-        enableMouseEvents={true}
-        onTransitionEnd={handleFilterToNearestSlides}
-      >
-        {allPagesNums.map(idx => (
-          <div key={idx} className={`swipeable-slide slide-${idx}`}>
-            <MasonryGrid imagesDataArr={imageSpreads[idx]} />
-          </div>
-        ))}
-      </SwipeableViews>
-      <Pagination
-        setCurrentPageIdx={setCurrentPageIdx}
-        currentPageIdx={currentPageIdx}
-        handlePrev={handlePrev}
-        firstItemNum={firstItemNum}
-        lastItemNum={lastItemNum}
-        numItems={numItems}
-        numPages={numPages}
-        handleNext={handleNext}
-      />
-    </GalleryStyles>
+    <animated.div style={springEnter}>
+      <GalleryStyles>
+        <SwipeableViews
+          className="swipeable"
+          index={currentPageIdx}
+          onChangeIndex={handleChangeIndex}
+          enableMouseEvents={true}
+          onTransitionEnd={handleFilterToNearestSlides}
+        >
+          {allPagesNums.map(idx => (
+            <div key={idx} className={`swipeable-slide slide-${idx}`}>
+              <MasonryGrid imagesDataArr={imageSpreads[idx]} />
+            </div>
+          ))}
+        </SwipeableViews>
+        <Pagination
+          setCurrentPageIdx={setCurrentPageIdx}
+          currentPageIdx={currentPageIdx}
+          handlePrev={handlePrev}
+          firstItemNum={firstItemNum}
+          lastItemNum={lastItemNum}
+          numItems={numItems}
+          numPages={numPages}
+          handleNext={handleNext}
+        />
+      </GalleryStyles>
+    </animated.div>
   )
 }

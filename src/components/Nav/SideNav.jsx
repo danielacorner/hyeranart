@@ -83,7 +83,7 @@ export const SECTION_LINKS = [
   {
     type: "section",
     text: "Gallery",
-    url: "/gallery",
+    url: "gallery",
   },
   {
     type: "section",
@@ -131,6 +131,7 @@ export function NavLink({ type, url, text, handleNavigate, idx }) {
   const isCurrent = `/${url}` === window.location.pathname
   const onNavigate = e => {
     e.preventDefault()
+
     handleNavigate({ navigateFn: () => navigate(url), idx })
   }
   return (
