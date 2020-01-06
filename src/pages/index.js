@@ -4,7 +4,6 @@ import SEO from "../components/seo"
 import SplashPageCover, {
   splashPageStyles,
 } from "../components/SplashPageCover"
-import { globalHistory } from "@reach/router"
 import { animated, useSpring } from "react-spring"
 import { Portal } from "@material-ui/core"
 import Gallery from "../components/Masonry/Gallery"
