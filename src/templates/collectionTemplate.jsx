@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useContext } from "react"
 import Layout, { SPRING_UP_DOWN_PX } from "../components/Layout"
 import styled from "styled-components/macro"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
@@ -7,7 +7,7 @@ import { SaatchiButton } from "../components/ButtonsDrawer"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import { useTransition, animated } from "react-spring"
-import { useSectionCollectionLinks } from "../components/Nav/SideNav"
+import { GlobalStateContext } from "../context/GlobalContextProvider"
 
 const CollectionStyles = styled.div`
   padding-top: 70px;
@@ -37,32 +37,12 @@ export default function Template({ pageContext }) {
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
 
   // track if we're moving up or down in collections
-  const prevDate = window.localStorage.getItem("collectionDate")
-
-  // if navigating from a section to a collection, we're moving down
-  const prevIdx = window.localStorage.getItem("prevPrevIdx")
-
-  const { sectionLinksArr } = useSectionCollectionLinks()
-
-  const wasPrevOnCollection = prevIdx <= sectionLinksArr.length
-  const isDateMoreRecent = new Date(date).getTime() <= new Date(prevDate).getTime()
-
-  // TODO: find more robust order/index than date
-  const isMovingDown =
-  wasPrevOnCollection || isDateMoreRecent
-
-
-  useEffect(() => {
-    return () => {
-      window.localStorage.setItem("collectionDate", date)
-    }
-  }, [])
-
+  const {isMovingDown} = useContext(GlobalStateContext)
 
   const transitions = useTransition(true, null, {
     from: {
       transform: `translateY(${
-        isMovingDown ? SPRING_UP_DOWN_PX : -SPRING_UP_DOWN_PX
+        isMovingDown ? -SPRING_UP_DOWN_PX : SPRING_UP_DOWN_PX
       }px)`,
       opacity: 0,
     },
@@ -72,7 +52,7 @@ export default function Template({ pageContext }) {
     },
     leave: {
       transform: `translateY(${
-        isMovingDown ? -SPRING_UP_DOWN_PX : SPRING_UP_DOWN_PX
+        isMovingDown ? SPRING_UP_DOWN_PX : -SPRING_UP_DOWN_PX
       }px)`,
       opacity: 0,
     },

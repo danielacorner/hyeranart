@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components/macro"
 import { camelCase, kebabCase } from "lodash"
 import { useImagesQuery } from "../../utils/queries"
 import { Link, navigate } from "gatsby"
+import { GlobalDispatchContext, GlobalStateContext, NAVIGATE_PAGE } from "../../context/GlobalContextProvider"
+console.log("⚡🚨:  GlobalDispatchContext",  GlobalDispatchContext)
 
 // export const HOVER_UNDERLINE_LI_CSS = `
 //     width: fit-content;
@@ -136,9 +138,10 @@ export default ({ handleNavigate }) => {
 
 export function NavLink({ type, url, text, handleNavigate, external, idx }) {
   const isCurrent = `/${url}` === window.location.pathname
+  const dispatch = useContext(GlobalDispatchContext)
   const onNavigate = e => {
     e.preventDefault()
-
+    dispatch({type:NAVIGATE_PAGE,payload: idx})
     handleNavigate({ navigateFn: () => navigate(url), idx })
   }
   return (

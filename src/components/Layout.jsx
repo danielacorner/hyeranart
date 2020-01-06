@@ -5,7 +5,7 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useContext } from "react"
 import PropTypes from "prop-types"
 import SideNav, { SIDENAV_WIDTH } from "../components/Nav/SideNav"
 import { useMediaQuery } from "@material-ui/core"
@@ -14,6 +14,7 @@ import TopNav from "../components/Nav/TopNav"
 import styled from "styled-components/macro"
 import { useSpring, animated } from "react-spring"
 import "./layout.css"
+import { GlobalStateContext } from "../context/GlobalContextProvider"
 
 export const SPRING_UP_DOWN_PX = 30
 
@@ -33,7 +34,7 @@ const LayoutStyles = styled.div`
 const Layout = ({ children }) => {
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABTOP}px)`)
   const [isMounted, setIsMounted] = useState(true)
-  const [isMovingDown, setIsMovingDown] = useState(true)
+  const {isMovingDown} = useContext(GlobalStateContext)
 
   const navigateFnRef = useRef(() => null)
 
@@ -53,24 +54,17 @@ const Layout = ({ children }) => {
 
   const handleNavigate = ({ navigateFn, idx }) => {
     navigateFnRef.current = navigateFn
-
     setIsMounted(false)
-
-    const prevIdx = window.localStorage.getItem("prevIdx")
-    window.localStorage.setItem("prevPrevIdx", prevIdx)
-
-    setIsMovingDown(idx < prevIdx)
-
-    window.localStorage.setItem("prevIdx", idx)
   }
 
   return (
+
     <LayoutStyles>
       {isTabletOrLarger ? (
         <SideNav handleNavigate={handleNavigate} />
-      ) : (
-        <TopNav handleNavigate={handleNavigate} />
-      )}
+        ) : (
+          <TopNav handleNavigate={handleNavigate} />
+          )}
       <animated.main style={springExit}>{children}</animated.main>
     </LayoutStyles>
   )
