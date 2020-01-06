@@ -112,7 +112,7 @@ export const useSectionCollectionLinks = () => {
   }
 }
 
-export default ({ handleNavigate }) => {
+export default ({ handleNavigate, location }) => {
   const { sectionLinksArr, collectionLinksArr } = useSectionCollectionLinks()
   return (
     <SideNavStyles>
@@ -127,6 +127,7 @@ export default ({ handleNavigate }) => {
               url={url}
               text={text}
               handleNavigate={handleNavigate}
+              location={location}
             />
           )
         )}
@@ -135,8 +136,8 @@ export default ({ handleNavigate }) => {
   )
 }
 
-export function NavLink({ type, url, text, handleNavigate, external = false, idx }) {
-  const isCurrent = `${url}` === window.location.pathname
+export function NavLink({ type, url, text, handleNavigate, external = false, idx,location }) {
+  const isCurrent = `${url}` === location.pathname
   const dispatch = useContext(GlobalDispatchContext)
   const onNavigate = e => {
     e.preventDefault()
