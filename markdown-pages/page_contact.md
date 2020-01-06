@@ -1,0 +1,6 @@
+---
+title: Contact
+pageIndex: 4
+moreInfo: "<div id=\"maincontainer\" class=\"bodycopy\" style=\"display: block;\">\r\n\n\r\n\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n\n\r\n\n\r\n\n<img src=\"https://payload.cargocollective.com/1/5/185546/2557518/Snowy Lake  - Copy.JPG\" width=\"670\" height=\"138\" width_o=\"2048\" height_o=\"423\" src_o=\"https://payload.cargocollective.com/1/5/185546/2557518/Snowy Lake  - Copy_o.JPG\" data-mid=\"18655876\" border=\"0\" align=\"left\" data-title=\"670 — 670 × 138\" data-hi-res=\"https://payload.cargocollective.com/1/5/185546/2557518/Snowy Lake  - Copy_o.JPG\"><br>\r\n\n<blockquote></blockquote> For response regarding any of the art work, or if you wish to inquire about having a painting commissioned, please contact me. Thank you for visiting!<br>\r\n\n<br>\r\n\n<b>e-mail</b>: hyeranart@gmail.com<br>\r\n\n <br>\r\n\n<br>\r\n\n<br>\r\n\n<directlink id=\"dl_2557518\" link=\"http://hyeran.ca/Contact\"></directlink></div></div><div class=\"project_footer\"><span class=\"footer_title_type\" id=\"header_title_type\"></span><span class=\"project_views\">(478 views)</span>&nbsp;</div><div class=\"project_bottom\"><!-- //--></div>\t\t\t\r\n\n\r\n\n\r\n\n</div>"
+---
+
