@@ -1,7 +1,7 @@
 import React from "react"
 import Img from "gatsby-image"
 import { animated } from "react-spring"
-import styled from "styled-components/macro"
+import styled from "styled-components"
 import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
 import PaintingMetadata from "../Masonry/PaintingMetadata"
 

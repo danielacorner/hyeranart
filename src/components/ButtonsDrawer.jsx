@@ -1,6 +1,6 @@
 import React from "react"
 import { Drawer, Button } from "@material-ui/core"
-import styled from "styled-components/macro"
+import styled from "styled-components"
 import SALogo from "./Masonry/OptionsPopup/SALogo"
 import ZoomIcon from "@material-ui/icons/ZoomIn"
 import PaintingMetadata from "./Masonry/PaintingMetadata"

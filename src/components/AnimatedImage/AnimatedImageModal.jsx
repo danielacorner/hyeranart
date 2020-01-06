@@ -1,7 +1,7 @@
 import React from "react"
 import { AnimatedImageContent } from "./AnimatedImageContent"
 import { SpringInOut } from "../Animated/Springs"
-import styled from "styled-components/macro"
+import styled from "styled-components"
 import { Portal } from "@material-ui/core"
 import ButtonsDrawer, { DRAWER_HEIGHT_PX } from "../ButtonsDrawer"
 

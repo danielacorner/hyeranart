@@ -1,4 +1,4 @@
-import styled from "styled-components/macro"
+import styled from "styled-components"
 const CAROUSEL_MAX_WIDTH = 960
 export const NAV_HEIGHT = 64
 

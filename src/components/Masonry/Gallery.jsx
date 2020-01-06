@@ -3,7 +3,7 @@ import React, { useEffect } from "react"
 import MasonryGrid from "./MasonryGrid"
 import { useImagesQuery } from "../../utils/queries"
 import { useState } from "react"
-import styled from "styled-components/macro"
+import styled from "styled-components"
 import Pagination from "../Pagination"
 import SwipeableViews from "react-swipeable-views"
 import { animated, useSpring } from "react-spring"
@@ -27,7 +27,7 @@ const NUM_PER_PAGE = 6
 export default () => {
   const { imagesDataArr } = useImagesQuery()
   // TODO: consider performance using react-swipeable-views-utils virtualization
-  // https://react-swipeable-views.com/demos/demos/
+  // https://react-swipeable-views.com/demos/demos/#virtualize
   const [currentPageIdx, setCurrentPageIdx] = useState(0)
   const imageSpreads = imagesDataArr.reduce((acc, image, idx) => {
     const idxInSpreads = Math.floor(idx / NUM_PER_PAGE)
@@ -38,6 +38,7 @@ export default () => {
     }
     return acc
   }, [])
+
   const handleNext = () => setCurrentPageIdx(currentPageIdx + 1)
   const handlePrev = () => setCurrentPageIdx(currentPageIdx - 1)
 

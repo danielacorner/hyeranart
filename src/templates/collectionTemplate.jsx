@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import Layout, { SPRING_UP_DOWN_PX } from "../components/Layout"
-import styled from "styled-components/macro"
+import styled from "styled-components"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
 import { useImagesQuery } from "../utils/queries"
 import { SaatchiButton } from "../components/ButtonsDrawer"

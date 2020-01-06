@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import styled from "styled-components/macro"
+import styled from "styled-components"
 
 import { IconButton } from "@material-ui/core"
 import ForwardIcon from "@material-ui/icons/ArrowForwardIos"

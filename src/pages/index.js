@@ -4,8 +4,10 @@ import SEO from "../components/seo"
 import SplashPageCover, {
   splashPageStyles,
 } from "../components/SplashPageCover"
-import {navigate} from 'gatsby-link'
+import { globalHistory } from "@reach/router"
 import { animated, useSpring } from "react-spring"
+import { Portal } from "@material-ui/core"
+import Gallery from "../components/Masonry/Gallery"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
@@ -14,7 +16,6 @@ if (process.env.NODE_ENV !== "production") {
 
 export default () => {
   const [isSplashPageClicked, setIsSplashPageClicked] = useState(false)
-  const [isHomePageEntered, setIsHomePageEntered] = useState(false)
 
   const toggleOverflowHidden = isHidden => {
     if (isHidden) {
@@ -38,7 +39,6 @@ export default () => {
       // set pathname to /gallery so we don't have to go through the splash page again
       if (isSplashPageClicked) {
         toggleOverflowHidden(false)
-        navigate("/gallery")
       }
     },
   })
@@ -50,23 +50,26 @@ export default () => {
   return (
     <Layout>
       <SEO title="Home" />
-        <animated.div
-          className="animatedWrapper splashPage"
-          style={{
-            ...splashPageStyles,
-            ...springSplashPage,
-            ...(isSplashPageClicked
-              ? {
-                  pointerEvents: "none",
-                }
-              : {}),
-          }}
-        >
-          <SplashPageCover
-            isClicked={isSplashPageClicked}
-            handleClick={handleClick}
-          />
-        </animated.div>
+        <Portal>
+          <animated.div
+            className="animatedWrapper splashPage"
+            style={{
+              ...splashPageStyles,
+              ...springSplashPage,
+              ...(isSplashPageClicked
+                ? {
+                    pointerEvents: "none",
+                  }
+                : {}),
+            }}
+          >
+            <SplashPageCover
+              isClicked={isSplashPageClicked}
+              handleClick={handleClick}
+            />
+          </animated.div>
+        </Portal>
+        <Gallery/>
     </Layout>
   )
 }

@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../components/Layout"
-import styled from "styled-components/macro"
+import styled from "styled-components"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import { animated } from "react-spring"

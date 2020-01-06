@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import styled from "styled-components/macro"
+import styled from "styled-components"
 import { camelCase, kebabCase } from "lodash"
 import { useImagesQuery } from "../../utils/queries"
 import { Link, navigate } from "gatsby"
@@ -138,7 +138,7 @@ export default ({ handleNavigate }) => {
 
 export function NavLink({ type, url, text, handleNavigate, external = false, idx }) {
   const path = globalHistory.location.pathname
-  const isCurrent = `${url}` === path
+  const isCurrent = `${url}` === path || (url===GALLERY_SECTION_LINK.url && path === '/')
   const dispatch = useContext(GlobalDispatchContext)
   const onNavigate = e => {
     e.preventDefault()
