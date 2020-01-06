@@ -55,7 +55,7 @@ export default () => {
   const [isMounted, setIsMounted] = useState(0)
   useEffect(() => {
     setIsMounted(true)
-  })
+  }, [])
   const springEnter = useSpring({
     opacity: isMounted ? 1 : 0,
     transform: `translateY(${isMounted ? 0 : -SPRING_UP_DOWN_PX}px)`,

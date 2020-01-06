@@ -14,6 +14,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const collectionPageTemplate = path.resolve(
     `src/templates/collectionTemplate.jsx`
   )
+  const sectionPageTemplate = path.resolve(`src/templates/sectionTemplate.jsx`)
 
   const result = await graphql(`
     {
@@ -25,6 +26,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
               date
               saatchiLink
               moreInfo
+              Image
               images {
                 Image
               }
@@ -42,12 +44,28 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   }
 
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    // for collections (nodes with multiple images), create pages
-    if (Boolean(node.frontmatter.images)) {
+    // section pages
+    if (Boolean(!node.frontmatter.images && !node.frontmatter.Image)) {
+      const { title, moreInfo } = node.frontmatter
       console.log(
-        "🌟🚨: exports.createPages -> node.frontmatter",
+        "⚡🚨: exports.createPages -> node.frontmatter",
         node.frontmatter
       )
+      createPage({
+        path: `/${kebabCase(node.frontmatter.title)}`,
+        component: sectionPageTemplate,
+        context: {
+          title,
+          images,
+          saatchiLink,
+          moreInfo,
+          date,
+        }, // additional data can be passed via context
+      })
+    }
+
+    // collection pages
+    if (Boolean(node.frontmatter.images)) {
       const { saatchiLink, moreInfo, images, title, date } = node.frontmatter
       createPage({
         path: `/collections/${kebabCase(node.frontmatter.title)}`,
