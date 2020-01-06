@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import Layout, { SPRING_UP_DOWN_PX } from "../components/Layout"
 import styled from "styled-components/macro"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
@@ -44,20 +44,22 @@ export default function Template({ pageContext }) {
 
   const { sectionLinksArr } = useSectionCollectionLinks()
 
-  const isMovingDown =
-    prevIdx <= sectionLinksArr.length || new Date(date) < new Date(prevDate)
+  const wasPrevOnCollection = prevIdx <= sectionLinksArr.length
+  const isDateMoreRecent = new Date(date).getTime() <= new Date(prevDate).getTime()
 
-  const [isMounted, setIsMounted] = useState(true)
+  // TODO: find more robust order/index than date
+  const isMovingDown =
+  wasPrevOnCollection || isDateMoreRecent
+
 
   useEffect(() => {
     return () => {
-      setIsMounted(false)
+      window.localStorage.setItem("collectionDate", date)
     }
   }, [])
 
-  window.localStorage.setItem("collectionDate", date)
 
-  const transitions = useTransition(isMounted, null, {
+  const transitions = useTransition(true, null, {
     from: {
       transform: `translateY(${
         isMovingDown ? SPRING_UP_DOWN_PX : -SPRING_UP_DOWN_PX

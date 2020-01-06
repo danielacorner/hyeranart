@@ -22,6 +22,7 @@ const SectionStyles = styled.div`
     height: auto;
   }
     max-width: 960px;
+    margin-bottom: 6em;
 `
 
 export default function Template({ pageContext }) {

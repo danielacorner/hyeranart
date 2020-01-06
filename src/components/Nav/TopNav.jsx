@@ -6,7 +6,6 @@ import MenuIcon from "@material-ui/icons/Menu"
 import CloseIcon from "@material-ui/icons/Close"
 import { IconButton } from "@material-ui/core"
 import { useSpring, animated } from "react-spring"
-import { camelCase } from "lodash"
 import { useOnClickOutside } from "../../utils/customHooks"
 
 const TopNavStyles = styled.div`

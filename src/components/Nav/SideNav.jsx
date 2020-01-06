@@ -104,7 +104,6 @@ export const useSectionCollectionLinks = () => {
       external: Boolean(externalLink),
     })),
   ]
-  console.log("⚡🚨: sectionLinksArr", sectionLinksArr)
 
   return {
     collectionLinksArr,
