@@ -28,7 +28,7 @@ const CollectionStyles = styled.div`
 `
 
 export default function Template({ pageContext }) {
-  const { images, title, moreInfo, saatchiLink, date } = pageContext
+  const { images, title, moreInfo, saatchiLink } = pageContext
   const { imagesDataArr } = useImagesQuery()
   const imageTitlesArr = images.map(img => img.Image)
   const imagesDataArrForCollection = imagesDataArr.filter(image =>

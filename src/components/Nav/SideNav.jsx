@@ -3,8 +3,7 @@ import styled from "styled-components/macro"
 import { camelCase, kebabCase } from "lodash"
 import { useImagesQuery } from "../../utils/queries"
 import { Link, navigate } from "gatsby"
-import { GlobalDispatchContext, GlobalStateContext, NAVIGATE_PAGE } from "../../context/GlobalContextProvider"
-console.log("⚡🚨:  GlobalDispatchContext",  GlobalDispatchContext)
+import { GlobalDispatchContext, NAVIGATE_PAGE } from "../../context/GlobalContextProvider"
 
 // export const HOVER_UNDERLINE_LI_CSS = `
 //     width: fit-content;
@@ -84,7 +83,7 @@ const SideNavStyles = styled.div`
 const GALLERY_SECTION_LINK = {
   type: "section",
   text: "Gallery",
-  url: "gallery",
+  url: "/gallery",
 }
 
 export const useSectionCollectionLinks = () => {
@@ -93,7 +92,7 @@ export const useSectionCollectionLinks = () => {
   const collectionLinksArr = collectionsDataArr.map(({ title, images }) => ({
     type: "collection",
     text: title,
-    url: `collections/${kebabCase(title)}`,
+    url: `/collections/${kebabCase(title)}`,
     images: images,
   }))
 
@@ -102,7 +101,7 @@ export const useSectionCollectionLinks = () => {
     ...sectionsDataArr.map(({ title, externalLink }) => ({
       type: "section",
       text: title,
-      url: externalLink || kebabCase(title),
+      url: externalLink || `/${kebabCase(title)}`,
       external: Boolean(externalLink),
     })),
   ]
@@ -119,7 +118,7 @@ export default ({ handleNavigate }) => {
     <SideNavStyles>
       <LinksUlStyles>
         {[...sectionLinksArr, ...collectionLinksArr].map(
-          ({ type, url, text, external = false }, idx) => (
+          ({ type, url, text, external }, idx) => (
             <NavLink
               key={url}
               idx={idx}
@@ -136,8 +135,8 @@ export default ({ handleNavigate }) => {
   )
 }
 
-export function NavLink({ type, url, text, handleNavigate, external, idx }) {
-  const isCurrent = `/${url}` === window.location.pathname
+export function NavLink({ type, url, text, handleNavigate, external = false, idx }) {
+  const isCurrent = `${url}` === window.location.pathname
   const dispatch = useContext(GlobalDispatchContext)
   const onNavigate = e => {
     e.preventDefault()
