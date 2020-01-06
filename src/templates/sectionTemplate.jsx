@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react"
-import Layout, { SPRING_UP_DOWN_PX } from "../components/Layout"
+import React from "react"
+import Layout from "../components/Layout"
 import styled from "styled-components/macro"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
-import { useTransition, animated } from "react-spring"
+import { animated } from "react-spring"
+import { useTransitionUpDown } from "./collectionTemplate"
 
 const SectionStyles = styled.div`
   padding-top: 70px;
@@ -29,37 +30,7 @@ export default function Template({ pageContext }) {
   const { title, moreInfo, pageIndex } = pageContext
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
 
-  // if navigating from a section to a collection, we're moving down
-  const prevIdx = window.localStorage.getItem("prevPrevIdx")
-
-  const isMovingDown = prevIdx <= pageIndex
-
-  const [isMounted, setIsMounted] = useState(true)
-
-  useEffect(() => {
-    return () => {
-      setIsMounted(false)
-    }
-  }, [])
-
-  const transitions = useTransition(isMounted, null, {
-    from: {
-      transform: `translateY(${
-        isMovingDown ? SPRING_UP_DOWN_PX : -SPRING_UP_DOWN_PX
-      }px)`,
-      opacity: 0,
-    },
-    enter: {
-      transform: `translateY(0px)`,
-      opacity: 1,
-    },
-    leave: {
-      transform: `translateY(${
-        isMovingDown ? -SPRING_UP_DOWN_PX : SPRING_UP_DOWN_PX
-      }px)`,
-      opacity: 0,
-    },
-  })
+  const transitions = useTransitionUpDown()
 
   return (
     <Layout>

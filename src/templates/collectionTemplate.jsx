@@ -27,19 +27,9 @@ const CollectionStyles = styled.div`
   }
 `
 
-export default function Template({ pageContext }) {
-  const { images, title, moreInfo, saatchiLink } = pageContext
-  const { imagesDataArr } = useImagesQuery()
-  const imageTitlesArr = images.map(img => img.Image)
-  const imagesDataArrForCollection = imagesDataArr.filter(image =>
-    imageTitlesArr.includes(image.title)
-  )
-  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
-
-  // track if we're moving up or down in collections
+export const useTransitionUpDown = () => {
   const {isMovingDown} = useContext(GlobalStateContext)
-
-  const transitions = useTransition(true, null, {
+  return useTransition(true, null, {
     from: {
       transform: `translateY(${
         isMovingDown ? -SPRING_UP_DOWN_PX : SPRING_UP_DOWN_PX
@@ -57,6 +47,18 @@ export default function Template({ pageContext }) {
       opacity: 0,
     },
   })
+}
+
+export default function Template({ pageContext }) {
+  const { images, title, moreInfo, saatchiLink } = pageContext
+  const { imagesDataArr } = useImagesQuery()
+  const imageTitlesArr = images.map(img => img.Image)
+  const imagesDataArrForCollection = imagesDataArr.filter(image =>
+    imageTitlesArr.includes(image.title)
+  )
+  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
+
+  const transitions = useTransitionUpDown()
 
   return (
     <Layout>
