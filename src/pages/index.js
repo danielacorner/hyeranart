@@ -6,6 +6,7 @@ import SplashPageCover, {
 } from "../components/SplashPageCover"
 import Gallery from "../components/Masonry/Gallery"
 import { animated, useSpring } from "react-spring"
+import { Portal } from "@material-ui/core"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
@@ -36,9 +37,11 @@ export default () => {
     transform: `translateY(${isSplashPageClicked ? -64 : 0}px)`,
     onRest: () => {
       // set pathname to /gallery so we don't have to go through the splash page again
-      window.history.pushState("", "", "/gallery")
-      setIsHomePageEntered(true)
-      toggleOverflowHidden(false)
+      if (isSplashPageClicked) {
+        window.history.pushState("", "", "/gallery")
+        setIsHomePageEntered(true)
+        toggleOverflowHidden(false)
+      }
     },
   })
 
@@ -57,20 +60,25 @@ export default () => {
       <animated.div className="animatedWrapper homePage" style={springHomePage}>
         <Gallery />
       </animated.div>
-      <animated.div
-        className="animatedWrapper splashPage"
-        style={{
-          ...splashPageStyles,
-          ...springSplashPage,
-          ...(isSplashPageClicked
-            ? {
-                pointerEvents: "none",
-              }
-            : {}),
-        }}
-      >
-        <SplashPageCover handleClick={handleClick} />
-      </animated.div>
+      <Portal>
+        <animated.div
+          className="animatedWrapper splashPage"
+          style={{
+            ...splashPageStyles,
+            ...springSplashPage,
+            ...(isSplashPageClicked
+              ? {
+                  pointerEvents: "none",
+                }
+              : {}),
+          }}
+        >
+          <SplashPageCover
+            isClicked={isSplashPageClicked}
+            handleClick={handleClick}
+          />
+        </animated.div>
+      </Portal>
     </Layout>
   )
 }
