@@ -22,14 +22,14 @@ const GalleryStyles = styled.div`
 `
 
 // TODO: adjustable NUM_PER_PAGE?
-const NUM_PER_PAGE = 6
+const NUM_PER_PAGE = 5
 
 export default () => {
-  const { imagesDataArr } = useImagesQuery()
+  const {  galleryImagesArr } = useImagesQuery()
   // TODO: consider performance using react-swipeable-views-utils virtualization
   // https://react-swipeable-views.com/demos/demos/#virtualize
   const [currentPageIdx, setCurrentPageIdx] = useState(0)
-  const imageSpreads = imagesDataArr.reduce((acc, image, idx) => {
+  const imageSpreads = galleryImagesArr.reduce((acc, image, idx) => {
     const idxInSpreads = Math.floor(idx / NUM_PER_PAGE)
     if (acc[idxInSpreads]) {
       acc[idxInSpreads].push(image)
@@ -44,7 +44,7 @@ export default () => {
 
   const firstItemNum = currentPageIdx * NUM_PER_PAGE + 1
   const lastItemNum = firstItemNum + NUM_PER_PAGE
-  const numItems = imagesDataArr.length
+  const numItems = galleryImagesArr.length
   const numPages = Math.ceil(numItems / NUM_PER_PAGE)
   const allPagesNums = [...Array(numPages).keys()]
 
@@ -65,6 +65,7 @@ export default () => {
     <animated.div style={springEnter}>
       <GalleryStyles>
         <SwipeableViews
+        // slideStyle={{maxHeight:'200vh'}}
           className="swipeable"
           index={currentPageIdx}
           onChangeIndex={handleChangeIndex}

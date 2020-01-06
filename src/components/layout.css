@@ -19,7 +19,7 @@ body {
   overflow: hidden;
 }
 .tl-edges {
-  overflow-y: hidden;
+  overflow: unset;
 }
 article,
 aside,

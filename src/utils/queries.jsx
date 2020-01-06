@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby"
+import { GALLERY_SECTION_LINK } from "../components/Nav/SideNav"
 
 export const useImagesQuery = () => {
   const data = useStaticQuery(graphql`
@@ -49,7 +50,7 @@ export const useImagesQuery = () => {
   }))
 
   const allImagesDataArr = data.allMarkdownRemark.edges.map(
-    ({ node }, idx) => ({
+    ({ node }) => ({
       ...node.frontmatter,
       id: node.id,
       // find matching image in imagesArr
@@ -65,12 +66,19 @@ export const useImagesQuery = () => {
   const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))
 
   const collectionsDataArr = allImagesDataArr
-    .filter(d => Boolean(d.images))
+    .filter(d => Boolean(d.images && d.title !== GALLERY_SECTION_LINK.text))
     // sort by date, most recent first
     .sort(
       (prev, next) =>
         new Date(next.date).getTime() - new Date(prev.date).getTime()
     )
+
+  const gallery = allImagesDataArr.find(d=>d.title===GALLERY_SECTION_LINK.text)
+  const galleryImagesArr = gallery
+    ? gallery.images.map(({ Image }) =>
+        imagesDataArr.find(d => d.title === Image)
+      )
+    : []
 
   const sectionsDataArr = data.allMarkdownRemark.edges
     .map(d => d.node.frontmatter)
@@ -78,5 +86,11 @@ export const useImagesQuery = () => {
     // sort by pageIndex
     .sort((prev, next) => prev.pageIndex - next.pageIndex)
 
-  return { imagesDataArr, collectionsDataArr, sectionsDataArr, imagesArr }
+  return {
+    imagesDataArr,
+    collectionsDataArr,
+    sectionsDataArr,
+    imagesArr,
+    galleryImagesArr,
+  }
 }

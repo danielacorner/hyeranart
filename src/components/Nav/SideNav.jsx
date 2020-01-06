@@ -77,11 +77,12 @@ const SideNavStyles = styled.div`
   li {
     width: fit-content;
     line-height: normal;
+    margin-bottom:0;
   }
 `
 
 // TODO: pull section links from CMS
-const GALLERY_SECTION_LINK = {
+export const GALLERY_SECTION_LINK = {
   type: "section",
   text: "Gallery",
   url: "/gallery",
