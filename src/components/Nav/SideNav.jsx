@@ -87,11 +87,13 @@ export const SECTION_LINKS = [
   },
   {
     type: "section",
+    external: true,
     text: "saatchiart",
     url: "https://www.saatchiart.com/hyeran",
   },
   {
     type: "section",
+    external: true,
     text: "About Hyeran",
     url: "https://hyeran.ca/About-Hyeran",
   },
@@ -111,10 +113,11 @@ export default ({ handleNavigate }) => {
     <SideNavStyles>
       <LinksUlStyles>
         {[...SECTION_LINKS, ...COLLECTION_LINKS_ARR].map(
-          ({ type, url, text }, idx) => (
+          ({ type, url, text, external = false }, idx) => (
             <NavLink
               key={url}
               idx={idx}
+              external={external}
               type={type}
               url={url}
               text={text}
@@ -127,7 +130,7 @@ export default ({ handleNavigate }) => {
   )
 }
 
-export function NavLink({ type, url, text, handleNavigate, idx }) {
+export function NavLink({ type, url, text, handleNavigate, external, idx }) {
   const isCurrent = `/${url}` === window.location.pathname
   const onNavigate = e => {
     e.preventDefault()
@@ -136,15 +139,24 @@ export function NavLink({ type, url, text, handleNavigate, idx }) {
   }
   return (
     <li className={`${camelCase(text)}${isCurrent ? " current" : ""}`}>
-      <Link
-        onClick={onNavigate}
-        className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
-        to={url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {text}
-      </Link>
+      {external ? (
+        <a
+          className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {text}
+        </a>
+      ) : (
+        <Link
+          onClick={onNavigate}
+          className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
+          to={url}
+        >
+          {text}
+        </Link>
+      )}
     </li>
   )
 }
