@@ -90,8 +90,8 @@ collections:
           required: false,
           widget: markdown,
         }
-  - label: Page
-    name: page
+  - name: page
+    label: Page
     folder: markdown-pages
     create: true
     slug: "page_{{slug}}"
