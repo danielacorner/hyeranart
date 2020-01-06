@@ -70,5 +70,16 @@ export const useImagesQuery = () => {
         new Date(next.date).getTime() - new Date(prev.date).getTime()
     )
 
+  const sectionsDataArr = data.allMarkdownRemark.edges
+    .map(d => d.node.frontmatter)
+    .filter(d => Boolean(!d.images && !d.Image))
+
+  // sort by date, most recent first
+  // .sort(
+  //   (prev, next) =>
+  //   new Date(next.date).getTime() - new Date(prev.date).getTime()
+  //   )
+  console.log("⚡🚨: sectionsDataArr", sectionsDataArr)
+
   return { imagesDataArr, collectionsDataArr, imagesArr }
 }

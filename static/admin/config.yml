@@ -90,19 +90,30 @@ collections:
           required: false,
           widget: markdown,
         }
-  - label: Pages
-    name: pages
-    files:
-      - label: About Page
-        name: about
-        file: site/content/about.yml
-        fields:
-          - { label: Title, name: title, widget: string }
-          - { label: Intro, name: intro, widget: markdown }
-          - label: Team
-            name: team
-            widget: list
-            fields:
-              - { label: Name, name: name, widget: string }
-              - { label: Position, name: position, widget: string }
-              - { label: Photo, name: photo, widget: image }
+  - label: Page
+    name: page
+    folder: markdown-pages
+    create: true
+    slug: "page_{{slug}}"
+    fields:
+      - { name: title, label: Title }
+      - {
+          name: pageIndex,
+          label: Page Index (order),
+          widget: number,
+          valueType: integer,
+        }
+      - {
+          name: externalLink,
+          label: External Link,
+          hint: if using external link do not use more information,
+          required: false,
+          widget: string,
+        }
+      - {
+          name: moreInfo,
+          label: More information,
+          hint: if using more information do not use external link,
+          required: false,
+          widget: markdown,
+        }

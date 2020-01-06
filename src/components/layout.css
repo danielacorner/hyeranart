@@ -18,6 +18,9 @@ body {
 .overflowHidden {
   overflow: hidden;
 }
+.tl-edges {
+  overflow: hidden;
+}
 article,
 aside,
 details,

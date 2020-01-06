@@ -5,7 +5,7 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef } from "react"
 import PropTypes from "prop-types"
 import SideNav, { SIDENAV_WIDTH } from "../components/Nav/SideNav"
 import { useMediaQuery } from "@material-ui/core"
