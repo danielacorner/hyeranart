@@ -4,6 +4,7 @@ import { camelCase, kebabCase } from "lodash"
 import { useImagesQuery } from "../../utils/queries"
 import { Link, navigate } from "gatsby"
 import { GlobalDispatchContext, NAVIGATE_PAGE } from "../../context/GlobalContextProvider"
+import { globalHistory } from "@reach/router"
 
 // export const HOVER_UNDERLINE_LI_CSS = `
 //     width: fit-content;
@@ -112,7 +113,7 @@ export const useSectionCollectionLinks = () => {
   }
 }
 
-export default ({ handleNavigate, location }) => {
+export default ({ handleNavigate }) => {
   const { sectionLinksArr, collectionLinksArr } = useSectionCollectionLinks()
   return (
     <SideNavStyles>
@@ -127,7 +128,6 @@ export default ({ handleNavigate, location }) => {
               url={url}
               text={text}
               handleNavigate={handleNavigate}
-              location={location}
             />
           )
         )}
@@ -136,8 +136,9 @@ export default ({ handleNavigate, location }) => {
   )
 }
 
-export function NavLink({ type, url, text, handleNavigate, external = false, idx,location }) {
-  const isCurrent = `${url}` === location.pathname
+export function NavLink({ type, url, text, handleNavigate, external = false, idx }) {
+  const path = globalHistory.location.pathname
+  const isCurrent = `${url}` === path
   const dispatch = useContext(GlobalDispatchContext)
   const onNavigate = e => {
     e.preventDefault()

@@ -27,7 +27,7 @@ const SectionStyles = styled.div`
 `
 
 export default function Template({ pageContext }) {
-  const { title, moreInfo, pageIndex } = pageContext
+  const { title, moreInfo } = pageContext
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
 
   const transitions = useTransitionUpDown()

@@ -31,10 +31,10 @@ const LayoutStyles = styled.div`
   }
 `
 
-const Layout = ({ children, location }) => {
+const Layout = ({ children }) => {
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABTOP}px)`)
   const [isMounted, setIsMounted] = useState(true)
-  const { isMovingDown } = useContext(GlobalStateContext)
+  const {isMovingDown} = useContext(GlobalStateContext)
 
   const navigateFnRef = useRef(() => null)
 
@@ -58,12 +58,13 @@ const Layout = ({ children, location }) => {
   }
 
   return (
+
     <LayoutStyles>
       {isTabletOrLarger ? (
-        <SideNav handleNavigate={handleNavigate} location={location}/>
-      ) : (
-        <TopNav handleNavigate={handleNavigate} location={location}/>
-      )}
+        <SideNav handleNavigate={handleNavigate} />
+        ) : (
+          <TopNav handleNavigate={handleNavigate} />
+          )}
       <animated.main style={springExit}>{children}</animated.main>
     </LayoutStyles>
   )
