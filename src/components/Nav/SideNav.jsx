@@ -137,7 +137,7 @@ export default ({ handleNavigate }) => {
 }
 
 export function NavLink({ type, url, text, handleNavigate, external = false, idx }) {
-  const path = window ? window.location.pathname : globalHistory.location.pathname
+  const path = globalHistory.location.pathname
   const isCurrent = `${url}` === path
   const dispatch = useContext(GlobalDispatchContext)
   const onNavigate = e => {

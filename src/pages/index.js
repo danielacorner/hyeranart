@@ -4,9 +4,8 @@ import SEO from "../components/seo"
 import SplashPageCover, {
   splashPageStyles,
 } from "../components/SplashPageCover"
-import Gallery from "../components/Masonry/Gallery"
+import {navigate} from 'gatsby-link'
 import { animated, useSpring } from "react-spring"
-import { Portal } from "@material-ui/core"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
@@ -38,16 +37,10 @@ export default () => {
     onRest: () => {
       // set pathname to /gallery so we don't have to go through the splash page again
       if (isSplashPageClicked) {
-        window.history.pushState("", "", "/gallery")
-        setIsHomePageEntered(true)
         toggleOverflowHidden(false)
+        navigate("/gallery")
       }
     },
-  })
-
-  const springHomePage = useSpring({
-    opacity: isHomePageEntered ? 1 : 0,
-    transform: `translateY(${isHomePageEntered ? 0 : -64}px)`,
   })
 
   const handleClick = () => {
@@ -57,10 +50,6 @@ export default () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <animated.div className="animatedWrapper homePage" style={springHomePage}>
-        <Gallery />
-      </animated.div>
-      <Portal>
         <animated.div
           className="animatedWrapper splashPage"
           style={{
@@ -78,7 +67,6 @@ export default () => {
             handleClick={handleClick}
           />
         </animated.div>
-      </Portal>
     </Layout>
   )
 }
