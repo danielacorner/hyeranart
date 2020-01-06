@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react"
 import Layout, { SPRING_UP_DOWN_PX } from "../components/Layout"
 import styled from "styled-components/macro"
-import MasonryGrid from "../components/Masonry/MasonryGrid"
-import { useImagesQuery } from "../utils/queries"
-import { SaatchiButton } from "../components/ButtonsDrawer"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import { useTransition, animated } from "react-spring"
-import { SECTION_LINKS } from "../components/Nav/SideNav"
 
 const CollectionStyles = styled.div`
   padding-top: 70px;
@@ -28,22 +24,13 @@ const CollectionStyles = styled.div`
 `
 
 export default function Template({ pageContext }) {
-  const { images, title, moreInfo, saatchiLink, date } = pageContext
-  const { imagesDataArr } = useImagesQuery()
-  const imageTitlesArr = images.map(img => img.Image)
-  const imagesDataArrForCollection = imagesDataArr.filter(image =>
-    imageTitlesArr.includes(image.title)
-  )
+  const { title, moreInfo, pageIndex } = pageContext
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
-
-  // track if we're moving up or down in collections
-  const prevDate = window.localStorage.getItem("collectionDate")
 
   // if navigating from a section to a collection, we're moving down
   const prevIdx = window.localStorage.getItem("prevPrevIdx")
 
-  const isMovingDown =
-    prevIdx <= SECTION_LINKS.length || new Date(date) < new Date(prevDate)
+  const isMovingDown = prevIdx <= pageIndex
 
   const [isMounted, setIsMounted] = useState(true)
 
@@ -52,8 +39,6 @@ export default function Template({ pageContext }) {
       setIsMounted(false)
     }
   }, [])
-
-  window.localStorage.setItem("collectionDate", date)
 
   const transitions = useTransition(isMounted, null, {
     from: {
@@ -97,24 +82,11 @@ export default function Template({ pageContext }) {
                     >
                       {title}
                     </h1>
-                    <SaatchiButton
-                      saatchiLink={saatchiLink}
-                      style={{
-                        transform: "scale(0.8)",
-                        transformOrigin: `top ${
-                          isMobileOrLarger ? "right" : "left"
-                        }`,
-                        ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
-                      }}
-                    />
                   </div>
                   <div
                     className="collectionInfo"
                     dangerouslySetInnerHTML={{ __html: moreInfo }}
                   />
-                </div>
-                <div className="masonryWrapper">
-                  <MasonryGrid imagesDataArr={imagesDataArrForCollection} />
                 </div>
               </CollectionStyles>
             </animated.div>

@@ -7,7 +7,7 @@ import { SaatchiButton } from "../components/ButtonsDrawer"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import { useTransition, animated } from "react-spring"
-import { SECTION_LINKS } from "../components/Nav/SideNav"
+import { useSectionCollectionLinks } from "../components/Nav/SideNav"
 
 const CollectionStyles = styled.div`
   padding-top: 70px;
@@ -42,8 +42,10 @@ export default function Template({ pageContext }) {
   // if navigating from a section to a collection, we're moving down
   const prevIdx = window.localStorage.getItem("prevPrevIdx")
 
+  const { sectionLinksArr } = useSectionCollectionLinks()
+
   const isMovingDown =
-    prevIdx <= SECTION_LINKS.length || new Date(date) < new Date(prevDate)
+    prevIdx <= sectionLinksArr.length || new Date(date) < new Date(prevDate)
 
   const [isMounted, setIsMounted] = useState(true)
 

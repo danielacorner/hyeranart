@@ -10,6 +10,7 @@ export const useImagesQuery = () => {
             frontmatter {
               title
               moreInfo
+              externalLink
               width
               height
               date
@@ -17,6 +18,7 @@ export const useImagesQuery = () => {
               depth
               price
               saatchiLink
+              pageIndex
               images {
                 Image
               }
@@ -73,13 +75,8 @@ export const useImagesQuery = () => {
   const sectionsDataArr = data.allMarkdownRemark.edges
     .map(d => d.node.frontmatter)
     .filter(d => Boolean(!d.images && !d.Image))
+    // sort by pageIndex
+    .sort((prev, next) => prev.pageIndex - next.pageIndex)
 
-  // sort by date, most recent first
-  // .sort(
-  //   (prev, next) =>
-  //   new Date(next.date).getTime() - new Date(prev.date).getTime()
-  //   )
-  console.log("⚡🚨: sectionsDataArr", sectionsDataArr)
-
-  return { imagesDataArr, collectionsDataArr, imagesArr }
+  return { imagesDataArr, collectionsDataArr, sectionsDataArr, imagesArr }
 }

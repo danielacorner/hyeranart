@@ -79,40 +79,45 @@ const SideNavStyles = styled.div`
 `
 
 // TODO: pull section links from CMS
-export const SECTION_LINKS = [
-  {
-    type: "section",
-    text: "Gallery",
-    url: "gallery",
-  },
-  {
-    type: "section",
-    external: true,
-    text: "saatchiart",
-    url: "https://www.saatchiart.com/hyeran",
-  },
-  {
-    type: "section",
-    external: true,
-    text: "About Hyeran",
-    url: "https://hyeran.ca/About-Hyeran",
-  },
-  { type: "section", text: "Events", url: "https://hyeran.ca/Events" },
-  { type: "section", text: "Contact", url: "https://hyeran.ca/Contact" },
-]
+const GALLERY_SECTION_LINK = {
+  type: "section",
+  text: "Gallery",
+  url: "gallery",
+}
+
+export const useSectionCollectionLinks = () => {
+  const { collectionsDataArr, sectionsDataArr } = useImagesQuery()
+
+  const collectionLinksArr = collectionsDataArr.map(({ title, images }) => ({
+    type: "collection",
+    text: title,
+    url: `collections/${kebabCase(title)}`,
+    images: images,
+  }))
+
+  const sectionLinksArr = [
+    GALLERY_SECTION_LINK,
+    ...sectionsDataArr.map(({ title, externalLink }) => ({
+      type: "section",
+      text: title,
+      url: externalLink || kebabCase(title),
+      external: Boolean(externalLink),
+    })),
+  ]
+  console.log("⚡🚨: sectionLinksArr", sectionLinksArr)
+
+  return {
+    collectionLinksArr,
+    sectionLinksArr,
+  }
+}
 
 export default ({ handleNavigate }) => {
-  const { collectionsDataArr } = useImagesQuery()
-  const COLLECTION_LINKS_ARR = collectionsDataArr.map(collection => ({
-    type: "collection",
-    text: collection.title,
-    url: `collections/${kebabCase(collection.title)}`,
-    images: collection.images,
-  }))
+  const { sectionLinksArr, collectionLinksArr } = useSectionCollectionLinks()
   return (
     <SideNavStyles>
       <LinksUlStyles>
-        {[...SECTION_LINKS, ...COLLECTION_LINKS_ARR].map(
+        {[...sectionLinksArr, ...collectionLinksArr].map(
           ({ type, url, text, external = false }, idx) => (
             <NavLink
               key={url}
