@@ -6,6 +6,7 @@ images:
   - Image: 'Coexistence 6, Triptych'
   - Image: Coexistence 9
   - Image: Coexistence 14
+  - Image: Coexistence 11-I
   - Image: Coexistence 11-II
   - Image: 'Coexistence 16, Diptych'
 date: 2019-01-01T15:29:49.241Z
