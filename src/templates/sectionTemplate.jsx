@@ -5,7 +5,7 @@ import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import { useTransition, animated } from "react-spring"
 
-const CollectionStyles = styled.div`
+const SectionStyles = styled.div`
   padding-top: 70px;
   padding-left: 70px;
   .description {
@@ -17,10 +17,11 @@ const CollectionStyles = styled.div`
       font-family: "Carme", sans-serif;
     }
   }
-  .masonryWrapper {
-    padding-bottom: 140px;
-    margin-left: -36px;
+  img {
+    width: 100%;
+    height: auto;
   }
+    max-width: 960px;
 `
 
 export default function Template({ pageContext }) {
@@ -65,8 +66,7 @@ export default function Template({ pageContext }) {
         ({ item, key, props }) =>
           item && (
             <animated.div key={key} style={props}>
-              <CollectionStyles>
-                <div className="description">
+              <SectionStyles>
                   <div
                     style={{
                       display: "flex",
@@ -84,11 +84,10 @@ export default function Template({ pageContext }) {
                     </h1>
                   </div>
                   <div
-                    className="collectionInfo"
+                    className="sectionInfo"
                     dangerouslySetInnerHTML={{ __html: moreInfo }}
                   />
-                </div>
-              </CollectionStyles>
+              </SectionStyles>
             </animated.div>
           )
       )}
