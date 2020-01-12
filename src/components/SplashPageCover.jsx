@@ -1,6 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
+import { useImagesQuery } from "../utils/queries"
+import Img from "gatsby-image"
 
 export const HOVER_UNDERLINE_CSS = `
     width: fit-content;
@@ -34,12 +36,14 @@ export const splashPageStyles = {
 }
 const SplashPageStyles = styled.div`
   height: 100%;
-  background: hsl(0, 0%, 80%);
+  background: white;
   overflow: hidden;
   display: grid;
   place-items: center center;
 
   .imageWrapper {
+    width: 80vw;
+    height: auto;
   }
   .titleWrapper {
     margin-top: -3em;
@@ -71,13 +75,7 @@ const SplashPageCover = ({ handleClick }) => {
           date
           moreInfo
           saatchiLink
-          Image {
-            childImageSharp {
-              fluid(maxWidth: 2048, quality: 100) {
-                ...GatsbyImageSharpFluid_tracedSVG
-              }
-            }
-          }
+          Image
           price
           body
           templateKey
@@ -86,12 +84,19 @@ const SplashPageCover = ({ handleClick }) => {
     }
   `)
   const { frontmatter } = data.markdownRemark
+  const { imagesDataArr } = useImagesQuery()
+  const splashPageImage = imagesDataArr.find(
+    image => image.title === frontmatter.title
+  ) || { fluid: null }
+  console.log("⚡🚨: splashPageImage", splashPageImage)
   console.log("⚡🚨: frontmatter", frontmatter)
   // TODO: get matching image fluid from imagesQuery
 
   return (
     <SplashPageStyles>
-      <div className="imageWrapper"></div>
+      <div className="imageWrapper">
+        <Img fluid={splashPageImage.fluid} />
+      </div>
       <div className="titleWrapper">
         <h1>hyeran lee</h1>
         <div className="btnWrapper">
