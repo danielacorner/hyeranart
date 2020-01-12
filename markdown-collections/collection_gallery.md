@@ -1,5 +1,5 @@
 ---
-title: Gallery
+title: Artworks
 images:
   - Image: 47th Correlation
   - Image: 46th Correlation
