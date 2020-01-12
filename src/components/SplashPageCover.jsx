@@ -40,20 +40,30 @@ const SplashPageStyles = styled.div`
   overflow: hidden;
   display: grid;
   place-items: center center;
+  align-content: center;
 
   .imageWrapper {
     width: 80vw;
+    max-width: 1024px;
+    max-width: 90vh;
     height: auto;
   }
   .titleWrapper {
-    margin-top: -3em;
     display: grid;
     place-items: center center;
   }
   h1 {
+    font-size: 5.5vw;
+
     letter-spacing: 0.8em;
+    text-indent: 0.8em;
+
+    font-weight: 400;
+    margin: 0.5em 0;
+    text-align: center;
   }
   button {
+    font-size: 1.6vw;
     background: none;
     border: none;
     padding: 0;
@@ -61,6 +71,14 @@ const SplashPageStyles = styled.div`
     transition: color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     &:hover {
       color: cornflowerblue;
+    }
+  }
+  @media (min-width: 1280px) {
+    h1 {
+      font-size: 3.6em;
+    }
+    button {
+      font-size: 1.2em;
     }
   }
 `
