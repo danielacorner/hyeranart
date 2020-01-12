@@ -1,4 +1,5 @@
 ---
-title: "hyeran lee"
-Image: Life Is
+title: hyeran lee
+Image: images/uploads/life-is.jpg
 ---
+
