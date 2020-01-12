@@ -3,29 +3,11 @@ import styled from "styled-components"
 import { camelCase, kebabCase } from "lodash"
 import { useImagesQuery } from "../../utils/queries"
 import { Link, navigate } from "gatsby"
-import { GlobalDispatchContext, NAVIGATE_PAGE } from "../../context/GlobalContextProvider"
+import {
+  GlobalDispatchContext,
+  NAVIGATE_PAGE,
+} from "../../context/GlobalContextProvider"
 import { globalHistory } from "@reach/router"
-
-// export const HOVER_UNDERLINE_LI_CSS = `
-//     width: fit-content;
-//     position: relative;
-//     &:after {
-//       transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-//       position: absolute;
-//       content: "";
-//       height: 1px;
-//       width: 0%;
-//       left: 50%;
-//       bottom: 0;
-//       background: cornflowerblue;
-//     }
-//     &:hover {
-//       &:after {
-//         left: 0%;
-//         width: 100%;
-//       }
-//     }
-// `
 
 export const LinksUlStyles = styled.ul`
   a {
@@ -77,15 +59,20 @@ const SideNavStyles = styled.div`
   li {
     width: fit-content;
     line-height: normal;
-    margin-bottom:0;
+    margin-bottom: 0;
   }
 `
 
-// TODO: pull section links from CMS
 export const GALLERY_SECTION_LINK = {
   type: "section",
   text: "Gallery",
   url: "/gallery",
+}
+export const SAATCHI_SECTION_LINK = {
+  type: "section",
+  text: "Gallery",
+  url: "https://www.saatchiart.com/hyeran",
+  external: true,
 }
 
 export const useSectionCollectionLinks = () => {
@@ -100,11 +87,12 @@ export const useSectionCollectionLinks = () => {
 
   const sectionLinksArr = [
     GALLERY_SECTION_LINK,
-    ...sectionsDataArr.map(({ title, externalLink }) => ({
+    SAATCHI_SECTION_LINK,
+    ...sectionsDataArr.map(({ title }) => ({
       type: "section",
       text: title,
-      url: externalLink || `/${kebabCase(title)}`,
-      external: Boolean(externalLink),
+      url: `/${kebabCase(title)}`,
+      external: false,
     })),
   ]
 
@@ -137,13 +125,21 @@ export default ({ handleNavigate }) => {
   )
 }
 
-export function NavLink({ type, url, text, handleNavigate, external = false, idx }) {
+export function NavLink({
+  type,
+  url,
+  text,
+  handleNavigate,
+  external = false,
+  idx,
+}) {
   const path = globalHistory.location.pathname
-  const isCurrent = `${url}` === path || (url===GALLERY_SECTION_LINK.url && path === '/')
+  const isCurrent =
+    `${url}` === path || (url === GALLERY_SECTION_LINK.url && path === "/")
   const dispatch = useContext(GlobalDispatchContext)
   const onNavigate = e => {
     e.preventDefault()
-    dispatch({type:NAVIGATE_PAGE,payload: idx})
+    dispatch({ type: NAVIGATE_PAGE, payload: idx })
     handleNavigate({ navigateFn: () => navigate(url), idx })
   }
   return (

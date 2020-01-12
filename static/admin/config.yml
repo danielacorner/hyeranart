@@ -14,6 +14,50 @@ media_library:
 site_url: https://hyeranart.netlify.com
 
 collections:
+  - name: pages
+    label: Pages
+    files:
+      - file: "src/pages/landing/index.md"
+        name: landingPage
+        label: Landing Page (Open Page)
+        fields:
+          - { name: title, label: Title, widget: string }
+          - {
+              name: Image,
+              label: Cover Image,
+              widget: relation,
+              collection: painting,
+              searchFields: [title],
+              valueField: title,
+              default: null,
+            }
+      - file: "src/pages/second/index.md"
+        name: secondPage
+        label: Second Page (after Landing Page)
+        fields:
+          - { name: title, label: Title, widget: string }
+          - {
+              name: Image,
+              label: Cover Image,
+              widget: relation,
+              collection: painting,
+              searchFields: [title],
+              valueField: title,
+              default: null,
+            }
+          - { label: Body, name: body, widget: markdown }
+          - label: Contact Links
+            name: contactLinks
+            widget: list
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Web Address (Link), name: link, widget: string }
+      - file: "src/pages/about/index.md"
+        name: aboutPage
+        label: About Page
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Body, name: body, widget: markdown }
   - name: painting
     label: Single Work
     folder: markdown-paintings
@@ -69,8 +113,8 @@ collections:
         widget: list
         fields:
           - {
-              name: Image,
               label: Image,
+              name: Image,
               widget: relation,
               collection: painting,
               searchFields: [title],
@@ -87,33 +131,6 @@ collections:
       - {
           name: moreInfo,
           label: More information,
-          required: false,
-          widget: markdown,
-        }
-  - name: page
-    label: Page
-    folder: markdown-pages
-    create: true
-    slug: "page_{{slug}}"
-    fields:
-      - { name: title, label: Title }
-      - {
-          name: pageIndex,
-          label: Page Index (order),
-          widget: number,
-          valueType: integer,
-        }
-      - {
-          name: externalLink,
-          label: External Link,
-          hint: if using external link do not use more information,
-          required: false,
-          widget: string,
-        }
-      - {
-          name: moreInfo,
-          label: More information,
-          hint: if using more information do not use external link,
           required: false,
           widget: markdown,
         }
