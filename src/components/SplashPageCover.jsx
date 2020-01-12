@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { graphql, useStaticQuery } from "gatsby"
 
 export const HOVER_UNDERLINE_CSS = `
     width: fit-content;
@@ -61,6 +62,33 @@ const SplashPageStyles = styled.div`
 `
 
 const SplashPageCover = ({ handleClick }) => {
+  const data = useStaticQuery(graphql`
+    query IndexPageTemplate {
+      markdownRemark(frontmatter: { templateKey: { eq: "landing-page" } }) {
+        id
+        frontmatter {
+          title
+          date
+          moreInfo
+          saatchiLink
+          Image {
+            childImageSharp {
+              fluid(maxWidth: 2048, quality: 100) {
+                ...GatsbyImageSharpFluid_tracedSVG
+              }
+            }
+          }
+          price
+          body
+          templateKey
+        }
+      }
+    }
+  `)
+  const { frontmatter } = data.markdownRemark
+  console.log("⚡🚨: frontmatter", frontmatter)
+  // TODO: get matching image fluid from imagesQuery
+
   return (
     <SplashPageStyles>
       <div className="imageWrapper"></div>

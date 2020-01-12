@@ -65,18 +65,18 @@ const SideNavStyles = styled.div`
 
 export const GALLERY_SECTION_LINK = {
   type: "section",
-  text: "Gallery",
-  url: "/gallery",
+  text: "Artworks",
+  url: "/artworks",
 }
 export const SAATCHI_SECTION_LINK = {
   type: "section",
-  text: "Gallery",
+  text: "saatchiart",
   url: "https://www.saatchiart.com/hyeran",
   external: true,
 }
 
 export const useSectionCollectionLinks = () => {
-  const { collectionsDataArr, sectionsDataArr } = useImagesQuery()
+  const { collectionsDataArr } = useImagesQuery()
 
   const collectionLinksArr = collectionsDataArr.map(({ title, images }) => ({
     type: "collection",
@@ -88,12 +88,12 @@ export const useSectionCollectionLinks = () => {
   const sectionLinksArr = [
     GALLERY_SECTION_LINK,
     SAATCHI_SECTION_LINK,
-    ...sectionsDataArr.map(({ title }) => ({
-      type: "section",
-      text: title,
-      url: `/${kebabCase(title)}`,
-      external: false,
-    })),
+    // ...sectionsDataArr.map(({ title }) => ({
+    //   type: "section",
+    //   text: title,
+    //   url: `/${kebabCase(title)}`,
+    //   external: false,
+    // })),
   ]
 
   return {

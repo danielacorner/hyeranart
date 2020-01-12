@@ -1,11 +1,6 @@
 import { graphql, useStaticQuery } from "gatsby"
 import { GALLERY_SECTION_LINK } from "../components/Nav/SideNav"
 
-export const useCoverImageQuery = () => {
-  const coverImage = null
-  return coverImage
-}
-
 export const useImagesQuery = () => {
   const data = useStaticQuery(graphql`
     query AllMarkdownQuery {
@@ -23,7 +18,6 @@ export const useImagesQuery = () => {
               depth
               price
               saatchiLink
-              pageIndex
               images {
                 Image
               }
@@ -37,7 +31,7 @@ export const useImagesQuery = () => {
             id
             relativePath
             childImageSharp {
-              fluid(maxWidth: 1240) {
+              fluid(maxWidth: 2048, quality: 100) {
                 ...GatsbyImageSharpFluid_tracedSVG
               }
             }
@@ -84,16 +78,16 @@ export const useImagesQuery = () => {
       )
     : []
 
-  const sectionsDataArr = data.allMarkdownRemark.edges
-    .map(d => d.node.frontmatter)
-    .filter(d => Boolean(!d.images && !d.Image))
-    // sort by pageIndex
-    .sort((prev, next) => prev.pageIndex - next.pageIndex)
+  // const sectionsDataArr = data.allMarkdownRemark.edges
+  //   .map(d => d.node.frontmatter)
+  //   .filter(d => Boolean(!d.images && !d.Image))
+  //   // sort by pageIndex
+  //   .sort((prev, next) => prev.pageIndex - next.pageIndex)
 
   return {
     imagesDataArr,
     collectionsDataArr,
-    sectionsDataArr,
+    // sectionsDataArr,
     imagesArr,
     galleryImagesArr,
   }

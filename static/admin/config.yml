@@ -21,12 +21,24 @@ collections:
         name: landingPage
         label: Landing Page (Open Page)
         fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "landing-page",
+            }
           - { name: title, label: Title, widget: string }
           - { name: Image, label: Cover Image, widget: image }
       - file: "src/pages/second/index.md"
         name: secondPage
         label: Second Page (after Landing Page)
         fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "second-page",
+            }
           - { name: title, label: Title, widget: string }
           - { name: Image, label: Top Image, widget: image }
           - { label: Body, name: body, widget: markdown }
@@ -40,6 +52,12 @@ collections:
         name: aboutPage
         label: About Page
         fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "about-page",
+            }
           - { label: Title, name: title, widget: string }
           - { label: Body, name: body, widget: markdown }
   - name: painting
