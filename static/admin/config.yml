@@ -22,29 +22,13 @@ collections:
         label: Landing Page (Open Page)
         fields:
           - { name: title, label: Title, widget: string }
-          - {
-              name: Image,
-              label: Cover Image,
-              widget: relation,
-              collection: painting,
-              searchFields: [title],
-              valueField: title,
-              default: null,
-            }
+          - { name: Image, label: Cover Image, widget: image }
       - file: "src/pages/second/index.md"
         name: secondPage
         label: Second Page (after Landing Page)
         fields:
           - { name: title, label: Title, widget: string }
-          - {
-              name: Image,
-              label: Cover Image,
-              widget: relation,
-              collection: painting,
-              searchFields: [title],
-              valueField: title,
-              default: null,
-            }
+          - { name: Image, label: Top Image, widget: image }
           - { label: Body, name: body, widget: markdown }
           - label: Contact Links
             name: contactLinks
