@@ -19,13 +19,20 @@ const GalleryStyles = styled.div`
   .masonry-grid {
     margin: 0 1em;
   }
+  padding-bottom: 3em;
+  .pagination-top {
+    margin-bottom: 1em;
+  }
+  .pagination-bottom {
+    margin-top: -5em;
+  }
 `
 
 // TODO: adjustable NUM_PER_PAGE?
 const NUM_PER_PAGE = 5
 
 export default () => {
-  const {  galleryImagesArr } = useImagesQuery()
+  const { galleryImagesArr } = useImagesQuery()
   // TODO: consider performance using react-swipeable-views-utils virtualization
   // https://react-swipeable-views.com/demos/demos/#virtualize
   const [currentPageIdx, setCurrentPageIdx] = useState(0)
@@ -64,8 +71,20 @@ export default () => {
   return (
     <animated.div style={springEnter}>
       <GalleryStyles>
+        <div className="pagination-top">
+          <Pagination
+            setCurrentPageIdx={setCurrentPageIdx}
+            currentPageIdx={currentPageIdx}
+            handlePrev={handlePrev}
+            firstItemNum={firstItemNum}
+            lastItemNum={lastItemNum}
+            numItems={numItems}
+            numPages={numPages}
+            handleNext={handleNext}
+          />
+        </div>
         <SwipeableViews
-        // slideStyle={{maxHeight:'200vh'}}
+          // slideStyle={{maxHeight:'200vh'}}
           className="swipeable"
           index={currentPageIdx}
           onChangeIndex={handleChangeIndex}
@@ -78,16 +97,18 @@ export default () => {
             </div>
           ))}
         </SwipeableViews>
-        <Pagination
-          setCurrentPageIdx={setCurrentPageIdx}
-          currentPageIdx={currentPageIdx}
-          handlePrev={handlePrev}
-          firstItemNum={firstItemNum}
-          lastItemNum={lastItemNum}
-          numItems={numItems}
-          numPages={numPages}
-          handleNext={handleNext}
-        />
+        <div className="pagination-bottom">
+          <Pagination
+            setCurrentPageIdx={setCurrentPageIdx}
+            currentPageIdx={currentPageIdx}
+            handlePrev={handlePrev}
+            firstItemNum={firstItemNum}
+            lastItemNum={lastItemNum}
+            numItems={numItems}
+            numPages={numPages}
+            handleNext={handleNext}
+          />
+        </div>
       </GalleryStyles>
     </animated.div>
   )

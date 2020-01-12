@@ -43,11 +43,11 @@ export const LinksUlStyles = styled.ul`
   }
 `
 
-export const SIDENAV_WIDTH = 122
+export const DESKTOPNAV_WIDTH = 122
 
-const SideNavStyles = styled.div`
+const DesktopNavStyles = styled.div`
   height: fit-content;
-  width: ${SIDENAV_WIDTH}px;
+  width: ${DESKTOPNAV_WIDTH}px;
   font-size: 12px;
   font-family: system-ui;
   position: sticky;
@@ -105,7 +105,7 @@ export const useSectionCollectionLinks = () => {
 export default ({ handleNavigate }) => {
   const { sectionLinksArr, collectionLinksArr } = useSectionCollectionLinks()
   return (
-    <SideNavStyles>
+    <DesktopNavStyles>
       <LinksUlStyles>
         {[...sectionLinksArr, ...collectionLinksArr].map(
           ({ type, url, text, external }, idx) => (
@@ -121,7 +121,7 @@ export default ({ handleNavigate }) => {
           )
         )}
       </LinksUlStyles>
-    </SideNavStyles>
+    </DesktopNavStyles>
   )
 }
 

@@ -7,10 +7,10 @@
 
 import React, { useState, useRef, useContext } from "react"
 import PropTypes from "prop-types"
-import SideNav, { SIDENAV_WIDTH } from "../components/Nav/SideNav"
+import DesktopNav, { DESKTOPNAV_WIDTH } from "../components/Nav/DesktopNav"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
-import TopNav from "../components/Nav/TopNav"
+import MobileNav from "../components/Nav/MobileNav"
 import styled from "styled-components"
 import { useSpring, animated } from "react-spring"
 import "./layout.css"
@@ -25,7 +25,7 @@ const LayoutStyles = styled.div`
   main {
     width: 100vw;
     @media (min-width: ${BREAKPOINTS.TABTOP}px) {
-      width: calc(100vw - ${SIDENAV_WIDTH}px);
+      width: calc(100vw - ${DESKTOPNAV_WIDTH}px);
     }
     height: 100%;
   }
@@ -34,7 +34,7 @@ const LayoutStyles = styled.div`
 const Layout = ({ children }) => {
   const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABTOP}px)`)
   const [isMounted, setIsMounted] = useState(true)
-  const {isMovingDown} = useContext(GlobalStateContext)
+  const { isMovingDown } = useContext(GlobalStateContext)
 
   const navigateFnRef = useRef(() => null)
 
@@ -58,13 +58,12 @@ const Layout = ({ children }) => {
   }
 
   return (
-
     <LayoutStyles>
       {isTabletOrLarger ? (
-        <SideNav handleNavigate={handleNavigate} />
-        ) : (
-          <TopNav handleNavigate={handleNavigate} />
-          )}
+        <DesktopNav handleNavigate={handleNavigate} />
+      ) : (
+        <MobileNav handleNavigate={handleNavigate} />
+      )}
       <animated.main style={springExit}>{children}</animated.main>
     </LayoutStyles>
   )

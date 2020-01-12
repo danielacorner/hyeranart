@@ -10,7 +10,6 @@ const PaginationStyles = styled.div`
   justify-content: center;
   height: 82px;
   position: relative;
-  margin-bottom: 3em;
   .paginationContent {
     font-family: system-ui;
     width: fit-content;

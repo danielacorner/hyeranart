@@ -1,14 +1,14 @@
 import React, { useState, useRef } from "react"
 import styled from "styled-components"
 import { BREAKPOINTS } from "../../utils/constants"
-import { LinksUlStyles, NavLink, useSectionCollectionLinks } from "./SideNav"
+import { LinksUlStyles, NavLink, useSectionCollectionLinks } from "./DesktopNav"
 import MenuIcon from "@material-ui/icons/Menu"
 import CloseIcon from "@material-ui/icons/Close"
 import { IconButton } from "@material-ui/core"
 import { useSpring, animated } from "react-spring"
 import { useOnClickOutside } from "../../utils/customHooks"
 
-const TopNavStyles = styled.div`
+const MobileNavStyles = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -94,7 +94,7 @@ export default () => {
   const { sectionLinksArr, collectionLinksArr } = useSectionCollectionLinks()
 
   return (
-    <TopNavStyles isModalOpen={isModalOpen}>
+    <MobileNavStyles isModalOpen={isModalOpen}>
       <IconButton className="popupOpenButton" onClick={toggleModal}>
         <MenuIcon />
       </IconButton>
@@ -117,6 +117,6 @@ export default () => {
           </div>
         </div>
       </animated.div>
-    </TopNavStyles>
+    </MobileNavStyles>
   )
 }

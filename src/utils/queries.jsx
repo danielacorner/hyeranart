@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby"
-import { GALLERY_SECTION_LINK } from "../components/Nav/SideNav"
+import { GALLERY_SECTION_LINK } from "../components/Nav/DesktopNav"
 
 export const useImagesQuery = () => {
   const data = useStaticQuery(graphql`

@@ -92,7 +92,7 @@ const MasonryGrid = ({
                 style={{
                   gridColumn: `span ${xSpan}`,
                   gridRow: `span ${ySpan}`, // doesn't work?
-                  marginTop: gridGap,
+                  marginBottom: gridGap,
                 }}
               >
                 <AnimatedImage
