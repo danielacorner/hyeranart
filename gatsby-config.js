@@ -35,14 +35,6 @@ module.exports = {
         name: `markdown-paintings`,
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/markdown-pages`,
-        name: `markdown-pages`,
-      },
-    },
-
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
