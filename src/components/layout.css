@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Carme&display=swap");
 @font-face {
-  font-family: "Avenir";
-  src: url("../../static/fonts/AvenirNext-UltraLight.woff") format("woff");
+  font-family: "AvenirUltraLight";
+  src: url("../../static/fonts/avenir/AvenirNext-UltraLight.woff")
+    format("woff");
 }
 * {
   font-family: system-ui;
