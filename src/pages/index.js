@@ -14,26 +14,32 @@ if (process.env.NODE_ENV !== "production") {
   whyDidYouRender(React)
 }
 
+const toggleOverflowHidden = isHidden => {
+  const html = document.querySelector("html")
+  if (isHidden) {
+    html.classList.add("overflowHidden")
+  } else {
+    html.classList.remove("overflowHidden")
+  }
+}
+
 export default () => {
   const { location } = globalHistory
+  const isComingFromInsideTheSite = Boolean(
+    location && location.state && location.state.isInternal
+  )
   const [isSplashPageClicked, setIsSplashPageClicked] = useState(
-    location.state.prevPath !== "/"
+    isComingFromInsideTheSite
   )
 
-  const toggleOverflowHidden = isHidden => {
-    if (isHidden) {
-      document.querySelector("html").classList.add("overflowHidden")
-    } else {
-      document.querySelector("html").classList.remove("overflowHidden")
-    }
-  }
-
   useEffect(() => {
-    toggleOverflowHidden(true)
+    if (!isComingFromInsideTheSite) {
+      toggleOverflowHidden(true)
+    }
     return () => {
       toggleOverflowHidden(false)
     }
-  })
+  }, [isComingFromInsideTheSite])
 
   const springSplashPage = useSpring({
     opacity: isSplashPageClicked ? 0 : 1,

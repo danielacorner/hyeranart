@@ -56,7 +56,6 @@ export default () => {
         rawMarkdownBody
         frontmatter {
           title
-          body
           contactLinks {
             link
             title

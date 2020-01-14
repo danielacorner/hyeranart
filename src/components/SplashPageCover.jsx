@@ -103,16 +103,8 @@ const SplashPageCover = ({ handleClick }) => {
   const data = useStaticQuery(graphql`
     query IndexPageTemplate {
       markdownRemark(frontmatter: { templateKey: { eq: "landing-page" } }) {
-        id
         frontmatter {
           title
-          date
-          moreInfo
-          saatchiLink
-          Image
-          price
-          body
-          templateKey
         }
       }
     }

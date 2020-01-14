@@ -15,7 +15,7 @@ export function NavLink({ type, url, text, handleNavigate, idx }) {
     e.preventDefault()
     dispatch({ type: NAVIGATE_PAGE, payload: idx })
     handleNavigate({
-      navigateFn: () => navigate(url, { state: { prevPath: path } }),
+      navigateFn: () => navigate(url, { state: { isInternal: true } }),
     })
   }
   const isExternalUrl = url.includes("mailto")

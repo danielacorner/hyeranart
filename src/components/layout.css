@@ -26,6 +26,7 @@ body {
 }
 .overflowHidden {
   overflow: hidden;
+  margin-right: 16px;
 }
 .tl-edges {
   overflow: unset;
