@@ -64,6 +64,8 @@ const SplashPageStyles = styled.div`
     place-items: center center;
   }
   h1 {
+    font-family: "AvenirUltraLight";
+
     font-size: 5.5vw;
     font-family: "AvenirLight";
 

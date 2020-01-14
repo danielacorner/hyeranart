@@ -25,7 +25,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
               title
               date
               saatchiLink
-              pageIndex
               moreInfo
               Image
               images {
@@ -47,14 +46,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     // section pages
     if (Boolean(!node.frontmatter.images && !node.frontmatter.Image)) {
-      const { title, moreInfo, pageIndex } = node.frontmatter
+      const { title, moreInfo /* pageIndex */ } = node.frontmatter
       createPage({
         path: `/${kebabCase(node.frontmatter.title)}`,
         component: sectionPageTemplate,
         context: {
           title,
           moreInfo,
-          pageIndex,
+          /* pageIndex, */
         }, // additional data can be passed via context
       })
     }

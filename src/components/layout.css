@@ -1,11 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Carme&display=swap");
 @font-face {
   font-family: "AvenirLight";
-  src: url("../../static/fonts/AvenirNext-UltraLight.woff") format("woff");
+  src: url("../../static/fonts/avenir/AvenirNext-UltraLight.woff")
+    format("woff");
 }
 @font-face {
   font-family: "AvenirRegular";
-  src: url("../../static/fonts/AvenirNextLTPro-Regular.woff") format("woff");
+  src: url("../../static/fonts/avenir/AvenirNextLTPro-Regular.woff")
+    format("woff");
 }
 * {
   font-family: system-ui;
