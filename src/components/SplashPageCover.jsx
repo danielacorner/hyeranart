@@ -65,7 +65,7 @@ const SplashPageStyles = styled.div`
   }
   h1 {
     font-size: 5.5vw;
-    font-family: "Avenir";
+    font-family: "AvenirLight";
 
     letter-spacing: 0.8em;
     text-indent: 0.8em;

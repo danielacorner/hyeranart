@@ -6,6 +6,13 @@ import { useStaticQuery, graphql } from "gatsby"
 import { HOVER_UNDERLINE_CSS, CUBIC_BEZIER } from "./SplashPageCover"
 
 const SecondPageStyles = styled.div`
+  width: 70vw;
+  margin-left: auto;
+  margin-top: 3em;
+  font-family: "AvenirRegular";
+  * {
+    font-family: inherit;
+  }
   li {
     list-style-type: none;
     ${HOVER_UNDERLINE_CSS}
@@ -20,7 +27,25 @@ const SecondPageStyles = styled.div`
     }
   }
   .imageWrapper {
+    margin-left: auto;
+    width: calc(100% - 4em);
+  }
+  main {
     width: 100%;
+    line-height: 2em;
+  }
+  h1 {
+    margin-left: 2em;
+    margin-top: 1.5em;
+    font-style: italic;
+    font-size: 2em;
+  }
+  h6 {
+    font-size: 0.6em;
+    margin-bottom: 1em;
+  }
+  ul {
+    margin: 0;
   }
 `
 export default () => {
@@ -40,7 +65,6 @@ export default () => {
     }
   `)
   const { frontmatter, rawMarkdownBody } = data.markdownRemark
-  console.log("⚡🚨: rawMarkdownBody", rawMarkdownBody)
   const { contactLinks } = frontmatter
   const { imagesDataArr } = useImagesQuery()
   const secondPageImage = imagesDataArr.find(
@@ -55,17 +79,16 @@ export default () => {
       <main>
         <p>{rawMarkdownBody}</p>
       </main>
-      {contactLinks && (
-        <ul>
-          {contactLinks.map(({ link, title }) => (
-            <li key={title}>
-              <a href={link} target="_blank" rel="noopener noreferrer">
-                {title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <h6>CONTACT</h6>
+      <ul>
+        {contactLinks.map(({ link, title }) => (
+          <li key={title}>
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              {title}
+            </a>
+          </li>
+        ))}
+      </ul>
     </SecondPageStyles>
   )
 }

@@ -51,6 +51,9 @@ const DesktopNavStyles = styled.div`
   font-family: system-ui;
   margin-top: 3em;
   padding: 1em 4em;
+  position: sticky;
+  background: white;
+  top: 0;
   li {
     width: fit-content;
     margin-left: 1.5em;
@@ -66,7 +69,7 @@ const DesktopNavStyles = styled.div`
     margin: 0;
     letter-spacing: 0.8em;
     font-size: 2.5vw;
-    font-family: "Avenir";
+    font-family: "AvenirRegular";
   }
   display: flex;
   align-items: baseline;
