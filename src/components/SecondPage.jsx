@@ -19,11 +19,15 @@ const SecondPageStyles = styled.div`
       color: cornflowerblue;
     }
   }
+  .imageWrapper {
+    width: 100%;
+  }
 `
 export default () => {
   const data = useStaticQuery(graphql`
     query SecondPageTemplate {
       markdownRemark(frontmatter: { templateKey: { eq: "second-page" } }) {
+        rawMarkdownBody
         frontmatter {
           title
           body
@@ -35,8 +39,9 @@ export default () => {
       }
     }
   `)
-  const { frontmatter } = data.markdownRemark
-  const { body, contactLinks } = frontmatter
+  const { frontmatter, rawMarkdownBody } = data.markdownRemark
+  console.log("⚡🚨: rawMarkdownBody", rawMarkdownBody)
+  const { contactLinks } = frontmatter
   const { imagesDataArr } = useImagesQuery()
   const secondPageImage = imagesDataArr.find(
     image => image.title === frontmatter.title
@@ -47,7 +52,9 @@ export default () => {
         <Img fluid={secondPageImage.fluid} />
       </div>
       <h1>ENERGY & FREEDOM</h1>
-      <main>{body}</main>
+      <main>
+        <p>{rawMarkdownBody}</p>
+      </main>
       {contactLinks && (
         <ul>
           {contactLinks.map(({ link, title }) => (

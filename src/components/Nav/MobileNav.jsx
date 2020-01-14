@@ -91,7 +91,7 @@ export default () => {
   const ref = useRef()
   useOnClickOutside(ref, () => setIsModalOpen(false))
 
-  const { sectionLinksArr, collectionLinksArr } = useSectionCollectionLinks()
+  const { sectionLinksArr } = useSectionCollectionLinks()
 
   return (
     <MobileNavStyles isModalOpen={isModalOpen}>
@@ -109,11 +109,11 @@ export default () => {
                 <NavLink key={url} type={type} url={url} text={text} />
               ))}
             </LinksUlStyles>
-            <LinksUlStyles className="collectionLinks">
+            {/* <LinksUlStyles className="collectionLinks">
               {collectionLinksArr.map(({ type, url, text }) => (
                 <NavLink key={url} type={type} url={url} text={text} />
               ))}
-            </LinksUlStyles>
+            </LinksUlStyles> */}
           </div>
         </div>
       </animated.div>

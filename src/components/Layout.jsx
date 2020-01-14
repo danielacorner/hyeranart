@@ -20,7 +20,6 @@ export const SPRING_UP_DOWN_PX = 30
 
 const LayoutStyles = styled.div`
   margin: 0 auto;
-  display: flex;
   min-height: 100vh;
   main {
     width: 100vw;

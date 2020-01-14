@@ -1,7 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { camelCase, kebabCase } from "lodash"
-import { useImagesQuery } from "../../utils/queries"
+import { camelCase } from "lodash"
 import { Link, navigate } from "gatsby"
 import {
   GlobalDispatchContext,
@@ -10,6 +9,7 @@ import {
 import { globalHistory } from "@reach/router"
 
 export const LinksUlStyles = styled.ul`
+  display: flex;
   a {
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     text-decoration: none;
@@ -47,20 +47,23 @@ export const DESKTOPNAV_WIDTH = 122
 
 const DesktopNavStyles = styled.div`
   height: fit-content;
-  width: ${DESKTOPNAV_WIDTH}px;
   font-size: 12px;
   font-family: system-ui;
-  position: sticky;
-  top: 1em;
   margin-top: 3em;
-  ul {
-    width: 96px;
-  }
+  padding: 1em 4em;
   li {
     width: fit-content;
+    margin-left: 1em;
     line-height: normal;
     margin-bottom: 0;
+    text-transform: uppercase;
   }
+  h4 {
+    flex-grow: 1;
+    letter-spacing: 0.8em;
+    font-family: "Avenir";
+  }
+  display: flex;
 `
 
 export const GALLERY_SECTION_LINK = {
@@ -76,18 +79,28 @@ export const SAATCHI_SECTION_LINK = {
 }
 
 export const useSectionCollectionLinks = () => {
-  const { collectionsDataArr } = useImagesQuery()
+  // const { collectionsDataArr } = useImagesQuery()
 
-  const collectionLinksArr = collectionsDataArr.map(({ title, images }) => ({
-    type: "collection",
-    text: title,
-    url: `/collections/${kebabCase(title)}`,
-    images: images,
-  }))
+  // const collectionLinksArr = collectionsDataArr.map(({ title, images }) => ({
+  //   type: "collection",
+  //   text: title,
+  //   url: `/collections/${kebabCase(title)}`,
+  //   images: images,
+  // }))
 
   const sectionLinksArr = [
+    {
+      type: "section",
+      text: "Energy & Freedom",
+      url: "/",
+    },
     GALLERY_SECTION_LINK,
-    SAATCHI_SECTION_LINK,
+    {
+      type: "section",
+      text: "About",
+      url: "/about",
+    },
+    // SAATCHI_SECTION_LINK,
     // ...sectionsDataArr.map(({ title }) => ({
     //   type: "section",
     //   text: title,
@@ -97,29 +110,27 @@ export const useSectionCollectionLinks = () => {
   ]
 
   return {
-    collectionLinksArr,
     sectionLinksArr,
   }
 }
 
 export default ({ handleNavigate }) => {
-  const { sectionLinksArr, collectionLinksArr } = useSectionCollectionLinks()
+  const { sectionLinksArr } = useSectionCollectionLinks()
   return (
     <DesktopNavStyles>
+      <h4>hyeran lee</h4>
       <LinksUlStyles>
-        {[...sectionLinksArr, ...collectionLinksArr].map(
-          ({ type, url, text, external }, idx) => (
-            <NavLink
-              key={url}
-              idx={idx}
-              external={external}
-              type={type}
-              url={url}
-              text={text}
-              handleNavigate={handleNavigate}
-            />
-          )
-        )}
+        {sectionLinksArr.map(({ type, url, text, external }, idx) => (
+          <NavLink
+            key={url}
+            idx={idx}
+            external={external}
+            type={type}
+            url={url}
+            text={text}
+            handleNavigate={handleNavigate}
+          />
+        ))}
       </LinksUlStyles>
     </DesktopNavStyles>
   )
@@ -134,8 +145,7 @@ export function NavLink({
   idx,
 }) {
   const path = globalHistory.location.pathname
-  const isCurrent =
-    `${url}` === path || (url === GALLERY_SECTION_LINK.url && path === "/")
+  const isCurrent = `${url}` === path
   const dispatch = useContext(GlobalDispatchContext)
   const onNavigate = e => {
     e.preventDefault()
