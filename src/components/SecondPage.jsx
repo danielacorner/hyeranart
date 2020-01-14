@@ -9,6 +9,7 @@ const SecondPageStyles = styled.div`
   width: 70vw;
   margin-left: auto;
   margin-top: 3em;
+  margin-right: 3em;
   font-family: "AvenirRegular";
   * {
     font-family: inherit;

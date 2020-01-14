@@ -23,15 +23,12 @@ const LayoutStyles = styled.div`
   min-height: 100vh;
   main {
     width: 100vw;
-    @media (min-width: ${BREAKPOINTS.TABTOP}px) {
-      width: calc(100vw - ${DESKTOPNAV_WIDTH}px);
-    }
     height: 100%;
   }
 `
 
 const Layout = ({ children }) => {
-  const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABTOP}px)`)
+  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const [isMounted, setIsMounted] = useState(true)
   const { isMovingDown } = useContext(GlobalStateContext)
 
@@ -58,7 +55,7 @@ const Layout = ({ children }) => {
 
   return (
     <LayoutStyles>
-      {isTabletOrLarger ? (
+      {isMobileOrLarger ? (
         <DesktopNav handleNavigate={handleNavigate} />
       ) : (
         <MobileNav handleNavigate={handleNavigate} />
