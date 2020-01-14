@@ -6,6 +6,12 @@ import Img from "gatsby-image"
 
 export const CUBIC_BEZIER = "cubic-bezier(0.165, 0.84, 0.44, 1)"
 
+export const UNDERLINE_ACTIVE_CSS = `
+&:after {
+  left: 0%;
+  width: 100%;
+}
+`
 export const HOVER_UNDERLINE_CSS = `
     width: fit-content;
     position: relative;
@@ -21,10 +27,7 @@ export const HOVER_UNDERLINE_CSS = `
       background: cornflowerblue;
     }
     &:hover {
-      &:after {
-        left: 0%;
-        width: 100%;
-      }
+${UNDERLINE_ACTIVE_CSS}
     }
 `
 

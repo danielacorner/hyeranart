@@ -7,9 +7,12 @@ import {
   NAVIGATE_PAGE,
 } from "../../context/GlobalContextProvider"
 import { globalHistory } from "@reach/router"
+import { UNDERLINE_ACTIVE_CSS, HOVER_UNDERLINE_CSS } from "../SplashPageCover"
 
 export const LinksUlStyles = styled.ul`
   display: flex;
+  margin-bottom: 0;
+
   a {
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     text-decoration: none;
@@ -17,10 +20,6 @@ export const LinksUlStyles = styled.ul`
     color: black;
     &.section {
       color: #999999;
-    }
-    &:active,
-    &.current {
-      color: white;
     }
     &.saatchiart {
       text-decoration: underline;
@@ -33,12 +32,13 @@ export const LinksUlStyles = styled.ul`
     list-style-type: none;
     padding: 4px;
     margin-bottom: 0.3rem;
-    &:hover {
-      background: #ffff66;
+    ${HOVER_UNDERLINE_CSS}
+    &:after {
+      background: #999999;
     }
     &:active,
     &.current {
-      background: black;
+      ${UNDERLINE_ACTIVE_CSS}
     }
   }
 `
@@ -53,17 +53,23 @@ const DesktopNavStyles = styled.div`
   padding: 1em 4em;
   li {
     width: fit-content;
-    margin-left: 1em;
+    margin-left: 1.5em;
     line-height: normal;
     margin-bottom: 0;
     text-transform: uppercase;
+    font-size: 1.25vw;
+    display: flex;
+    padding: 0;
   }
   h4 {
     flex-grow: 1;
+    margin: 0;
     letter-spacing: 0.8em;
+    font-size: 2.5vw;
     font-family: "Avenir";
   }
   display: flex;
+  align-items: baseline;
 `
 
 export const GALLERY_SECTION_LINK = {
