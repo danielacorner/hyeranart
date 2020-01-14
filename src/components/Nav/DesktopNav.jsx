@@ -28,7 +28,10 @@ export const LinksUlStyles = styled.ul`
     margin-bottom: 0.3rem;
     ${HOVER_UNDERLINE_CSS}
     &:after {
-      background: #999999;
+      background: hsl(0, 0%, 60%);
+    }
+    &:hover:after {
+      background: hsl(0, 0%, 80%);
     }
     &:active,
     &.current {
