@@ -1,5 +1,5 @@
 ---
-title: "About Hyeran"
-body: hello
 templateKey: about-page
+title: About Hyeran
 ---
+About page - under construction
