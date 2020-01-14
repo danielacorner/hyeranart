@@ -1,12 +1,13 @@
 import React, { useState, useRef } from "react"
 import styled from "styled-components"
 import { BREAKPOINTS } from "../../utils/constants"
-import { LinksUlStyles, NavLink, useSectionCollectionLinks } from "./DesktopNav"
+import { LinksUlStyles, useSectionCollectionLinks } from "./DesktopNav"
 import MenuIcon from "@material-ui/icons/Menu"
 import CloseIcon from "@material-ui/icons/Close"
 import { IconButton } from "@material-ui/core"
 import { useSpring, animated } from "react-spring"
 import { useOnClickOutside } from "../../utils/customHooks"
+import { NavLink } from "./NavLink"
 
 const MobileNavStyles = styled.div`
   position: absolute;
@@ -109,11 +110,6 @@ export default () => {
                 <NavLink key={url} type={type} url={url} text={text} />
               ))}
             </LinksUlStyles>
-            {/* <LinksUlStyles className="collectionLinks">
-              {collectionLinksArr.map(({ type, url, text }) => (
-                <NavLink key={url} type={type} url={url} text={text} />
-              ))}
-            </LinksUlStyles> */}
           </div>
         </div>
       </animated.div>

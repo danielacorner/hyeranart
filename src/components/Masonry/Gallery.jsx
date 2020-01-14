@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 
 import MasonryGrid from "./MasonryGrid"
 import { useImagesQuery } from "../../utils/queries"
@@ -6,8 +6,6 @@ import { useState } from "react"
 import styled from "styled-components"
 import Pagination from "../Pagination"
 import SwipeableViews from "react-swipeable-views"
-import { animated, useSpring } from "react-spring"
-import { SPRING_UP_DOWN_PX } from "../Layout"
 
 const GalleryStyles = styled.div`
   height: 100%;
@@ -18,6 +16,7 @@ const GalleryStyles = styled.div`
   }
   .masonry-grid {
     margin: 0 1em;
+    padding-top: 1em;
   }
   padding-bottom: 3em;
   .pagination-top {
@@ -60,56 +59,46 @@ export default () => {
     // when we switch slides, "virtualize" so that only the nearest three slides are rendered
   }
 
-  const [isMounted, setIsMounted] = useState(0)
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-  const springEnter = useSpring({
-    opacity: isMounted ? 1 : 0,
-    transform: `translateY(${isMounted ? 0 : -SPRING_UP_DOWN_PX}px)`,
-  })
   return (
-    <animated.div style={springEnter}>
-      <GalleryStyles>
-        <div className="pagination-top">
-          <Pagination
-            setCurrentPageIdx={setCurrentPageIdx}
-            currentPageIdx={currentPageIdx}
-            handlePrev={handlePrev}
-            firstItemNum={firstItemNum}
-            lastItemNum={lastItemNum}
-            numItems={numItems}
-            numPages={numPages}
-            handleNext={handleNext}
-          />
-        </div>
-        <SwipeableViews
-          // slideStyle={{maxHeight:'200vh'}}
-          className="swipeable"
-          index={currentPageIdx}
-          onChangeIndex={handleChangeIndex}
-          enableMouseEvents={true}
-          onTransitionEnd={handleFilterToNearestSlides}
-        >
-          {allPagesNums.map(idx => (
-            <div key={idx} className={`swipeable-slide slide-${idx}`}>
-              <MasonryGrid imagesDataArr={imageSpreads[idx]} />
-            </div>
-          ))}
-        </SwipeableViews>
-        <div className="pagination-bottom">
-          <Pagination
-            setCurrentPageIdx={setCurrentPageIdx}
-            currentPageIdx={currentPageIdx}
-            handlePrev={handlePrev}
-            firstItemNum={firstItemNum}
-            lastItemNum={lastItemNum}
-            numItems={numItems}
-            numPages={numPages}
-            handleNext={handleNext}
-          />
-        </div>
-      </GalleryStyles>
-    </animated.div>
+    <GalleryStyles>
+      <div className="pagination-top">
+        <Pagination
+          setCurrentPageIdx={setCurrentPageIdx}
+          currentPageIdx={currentPageIdx}
+          handlePrev={handlePrev}
+          firstItemNum={firstItemNum}
+          lastItemNum={lastItemNum}
+          numItems={numItems}
+          numPages={numPages}
+          handleNext={handleNext}
+        />
+      </div>
+      <SwipeableViews
+        // slideStyle={{maxHeight:'200vh'}}
+        className="swipeable"
+        index={currentPageIdx}
+        onChangeIndex={handleChangeIndex}
+        enableMouseEvents={true}
+        onTransitionEnd={handleFilterToNearestSlides}
+      >
+        {allPagesNums.map(idx => (
+          <div key={idx} className={`swipeable-slide slide-${idx}`}>
+            <MasonryGrid imagesDataArr={imageSpreads[idx]} />
+          </div>
+        ))}
+      </SwipeableViews>
+      <div className="pagination-bottom">
+        <Pagination
+          setCurrentPageIdx={setCurrentPageIdx}
+          currentPageIdx={currentPageIdx}
+          handlePrev={handlePrev}
+          firstItemNum={firstItemNum}
+          lastItemNum={lastItemNum}
+          numItems={numItems}
+          numPages={numPages}
+          handleNext={handleNext}
+        />
+      </div>
+    </GalleryStyles>
   )
 }

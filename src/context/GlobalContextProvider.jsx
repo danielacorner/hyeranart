@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer } from "react"
 
 export const GlobalStateContext = React.createContext()
 export const GlobalDispatchContext = React.createContext()
@@ -7,16 +7,16 @@ export const NAVIGATE_PAGE = "NAVIGATE_PAGE"
 
 const initialState = {
   navIdx: 0,
-  isMovingDown: true
+  isMovingRight: true,
 }
 
-function reducer(state, action){
-  switch(action.type){
-    case NAVIGATE_PAGE:{
+function reducer(state, action) {
+  switch (action.type) {
+    case NAVIGATE_PAGE: {
       return {
         ...state,
-        isMovingDown: state.navIdx > action.payload,
-        navIdx: action.payload
+        isMovingRight: state.navIdx > action.payload,
+        navIdx: action.payload,
       }
     }
     default:
@@ -24,12 +24,14 @@ function reducer(state, action){
   }
 }
 
-const GlobalContextProvider = ({children})=>{
+const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  return <GlobalStateContext.Provider value={state}>
-    <GlobalDispatchContext.Provider value={dispatch}>
-    {children}
-    </GlobalDispatchContext.Provider>
+  return (
+    <GlobalStateContext.Provider value={state}>
+      <GlobalDispatchContext.Provider value={dispatch}>
+        {children}
+      </GlobalDispatchContext.Provider>
     </GlobalStateContext.Provider>
+  )
 }
 export default GlobalContextProvider

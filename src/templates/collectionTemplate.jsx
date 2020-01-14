@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import Layout, { SPRING_UP_DOWN_PX } from "../components/Layout"
+import Layout, { SPRING_LEFT_RIGHT_PX } from "../components/Layout"
 import styled from "styled-components"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
 import { useImagesQuery } from "../utils/queries"
@@ -28,21 +28,21 @@ const CollectionStyles = styled.div`
 `
 
 export const useTransitionUpDown = () => {
-  const {isMovingDown} = useContext(GlobalStateContext)
+  const { isMovingDown } = useContext(GlobalStateContext)
   return useTransition(true, null, {
     from: {
-      transform: `translateY(${
-        isMovingDown ? -SPRING_UP_DOWN_PX : SPRING_UP_DOWN_PX
+      transform: `translateX(${
+        isMovingDown ? -SPRING_LEFT_RIGHT_PX : SPRING_LEFT_RIGHT_PX
       }px)`,
       opacity: 0,
     },
     enter: {
-      transform: `translateY(0px)`,
+      transform: `translateX(0px)`,
       opacity: 1,
     },
     leave: {
-      transform: `translateY(${
-        isMovingDown ? SPRING_UP_DOWN_PX : -SPRING_UP_DOWN_PX
+      transform: `translateX(${
+        isMovingDown ? SPRING_LEFT_RIGHT_PX : -SPRING_LEFT_RIGHT_PX
       }px)`,
       opacity: 0,
     },

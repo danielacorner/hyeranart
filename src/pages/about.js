@@ -2,13 +2,13 @@ import React from "react"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
-import Gallery from "../components/Masonry/Gallery"
+import About from "../components/About"
 
 export default () => {
   return (
     <Layout>
-      <SEO title="Artworks" />
-      <Gallery />
+      <SEO title="About" />
+      <About />
     </Layout>
   )
 }

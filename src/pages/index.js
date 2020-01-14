@@ -7,6 +7,7 @@ import SplashPageCover, {
 import { animated, useSpring } from "react-spring"
 import { Portal } from "@material-ui/core"
 import SecondPage from "../components/SecondPage"
+import { globalHistory } from "@reach/router"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
@@ -14,7 +15,10 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export default () => {
-  const [isSplashPageClicked, setIsSplashPageClicked] = useState(false)
+  const { location } = globalHistory
+  const [isSplashPageClicked, setIsSplashPageClicked] = useState(
+    location.state.prevPath !== "/"
+  )
 
   const toggleOverflowHidden = isHidden => {
     if (isHidden) {
@@ -47,7 +51,7 @@ export default () => {
   }
 
   return (
-    <Layout>
+    <Layout location={location}>
       <SEO title="Home" />
       <Portal>
         <animated.div

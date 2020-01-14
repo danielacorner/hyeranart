@@ -1,13 +1,7 @@
-import React, { useContext } from "react"
+import React from "react"
 import styled from "styled-components"
-import { camelCase } from "lodash"
-import { Link, navigate } from "gatsby"
-import {
-  GlobalDispatchContext,
-  NAVIGATE_PAGE,
-} from "../../context/GlobalContextProvider"
-import { globalHistory } from "@reach/router"
 import { UNDERLINE_ACTIVE_CSS, HOVER_UNDERLINE_CSS } from "../SplashPageCover"
+import { NavLink } from "./NavLink"
 
 export const LinksUlStyles = styled.ul`
   display: flex;
@@ -88,15 +82,6 @@ export const SAATCHI_SECTION_LINK = {
 }
 
 export const useSectionCollectionLinks = () => {
-  // const { collectionsDataArr } = useImagesQuery()
-
-  // const collectionLinksArr = collectionsDataArr.map(({ title, images }) => ({
-  //   type: "collection",
-  //   text: title,
-  //   url: `/collections/${kebabCase(title)}`,
-  //   images: images,
-  // }))
-
   const sectionLinksArr = [
     {
       type: "section",
@@ -109,13 +94,6 @@ export const useSectionCollectionLinks = () => {
       text: "About",
       url: "/about",
     },
-    // SAATCHI_SECTION_LINK,
-    // ...sectionsDataArr.map(({ title }) => ({
-    //   type: "section",
-    //   text: title,
-    //   url: `/${kebabCase(title)}`,
-    //   external: false,
-    // })),
   ]
 
   return {
@@ -129,11 +107,10 @@ export default ({ handleNavigate }) => {
     <DesktopNavStyles>
       <h4>hyeran lee</h4>
       <LinksUlStyles>
-        {sectionLinksArr.map(({ type, url, text, external }, idx) => (
+        {sectionLinksArr.map(({ type, url, text }, idx) => (
           <NavLink
             key={url}
             idx={idx}
-            external={external}
             type={type}
             url={url}
             text={text}
@@ -142,45 +119,5 @@ export default ({ handleNavigate }) => {
         ))}
       </LinksUlStyles>
     </DesktopNavStyles>
-  )
-}
-
-export function NavLink({
-  type,
-  url,
-  text,
-  handleNavigate,
-  external = false,
-  idx,
-}) {
-  const path = globalHistory.location.pathname
-  const isCurrent = `${url}` === path
-  const dispatch = useContext(GlobalDispatchContext)
-  const onNavigate = e => {
-    e.preventDefault()
-    dispatch({ type: NAVIGATE_PAGE, payload: idx })
-    handleNavigate({ navigateFn: () => navigate(url), idx })
-  }
-  return (
-    <li className={`${camelCase(text)}${isCurrent ? " current" : ""}`}>
-      {external ? (
-        <a
-          className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {text}
-        </a>
-      ) : (
-        <Link
-          onClick={onNavigate}
-          className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
-          to={url}
-        >
-          {text}
-        </Link>
-      )}
-    </li>
   )
 }
