@@ -4,12 +4,14 @@ import { graphql, useStaticQuery } from "gatsby"
 import { useImagesQuery } from "../utils/queries"
 import Img from "gatsby-image"
 
+export const CUBIC_BEZIER = "cubic-bezier(0.165, 0.84, 0.44, 1)"
+
 export const HOVER_UNDERLINE_CSS = `
     width: fit-content;
     position: relative;
     cursor: pointer;
     &:after {
-      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 0.3s ${CUBIC_BEZIER};
       position: absolute;
       content: "";
       height: 1px;
@@ -36,6 +38,12 @@ export const splashPageStyles = {
 }
 const SplashPageStyles = styled.div`
   height: 100%;
+
+  /* ensure no edges visible when transitioning up */
+  box-sizing: content-box;
+  padding: 50vw 0;
+  margin-top: -50vw;
+
   background: white;
   overflow: hidden;
   display: grid;
@@ -54,16 +62,19 @@ const SplashPageStyles = styled.div`
   }
   h1 {
     font-size: 5.5vw;
+    font-family: "Avenir";
 
     letter-spacing: 0.8em;
     text-indent: 0.8em;
 
-    font-weight: 400;
     margin: 0.5em 0;
     text-align: center;
   }
   button {
-    font-size: 1.6vw;
+    font-size: 0.8em;
+    @media (min-width: 1280px) {
+      font-size: 1.6vw;
+    }
     background: none;
     border: none;
     padding: 0;
@@ -106,19 +117,16 @@ const SplashPageCover = ({ handleClick }) => {
   const splashPageImage = imagesDataArr.find(
     image => image.title === frontmatter.title
   ) || { fluid: null }
-  console.log("⚡🚨: splashPageImage", splashPageImage)
-  console.log("⚡🚨: frontmatter", frontmatter)
-  // TODO: get matching image fluid from imagesQuery
 
   return (
-    <SplashPageStyles>
+    <SplashPageStyles onClick={handleClick}>
       <div className="imageWrapper">
         <Img fluid={splashPageImage.fluid} />
       </div>
       <div className="titleWrapper">
         <h1>hyeran lee</h1>
         <div className="btnWrapper">
-          <button onClick={handleClick}>info</button>
+          <button>info</button>
         </div>
       </div>
     </SplashPageStyles>

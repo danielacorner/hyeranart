@@ -6,7 +6,7 @@ import SplashPageCover, {
 } from "../components/SplashPageCover"
 import { animated, useSpring } from "react-spring"
 import { Portal } from "@material-ui/core"
-import Gallery from "../components/Masonry/Gallery"
+import SecondPage from "../components/SecondPage"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
@@ -49,26 +49,26 @@ export default () => {
   return (
     <Layout>
       <SEO title="Home" />
-        <Portal>
-          <animated.div
-            className="animatedWrapper splashPage"
-            style={{
-              ...splashPageStyles,
-              ...springSplashPage,
-              ...(isSplashPageClicked
-                ? {
-                    pointerEvents: "none",
-                  }
-                : {}),
-            }}
-          >
-            <SplashPageCover
-              isClicked={isSplashPageClicked}
-              handleClick={handleClick}
-            />
-          </animated.div>
-        </Portal>
-        <Gallery/>
+      <Portal>
+        <animated.div
+          className="animatedWrapper splashPage"
+          style={{
+            ...splashPageStyles,
+            ...springSplashPage,
+            ...(isSplashPageClicked
+              ? {
+                  pointerEvents: "none",
+                }
+              : {}),
+          }}
+        >
+          <SplashPageCover
+            isClicked={isSplashPageClicked}
+            handleClick={handleClick}
+          />
+        </animated.div>
+      </Portal>
+      <SecondPage />
     </Layout>
   )
 }
