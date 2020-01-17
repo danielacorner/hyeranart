@@ -9,8 +9,7 @@ import { HOVER_UNDERLINE_CSS, CUBIC_BEZIER } from "./SplashPageCover"
 const SecondPageStyles = styled.div`
   width: 90vw;
   max-width: 960px;
-
-  margin-top: 2em;
+  margin-top: 1em;
   margin-left: auto;
   margin-right: 2em;
   font-family: "AvenirRegular";
@@ -44,9 +43,10 @@ const SecondPageStyles = styled.div`
     }
   }
   h1 {
-    margin: 1.75em 0 0.6em 1.2em;
+    margin: 1.5em 0 0.6em 1.2em;
     font-style: italic;
     font-size: 1.6em;
+    white-space: nowrap;
   }
   h6 {
     font-size: 0.6em;
@@ -55,6 +55,14 @@ const SecondPageStyles = styled.div`
   ul {
     margin: 0;
     line-height: 1em;
+  }
+  @media (min-width: 600px) {
+    h1 {
+      margin: 1.75em 0 0.6em 1.2em;
+    }
+  }
+  @media (min-width: 760px) {
+    margin-top: 2em;
   }
   @media (min-width: 960px) {
     width: 70vw;

@@ -61,11 +61,29 @@ const DesktopNavStyles = styled.div`
     font-size: 1em;
   }
   h4 {
+    white-space: nowrap;
     flex-grow: 1;
     margin: 0;
     letter-spacing: 0.8em;
     font-family: "AvenirRegular";
     font-size: 2em;
+  }
+  ul {
+    flex-shrink: 0;
+    margin-top: 1.5em;
+    width: 100%;
+    li {
+      white-space: nowrap;
+    }
+  }
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 680px) {
+    ul {
+      width: fit-content;
+    }
+    flex-direction: row;
   }
   @media (min-width: 960px) {
     margin-top: 3em;

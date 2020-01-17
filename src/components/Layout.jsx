@@ -10,7 +10,6 @@ import PropTypes from "prop-types"
 import DesktopNav from "../components/Nav/DesktopNav"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
-import MobileNav from "../components/Nav/MobileNav"
 import styled from "styled-components"
 import { useSpring, animated } from "react-spring"
 import "./layout.css"
@@ -67,11 +66,7 @@ const Layout = ({ children, location }) => {
 
   return (
     <LayoutStyles>
-      {isMobileOrLarger ? (
-        <DesktopNav handleNavigate={handleNavigate} location={location} />
-      ) : (
-        <MobileNav handleNavigate={handleNavigate} location={location} />
-      )}
+      <DesktopNav handleNavigate={handleNavigate} location={location} />
       <animated.main style={springExit}>{children}</animated.main>
     </LayoutStyles>
   )
