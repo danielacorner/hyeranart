@@ -2,14 +2,17 @@ import React from "react"
 import styled from "styled-components/macro"
 import Img from "gatsby-image"
 import { useImagesQuery } from "../utils/queries"
+import { BREAKPOINTS } from "../utils/constants"
 import { useStaticQuery, graphql } from "gatsby"
 import { HOVER_UNDERLINE_CSS, CUBIC_BEZIER } from "./SplashPageCover"
 
 const SecondPageStyles = styled.div`
-  width: 70vw;
+  width: 90vw;
+  max-width: 960px;
+
+  margin-top: 2em;
   margin-left: auto;
-  margin-top: 3em;
-  margin-right: 3em;
+  margin-right: 2em;
   font-family: "AvenirRegular";
   * {
     font-family: inherit;
@@ -29,17 +32,21 @@ const SecondPageStyles = styled.div`
   }
   .imageWrapper {
     margin-left: auto;
-    width: calc(100% - 4em);
+    width: calc(100% - 3em);
   }
-  main {
-    width: 100%;
+  .contentWrapper {
+    width: 80%;
+    margin-right: auto;
     line-height: 2em;
+    margin-left: 1em;
+    p {
+      width: 100%;
+    }
   }
   h1 {
-    margin-left: 2em;
-    margin-top: 1.5em;
+    margin: 1.75em 0 0.6em 1.2em;
     font-style: italic;
-    font-size: 2em;
+    font-size: 1.6em;
   }
   h6 {
     font-size: 0.6em;
@@ -47,6 +54,26 @@ const SecondPageStyles = styled.div`
   }
   ul {
     margin: 0;
+    line-height: 1em;
+  }
+  @media (min-width: 960px) {
+    width: 70vw;
+    margin-top: 3em;
+    margin-right: 2em;
+    h1 {
+      margin: 1.5em 0 0.6em 1.2em;
+      font-size: 2em;
+    }
+    .imageWrapper {
+      width: calc(100% - 4em);
+    }
+    .contentWrapper {
+      margin-left: 1.5em;
+    }
+  }
+  @media (min-width: ${BREAKPOINTS.DESKTOP}px) {
+    margin-left: 30vw;
+    margin-right: auto;
   }
 `
 export default () => {
@@ -75,20 +102,20 @@ export default () => {
       <div className="imageWrapper">
         <Img fluid={secondPageImage.fluid} />
       </div>
-      <h1>ENERGY & FREEDOM</h1>
-      <main>
+      <div className="contentWrapper">
+        <h1>ENERGY & FREEDOM</h1>
         <p>{rawMarkdownBody}</p>
-      </main>
-      <h6>CONTACT</h6>
-      <ul>
-        {contactLinks.map(({ link, title }) => (
-          <li key={title}>
-            <a href={link} target="_blank" rel="noopener noreferrer">
-              {title}
-            </a>
-          </li>
-        ))}
-      </ul>
+        <h6>CONTACT</h6>
+        <ul>
+          {contactLinks.map(({ link, title }) => (
+            <li key={title}>
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                {title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </SecondPageStyles>
   )
 }
