@@ -70,7 +70,7 @@ const SplashPageStyles = styled.div`
     font-family: "AvenirUltraLight";
     font-size: 5.7vw;
     font-family: "AvenirLight";
-    letter-spacing: 0.8em;
+    letter-spacing: 0.8em; /* TODO: switch all ems to rems */
     text-indent: 0.8em;
     margin: 0.5em 0;
     text-align: center;
@@ -88,10 +88,10 @@ const SplashPageStyles = styled.div`
   }
   @media (min-width: 1140px) {
     h1 {
-      font-size: 3.6em;
+      font-size: 3.6rem;
     }
     button {
-      font-size: 1.2em;
+      font-size: 1.2rem;
     }
   }
 `
