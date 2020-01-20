@@ -24,13 +24,22 @@ const toggleOverflowHidden = isHidden => {
 }
 
 export default () => {
+  // console.log("⚡🚨: shouldReload", location.shouldReload)
   const { location } = globalHistory
+  console.log("⚡🚨: location", location)
   const isComingFromInsideTheSite = Boolean(
     location && location.state && location.state.isInternal
   )
   const [isSplashPageClicked, setIsSplashPageClicked] = useState(
     isComingFromInsideTheSite
   )
+
+  useEffect(() => {
+    if (location.state.shouldReload && isSplashPageClicked) {
+      location.state.shouldReload = false
+      setIsSplashPageClicked(false)
+    }
+  }, [isSplashPageClicked, location.state.shouldReload])
 
   useEffect(() => {
     if (!isComingFromInsideTheSite) {
@@ -61,6 +70,7 @@ export default () => {
       <SEO title="Home" />
       <Portal>
         <animated.div
+          onClick={handleClick}
           className="animatedWrapper splashPage"
           style={{
             ...splashPageStyles,
@@ -72,10 +82,7 @@ export default () => {
               : {}),
           }}
         >
-          <SplashPageCover
-            isClicked={isSplashPageClicked}
-            handleClick={handleClick}
-          />
+          <SplashPageCover isClicked={isSplashPageClicked} />
         </animated.div>
       </Portal>
       <SecondPage />

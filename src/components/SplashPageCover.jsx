@@ -96,7 +96,7 @@ const SplashPageStyles = styled.div`
   }
 `
 
-const SplashPageCover = ({ handleClick }) => {
+const SplashPageCover = () => {
   const data = useStaticQuery(graphql`
     query IndexPageTemplate {
       markdownRemark(frontmatter: { templateKey: { eq: "landing-page" } }) {
@@ -113,7 +113,7 @@ const SplashPageCover = ({ handleClick }) => {
   ) || { fluid: null }
 
   return (
-    <SplashPageStyles onClick={handleClick}>
+    <SplashPageStyles>
       <div className="imageWrapper">
         <Img fluid={splashPageImage.fluid} />
       </div>

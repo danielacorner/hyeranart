@@ -26,7 +26,7 @@ const LayoutStyles = styled.div`
   }
 `
 
-const Layout = ({ children, location }) => {
+const Layout = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false)
   const { isMovingRight } = useContext(GlobalStateContext)
 
@@ -65,7 +65,7 @@ const Layout = ({ children, location }) => {
 
   return (
     <LayoutStyles>
-      <DesktopNav handleNavigate={handleNavigate} location={location} />
+      <DesktopNav handleNavigate={handleNavigate} />
       <animated.main style={springExit}>{children}</animated.main>
     </LayoutStyles>
   )
