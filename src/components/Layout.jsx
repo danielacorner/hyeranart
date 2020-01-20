@@ -27,7 +27,6 @@ const LayoutStyles = styled.div`
 `
 
 const Layout = ({ children, location }) => {
-  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const [isMounted, setIsMounted] = useState(false)
   const { isMovingRight } = useContext(GlobalStateContext)
 

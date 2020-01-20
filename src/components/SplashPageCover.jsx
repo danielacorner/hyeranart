@@ -35,18 +35,21 @@ export const splashPageStyles = {
   position: "fixed",
   top: 0,
   left: 0,
-  bottom: 0,
+  bottom: "-50vh",
   right: 0,
+  background: "white",
   zIndex: 9999,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "flex-start",
 }
 const SplashPageStyles = styled.div`
-  height: 100%;
-
+  padding-top: 9vw;
+  @media (min-width: 1028px) {
+    padding-top: 5em;
+  }
   /* ensure no edges visible when transitioning up */
   box-sizing: content-box;
-  padding: 50vw 0;
-  margin-top: -50vw;
-
   background: white;
   overflow: hidden;
   display: grid;
@@ -65,21 +68,15 @@ const SplashPageStyles = styled.div`
   }
   h1 {
     font-family: "AvenirUltraLight";
-
-    font-size: 5.5vw;
+    font-size: 5.7vw;
     font-family: "AvenirLight";
-
     letter-spacing: 0.8em;
     text-indent: 0.8em;
-
     margin: 0.5em 0;
     text-align: center;
   }
   button {
-    font-size: 0.8em;
-    @media (min-width: 1280px) {
-      font-size: 1.6vw;
-    }
+    font-size: 1.9vw;
     background: none;
     border: none;
     padding: 0;
@@ -89,7 +86,7 @@ const SplashPageStyles = styled.div`
       color: cornflowerblue;
     }
   }
-  @media (min-width: 1280px) {
+  @media (min-width: 1140px) {
     h1 {
       font-size: 3.6em;
     }
