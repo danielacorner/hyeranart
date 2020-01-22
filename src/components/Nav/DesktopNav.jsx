@@ -1,14 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 import { UNDERLINE_ACTIVE_CSS, HOVER_UNDERLINE_CSS } from "../SplashPageCover"
-import { globalHistory } from "@reach/router"
 import { NavLink } from "./NavLink"
 import { Link } from "gatsby"
 
 export const LinksUlStyles = styled.ul`
   display: flex;
   margin-bottom: 0;
-
+  margin-left: auto;
+  width: fit-content;
   a {
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     text-decoration: none;
@@ -48,7 +48,7 @@ const DesktopNavStyles = styled.div`
   font-size: 12px;
   font-family: system-ui;
   margin-top: 1.5em;
-  padding: 0.5em 4em 0.5em 2em;
+  padding: 0.5em 1em 0.5em 2em;
   position: sticky;
   background: white;
   top: 0;
@@ -78,7 +78,6 @@ const DesktopNavStyles = styled.div`
   ul {
     flex-shrink: 0;
     margin-top: 1.5em;
-    width: 100%;
     li {
       white-space: nowrap;
     }
@@ -86,6 +85,9 @@ const DesktopNavStyles = styled.div`
   display: flex;
   flex-direction: column;
 
+  @media (min-width: 600px) {
+    padding-right: 3em;
+  }
   @media (min-width: 680px) {
     ul {
       width: fit-content;
@@ -94,7 +96,7 @@ const DesktopNavStyles = styled.div`
   }
   @media (min-width: 960px) {
     margin-top: 3em;
-    padding: 1em 8em 1em 4em;
+    padding: 1em 6em 1em 4em;
     li {
       font-size: 1.25vw;
     }
@@ -147,7 +149,6 @@ export const useSectionCollectionLinks = () => {
 }
 
 export default ({ handleNavigate }) => {
-  console.log("⚡🚨: globalHistory", globalHistory)
   const { sectionLinksArr } = useSectionCollectionLinks()
   return (
     <DesktopNavStyles>

@@ -11,7 +11,7 @@ const SecondPageStyles = styled.div`
   max-width: 960px;
   margin-top: 1em;
   margin-left: auto;
-  margin-right: 2em;
+  margin-right: 1.5em;
   font-family: "AvenirRegular";
   * {
     font-family: inherit;
@@ -30,20 +30,17 @@ const SecondPageStyles = styled.div`
     }
   }
   .imageWrapper {
-    margin-left: auto;
-    width: calc(100% - 3em);
   }
   .contentWrapper {
     width: 80%;
     margin-right: auto;
     line-height: 2em;
-    margin-left: 1em;
     p {
       width: 100%;
     }
   }
   h1 {
-    margin: 1.5em 0 0.6em 1.2em;
+    margin: 1.5em 0 0.6em;
     font-style: italic;
     font-size: 1.6em;
     white-space: nowrap;
@@ -57,26 +54,27 @@ const SecondPageStyles = styled.div`
     line-height: 1em;
   }
   @media (min-width: 600px) {
+    width: 80vw;
+    margin-right: 3em;
+
     h1 {
-      margin: 1.75em 0 0.6em 1.2em;
+      margin: 1.75em 0 0.6em;
     }
   }
   @media (min-width: 760px) {
+    width: 70vw;
     margin-top: 2em;
   }
   @media (min-width: 960px) {
-    width: 70vw;
     margin-top: 3em;
-    margin-right: 2em;
+    margin-right: 5em;
     h1 {
-      margin: 1.5em 0 0.6em 1.2em;
+      margin: 1.5em 0 0.6em;
       font-size: 2em;
     }
     .imageWrapper {
-      width: calc(100% - 4em);
     }
     .contentWrapper {
-      margin-left: 1.5em;
     }
   }
   @media (min-width: ${BREAKPOINTS.DESKTOP}px) {

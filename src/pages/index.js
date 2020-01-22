@@ -26,7 +26,6 @@ const toggleOverflowHidden = isHidden => {
 export default () => {
   // console.log("⚡🚨: shouldReload", location.shouldReload)
   const { location } = globalHistory
-  console.log("⚡🚨: location", location)
   const isComingFromInsideTheSite = Boolean(
     location && location.state && location.state.isInternal
   )
@@ -35,11 +34,15 @@ export default () => {
   )
 
   useEffect(() => {
-    if (location.state.shouldReload && isSplashPageClicked) {
+    console.log(
+      "⚡🚨: location.state.shouldReload",
+      location.state.shouldReload
+    )
+    if (location.state.shouldReload) {
       location.state.shouldReload = false
       setIsSplashPageClicked(false)
     }
-  }, [isSplashPageClicked, location.state.shouldReload])
+  }, [location.state.shouldReload])
 
   useEffect(() => {
     if (!isComingFromInsideTheSite) {
