@@ -24,7 +24,6 @@ const toggleOverflowHidden = isHidden => {
 }
 
 export default () => {
-  // console.log("⚡🚨: shouldReload", location.shouldReload)
   const { location } = globalHistory
   const isComingFromInsideTheSite = Boolean(
     location && location.state && location.state.isInternal
@@ -50,8 +49,8 @@ export default () => {
   }, [isComingFromInsideTheSite])
 
   const springSplashPage = useSpring({
-    opacity: isSplashPageClicked ? 0 : 1,
-    transform: `translateY(${isSplashPageClicked ? -64 : 0}px)`,
+    opacity: !isSplashPageClicked ? 1 : 0,
+    transform: `translateY(${!isSplashPageClicked ? 0 : -64}px)`,
     onRest: () => {
       // set pathname to /gallery so we don't have to go through the splash page again
       if (isSplashPageClicked) {
@@ -73,14 +72,7 @@ export default () => {
           <animated.div
             onClick={handleClick}
             className="animatedWrapper splashPage"
-            style={{
-              ...springSplashPage,
-              ...(isSplashPageClicked
-                ? {
-                    pointerEvents: "none",
-                  }
-                : {}),
-            }}
+            style={springSplashPage}
           >
             <SplashPageCover />
           </animated.div>
