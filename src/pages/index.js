@@ -72,7 +72,10 @@ export default () => {
           <animated.div
             onClick={handleClick}
             className="animatedWrapper splashPage"
-            style={springSplashPage}
+            style={{
+              ...{ opacity: 1, transform: `translateY(0px)` },
+              ...springSplashPage,
+            }}
           >
             <SplashPageCover />
           </animated.div>
