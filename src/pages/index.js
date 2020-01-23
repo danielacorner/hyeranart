@@ -23,12 +23,24 @@ const toggleOverflowHidden = isHidden => {
   }
 }
 
-export default () => {
+export const useSpringLeftRightNavigate = transitionStatus =>
+  useSpring(
+    ["entering", "entered"].includes(transitionStatus)
+      ? {
+          opacity: 1,
+        }
+      : ["exiting", "exited"].includes(transitionStatus)
+      ? {
+          opacity: 0,
+        }
+      : { opacity: 1 }
+  )
+
+export default ({ transitionStatus, entry, exit }) => {
   const { location } = globalHistory
   const isComingFromInsideTheSite = Boolean(
     location && location.state && location.state.isInternal
   )
-  console.log("⚡🚨: isComingFromInsideTheSite", isComingFromInsideTheSite)
   const [isSplashPageClicked, setIsSplashPageClicked] = useState(
     isComingFromInsideTheSite
   )
@@ -64,10 +76,14 @@ export default () => {
     setIsSplashPageClicked(true)
   }
 
+  const springLeftRightNavigate = useSpringLeftRightNavigate(transitionStatus)
+
   return (
     <Layout isSplashPageClicked={isSplashPageClicked}>
       <SEO title="Home" />
-      <SecondPage />
+      <animated.div style={springLeftRightNavigate}>
+        <SecondPage />
+      </animated.div>
       <Portal>
         <SplashPageWrapperStyles isClicked={isSplashPageClicked}>
           <animated.div

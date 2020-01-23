@@ -1,14 +1,22 @@
 import React from "react"
 import { camelCase } from "lodash"
-import { Link } from "gatsby"
 import { globalHistory } from "@reach/router"
+import TransitionLink from "gatsby-plugin-transition-link"
 
-export function NavLink({ type, url, text, handleNavigate, idx }) {
+export function NavLink({ type, url, text, idx }) {
   const path = globalHistory.location.pathname
   const isCurrent = `${url}` === path
 
   return (
-    <Link
+    <TransitionLink
+      exit={{
+        length: 0.5,
+      }}
+      entry={
+        {
+          // delay: 0.5,
+        }
+      }
       className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
       to={url}
       state={{ isInternal: true }}
@@ -16,6 +24,6 @@ export function NavLink({ type, url, text, handleNavigate, idx }) {
       <li className={`${camelCase(text)}${isCurrent ? " current" : ""}`}>
         {text}
       </li>
-    </Link>
+    </TransitionLink>
   )
 }
