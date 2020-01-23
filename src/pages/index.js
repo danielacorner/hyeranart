@@ -34,15 +34,11 @@ export default () => {
   )
 
   useEffect(() => {
-    console.log(
-      "⚡🚨: location.state.shouldReload",
-      location.state.shouldReload
-    )
-    if (location.state.shouldReload) {
+    if (location && location.state && location.state.shouldReload) {
       location.state.shouldReload = false
       setIsSplashPageClicked(false)
     }
-  }, [location.state.shouldReload])
+  }, [location.state])
 
   useEffect(() => {
     if (!isComingFromInsideTheSite) {

@@ -8,8 +8,6 @@
 import React, { useState, useRef, useEffect, useContext } from "react"
 import PropTypes from "prop-types"
 import DesktopNav from "../components/Nav/DesktopNav"
-import { useMediaQuery } from "@material-ui/core"
-import { BREAKPOINTS } from "../utils/constants"
 import styled from "styled-components"
 import { useSpring, animated } from "react-spring"
 import "./layout.css"
