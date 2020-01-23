@@ -29,7 +29,6 @@ const LayoutStyles = styled.div`
 `
 
 const Layout = ({ children, isSplashPageClicked = true }) => {
-  console.log("⚡🚨: Layout -> isSplashPageClicked", isSplashPageClicked)
   const [isMounted, setIsMounted] = useState(false)
   const { isMovingRight } = useContext(GlobalStateContext)
 
