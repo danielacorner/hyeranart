@@ -38,7 +38,7 @@ export default () => {
       location.state.shouldReload = false
       setIsSplashPageClicked(false)
     }
-  }, [location.state])
+  }, [location])
 
   useEffect(() => {
     if (!isComingFromInsideTheSite) {
