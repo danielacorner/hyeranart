@@ -9,9 +9,7 @@ import React, { useState, useRef, useEffect, useContext } from "react"
 import PropTypes from "prop-types"
 import DesktopNav from "../components/Nav/DesktopNav"
 import styled from "styled-components"
-import { useSpring, animated } from "react-spring"
 import "./layout.css"
-import { GlobalStateContext } from "../context/GlobalContextProvider"
 
 const LayoutStyles = styled.div`
   margin: 0 auto;

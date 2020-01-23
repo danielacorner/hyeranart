@@ -69,7 +69,9 @@ const AnimatedImage = ({
   saatchiLink,
   setSelectedImgMetadata,
   isSelected,
+  isAnimationDisabled = false,
 }) => {
+  const shouldDisableAnimation = isSelected || isAnimationDisabled
   // grid-column: span ${width}
   // grid-row: span ${height}
   // https://youtu.be/OkCnhz__aFM?t=365
@@ -142,12 +144,16 @@ const AnimatedImage = ({
         width={width}
         height={height}
         depthPx={depthPx}
-        handleMouseOver={isSelected ? () => null : handleMouseOver}
-        handleMouseOut={isSelected ? () => null : handleMouseOut}
+        handleMouseOver={shouldDisableAnimation ? () => null : handleMouseOver}
+        handleMouseOut={shouldDisableAnimation ? () => null : handleMouseOut}
         handleClick={handleClick}
-        springOnHover={isSelected ? null : springOnHover}
-        springOpacityWhite={isSelected ? { opacity: 0 } : springOpacityWhite}
-        springOpacityBlack={isSelected ? { opacity: 0 } : springOpacityBlack}
+        springOnHover={shouldDisableAnimation ? null : springOnHover}
+        springOpacityWhite={
+          shouldDisableAnimation ? { opacity: 0 } : springOpacityWhite
+        }
+        springOpacityBlack={
+          shouldDisableAnimation ? { opacity: 0 } : springOpacityBlack
+        }
         title={title}
         fluid={fluid}
         metadata={metadata}

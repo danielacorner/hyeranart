@@ -109,6 +109,7 @@ const MasonryGrid = ({
                   heightInches={height * gridMultiplier}
                   fullScreenLink={Image}
                   saatchiLink={saatchiLink}
+                  isAnimationDisabled={true}
                 />
               </div>
             )
