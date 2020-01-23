@@ -1,44 +1,21 @@
-import React, { useContext } from "react"
+import React from "react"
 import { camelCase } from "lodash"
-import { Link, navigate } from "gatsby"
-import {
-  GlobalDispatchContext,
-  NAVIGATE_PAGE,
-} from "../../context/GlobalContextProvider"
+import { Link } from "gatsby"
 import { globalHistory } from "@reach/router"
 
 export function NavLink({ type, url, text, handleNavigate, idx }) {
   const path = globalHistory.location.pathname
   const isCurrent = `${url}` === path
-  const dispatch = useContext(GlobalDispatchContext)
-  const onNavigate = e => {
-    e.preventDefault()
-    dispatch({ type: NAVIGATE_PAGE, payload: idx })
-    handleNavigate({
-      navigateFn: () => navigate(url, { state: { isInternal: true } }),
-    })
-  }
-  const isExternalUrl = url.includes("mailto")
+
   return (
-    <li className={`${camelCase(text)}${isCurrent ? " current" : ""}`}>
-      {isExternalUrl ? (
-        <a
-          className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {text}
-        </a>
-      ) : (
-        <Link
-          onClick={onNavigate}
-          className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
-          to={url}
-        >
-          {text}
-        </Link>
-      )}
-    </li>
+    <Link
+      className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
+      to={url}
+      state={{ isInternal: true }}
+    >
+      <li className={`${camelCase(text)}${isCurrent ? " current" : ""}`}>
+        {text}
+      </li>
+    </Link>
   )
 }

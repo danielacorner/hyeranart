@@ -28,6 +28,7 @@ export default () => {
   const isComingFromInsideTheSite = Boolean(
     location && location.state && location.state.isInternal
   )
+  console.log("⚡🚨: isComingFromInsideTheSite", isComingFromInsideTheSite)
   const [isSplashPageClicked, setIsSplashPageClicked] = useState(
     isComingFromInsideTheSite
   )

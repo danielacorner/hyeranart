@@ -29,13 +29,17 @@ export const LinksUlStyles = styled.ul`
     &:after {
       background: hsl(0, 0%, 60%);
     }
+  }
+  a {
     &:active,
     &.current {
-      a {
-        color: #999999;
+      color: #999999;
+    }
+    &.current {
+      li {
+        ${UNDERLINE_ACTIVE_CSS}
       }
       pointer-events: none;
-      ${UNDERLINE_ACTIVE_CSS}
     }
   }
 `
