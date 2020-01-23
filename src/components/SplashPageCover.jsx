@@ -31,19 +31,21 @@ ${UNDERLINE_ACTIVE_CSS}
     }
 `
 
-export const splashPageStyles = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  bottom: "-50vh",
-  right: 0,
-  background: "white",
-  zIndex: 9999,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "flex-start",
-}
+export const SplashPageWrapperStyles = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  pointer-events: ${props => (props.isClicked ? "none" : "auto")};
+`
+
 const SplashPageStyles = styled.div`
+  min-height: 200vh;
   padding-top: 9vw;
   @media (min-width: 1028px) {
     padding-top: 5em;
@@ -52,9 +54,9 @@ const SplashPageStyles = styled.div`
   box-sizing: content-box;
   background: white;
   overflow: hidden;
-  display: grid;
-  place-items: center center;
-  align-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .imageWrapper {
     width: 80vw;

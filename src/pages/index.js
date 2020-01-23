@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import SplashPageCover, {
-  splashPageStyles,
+  SplashPageWrapperStyles,
 } from "../components/SplashPageCover"
 import { animated, useSpring } from "react-spring"
 import { Portal } from "@material-ui/core"
@@ -67,24 +67,25 @@ export default () => {
   return (
     <Layout location={location}>
       <SEO title="Home" />
-      <Portal>
-        <animated.div
-          onClick={handleClick}
-          className="animatedWrapper splashPage"
-          style={{
-            ...splashPageStyles,
-            ...springSplashPage,
-            ...(isSplashPageClicked
-              ? {
-                  pointerEvents: "none",
-                }
-              : {}),
-          }}
-        >
-          <SplashPageCover isClicked={isSplashPageClicked} />
-        </animated.div>
-      </Portal>
       <SecondPage />
+      <Portal>
+        <SplashPageWrapperStyles isClicked={isSplashPageClicked}>
+          <animated.div
+            onClick={handleClick}
+            className="animatedWrapper splashPage"
+            style={{
+              ...springSplashPage,
+              ...(isSplashPageClicked
+                ? {
+                    pointerEvents: "none",
+                  }
+                : {}),
+            }}
+          >
+            <SplashPageCover />
+          </animated.div>
+        </SplashPageWrapperStyles>
+      </Portal>
     </Layout>
   )
 }
