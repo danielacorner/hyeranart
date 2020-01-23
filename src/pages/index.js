@@ -38,12 +38,21 @@ export const useSpringLeftRightNavigate = transitionStatus =>
 
 export default ({ transitionStatus, entry, exit }) => {
   const { location } = globalHistory
+
   const isComingFromInsideTheSite = Boolean(
     location && location.state && location.state.isInternal
   )
   const [isSplashPageClicked, setIsSplashPageClicked] = useState(
     isComingFromInsideTheSite
   )
+
+  // bugfix: when reload on same page, nav disappears
+  useEffect(() => {
+    // first mount (e.g. page reload) can't have been from inside
+    if (location && location.state) {
+      location.state.isInternal = false
+    }
+  }, [])
 
   useEffect(() => {
     if (location && location.state && location.state.shouldReload) {
