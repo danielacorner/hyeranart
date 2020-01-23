@@ -6,6 +6,7 @@ import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
 import PaintingMetadata from "../Masonry/PaintingMetadata"
 
 const ImgWrapperStyles = styled.div`
+  cursor: pointer;
   width: 100%;
   height: 100%;
   * {
@@ -28,6 +29,7 @@ export const AnimatedImageContent = ({
   handleClick,
   metadata,
   isModalImage,
+  shouldDisableAnimation = false,
 }) => (
   <div
     onClick={handleClick}
@@ -49,14 +51,18 @@ export const AnimatedImageContent = ({
         <ImgWrapperStyles className={`${title} cube__face cube__face--front`}>
           <div>
             <Img fluid={fluid} />
-            <animated.div
-              style={springOpacityWhite}
-              className="overlay overlay-white"
-            />
-            <animated.div
-              style={springOpacityBlack}
-              className="overlay overlay-black"
-            />
+            {!shouldDisableAnimation && (
+              <>
+                <animated.div
+                  style={springOpacityWhite}
+                  className="overlay overlay-white"
+                />
+                <animated.div
+                  style={springOpacityBlack}
+                  className="overlay overlay-black"
+                />
+              </>
+            )}
           </div>
           {!isModalImage && <PaintingMetadata metadata={metadata} />}
         </ImgWrapperStyles>

@@ -154,6 +154,7 @@ const AnimatedImage = ({
         springOpacityBlack={
           shouldDisableAnimation ? { opacity: 0 } : springOpacityBlack
         }
+        shouldDisableAnimation={shouldDisableAnimation}
         title={title}
         fluid={fluid}
         metadata={metadata}
