@@ -98,10 +98,7 @@ export default ({ transitionStatus, entry, exit }) => {
           <animated.div
             onClick={handleClick}
             className="animatedWrapper splashPage"
-            style={{
-              ...{ opacity: 1, transform: `translateY(0px)` },
-              ...springSplashPage,
-            }}
+            style={springSplashPage}
           >
             <SplashPageCover />
           </animated.div>

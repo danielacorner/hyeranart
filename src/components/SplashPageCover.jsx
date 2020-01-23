@@ -32,6 +32,8 @@ ${UNDERLINE_ACTIVE_CSS}
 `
 
 export const SplashPageWrapperStyles = styled.div`
+  opacity: 1;
+  transform: translateY(0px);
   position: fixed;
   top: 0;
   left: 0;
