@@ -18,13 +18,18 @@ export const SPRING_LEFT_RIGHT_PX = 30
 const LayoutStyles = styled.div`
   margin: 0 auto;
   min-height: 100vh;
+  .navigationWrapper {
+    transition: opacity 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    opacity: ${props => (props.isSplashPageClicked ? 1 : 0)};
+  }
   main {
     width: 100vw;
     height: 100%;
   }
 `
 
-const Layout = ({ children }) => {
+const Layout = ({ children, isSplashPageClicked = true }) => {
+  console.log("⚡🚨: Layout -> isSplashPageClicked", isSplashPageClicked)
   const [isMounted, setIsMounted] = useState(false)
   const { isMovingRight } = useContext(GlobalStateContext)
 
@@ -62,8 +67,10 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <LayoutStyles>
-      <DesktopNav handleNavigate={handleNavigate} />
+    <LayoutStyles isSplashPageClicked={isSplashPageClicked}>
+      <div className="navigationWrapper">
+        <DesktopNav handleNavigate={handleNavigate} />
+      </div>
       <animated.main style={springExit}>{children}</animated.main>
     </LayoutStyles>
   )

@@ -64,7 +64,7 @@ export default () => {
   }
 
   return (
-    <Layout location={location}>
+    <Layout isSplashPageClicked={isSplashPageClicked}>
       <SEO title="Home" />
       <SecondPage />
       <Portal>
