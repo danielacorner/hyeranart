@@ -31,6 +31,8 @@ export const LinksUlStyles = styled.ul`
     }
   }
   a {
+    padding: 0.5rem;
+    margin: -0.5rem;
     &:active,
     &.current {
       color: #999999;
@@ -120,11 +122,6 @@ const DesktopNavStyles = styled.div`
   align-items: baseline;
 `
 
-export const GALLERY_SECTION_LINK = {
-  type: "section",
-  text: "Artworks",
-  url: "/artworks",
-}
 export const SAATCHI_SECTION_LINK = {
   type: "section",
   text: "saatchiart",
@@ -139,7 +136,19 @@ export const useSectionCollectionLinks = () => {
       text: "Energy & Freedom",
       url: "/",
     },
-    GALLERY_SECTION_LINK,
+    {
+      type: "section",
+      text: "Artworks",
+      url: null,
+      // TODO: pull subSections from back-end
+      subSections: [
+        {
+          type: "subSection",
+          text: "All",
+          url: "/artworks",
+        },
+      ],
+    },
     {
       type: "section",
       text: "About",
@@ -160,13 +169,14 @@ export default ({ handleNavigate }) => {
         <h4>hyeran lee</h4>
       </Link>
       <LinksUlStyles>
-        {sectionLinksArr.map(({ type, url, text }, idx) => (
+        {sectionLinksArr.map(({ type, url, text, subSections }, idx) => (
           <NavLink
             key={url}
             idx={idx}
             type={type}
             url={url}
             text={text}
+            subSections={subSections}
             handleNavigate={handleNavigate}
           />
         ))}

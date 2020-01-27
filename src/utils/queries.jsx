@@ -1,5 +1,4 @@
 import { graphql, useStaticQuery } from "gatsby"
-import { GALLERY_SECTION_LINK } from "../components/Nav/DesktopNav"
 
 export const useImagesQuery = () => {
   const data = useStaticQuery(graphql`
@@ -62,16 +61,14 @@ export const useImagesQuery = () => {
   const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))
 
   const collectionsDataArr = allImagesDataArr
-    .filter(d => Boolean(d.images && d.title !== GALLERY_SECTION_LINK.text))
+    .filter(d => Boolean(d.images && d.title !== "Artworks"))
     // sort by date, most recent first
     .sort(
       (prev, next) =>
         new Date(next.date).getTime() - new Date(prev.date).getTime()
     )
 
-  const gallery = allImagesDataArr.find(
-    d => d.title === GALLERY_SECTION_LINK.text
-  )
+  const gallery = allImagesDataArr.find(d => d.title === "Artworks")
   const galleryImagesArr = gallery
     ? gallery.images.map(({ Image }) =>
         imagesDataArr.find(d => d.title === Image)
