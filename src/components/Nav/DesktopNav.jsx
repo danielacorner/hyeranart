@@ -55,7 +55,7 @@ const DesktopNavStyles = styled.div`
   font-family: system-ui;
   margin-top: 1.5em;
   padding: 0.5em 1em 0.5em 2em;
-  position: sticky;
+  position: relative;
   background: white;
   top: 0;
   .titleLink {
@@ -140,14 +140,6 @@ export const useSectionCollectionLinks = () => {
       type: "section",
       text: "Artworks",
       url: null,
-      // TODO: pull subSections from back-end
-      subSections: [
-        {
-          type: "subSection",
-          text: "All",
-          url: "/artworks",
-        },
-      ],
     },
     {
       type: "section",
