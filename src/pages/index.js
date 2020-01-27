@@ -90,10 +90,7 @@ export default ({ transitionStatus, entry, exit }) => {
   return (
     <Layout isSplashPageClicked={isSplashPageClicked}>
       <SEO title="Home" />
-      <animated.div
-        className="secondPageWrapper"
-        style={springLeftRightNavigate}
-      >
+      <animated.div style={springLeftRightNavigate}>
         <SecondPage />
       </animated.div>
       <Portal>

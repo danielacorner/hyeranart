@@ -15,7 +15,7 @@ const LayoutStyles = styled.div`
   margin: 0 auto;
   min-height: 100vh;
   .navigationWrapper,
-  .secondPageWrapper {
+  main {
     transition: opacity 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     opacity: ${props => (props.isSplashPageClicked ? 1 : 0)};
   }
