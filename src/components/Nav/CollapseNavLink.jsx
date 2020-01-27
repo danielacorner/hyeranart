@@ -1,5 +1,5 @@
 import React from "react"
-import { camelCase, snakeCase } from "lodash"
+import { camelCase, kebabCase } from "lodash"
 import TransitionLink from "gatsby-plugin-transition-link"
 import styled from "styled-components/macro"
 import { useSpring, animated } from "react-spring"
@@ -66,7 +66,7 @@ const CollapseNavLink = ({ type, text, isCurrent }) => {
                 className={`${camelCase(title)} ${type}${
                   isCurrent ? " current" : ""
                 }`}
-                to={`/collections/${snakeCase(title)}`}
+                to={`/collections/${kebabCase(title)}`}
                 state={{
                   isInternal: true,
                 }}

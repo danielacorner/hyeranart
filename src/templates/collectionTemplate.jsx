@@ -21,7 +21,8 @@ const CollectionStyles = styled.div`
   }
   .masonryWrapper {
     padding-bottom: 140px;
-    margin-left: -36px;
+    margin-left: -38px;
+    margin-top: 38px;
   }
 `
 export default function Template({ pageContext }) {
@@ -52,14 +53,16 @@ export default function Template({ pageContext }) {
             >
               {title}
             </h1>
-            <SaatchiButton
-              saatchiLink={saatchiLink}
-              style={{
-                transform: "scale(0.8)",
-                transformOrigin: `top ${isMobileOrLarger ? "right" : "left"}`,
-                ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
-              }}
-            />
+            {saatchiLink ? (
+              <SaatchiButton
+                saatchiLink={saatchiLink}
+                style={{
+                  transform: "scale(0.8)",
+                  transformOrigin: `top ${isMobileOrLarger ? "right" : "left"}`,
+                  ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
+                }}
+              />
+            ) : null}
           </div>
           <div
             className="collectionInfo"
