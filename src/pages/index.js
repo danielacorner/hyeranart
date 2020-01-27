@@ -8,6 +8,7 @@ import { animated, useSpring } from "react-spring"
 import { Portal } from "@material-ui/core"
 import SecondPage from "../components/SecondPage"
 import { globalHistory } from "@reach/router"
+import { useMount } from "../utils/customHooks"
 
 if (process.env.NODE_ENV !== "production") {
   const whyDidYouRender = require("@welldone-software/why-did-you-render")
@@ -47,12 +48,12 @@ export default ({ transitionStatus, entry, exit }) => {
   )
 
   // bugfix: when reload on same page, nav disappears
-  useEffect(() => {
+  useMount(() => {
     // first mount (e.g. page reload) can't have been from inside
     if (location && location.state) {
       location.state.isInternal = false
     }
-  }, [])
+  })
 
   useEffect(() => {
     if (location && location.state && location.state.shouldReload) {

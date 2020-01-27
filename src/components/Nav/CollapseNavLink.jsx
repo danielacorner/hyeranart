@@ -6,8 +6,12 @@ import { useSpring, animated } from "react-spring"
 import { useState } from "react"
 import { useImagesQuery } from "../../utils/queries"
 
+// TODO: still appears below paintings
 const CollapseButtonStyles = styled.li`
   position: relative;
+  .sectionLink {
+    cursor: default;
+  }
   .subSectionsWrapper {
     position: absolute;
     padding: 0 0 0.75rem 0;
@@ -43,17 +47,25 @@ const CollapseNavLink = ({ type, text, isCurrent }) => {
 
   const springCollapseExpand = useSpring({ opacity: isExpanded ? 1 : 0 })
 
+  const handleMouseOver = () => setIsExpanded(true)
+  const handleMouseLeave = () => setIsExpanded(false)
+
   return (
     <CollapseButtonStyles
       isExpanded={isExpanded}
-      onMouseOver={() => setIsExpanded(true)}
-      onMouseOut={() => setIsExpanded(false)}
+      onMouseOver={handleMouseOver}
+      onFocus={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+      onBlur={handleMouseLeave}
     >
-      <TransitionLink>{text}</TransitionLink>
+      <a className="sectionLink">{text}</a>
       <div className={`subSectionsWrapper`}>
         <animated.ul style={springCollapseExpand}>
           {collectionsDataArr.map(({ url, title }) => (
-            <li className={`${camelCase(title)}${isCurrent ? " current" : ""}`}>
+            <li
+              key={title}
+              className={`${camelCase(title)}${isCurrent ? " current" : ""}`}
+            >
               <TransitionLink
                 exit={{
                   length: 0.5,

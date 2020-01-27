@@ -43,3 +43,7 @@ export function useOnClickOutside(ref, handler) {
     [ref, handler]
   )
 }
+
+export function useMount(cb) {
+  useEffect(cb, [])
+}
