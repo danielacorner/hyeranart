@@ -1,6 +1,7 @@
 ---
 title: Square
 visible: true
+order: 1
 images:
   - Image: 21st Correlation
   - Image: 32nd Correlation
