@@ -65,9 +65,10 @@ export const useImagesQuery = () => {
     // TODO: filter out "hidden === true" collections
     .filter(d => Boolean(d.visible && d.images && d.title !== "Artworks"))
     // sort by date, most recent first
-    .sort(
-      (prev, next) =>
-        new Date(next.date).getTime() - new Date(prev.date).getTime()
+    .sort((prev, next) =>
+      (prev.order || prev.order === 0) && (next.order || next.order === 0)
+        ? next.order - prev.order
+        : new Date(next.date).getTime() - new Date(prev.date).getTime()
     )
 
   const gallery = allImagesDataArr.find(d => d.title === "Artworks")
