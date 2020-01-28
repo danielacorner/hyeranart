@@ -1,5 +1,6 @@
 ---
 title: ' The Other Art Fair Brooklyn'
+visible: false
 images:
   - Image: Coexistence 19-II
   - Image: Coexistence 19-I
