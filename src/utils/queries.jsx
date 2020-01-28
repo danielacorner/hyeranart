@@ -63,7 +63,7 @@ export const useImagesQuery = () => {
   const collectionsDataArr = allImagesDataArr
     // TODO: add "hidden" field to collections and
     // TODO: filter out "hidden === true" collections
-    .filter(d => Boolean(d.images && d.title !== "Artworks"))
+    .filter(d => Boolean(d.visible && d.images && d.title !== "Artworks"))
     // sort by date, most recent first
     .sort(
       (prev, next) =>

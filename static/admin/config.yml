@@ -110,6 +110,20 @@ collections:
     slug: "collection_{{slug}}"
     fields:
       - { name: title, label: Title }
+      - {
+          name: visible,
+          label: Visible (hides if false),
+          widget: boolean,
+          default: true,
+        }
+      - {
+          name: order,
+          label: Order of appearance,
+          description: "The order starting from 1 of the links in the Artworks drop-down.",
+          required: false,
+          widget: number,
+          valueType: int,
+        }
       - label: Images
         name: images
         widget: list
@@ -123,7 +137,6 @@ collections:
               valueField: title,
               default: null,
             }
-      - { name: date, label: Date, required: false, widget: date }
       - {
           name: saatchiLink,
           label: Link to Saatchi Art,
@@ -136,3 +149,4 @@ collections:
           required: false,
           widget: markdown,
         }
+      - { name: date, label: Date, required: false, widget: date }
