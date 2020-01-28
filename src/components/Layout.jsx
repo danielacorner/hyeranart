@@ -16,6 +16,7 @@ const LayoutStyles = styled.div`
   min-height: 100vh;
   .navigationWrapper {
     position: relative;
+    z-index:2;
   }
   .navigationWrapper,
   main {
@@ -23,6 +24,8 @@ const LayoutStyles = styled.div`
     opacity: ${props => (props.isSplashPageClicked ? 1 : 0)};
   }
   main {
+    position:relative;
+    z-index:1;
     width: 100vw;
     height: 100%;
   }

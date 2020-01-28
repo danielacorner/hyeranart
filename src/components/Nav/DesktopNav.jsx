@@ -62,9 +62,11 @@ const DesktopNavStyles = styled.div`
     text-decoration: none;
     color: black;
   }
+  .sectionLink {
+    margin-left: 1.5em;
+  }
   li {
     width: fit-content;
-    margin-left: 1.5em;
     line-height: normal;
     margin-bottom: 0;
     text-transform: uppercase;
@@ -95,7 +97,7 @@ const DesktopNavStyles = styled.div`
     padding-right: 3em;
   }
   @media (min-width: 680px) {
-    ul {
+    ul.linksUl {
       width: fit-content;
     }
     flex-direction: row;
@@ -103,7 +105,7 @@ const DesktopNavStyles = styled.div`
   @media (min-width: 960px) {
     margin-top: 3em;
     padding: 1em 6em 1em 4em;
-    li {
+    .sectionLink li {
       font-size: 1.25vw;
     }
     h4 {
@@ -111,7 +113,7 @@ const DesktopNavStyles = styled.div`
     }
   }
   @media (min-width: 1300px) {
-    li {
+    .sectionLink li {
       font-size: 1.35em;
     }
     h4 {
@@ -160,7 +162,7 @@ export default ({ handleNavigate }) => {
       <Link className="titleLink" to={"/"} state={{ shouldReload: true }}>
         <h4>hyeran lee</h4>
       </Link>
-      <LinksUlStyles>
+      <LinksUlStyles className="linksUl">
         {sectionLinksArr.map(({ type, url, text, subSections }, idx) => (
           <NavLink
             key={url}

@@ -19,7 +19,9 @@ export function NavLink({ type, url, text, idx }) {
           // delay: 0.5,
         }
       }
-      className={`${camelCase(text)} ${type}${isCurrent ? " current" : ""}`}
+      className={`sectionLink ${camelCase(text)} ${type}${
+        isCurrent ? " current" : ""
+      }`}
       to={url}
       state={{ isInternal: true }}
     >
@@ -28,6 +30,6 @@ export function NavLink({ type, url, text, idx }) {
       </li>
     </TransitionLink>
   ) : (
-    <CollapseNavLink type={type} text={text} isCurrent={isCurrent} />
+    <CollapseNavLink type={type} text={text} />
   )
 }

@@ -5,18 +5,20 @@ import styled from "styled-components/macro"
 import { useSpring, animated } from "react-spring"
 import { useState } from "react"
 import { useImagesQuery } from "../../utils/queries"
+import { globalHistory } from "@reach/router"
+import { UNDERLINE_ACTIVE_CSS } from "../SplashPageCover"
 
 // TODO: still appears below paintings
-const CollapseButtonStyles = styled.li`
+const CollapseAnchorStyles = styled.a`
   position: relative;
-  .sectionLink {
-    cursor: default;
-  }
+  cursor: default;
   .subSectionsWrapper {
     position: absolute;
     padding: 0 0 0.75rem 0;
-    margin-top: 1.25rem;
-    top: 0;
+    top: 2.5em;
+    @media (min-width: 1090px) {
+      top: 3em;
+    }
     left: 0;
     right: 0;
     z-index: 9999;
@@ -39,57 +41,70 @@ const CollapseButtonStyles = styled.li`
       }
     }
   }
+  li.current {
+    pointer-events: none;
+    ${UNDERLINE_ACTIVE_CSS}
+  }
 `
 
-const CollapseNavLink = ({ type, text, isCurrent }) => {
+const CollapseNavLink = ({ type, text }) => {
   const { collectionsDataArr } = useImagesQuery()
   const [isExpanded, setIsExpanded] = useState(false)
 
   const springCollapseExpand = useSpring({ opacity: isExpanded ? 1 : 0 })
 
-  const handleMouseOver = () => setIsExpanded(true)
-  const handleMouseLeave = () => setIsExpanded(false)
+  const handleMouseEnter = () => {
+    setIsExpanded(true)
+  }
+  const handleMouseLeave = () => {
+    setIsExpanded(false)
+  }
+  const path = globalHistory.location.pathname
 
   return (
-    <CollapseButtonStyles
+    <CollapseAnchorStyles
       isExpanded={isExpanded}
-      onMouseOver={handleMouseOver}
-      onFocus={handleMouseOver}
+      onMouseEnter={handleMouseEnter}
+      onFocus={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onBlur={handleMouseLeave}
+      className="sectionLink"
     >
-      <a className="sectionLink">{text}</a>
+      <li>{text}</li>
       <div className={`subSectionsWrapper`}>
         <animated.ul style={springCollapseExpand}>
-          {collectionsDataArr.map(({ url, title }) => (
-            <li
-              key={title}
-              className={`${camelCase(title)}${isCurrent ? " current" : ""}`}
-            >
-              <TransitionLink
-                exit={{
-                  length: 0.5,
-                }}
-                entry={
-                  {
-                    // delay: 0.5,
-                  }
-                }
-                className={`${camelCase(title)} ${type}${
-                  isCurrent ? " current" : ""
-                }`}
-                to={`/collections/${kebabCase(title)}`}
-                state={{
-                  isInternal: true,
-                }}
+          {collectionsDataArr.map(({ url, title }) => {
+            const isCurrent = `/collections/${kebabCase(title)}` === path
+            return (
+              <li
+                key={title}
+                className={`${camelCase(title)}${isCurrent ? " current" : ""}`}
               >
-                {title}
-              </TransitionLink>
-            </li>
-          ))}
+                <TransitionLink
+                  exit={{
+                    length: 0.5,
+                  }}
+                  entry={
+                    {
+                      // delay: 0.5,
+                    }
+                  }
+                  className={`${camelCase(title)} ${type}${
+                    isCurrent ? " current" : ""
+                  }`}
+                  to={`/collections/${kebabCase(title)}`}
+                  state={{
+                    isInternal: true,
+                  }}
+                >
+                  {title}
+                </TransitionLink>
+              </li>
+            )
+          })}
         </animated.ul>
       </div>
-    </CollapseButtonStyles>
+    </CollapseAnchorStyles>
   )
 }
 export default CollapseNavLink
