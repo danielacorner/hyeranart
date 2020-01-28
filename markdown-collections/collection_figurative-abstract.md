@@ -1,6 +1,7 @@
 ---
 title: Figurative Abstract
 visible: true
+order: 4
 images:
   - Image: Anticipation 2
   - Image: A Summer Night
