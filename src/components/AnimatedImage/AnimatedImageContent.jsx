@@ -15,6 +15,8 @@ const ImgWrapperStyles = styled.div`
   }
 `
 
+const noop = () => null
+
 export const AnimatedImageContent = ({
   handleMouseOut,
   handleMouseOver,
@@ -29,7 +31,7 @@ export const AnimatedImageContent = ({
   handleClick,
   metadata,
   isModalImage,
-  shouldDisableAnimation = false,
+  shouldDisableAnimation,
 }) => (
   <div
     onClick={handleClick}
@@ -40,10 +42,10 @@ export const AnimatedImageContent = ({
     <Scene3DCanvasStyles className="scene" thicknessPx={depthPx}>
       <animated.div
         className="cube"
-        onMouseOut={handleMouseOut}
-        onMouseMove={handleMouseOver}
+        onMouseOut={!shouldDisableAnimation ? handleMouseOut : noop}
+        onMouseMove={!shouldDisableAnimation ? handleMouseOver : noop}
         style={{
-          ...springOnHover,
+          ...(!shouldDisableAnimation ? springOnHover : {}),
           width: width,
           height: height,
         }}

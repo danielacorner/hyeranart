@@ -62,6 +62,7 @@ metadata,
           title={title}
           fluid={fluid}
           metadata={metadata}
+          shouldDisableAnimation={true}
           isModalImage={true}
         />
       </SpringInOut>

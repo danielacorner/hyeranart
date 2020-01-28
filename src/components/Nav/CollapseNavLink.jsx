@@ -9,7 +9,7 @@ import { globalHistory } from "@reach/router"
 import { UNDERLINE_ACTIVE_CSS } from "../SplashPageCover"
 
 // TODO: still appears below paintings
-const CollapseAnchorStyles = styled.a`
+const CollapseLinkWrapperStyles = styled.div`
   position: relative;
   cursor: default;
   .subSectionsWrapper {
@@ -28,7 +28,7 @@ const CollapseAnchorStyles = styled.a`
       margin-left: -50%;
       background: white;
       box-shadow: 0px 2px 6px #00000036;
-      padding: 0.25rem 0.5rem 0.5rem;
+      padding: 0 0.5rem 0.5rem;
     }
     pointer-events: ${props => (props.isExpanded ? "auto" : "none")};
     li {
@@ -49,6 +49,7 @@ const CollapseAnchorStyles = styled.a`
 
 const CollapseNavLink = ({ type, text }) => {
   const { collectionsDataArr } = useImagesQuery()
+  console.log("⚡🚨: CollapseNavLink -> collectionsDataArr", collectionsDataArr)
   const [isExpanded, setIsExpanded] = useState(false)
 
   const springCollapseExpand = useSpring({ opacity: isExpanded ? 1 : 0 })
@@ -62,7 +63,7 @@ const CollapseNavLink = ({ type, text }) => {
   const path = globalHistory.location.pathname
 
   return (
-    <CollapseAnchorStyles
+    <CollapseLinkWrapperStyles
       isExpanded={isExpanded}
       onMouseEnter={handleMouseEnter}
       onFocus={handleMouseEnter}
@@ -104,7 +105,7 @@ const CollapseNavLink = ({ type, text }) => {
           })}
         </animated.ul>
       </div>
-    </CollapseAnchorStyles>
+    </CollapseLinkWrapperStyles>
   )
 }
 export default CollapseNavLink

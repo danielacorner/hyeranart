@@ -52,6 +52,7 @@ const AnimatedImagePortal = props => (
           fluid={props.fluid}
           metadata={props.metadata}
           isModalImage={true}
+          shouldDisableAnimation={true}
         />
       </SpringInOut>
     </ModalWrapperStyles>

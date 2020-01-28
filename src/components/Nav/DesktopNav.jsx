@@ -30,7 +30,7 @@ export const LinksUlStyles = styled.ul`
       background: hsl(0, 0%, 60%);
     }
   }
-  a {
+  .sectionLink {
     padding: 0.5rem;
     margin: -0.5rem;
     &:active,

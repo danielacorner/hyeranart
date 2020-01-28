@@ -105,7 +105,7 @@ collections:
       - { name: date, label: Date, required: false, widget: date }
   - name: collection
     label: Collection of Works
-    description: "Collections can be displayed in the navigation's Artworks drop-down.",
+    description: "Collections can be displayed in the navigation's Artworks drop-down."
     folder: markdown-collections
     create: true
     slug: "collection_{{slug}}"

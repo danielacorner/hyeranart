@@ -4,7 +4,7 @@ import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../../utils/constants"
 
 // https://material-ui.com/components/modal/
-const TRANSLATE_UP_PX = 10
+const TRANSLATE_UP_PX = 20
 export const SpringInOut = React.forwardRef((props, ref) => {
   const {
     in: open,
@@ -25,11 +25,12 @@ export const SpringInOut = React.forwardRef((props, ref) => {
   const springScaleInOut = useSpring({
     from: {
       opacity: 0,
-      transform: `scale(1) translateY(${TRANSLATE_UP_PX}px)`,
+      transform: `scale(${scaleForMaxWidth *
+        0.8}) translateY(${TRANSLATE_UP_PX}px)`,
     },
     to: {
       opacity: open ? 1 : 0,
-      transform: `scale(${open ? scaleForMaxWidth : 1}) translateY(${
+      transform: `scale(${scaleForMaxWidth * (open ? 1 : 0.8)}) translateY(${
         open ? 0 : TRANSLATE_UP_PX
       }px)`,
     },
