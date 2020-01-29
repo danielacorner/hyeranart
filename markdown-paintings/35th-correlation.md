@@ -1,8 +1,8 @@
 ---
 Image: /images/uploads/35th-correlation.jpg
 title: 35th Correlation
-height: 12
-width: 16
+height: 30
+width: 40
 depth: 1.5
 price: ''
 saatchiLink: >-
