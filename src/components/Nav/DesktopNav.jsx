@@ -187,10 +187,14 @@ export default ({ handleNavigate }) => {
   const shouldShowSaatchiLink = Boolean(isOnSinglePaintingPage && saatchiLink)
 
   const { sectionLinksArr } = useSectionCollectionLinks()
-
+  const isOnHomePage = location.pathname === "/"
   return (
     <DesktopNavStyles shouldShowSaatchiLink={shouldShowSaatchiLink}>
-      <Link className="titleLink" to={"/"} state={{ shouldReload: true }}>
+      <Link
+        className="titleLink"
+        to={"/"}
+        state={{ shouldReload: isOnHomePage, isInternal: true }}
+      >
         <h4>hyeran lee</h4>
       </Link>
       <LinksUlStyles className="linksUl">

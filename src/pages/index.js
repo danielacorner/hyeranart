@@ -24,7 +24,7 @@ const toggleOverflowHidden = isHidden => {
   }
 }
 
-export const useSpringLeftRightNavigate = transitionStatus =>
+export const useSpringTransitionLink = transitionStatus =>
   useSpring(
     ["entering", "entered"].includes(transitionStatus)
       ? {
@@ -86,12 +86,12 @@ export default ({ transitionStatus, entry, exit }) => {
     setIsSplashPageClicked(true)
   }
 
-  const springLeftRightNavigate = useSpringLeftRightNavigate(transitionStatus)
+  const springTransitionLink = useSpringTransitionLink(transitionStatus)
 
   return (
     <Layout isSplashPageClicked={isSplashPageClicked}>
       <SEO title="Home" />
-      <animated.div style={springLeftRightNavigate}>
+      <animated.div style={springTransitionLink}>
         <SecondPage />
       </animated.div>
       <Portal>

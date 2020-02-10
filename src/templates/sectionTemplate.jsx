@@ -3,6 +3,8 @@ import Layout from "../components/Layout"
 import styled from "styled-components"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
+import { animated } from "react-spring"
+import { useSpringTransitionLink } from "../pages"
 
 const SectionStyles = styled.div`
   padding-top: 70px;
@@ -24,34 +26,37 @@ const SectionStyles = styled.div`
   margin-bottom: 6em;
 `
 
-export default function Template({ pageContext }) {
+export default function Template({ pageContext, transitionStatus }) {
   const { title, moreInfo } = pageContext
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
+  const springTransitionLink = useSpringTransitionLink(transitionStatus)
 
   return (
     <Layout>
-      <SectionStyles>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: isMobileOrLarger ? "row" : "column",
-            alignItems: "baseline",
-          }}
-        >
-          <h1
+      <animated.div style={springTransitionLink}>
+        <SectionStyles>
+          <div
             style={{
-              flexGrow: 1,
-              ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
+              display: "flex",
+              flexDirection: isMobileOrLarger ? "row" : "column",
+              alignItems: "baseline",
             }}
           >
-            {title}
-          </h1>
-        </div>
-        <div
-          className="sectionInfo"
-          dangerouslySetInnerHTML={{ __html: moreInfo }}
-        />
-      </SectionStyles>
+            <h1
+              style={{
+                flexGrow: 1,
+                ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
+              }}
+            >
+              {title}
+            </h1>
+          </div>
+          <div
+            className="sectionInfo"
+            dangerouslySetInnerHTML={{ __html: moreInfo }}
+          />
+        </SectionStyles>
+      </animated.div>
     </Layout>
   )
 }

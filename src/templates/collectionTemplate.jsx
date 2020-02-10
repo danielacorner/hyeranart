@@ -6,6 +6,8 @@ import { useImagesQuery } from "../utils/queries"
 import { SaatchiButton } from "../components/ButtonsDrawer"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
+import { useSpringTransitionLink } from "../pages"
+import { animated } from "react-spring"
 
 const CollectionStyles = styled.div`
   padding-top: 70px;
@@ -25,7 +27,7 @@ const CollectionStyles = styled.div`
     margin-top: 38px;
   }
 `
-export default function Template({ pageContext }) {
+export default function Template({ pageContext, transitionStatus }) {
   const { images, title, moreInfo, saatchiLink } = pageContext
   const { imagesDataArr } = useImagesQuery()
   const imageTitlesArr = images.map(img => img.Image)
@@ -34,45 +36,51 @@ export default function Template({ pageContext }) {
   )
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
 
+  const springTransitionLink = useSpringTransitionLink(transitionStatus)
+
   return (
     <Layout>
-      <CollectionStyles>
-        <div className="description">
-          <div
-            style={{
-              display: "flex",
-              flexDirection: isMobileOrLarger ? "row" : "column",
-              alignItems: "baseline",
-            }}
-          >
-            <h1
+      <animated.div style={springTransitionLink}>
+        <CollectionStyles>
+          <div className="description">
+            <div
               style={{
-                flexGrow: 1,
-                ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
+                display: "flex",
+                flexDirection: isMobileOrLarger ? "row" : "column",
+                alignItems: "baseline",
               }}
             >
-              {title}
-            </h1>
-            {saatchiLink ? (
-              <SaatchiButton
-                saatchiLink={saatchiLink}
+              <h1
                 style={{
-                  transform: "scale(0.8)",
-                  transformOrigin: `top ${isMobileOrLarger ? "right" : "left"}`,
+                  flexGrow: 1,
                   ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
                 }}
-              />
-            ) : null}
+              >
+                {title}
+              </h1>
+              {saatchiLink ? (
+                <SaatchiButton
+                  saatchiLink={saatchiLink}
+                  style={{
+                    transform: "scale(0.8)",
+                    transformOrigin: `top ${
+                      isMobileOrLarger ? "right" : "left"
+                    }`,
+                    ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
+                  }}
+                />
+              ) : null}
+            </div>
+            <div
+              className="collectionInfo"
+              dangerouslySetInnerHTML={{ __html: moreInfo }}
+            />
           </div>
-          <div
-            className="collectionInfo"
-            dangerouslySetInnerHTML={{ __html: moreInfo }}
-          />
-        </div>
-        <div className="masonryWrapper">
-          <MasonryGrid imagesDataArr={imagesDataArrForCollection} />
-        </div>
-      </CollectionStyles>
+          <div className="masonryWrapper">
+            <MasonryGrid imagesDataArr={imagesDataArrForCollection} />
+          </div>
+        </CollectionStyles>
+      </animated.div>
     </Layout>
   )
 }
