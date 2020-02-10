@@ -183,10 +183,8 @@ export default ({ handleNavigate }) => {
     const pageUrl = getPaintingUrlFromFilePath(filePath)
     return pageUrl === paintingNameFromUrl
   })
-  console.log("⚡🚨: paintingData", paintingData)
   const saatchiLink = paintingData ? paintingData.saatchiLink : null
   const shouldShowSaatchiLink = Boolean(isOnSinglePaintingPage && saatchiLink)
-  console.log("⚡🚨: shouldShowSaatchiLink", shouldShowSaatchiLink)
 
   const { sectionLinksArr } = useSectionCollectionLinks()
 
