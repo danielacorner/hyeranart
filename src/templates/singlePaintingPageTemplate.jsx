@@ -9,7 +9,10 @@ import Img from "gatsby-image"
 // import PaintingMetadata from "../components/Masonry/PaintingMetadata"
 
 const SinglePaintingPageStyles = styled.div`
-  padding: 70px;
+  padding: 35px;
+  @media (min-width: 768px) {
+    padding: 35px 50px;
+  }
   .description {
     margin-top: 1em;
     h1 {
@@ -27,8 +30,6 @@ export default function Template({ pageContext }) {
   const imageOnThisPage = imagesDataArr.find(
     imageData => imageData.title === imageName
   )
-  console.log("⚡🚨: Template -> imagesDataArr", imagesDataArr)
-  console.log("⚡🚨: Template -> imageOnThisPage", imageOnThisPage)
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
 
   const metadata = {

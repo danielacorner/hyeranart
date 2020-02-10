@@ -3,6 +3,9 @@ import styled from "styled-components"
 import { UNDERLINE_ACTIVE_CSS, HOVER_UNDERLINE_CSS } from "../SplashPageCover"
 import { NavLink } from "./NavLink"
 import { Link } from "gatsby"
+import { globalHistory } from "@reach/router"
+import { useImagesQuery } from "../../utils/queries"
+import { getPaintingUrlFromFilePath } from "../AnimatedImage/AnimatedImage"
 
 export const LinksUlStyles = styled.ul`
   display: flex;
@@ -26,6 +29,7 @@ export const LinksUlStyles = styled.ul`
     padding: 4px;
     margin-bottom: 0.3rem;
     ${HOVER_UNDERLINE_CSS}
+
     &:after {
       background: hsl(0, 0%, 60%);
     }
@@ -54,7 +58,8 @@ const DesktopNavStyles = styled.div`
   font-size: 12px;
   font-family: system-ui;
   margin-top: 1.5em;
-  padding: 0.5em 1em 0.5em 2em;
+  padding: 0.5em ${props => (props.shouldShowSaatchiLink ? "18px" : "1em")}
+    0.5em 2em;
   position: relative;
   background: white;
   top: 0;
@@ -69,10 +74,11 @@ const DesktopNavStyles = styled.div`
     width: fit-content;
     line-height: normal;
     margin-bottom: 0;
-    text-transform: uppercase;
+    text-transform: ${props =>
+      props.shouldShowSaatchiLink ? "none" : "uppercase"};
     display: flex;
     padding: 0;
-    font-size: 1em;
+    font-size: ${props => (props.shouldShowSaatchiLink ? 1.2 : 1)}em;
   }
   h4 {
     cursor: pointer;
@@ -88,23 +94,34 @@ const DesktopNavStyles = styled.div`
     margin-top: 1.5em;
     li {
       white-space: nowrap;
+      ${props =>
+        props.shouldShowSaatchiLink
+          ? `
+      margin-left: auto;
+      margin-bottom: -17px;
+      `
+          : ""}
     }
   }
   display: flex;
   flex-direction: column;
 
   @media (min-width: 600px) {
-    padding-right: 3em;
+    padding-right: ${props => (props.shouldShowSaatchiLink ? "18px" : "3em")};
   }
-  @media (min-width: 680px) {
+  @media (min-width: ${props => (props.shouldShowSaatchiLink ? 528 : 680)}px) {
     ul.linksUl {
       width: fit-content;
     }
     flex-direction: row;
   }
+  @media (min-width: 768px) {
+    padding-right: ${props => (props.shouldShowSaatchiLink ? "35px" : "3em")};
+  }
   @media (min-width: 960px) {
     margin-top: 3em;
-    padding: 1em 6em 1em 4em;
+    padding: 1em ${props => (props.shouldShowSaatchiLink ? "35px" : "6em")} 1em
+      4em;
     .sectionLink li {
       font-size: 1.25vw;
     }
@@ -156,24 +173,46 @@ export const useSectionCollectionLinks = () => {
 }
 
 export default ({ handleNavigate }) => {
+  const { location } = globalHistory
+  const isOnSinglePaintingPage = location.pathname.includes("/paintings/")
+  const paintingNameFromUrl = location.pathname.split("/")[2]
+
+  const { imagesDataArr } = useImagesQuery()
+  const paintingData = imagesDataArr.find(imageData => {
+    const filePath = imageData.Image
+    const pageUrl = getPaintingUrlFromFilePath(filePath)
+    return pageUrl === paintingNameFromUrl
+  })
+  console.log("⚡🚨: paintingData", paintingData)
+  const saatchiLink = paintingData ? paintingData.saatchiLink : null
+  const shouldShowSaatchiLink = Boolean(isOnSinglePaintingPage && saatchiLink)
+  console.log("⚡🚨: shouldShowSaatchiLink", shouldShowSaatchiLink)
+
   const { sectionLinksArr } = useSectionCollectionLinks()
+
   return (
-    <DesktopNavStyles>
+    <DesktopNavStyles shouldShowSaatchiLink={shouldShowSaatchiLink}>
       <Link className="titleLink" to={"/"} state={{ shouldReload: true }}>
         <h4>hyeran lee</h4>
       </Link>
       <LinksUlStyles className="linksUl">
-        {sectionLinksArr.map(({ type, url, text, subSections }, idx) => (
-          <NavLink
-            key={url}
-            idx={idx}
-            type={type}
-            url={url}
-            text={text}
-            subSections={subSections}
-            handleNavigate={handleNavigate}
-          />
-        ))}
+        {shouldShowSaatchiLink ? (
+          <a href={saatchiLink} target="_blank" rel="noopener noreferrer">
+            <li>Available on Saatchi Art</li>
+          </a>
+        ) : (
+          sectionLinksArr.map(({ type, url, text, subSections }, idx) => (
+            <NavLink
+              key={url}
+              idx={idx}
+              type={type}
+              url={url}
+              text={text}
+              subSections={subSections}
+              handleNavigate={handleNavigate}
+            />
+          ))
+        )}
       </LinksUlStyles>
     </DesktopNavStyles>
   )

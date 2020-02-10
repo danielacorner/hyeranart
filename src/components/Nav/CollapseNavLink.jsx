@@ -49,7 +49,6 @@ const CollapseLinkWrapperStyles = styled.div`
 
 const CollapseNavLink = ({ type, text }) => {
   const { collectionsDataArr } = useImagesQuery()
-  console.log("⚡🚨: CollapseNavLink -> collectionsDataArr", collectionsDataArr)
   const [isExpanded, setIsExpanded] = useState(false)
 
   const springCollapseExpand = useSpring({ opacity: isExpanded ? 1 : 0 })

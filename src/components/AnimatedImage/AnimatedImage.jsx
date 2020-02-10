@@ -16,8 +16,6 @@ const AnimatedImage = ({
   gridSize,
   fullScreenLink,
   saatchiLink,
-  isSelected,
-  isAnimationDisabled = false,
 }) => {
   // grid-column: span ${width}
   // grid-row: span ${height}
@@ -36,8 +34,7 @@ const AnimatedImage = ({
     type: "Painting",
   }
 
-  const paintingFile = fullScreenLink.split("/")[3] // e.g. 21st-correlation.jpg
-  const paintingUrl = paintingFile.split(".")[0] // e.g. 21st-correlation
+  const paintingUrl = getPaintingUrlFromFilePath(fullScreenLink)
   return (
     <AnimatedImageStyles>
       <Link to={`paintings/${paintingUrl}`}>
@@ -55,3 +52,14 @@ const AnimatedImage = ({
 }
 
 export default AnimatedImage
+
+export function getPaintingUrlFromFilePath(filePath) {
+  if (!filePath) {
+    return null
+  }
+  const paintingFile = filePath.split("/")[3] // e.g. 21st-correlation.jpg
+  if (!paintingFile) {
+    return null
+  }
+  return paintingFile.split(".")[0] // e.g. 21st-correlation
+}
