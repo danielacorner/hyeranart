@@ -17,7 +17,6 @@ export const useImagesQuery = () => {
               date
               Image
               depth
-              price
               saatchiLink
               images {
                 Image
