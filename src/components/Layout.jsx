@@ -13,10 +13,10 @@ import "./layout.css"
 
 const LayoutStyles = styled.div`
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: 90vh;
   .navigationWrapper {
     position: relative;
-    z-index:2;
+    z-index: 2;
   }
   .navigationWrapper,
   main {
@@ -24,8 +24,8 @@ const LayoutStyles = styled.div`
     opacity: ${props => (props.isSplashPageClicked ? 1 : 0)};
   }
   main {
-    position:relative;
-    z-index:1;
+    position: relative;
+    z-index: 1;
     width: 100vw;
     height: 100%;
   }

@@ -15,6 +15,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     `src/templates/collectionTemplate.jsx`
   )
   const sectionPageTemplate = path.resolve(`src/templates/sectionTemplate.jsx`)
+  const singlePaintingPageTemplate = path.resolve(
+    `src/templates/singlePaintingPageTemplate.jsx`
+  )
 
   const result = await graphql(`
     {
@@ -71,6 +74,22 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           moreInfo,
           date,
         }, // additional data can be passed via context
+      })
+
+      // image pages
+      images.forEach(({ Image }) => {
+        const imageName = Image
+        createPage({
+          path: `/paintings/${kebabCase(imageName)}`,
+          component: singlePaintingPageTemplate,
+          context: {
+            collectionTitle: title,
+            imageName,
+            saatchiLink,
+            moreInfo,
+            date,
+          }, // additional data can be passed via context
+        })
       })
     }
   })
