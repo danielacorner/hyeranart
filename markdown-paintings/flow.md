@@ -2,7 +2,7 @@
 Image: /images/uploads/begin-again.jpg
 title: Begin Again
 height: 40
-width: 29
+width: 30
 depth: 1.5
 price: 4237
 saatchiLink: 'https://www.saatchiart.com/art/Painting-Begin-Again/189576/4960662/view'
