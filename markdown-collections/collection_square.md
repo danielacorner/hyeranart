@@ -1,5 +1,5 @@
 ---
-title: Square I 30 X 30
+title: WORKS I 30 X 30
 visible: true
 order: 10
 images:
