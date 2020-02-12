@@ -1,5 +1,5 @@
 ---
-title: Rectangle I 40 x 30
+title: WORKS I 40 x 30
 visible: true
 order: 3
 images:
