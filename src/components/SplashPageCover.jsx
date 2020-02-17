@@ -3,6 +3,8 @@ import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
 import { useImagesQuery } from "../utils/queries"
 import Img from "gatsby-image"
+import { useMediaQuery } from "@material-ui/core"
+import { BREAKPOINTS } from "../utils/constants"
 
 export const CUBIC_BEZIER = "cubic-bezier(0.165, 0.84, 0.44, 1)"
 
@@ -111,10 +113,13 @@ const SplashPageCover = () => {
     }
   `)
   const { frontmatter } = data.markdownRemark
-  const { imagesDataArr } = useImagesQuery()
-  const splashPageImage = imagesDataArr.find(
-    image => image.title === frontmatter.title
-  ) || { fluid: null }
+  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
+
+  const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
+  const splashPageImage = (isMobileOrLarger
+    ? imagesDataArr
+    : imagesDataArrMobile
+  ).find(image => image.title === frontmatter.title) || { fluid: null }
 
   return (
     <SplashPageStyles>

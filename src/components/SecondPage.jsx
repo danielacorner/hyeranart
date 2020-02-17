@@ -5,6 +5,7 @@ import { useImagesQuery } from "../utils/queries"
 import { BREAKPOINTS } from "../utils/constants"
 import { useStaticQuery, graphql } from "gatsby"
 import { HOVER_UNDERLINE_CSS, CUBIC_BEZIER } from "./SplashPageCover"
+import { useMediaQuery } from "@material-ui/core"
 
 const SecondPageStyles = styled.div`
   width: 90vw;
@@ -99,10 +100,12 @@ export default () => {
   `)
   const { frontmatter, rawMarkdownBody } = data.markdownRemark
   const { contactLinks } = frontmatter
-  const { imagesDataArr } = useImagesQuery()
-  const secondPageImage = imagesDataArr.find(
-    image => image.title === frontmatter.title
-  ) || { fluid: null }
+  const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
+  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
+  const secondPageImage = (isMobileOrLarger
+    ? imagesDataArr
+    : imagesDataArrMobile
+  ).find(image => image.title === frontmatter.title) || { fluid: null }
   return (
     <SecondPageStyles>
       <div className="imageWrapper">

@@ -25,13 +25,26 @@ export const useImagesQuery = () => {
           }
         }
       }
-      allFile(filter: { extension: { eq: "jpg" } }) {
+      desktopImage: allFile(filter: { extension: { eq: "jpg" } }) {
         edges {
           node {
             id
             relativePath
             childImageSharp {
-              fluid(maxWidth: 2048, quality: 100) {
+              fluid(maxWidth: 1240, quality: 100) {
+                ...GatsbyImageSharpFluid_tracedSVG
+              }
+            }
+          }
+        }
+      }
+      mobileImage: allFile(filter: { extension: { eq: "jpg" } }) {
+        edges {
+          node {
+            id
+            relativePath
+            childImageSharp {
+              fluid(maxWidth: 500, quality: 100) {
                 ...GatsbyImageSharpFluid_tracedSVG
               }
             }
@@ -41,7 +54,12 @@ export const useImagesQuery = () => {
     }
   `)
 
-  const imagesArr = data.allFile.edges.map(({ node }) => ({
+  const imagesArr = data.desktopImage.edges.map(({ node }) => ({
+    ...node.childImageSharp.fluid,
+    id: node.id,
+    relativePath: node.relativePath,
+  }))
+  const imagesArrMobile = data.mobileImage.edges.map(({ node }) => ({
     ...node.childImageSharp.fluid,
     id: node.id,
     relativePath: node.relativePath,
@@ -57,9 +75,24 @@ export const useImagesQuery = () => {
           node.frontmatter.Image.includes(relativePath)
         ),
   }))
+  const allImagesDataArrMobile = data.allMarkdownRemark.edges.map(
+    ({ node }) => ({
+      ...node.frontmatter,
+      id: node.id,
+      // find matching image in imagesArr
+      fluid: !node.frontmatter.Image
+        ? null
+        : imagesArrMobile.find(({ relativePath }) =>
+            node.frontmatter.Image.includes(relativePath)
+          ),
+    })
+  )
 
   // split into collections vs images
   const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))
+  const imagesDataArrMobile = allImagesDataArrMobile.filter(d =>
+    Boolean(d.fluid)
+  )
 
   const collectionsDataArr = allImagesDataArr
     .filter(d => Boolean(d.visible && d.images && d.title !== "Artworks"))
@@ -85,6 +118,7 @@ export const useImagesQuery = () => {
 
   return {
     imagesDataArr,
+    imagesDataArrMobile,
     collectionsDataArr,
     // sectionsDataArr,
     imagesArr,

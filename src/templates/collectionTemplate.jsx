@@ -4,8 +4,8 @@ import styled from "styled-components"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
 import { useImagesQuery } from "../utils/queries"
 // import { SaatchiButton } from "../components/ButtonsDrawer"
-// import { useMediaQuery } from "@material-ui/core"
-// import { BREAKPOINTS } from "../utils/constants"
+import { useMediaQuery } from "@material-ui/core"
+import { BREAKPOINTS } from "../utils/constants"
 import { useSpringTransitionLink } from "../pages"
 import { animated } from "react-spring"
 
@@ -78,11 +78,14 @@ const CollectionStyles = styled.div`
 
 export default function Template({ pageContext, transitionStatus }) {
   const { images /* , title, moreInfo, saatchiLink */ } = pageContext
-  const { imagesDataArr } = useImagesQuery()
+  const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
   const imageTitlesArr = images.map(img => img.Image)
-  const imagesDataArrForCollection = imagesDataArr.filter(image =>
-    imageTitlesArr.includes(image.title)
-  )
+  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
+
+  const imagesDataArrForCollection = (isMobileOrLarger
+    ? imagesDataArr
+    : imagesDataArrMobile
+  ).filter(image => imageTitlesArr.includes(image.title))
   // const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
 
   const springTransitionLink = useSpringTransitionLink(transitionStatus)

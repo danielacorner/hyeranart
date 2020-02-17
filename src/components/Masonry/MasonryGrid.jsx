@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import { NAV_HEIGHT } from "../Carousel/CarouselStyles"
 import AnimatedImage from "../AnimatedImage/AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { useMediaQuery } from "@material-ui/core"
@@ -12,7 +11,7 @@ const GRID_GAP = 16 * 5
 const MasonryStyles = styled.div`
   width: 100%;
   padding-bottom: 2em;
-  min-height: calc(100vh - ${NAV_HEIGHT}px);
+  min-height: calc(100vh - 90px);
   .masonry-grid {
     display: grid;
     grid-auto-flow: dense;
