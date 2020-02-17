@@ -9,6 +9,7 @@ const MetadataStyles = styled.div`
   .title {
     margin-bottom: 0.25em;
     line-height: normal;
+    color: black;
   }
   .details {
     line-height: 1em;

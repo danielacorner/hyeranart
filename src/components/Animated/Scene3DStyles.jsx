@@ -22,7 +22,7 @@ export const Scene3DCanvasStyles = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    border: 1px solid ${CANVAS_BORDER_COLOR};
+    /* border: 1px solid ${CANVAS_BORDER_COLOR}; */
   }
   .cube__face--front {
     transform: rotateY(0deg) translateZ(${props => props.thicknessPx / 2}px);

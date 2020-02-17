@@ -59,7 +59,7 @@ const DesktopNavStyles = styled.div`
   font-family: system-ui;
   margin-top: 1.5em;
   padding: 0.5em ${props => (props.shouldShowSaatchiLink ? "18px" : "1em")}
-    0.5em 2em;
+    0.5em 24px;
   position: relative;
   background: white;
   top: 0;
@@ -121,7 +121,7 @@ const DesktopNavStyles = styled.div`
   @media (min-width: 960px) {
     margin-top: 3em;
     padding: 1em ${props => (props.shouldShowSaatchiLink ? "35px" : "6em")} 1em
-      4em;
+      48px;
     .sectionLink li {
       font-size: 1.25vw;
     }
