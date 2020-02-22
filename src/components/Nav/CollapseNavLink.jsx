@@ -47,6 +47,29 @@ const CollapseLinkWrapperStyles = styled.div`
   }
 `
 
+const ListItemLink = ({ type, isCurrent, title, onClick }) => (
+  <li
+    onClick={onClick}
+    className={`${camelCase(title)}${isCurrent ? " current" : ""}`}
+  >
+    <TransitionLink
+      exit={{
+        length: 0.5,
+      }}
+      entry={{
+        delay: 0.3,
+      }}
+      className={`${camelCase(title)} ${type}${isCurrent ? " current" : ""}`}
+      to={`/collections/${kebabCase(title)}`}
+      state={{
+        isInternal: true,
+      }}
+    >
+      {title}
+    </TransitionLink>
+  </li>
+)
+
 const CollapseNavLink = ({ type, text }) => {
   const { collectionsDataArr } = useImagesQuery()
   const [isExpanded, setIsExpanded] = useState(false)
@@ -64,6 +87,8 @@ const CollapseNavLink = ({ type, text }) => {
   return (
     <CollapseLinkWrapperStyles
       isExpanded={isExpanded}
+      onClick={handleMouseEnter}
+      onTouchStart={handleMouseEnter}
       onMouseEnter={handleMouseEnter}
       onFocus={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -76,30 +101,13 @@ const CollapseNavLink = ({ type, text }) => {
           {collectionsDataArr.map(({ url, title }) => {
             const isCurrent = `/collections/${kebabCase(title)}` === path
             return (
-              <li
+              <ListItemLink
+                onClick={handleMouseLeave}
                 key={title}
-                className={`${camelCase(title)}${isCurrent ? " current" : ""}`}
-              >
-                <TransitionLink
-                  exit={{
-                    length: 0.5,
-                  }}
-                  entry={
-                    {
-                      // delay: 0.5,
-                    }
-                  }
-                  className={`${camelCase(title)} ${type}${
-                    isCurrent ? " current" : ""
-                  }`}
-                  to={`/collections/${kebabCase(title)}`}
-                  state={{
-                    isInternal: true,
-                  }}
-                >
-                  {title}
-                </TransitionLink>
-              </li>
+                isCurrent={isCurrent}
+                title={title}
+                type={type}
+              />
             )
           })}
         </animated.ul>

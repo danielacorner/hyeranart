@@ -37,7 +37,7 @@ const AnimatedImage = ({
   const paintingUrl = getPaintingUrlFromFilePath(fullScreenLink)
   return (
     <AnimatedImageStyles>
-      <Link to={`paintings/${paintingUrl}`}>
+      <Link to={`/paintings/${paintingUrl}`}>
         <AnimatedImageContent
           width={width}
           height={height}
