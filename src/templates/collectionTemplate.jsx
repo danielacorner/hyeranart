@@ -27,7 +27,7 @@ const CollectionStyles = styled.div`
   .masonryWrapper {
     padding-bottom: 140px;
     margin-left: -38px;
-    margin-top: 38px;
+    margin-top: ${props => (props.isGridLayout ? 38 : 64)}px;
   }
 `
 
@@ -89,11 +89,12 @@ export default function Template({ pageContext, transitionStatus }) {
   // const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
 
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
+  const isGridLayout = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILELG}px)`)
 
   return (
     <Layout>
       <animated.div style={springTransitionLink}>
-        <CollectionStyles>
+        <CollectionStyles isGridLayout={isGridLayout}>
           {/* <DescriptionAndInfo
             title={title}
             moreInfo={moreInfo}

@@ -13,15 +13,19 @@ const MasonryStyles = styled.div`
   padding-bottom: 2em;
   min-height: calc(100vh - 90px);
   .masonry-grid {
-    display: grid;
-    grid-auto-flow: dense;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(${props => props.gridSize}px, 1fr)
-    );
-    width: auto;
-    place-items: center center;
-    place-content: center center;
+    width: fit-content;
+    margin: auto;
+    @media (min-width: ${BREAKPOINTS.MOBILELG}px) {
+      display: grid;
+      grid-auto-flow: dense;
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(${props => props.gridSize}px, 1fr)
+      );
+      width: auto;
+      place-items: center center;
+      place-content: center center;
+    }
   }
   .gatsby-image-wrapper {
   }
@@ -58,6 +62,7 @@ const MasonryGrid = ({
 }) => {
   const [selectedImgMetadata, setSelectedImgMetadata] = useState(null)
   const handleClickAway = () => setSelectedImgMetadata(null)
+  const isGridLayout = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILELG}px)`)
   return (
     <MasonryStyles gridSize={gridSize}>
       <div className={"masonry-grid"}>
@@ -91,7 +96,7 @@ const MasonryGrid = ({
                 style={{
                   gridColumn: `span ${xSpan}`,
                   gridRow: `span ${ySpan}`, // doesn't work?
-                  marginBottom: gridGap,
+                  marginBottom: gridGap * (isGridLayout ? 1 : 2),
                 }}
               >
                 <AnimatedImage

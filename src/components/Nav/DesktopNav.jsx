@@ -6,11 +6,16 @@ import { Link } from "gatsby"
 import { globalHistory } from "@reach/router"
 import { useImagesQuery } from "../../utils/queries"
 import { getPaintingUrlFromFilePath } from "../AnimatedImage/AnimatedImage"
+import { BREAKPOINTS } from "../../utils/constants"
 
 export const LinksUlStyles = styled.ul`
   display: flex;
   margin-bottom: 0;
   margin-left: auto;
+  margin-right: 12px;
+  @media (min-width: ${BREAKPOINTS.MOBILE}px) {
+    margin-right: 0;
+  }
   width: fit-content;
   a {
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -106,7 +111,7 @@ const DesktopNavStyles = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 600px) {
+  @media (min-width: ${BREAKPOINTS.MOBILELG}px) {
     padding-right: ${props => (props.shouldShowSaatchiLink ? "18px" : "3em")};
   }
   @media (min-width: ${props => (props.shouldShowSaatchiLink ? 528 : 680)}px) {
@@ -129,7 +134,7 @@ const DesktopNavStyles = styled.div`
       font-size: 2.5vw;
     }
   }
-  @media (min-width: 1300px) {
+  @media (min-width: ${BREAKPOINTS.DESKTOPSM}px) {
     .sectionLink li {
       font-size: 1.35em;
     }
