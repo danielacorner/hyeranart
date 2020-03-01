@@ -59,6 +59,7 @@ collections:
               default: "about-page",
             }
           - { label: Title, name: title, widget: string }
+          - { name: Image, label: Top Image, widget: image }
           - { label: Body, name: body, widget: markdown }
   - name: painting
     label: Single Work

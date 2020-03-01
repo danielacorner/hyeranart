@@ -7,6 +7,7 @@
 // You can delete this file if you're not using it
 const { kebabCase } = require("lodash")
 const path = require(`path`)
+const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
@@ -96,10 +97,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 }
 
 // convert markdown to html (e.g. moreInfo section)
+// and create a node for the profile image in about/index.md
 const remark = require("remark")
 const remarkHTML = require("remark-html")
 
-exports.onCreateNode = ({ node }) => {
+exports.onCreateNode = ({ node, actions, getNode }) => {
   if (!node.frontmatter) {
     return node
   }
@@ -110,5 +112,50 @@ exports.onCreateNode = ({ node }) => {
       .processSync(markdown)
       .toString()
   }
+
+  if (node.internal.type === `MarkdownRemark`) {
+    const { createNodeField } = actions
+
+    const { frontmatter } = node
+    if (frontmatter) {
+      const { Image } = frontmatter
+      if (Image) {
+        if (Image.indexOf("/img") === 0) {
+          frontmatter.gatsbyImage = path.relative(
+            path.dirname(node.fileAbsolutePath),
+            path.join(__dirname, "/static/", Image)
+          )
+        }
+      }
+    }
+
+    const value = createFilePath({ node, getNode })
+
+    createNodeField({
+      name: `gatsbyImage`,
+      node,
+      value,
+    })
+  }
+
   return node
+}
+
+// add types for images
+exports.sourceNodes = ({ actions, schema }) => {
+  const { createTypes } = actions
+  createTypes(`
+    type ImageSharpWithFluid {
+      fluid: ImageSharpFluid
+    }
+    type ChildImageSharpFluid {
+      childImageSharp: ImageSharpWithFluid
+    }
+    type MarkdownRemarkFrontmatter {
+      gatsbyImage: ChildImageSharpFluid
+    }
+    type MarkdownRemark implements Node {
+      frontmatter: MarkdownRemarkFrontmatter
+    }
+  `)
 }

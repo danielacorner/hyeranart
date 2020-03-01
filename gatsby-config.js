@@ -5,13 +5,18 @@ module.exports = {
     author: `@danielacorner`,
   },
   plugins: [
-    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: "gatsby-plugin-netlify-cms",
+      options: {
+        modulePath: `${__dirname}/src/cms/cms.js`,
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `static/images/uploads`,
         path: `${__dirname}/static/images/uploads`,
-        name: `images-uploaded`,
       },
     },
     {
