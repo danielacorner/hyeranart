@@ -1,57 +1,51 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
-import Layout from "../components/Layout"
-import Content, { HTMLContent } from "../components/Content"
+import styled from "styled-components/macro"
+import { useStaticQuery, graphql } from "gatsby"
+import GatsbyImage from "gatsby-image"
+import { useImagesQuery } from "../utils/queries"
 
-export const AboutPageTemplate = ({ title, content, contentComponent }) => {
-  const PageContent = contentComponent || Content
-
-  return (
-    <section className="section section--gradient">
-      <div className="container">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <div className="section">
-              <h2 className="title is-size-3 has-text-weight-bold is-bold-light">
-                {title}
-              </h2>
-              <PageContent className="content" content={content} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
+const AboutStyles = styled.div`
+  width: fit-content;
+  margin: 2em 5em 0 48px;
+  .imageWrapper {
+    padding-bottom: 2em;
+  }
+`
 
 const AboutPage = () => {
+  const { imagesArr } = useImagesQuery()
   const data = useStaticQuery(graphql`
-    query AboutPageTemplate {
+    query AboutPage {
       markdownRemark(frontmatter: { templateKey: { eq: "about-page" } }) {
-        rawMarkdownBody
+        html
         frontmatter {
           title
           Image
-          gatsbyImage {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid_tracedSVG
-              }
-            }
-          }
         }
       }
     }
   `)
-  console.log("🌟🚨: AboutPage -> data", data)
+  const { frontmatter, html } = data.markdownRemark
+  const profileImage = imagesArr.find(({ relativePath }) => {
+    return `images/uploads/${relativePath}` === frontmatter.Image
+  })
   return (
-    <Layout>
-      <AboutPageTemplate
-        contentComponent={HTMLContent}
-        title={data.frontmatter.title}
-        content={data.html}
-      />
-    </Layout>
+    <AboutPageTemplate
+      html={html}
+      profileImage={profileImage}
+      frontmatter={frontmatter}
+    />
+  )
+}
+
+export function AboutPageTemplate({ profileImage, frontmatter, html }) {
+  return (
+    <AboutStyles>
+      <div className="imageWrapper">
+        {profileImage && <GatsbyImage fluid={profileImage} />}
+      </div>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </AboutStyles>
   )
 }
 
