@@ -16,7 +16,7 @@ const LayoutStyles = styled.div`
   min-height: 90vh;
   .navigationWrapper {
     position: relative;
-    z-index: 2;
+    z-index: 999;
   }
   .navigationWrapper,
   main {
