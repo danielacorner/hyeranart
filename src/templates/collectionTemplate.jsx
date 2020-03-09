@@ -10,6 +10,8 @@ import { animated } from "react-spring"
 
 const CollectionStyles = styled.div`
   padding: 15px 24px;
+  position: relative;
+  z-index: -1;
   @media (min-width: 960px) {
     padding: 15px 48px;
   }
@@ -44,8 +46,8 @@ export default function Template({ pageContext, transitionStatus }) {
 
   return (
     <Layout>
-      <animated.div style={springTransitionLink}>
-        <CollectionStyles isGridLayout={isGridLayout}>
+      <CollectionStyles isGridLayout={isGridLayout}>
+        <animated.div style={springTransitionLink}>
           {/* <DescriptionAndInfo
             title={title}
             moreInfo={moreInfo}
@@ -55,8 +57,8 @@ export default function Template({ pageContext, transitionStatus }) {
           <div className="masonryWrapper">
             <MasonryGrid imagesDataArr={imagesDataArrForCollection} />
           </div>
-        </CollectionStyles>
-      </animated.div>
+        </animated.div>
+      </CollectionStyles>
     </Layout>
   )
 }
