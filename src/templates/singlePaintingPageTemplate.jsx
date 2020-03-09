@@ -49,24 +49,6 @@ export default function Template({ pageContext, transitionStatus }) {
     <Layout>
       <animated.div style={springTransitionLink}>
         <SinglePaintingPageStyles>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: isMobileOrLarger ? "row" : "column",
-              alignItems: "baseline",
-            }}
-          >
-            {saatchiLink ? (
-              <SaatchiButton
-                saatchiLink={saatchiLink}
-                style={{
-                  transform: "scale(0.8)",
-                  transformOrigin: `top ${isMobileOrLarger ? "right" : "left"}`,
-                  ...(isMobileOrLarger ? {} : { marginBottom: "0.5em" }),
-                }}
-              />
-            ) : null}
-          </div>
           <div className="imageWrapper">
             <Img fluid={imageOnThisPage.fluid} />
           </div>
