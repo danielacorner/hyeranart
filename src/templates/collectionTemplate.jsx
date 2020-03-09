@@ -10,10 +10,9 @@ import { useSpringTransitionLink } from "../pages"
 import { animated } from "react-spring"
 
 const CollectionStyles = styled.div`
-  padding-top: 15px;
-  padding-left: 24px;
+  padding: 15px 24px;
   @media (min-width: 960px) {
-    padding-left: 48px;
+    padding: 15px 48px;
   }
   .description {
     padding-right: 70px;
@@ -26,7 +25,6 @@ const CollectionStyles = styled.div`
   }
   .masonryWrapper {
     padding-bottom: 140px;
-    margin-left: -38px;
     margin-top: ${props => (props.isGridLayout ? 38 : 64)}px;
   }
 `

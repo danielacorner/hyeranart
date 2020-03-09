@@ -16,14 +16,14 @@ const MasonryStyles = styled.div`
     width: fit-content;
     margin: auto;
     @media (min-width: ${BREAKPOINTS.MOBILELG}px) {
+      width: 100%;
       display: grid;
       grid-auto-flow: dense;
       grid-template-columns: repeat(
         auto-fill,
         minmax(${props => props.gridSize}px, 1fr)
       );
-      width: auto;
-      place-items: center center;
+      justify-items: baseline;
       place-content: center center;
     }
   }
