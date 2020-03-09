@@ -16,6 +16,7 @@ const AnimatedImage = ({
   gridSize,
   fullScreenLink,
   saatchiLink,
+  originalDimensions,
 }) => {
   // grid-column: span ${width}
   // grid-row: span ${height}
@@ -25,14 +26,14 @@ const AnimatedImage = ({
   const depthPx = depthInches * gridSize
 
   const metadata = {
-    widthInches,
-    heightInches,
+    ...originalDimensions,
     depthInches,
     title,
     fullScreenLink,
     saatchiLink,
     type: "Painting",
   }
+  console.log("🌟🚨: metadata", metadata)
 
   const paintingUrl = getPaintingUrlFromFilePath(fullScreenLink)
   return (

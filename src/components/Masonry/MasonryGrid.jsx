@@ -109,8 +109,12 @@ const MasonryGrid = ({
                   title={title}
                   fluid={fluid}
                   depthInches={depth}
-                  widthInches={width * gridMultiplier}
-                  heightInches={height * gridMultiplier}
+                  widthInches={widthInches}
+                  heightInches={heightInches}
+                  originalDimensions={{
+                    widthInches: width,
+                    heightInches: height,
+                  }}
                   fullScreenLink={Image}
                   saatchiLink={saatchiLink}
                   isAnimationDisabled={true}
