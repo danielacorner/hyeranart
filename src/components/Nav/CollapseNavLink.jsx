@@ -8,7 +8,6 @@ import { useImagesQuery } from "../../utils/queries"
 import { globalHistory } from "@reach/router"
 import { UNDERLINE_ACTIVE_CSS } from "../SplashPageCover"
 
-// TODO: still appears below paintings
 const CollapseLinkWrapperStyles = styled.div`
   position: relative;
   cursor: default;
@@ -48,11 +47,9 @@ const CollapseLinkWrapperStyles = styled.div`
 `
 
 const ListItemLink = ({ type, isCurrent, title, onClick }) => (
-  <li
-    onClick={onClick}
-    className={`${camelCase(title)}${isCurrent ? " current" : ""}`}
-  >
+  <li className={`${camelCase(title)}${isCurrent ? " current" : ""}`}>
     <TransitionLink
+      onClick={onClick}
       exit={{
         length: 0.5,
       }}

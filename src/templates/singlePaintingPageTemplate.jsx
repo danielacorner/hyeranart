@@ -2,7 +2,6 @@ import React from "react"
 import Layout from "../components/Layout"
 import styled from "styled-components"
 import { useImagesQuery } from "../utils/queries"
-import { SaatchiButton } from "../components/ButtonsDrawer"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import Img from "gatsby-image"
@@ -26,7 +25,7 @@ const SinglePaintingPageStyles = styled.div`
   }
 `
 export default function Template({ pageContext, transitionStatus }) {
-  const { imageName, collectionTitle, moreInfo, saatchiLink } = pageContext
+  const { imageName } = pageContext
   const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const imageOnThisPage = (isMobileOrLarger

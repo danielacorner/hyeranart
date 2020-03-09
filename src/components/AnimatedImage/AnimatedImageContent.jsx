@@ -20,11 +20,9 @@ export const AnimatedImageContent = ({
   width,
   height,
   depthPx,
-  handleClick,
   metadata,
 }) => (
   <div
-    onClick={handleClick}
     style={{
       position: "relative",
     }}

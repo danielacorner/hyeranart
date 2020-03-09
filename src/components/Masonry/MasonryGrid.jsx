@@ -1,9 +1,8 @@
-import React, { useState } from "react"
+import React from "react"
 import styled from "styled-components"
 import AnimatedImage from "../AnimatedImage/AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { useMediaQuery } from "@material-ui/core"
-import ButtonsDrawer from "../ButtonsDrawer"
 
 const GRID_SIZE = 16
 const GRID_GAP = 16 * 5
@@ -60,8 +59,6 @@ const MasonryGrid = ({
   gridGap,
   gridMultiplier,
 }) => {
-  const [selectedImgMetadata, setSelectedImgMetadata] = useState(null)
-  const handleClickAway = () => setSelectedImgMetadata(null)
   const isGridLayout = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILELG}px)`)
   return (
     <MasonryStyles gridSize={gridSize}>
@@ -101,10 +98,6 @@ const MasonryGrid = ({
               >
                 <AnimatedImage
                   gridSize={gridSize}
-                  setSelectedImgMetadata={setSelectedImgMetadata}
-                  isSelected={
-                    selectedImgMetadata && selectedImgMetadata.title === title
-                  }
                   gridGap={gridGap}
                   title={title}
                   fluid={fluid}
@@ -124,11 +117,6 @@ const MasonryGrid = ({
           }
         )}
       </div>
-      <ButtonsDrawer
-        onBackdropClick={handleClickAway}
-        open={selectedImgMetadata !== null}
-        metadata={selectedImgMetadata}
-      />
     </MasonryStyles>
   )
 }
