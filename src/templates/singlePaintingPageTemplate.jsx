@@ -27,12 +27,15 @@ const SinglePaintingPageStyles = styled.div`
 `
 export default function Template({ pageContext, transitionStatus }) {
   const { imageName, collectionTitle, moreInfo, saatchiLink } = pageContext
+  console.log("🌟🚨: Template -> pageContext", pageContext)
   const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const imageOnThisPage = (isMobileOrLarger
     ? imagesDataArr
     : imagesDataArrMobile
   ).find(imageData => imageData.title === imageName)
+  console.log("🌟🚨: Template -> imageName", imageName)
+  console.log("🌟🚨: Template -> imageOnThisPage", imageOnThisPage)
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
 
   // const metadata = {

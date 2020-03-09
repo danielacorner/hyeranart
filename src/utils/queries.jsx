@@ -66,14 +66,6 @@ export const useImagesQuery = () => {
     relativePath: node.relativePath,
   }))
 
-  console.log(
-    "🌟🚨: imagesArr",
-    imagesArr.map(({ relativePath }) => cleanJpgFilePathForSearch(relativePath))
-  )
-  console.log(
-    "🌟🚨: data.allMarkdownRemark.edges",
-    data.allMarkdownRemark.edges.map(({ node }) => node.frontmatter.Image)
-  )
   const allImagesDataArr = data.allMarkdownRemark.edges.map(({ node }) => ({
     ...node.frontmatter,
     id: node.id,

@@ -33,7 +33,6 @@ const AnimatedImage = ({
     saatchiLink,
     type: "Painting",
   }
-  console.log("🌟🚨: metadata", metadata)
 
   const paintingUrl = getPaintingUrlFromFilePath(fullScreenLink)
   return (
@@ -58,7 +57,7 @@ export function getPaintingUrlFromFilePath(filePath) {
   if (!filePath) {
     return null
   }
-  const paintingFile = filePath.split("/")[3] // e.g. 21st-correlation.jpg
+  const paintingFile = filePath.split("/").slice(-1)[0] // e.g. 21st-correlation.jpg
   if (!paintingFile) {
     return null
   }
