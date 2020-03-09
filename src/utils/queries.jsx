@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby"
+import { kebabCase } from "lodash"
 
 export const useImagesQuery = () => {
   const data = useStaticQuery(graphql`
@@ -65,6 +66,14 @@ export const useImagesQuery = () => {
     relativePath: node.relativePath,
   }))
 
+  console.log(
+    "🌟🚨: imagesArr",
+    imagesArr.map(({ relativePath }) => cleanJpgFilePathForSearch(relativePath))
+  )
+  console.log(
+    "🌟🚨: data.allMarkdownRemark.edges",
+    data.allMarkdownRemark.edges.map(({ node }) => node.frontmatter.Image)
+  )
   const allImagesDataArr = data.allMarkdownRemark.edges.map(({ node }) => ({
     ...node.frontmatter,
     id: node.id,
@@ -72,7 +81,9 @@ export const useImagesQuery = () => {
     fluid: !node.frontmatter.Image
       ? null
       : imagesArr.find(({ relativePath }) =>
-          node.frontmatter.Image.includes(relativePath)
+          cleanJpgFilePathForSearch(node.frontmatter.Image).includes(
+            cleanJpgFilePathForSearch(relativePath)
+          )
         ),
   }))
   const allImagesDataArrMobile = data.allMarkdownRemark.edges.map(
@@ -83,7 +94,9 @@ export const useImagesQuery = () => {
       fluid: !node.frontmatter.Image
         ? null
         : imagesArrMobile.find(({ relativePath }) =>
-            node.frontmatter.Image.includes(relativePath)
+            cleanJpgFilePathForSearch(node.frontmatter.Image).includes(
+              cleanJpgFilePathForSearch(relativePath)
+            )
           ),
     })
   )
@@ -124,4 +137,8 @@ export const useImagesQuery = () => {
     imagesArr,
     galleryImagesArr,
   }
+}
+function cleanJpgFilePathForSearch(string) {
+  const lowerCaseString = string.toLowerCase()
+  return kebabCase(lowerCaseString.slice(0, -4)) + lowerCaseString.slice(-4)
 }
