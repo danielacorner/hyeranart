@@ -63,10 +63,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
 
     // collection pages
-    console.log(
-      "🌟🚨: exports.createPages -> node.frontmatter",
-      node.frontmatter
-    )
+
     if (Boolean(node.frontmatter.images)) {
       const { saatchiLink, moreInfo, images, title, date } = node.frontmatter
       createPage({

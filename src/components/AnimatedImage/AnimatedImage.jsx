@@ -2,6 +2,7 @@ import React from "react"
 import { AnimatedImageContent } from "./AnimatedImageContent"
 import styled from "styled-components"
 import { Link } from "gatsby"
+import { kebabCase } from "lodash"
 
 export const SCALE_ON_HOVER = 1.04
 
@@ -37,7 +38,7 @@ const AnimatedImage = ({
   const paintingUrl = getPaintingUrlFromFilePath(fullScreenLink)
   return (
     <AnimatedImageStyles>
-      <Link to={`/paintings/${paintingUrl}`}>
+      <Link to={`/paintings/${kebabCase(paintingUrl)}`}>
         <AnimatedImageContent
           width={width}
           height={height}
