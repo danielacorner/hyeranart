@@ -148,7 +148,7 @@ export function AboutPageTemplate({
                         style={
                           hasNoTitle
                             ? {
-                                width: "50%",
+                                width: "75%",
                                 ...(isTabletOrLarger
                                   ? { marginLeft: "auto" }
                                   : { margin: "auto" }),
