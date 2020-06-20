@@ -5,12 +5,12 @@ backend:
 # https://www.netlifycms.org/docs/configuration-options/#media-library
 media_folder: static/images/uploads
 public_folder: images/uploads
-media_library:
-  name: cloudinary
-  config:
-    cloud_name: dypooxy9q
-    api_key: 857318985278727
-    multiple: true
+# media_library:
+#   name: cloudinary
+#   config:
+#     cloud_name: dypooxy9q
+#     api_key: 857318985278727
+#     multiple: true
 site_url: https://hyeranart.netlify.com
 
 collections:
@@ -61,6 +61,34 @@ collections:
           - { label: Title, name: title, widget: string }
           - { name: Image, label: Top Image, widget: image }
           - { label: Body, name: body, widget: markdown }
+  - name: about-subsections
+    label: About Subsections
+    description: "Subsections will appear below the main About page content, sorted by Order."
+    folder: markdown-about-subsections
+    create: true
+    slug: "about_subsection_{{slug}}"
+    identifier_field: order
+    fields:
+      - { label: Order, name: order, widget: number, required: true }
+      - { label: Title, name: title, widget: string, required: false }
+      - label: Image with Subtitle
+        name: about-image-with-subtitle
+        widget: list
+        fields:
+          - {
+              label: Image,
+              name: about-subsection-image,
+              widget: image,
+              required: false,
+              multiple: true,
+            }
+          - {
+              label: Image Subtitle,
+              name: about-subsection-image-subtitle,
+              widget: string,
+              required: false,
+            }
+      - { label: Text, name: text, widget: text, required: false }
   - name: painting
     label: Single Work
     folder: markdown-paintings

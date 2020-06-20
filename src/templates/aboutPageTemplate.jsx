@@ -5,10 +5,16 @@ import GatsbyImage from "gatsby-image"
 import { useImagesQuery } from "../utils/queries"
 
 const AboutStyles = styled.div`
-  width: fit-content;
   margin: 2em 5em 0 48px;
-  .imageWrapper {
-    padding-bottom: 2em;
+  .imageAndTextWrapper {
+    .imageWrapper {
+      padding-bottom: 2em;
+    }
+
+    @media (min-width: 768px) {
+      margin-left: auto;
+      width: 66vw;
+    }
   }
 `
 
@@ -41,10 +47,12 @@ const AboutPage = () => {
 export function AboutPageTemplate({ profileImage, frontmatter, html }) {
   return (
     <AboutStyles>
-      <div className="imageWrapper">
-        {profileImage && <GatsbyImage fluid={profileImage} />}
+      <div className="imageAndTextWrapper">
+        <div className="imageWrapper">
+          {profileImage && <GatsbyImage fluid={profileImage} />}
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
     </AboutStyles>
   )
 }
