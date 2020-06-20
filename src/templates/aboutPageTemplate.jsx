@@ -29,9 +29,31 @@ const AboutPage = () => {
           Image
         }
       }
+      allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/about-subsection.+/" } }
+        sort: { order: ASC, fields: frontmatter___order }
+      ) {
+        nodes {
+          frontmatter {
+            gatsbyImage {
+              childImageSharp {
+                fluid {
+                  originalImg
+                }
+              }
+            }
+            images {
+              Image
+            }
+            order
+            title
+          }
+        }
+      }
     }
   `)
   const { frontmatter, html } = data.markdownRemark
+  console.log("🌟🚨: data", data.allMarkdownRemark.nodes)
   const profileImage = imagesArr.find(({ relativePath }) => {
     return `images/uploads/${relativePath}` === frontmatter.Image
   })
