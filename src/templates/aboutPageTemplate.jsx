@@ -3,6 +3,8 @@ import styled from "styled-components/macro"
 import { useStaticQuery, graphql } from "gatsby"
 import GatsbyImage from "gatsby-image"
 import { useImagesQuery } from "../utils/queries"
+import { useMediaQuery } from "@material-ui/core"
+import { BREAKPOINTS } from "../utils/constants"
 
 const AboutStyles = styled.div`
   margin: 2em 5em 0 48px;
@@ -11,7 +13,7 @@ const AboutStyles = styled.div`
       padding-bottom: 2em;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: ${BREAKPOINTS.TABLET}px) {
       margin-left: auto;
       width: 66vw;
     }
@@ -25,25 +27,20 @@ const AboutStyles = styled.div`
       width: fit-content;
     }
     .title-and-image-and-caption {
-      width: fit-content;
-      @media (min-width: 768px) {
+      width: 100%;
+      @media (min-width: ${BREAKPOINTS.TABLET}px) {
         margin-left: auto;
-        max-width: 66vw;
+        width: 66vw;
       }
       .images-and-captions {
         margin-left: auto;
         display: grid;
-        grid-auto-flow: column;
         grid-gap: 3rem;
-        width: fit-content;
+        width: 100%;
         .image-and-caption {
-          width: fit-content;
           margin-bottom: 1.5em;
-          img {
-            margin-bottom: 0.5em;
-          }
           figcaption {
-            margin: auto;
+            margin: 0.5em auto 0;
             width: fit-content;
             font-size: 0.75em;
           }
@@ -70,13 +67,6 @@ const AboutPage = () => {
       ) {
         nodes {
           frontmatter {
-            gatsbyImage {
-              childImageSharp {
-                fluid {
-                  originalImg
-                }
-              }
-            }
             about_image_with_subtitle {
               about_subsection_image
               about_subsection_image_subtitle
@@ -91,13 +81,10 @@ const AboutPage = () => {
   `)
   const { frontmatter, html } = data.markdownRemark
   const subsections = data.allMarkdownRemark.nodes
-  const profileImage = imagesArr.find(({ relativePath }) => {
-    return `images/uploads/${relativePath}` === frontmatter.Image
-  })
+
   return (
     <AboutPageTemplate
       html={html}
-      profileImage={profileImage}
       frontmatter={frontmatter}
       subsections={subsections}
       imagesArr={imagesArr}
@@ -106,42 +93,81 @@ const AboutPage = () => {
 }
 
 export function AboutPageTemplate({
-  profileImage,
   frontmatter,
   html,
   subsections,
   imagesArr,
 }) {
+  const profileImage = imagesArr.find(({ relativePath }) => {
+    return `images/uploads/${relativePath}` === frontmatter.Image
+  })
+  const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABLET}px)`)
+
   return (
     <AboutStyles>
       <div className="imageAndTextWrapper">
         <div className="imageWrapper">
-          {profileImage && <GatsbyImage fluid={profileImage} />}
+          {profileImage && (
+            <GatsbyImage fluid={profileImage} alt="Hyeran Lee" />
+          )}
         </div>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
 
-      {subsections.map(({ frontmatter }, idx) => {
-        const { title, about_image_with_subtitle, text } = frontmatter
+      {subsections.map(({ frontmatter: subFrontmatter }, idx) => {
+        const { title, about_image_with_subtitle, text } = subFrontmatter
 
         return (
           <div key={idx} className="subsectionWrapper">
             <div className="title-and-image-and-caption">
               <h3 className="subsection-title">{title}</h3>
-              <div className="images-and-captions">
+              <div
+                className="images-and-captions"
+                style={{
+                  gridTemplateColumns: about_image_with_subtitle
+                    .map(_ => "1fr")
+                    .join(" "),
+                }}
+              >
                 {about_image_with_subtitle.map(
                   ({
                     about_subsection_image,
                     about_subsection_image_subtitle,
-                  }) => (
-                    <div className="image-and-caption">
-                      <img
-                        src={about_subsection_image}
-                        alt={about_subsection_image_subtitle}
-                      />
-                      <figcaption>{about_subsection_image_subtitle}</figcaption>
-                    </div>
-                  )
+                  }) => {
+                    const image = imagesArr.find(({ relativePath }) => {
+                      return (
+                        `images/uploads/${relativePath}` ===
+                        about_subsection_image
+                      )
+                    })
+                    const hasNoTitle = !title
+                    return (
+                      <div
+                        className="image-and-caption"
+                        key={about_subsection_image}
+                        style={
+                          hasNoTitle
+                            ? {
+                                width: "50%",
+                                ...(isTabletOrLarger
+                                  ? { marginLeft: "auto" }
+                                  : { margin: "auto" }),
+                              }
+                            : {}
+                        }
+                      >
+                        {image && (
+                          <GatsbyImage
+                            fluid={image}
+                            alt={about_subsection_image_subtitle}
+                          />
+                        )}
+                        <figcaption>
+                          {about_subsection_image_subtitle}
+                        </figcaption>
+                      </div>
+                    )
+                  }
                 )}
               </div>
             </div>
