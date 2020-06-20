@@ -1,16 +1,12 @@
 ---
-order: 2
-title: 'Limited palette, restrained brush stroke and white space'
+order: 3
+title: Diptych and Triptych
 about-image-with-subtitle:
-  - about-subsection-image: images/uploads/tenth-correlation-small.jpg
-    about-subsection-image-subtitle: 'Tenth Correlation, Acrylic on canvas, 30x30in'
-  - about-subsection-image: images/uploads/seventeenth-correlation-small.jpg
-    about-subsection-image-subtitle: 'Seventeenth Correlation, Acrylic on canvas, 30x30in'
+  - about-subsection-image: images/uploads/coexistence-16-small.jpg
+    about-subsection-image-subtitle: 'Coexistence 16, diptych, Acrylic on canvas, 40x60 in'
 text: >-
-  Most of her works start off with a white canvas. She often uses a scraper to
-  add additional texture. Colours are not mixed on a palette and used straight
-  from the paint tube. The paint from the tube is often mixed with other colours
-  once they are on the canvas. A limited colour scheme is used to further
-  emphasize the different elements of contrast.
+  Hyeran is interested in working with diptychs and triptychs. Each painting
+  works individually, and as a polyptych, a stronger and more powerful image is
+  created. In Eastern art, the same principle for polyptychs is used.
 ---
 
