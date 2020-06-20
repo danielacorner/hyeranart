@@ -16,6 +16,41 @@ const AboutStyles = styled.div`
       width: 66vw;
     }
   }
+  .subsectionWrapper {
+    margin-top: 4em;
+    .subsection-title {
+      font-style: italic;
+      font-weight: 100;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+    .title-and-image-and-caption {
+      width: fit-content;
+      @media (min-width: 768px) {
+        margin-left: auto;
+        max-width: 66vw;
+      }
+      .images-and-captions {
+        margin-left: auto;
+        display: grid;
+        grid-auto-flow: column;
+        grid-gap: 3rem;
+        width: fit-content;
+        .image-and-caption {
+          width: fit-content;
+          margin-bottom: 1.5em;
+          img {
+            margin-bottom: 0.5em;
+          }
+          figcaption {
+            margin: auto;
+            width: fit-content;
+            font-size: 0.75em;
+          }
+        }
+      }
+    }
+  }
 `
 
 const AboutPage = () => {
@@ -42,9 +77,11 @@ const AboutPage = () => {
                 }
               }
             }
-            images {
-              Image
+            about_image_with_subtitle {
+              about_subsection_image
+              about_subsection_image_subtitle
             }
+            text
             order
             title
           }
@@ -53,7 +90,7 @@ const AboutPage = () => {
     }
   `)
   const { frontmatter, html } = data.markdownRemark
-  console.log("🌟🚨: data", data.allMarkdownRemark.nodes)
+  const subsections = data.allMarkdownRemark.nodes
   const profileImage = imagesArr.find(({ relativePath }) => {
     return `images/uploads/${relativePath}` === frontmatter.Image
   })
@@ -62,11 +99,19 @@ const AboutPage = () => {
       html={html}
       profileImage={profileImage}
       frontmatter={frontmatter}
+      subsections={subsections}
+      imagesArr={imagesArr}
     />
   )
 }
 
-export function AboutPageTemplate({ profileImage, frontmatter, html }) {
+export function AboutPageTemplate({
+  profileImage,
+  frontmatter,
+  html,
+  subsections,
+  imagesArr,
+}) {
   return (
     <AboutStyles>
       <div className="imageAndTextWrapper">
@@ -75,6 +120,36 @@ export function AboutPageTemplate({ profileImage, frontmatter, html }) {
         </div>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
+
+      {subsections.map(({ frontmatter }, idx) => {
+        const { title, about_image_with_subtitle, text } = frontmatter
+
+        return (
+          <div key={idx} className="subsectionWrapper">
+            <div className="title-and-image-and-caption">
+              <h3 className="subsection-title">{title}</h3>
+              <div className="images-and-captions">
+                {about_image_with_subtitle.map(
+                  ({
+                    about_subsection_image,
+                    about_subsection_image_subtitle,
+                  }) => (
+                    <div className="image-and-caption">
+                      <img
+                        src={about_subsection_image}
+                        alt={about_subsection_image_subtitle}
+                      />
+                      <figcaption>{about_subsection_image_subtitle}</figcaption>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+            {/* <Image fluid={} */}
+            <p className="subsection-text">{text}</p>
+          </div>
+        )
+      })}
     </AboutStyles>
   )
 }
