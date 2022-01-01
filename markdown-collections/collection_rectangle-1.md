@@ -1,5 +1,5 @@
 ---
-title: WORKS I 30 x 40
+title: WORKS I 30 H x 40 W
 visible: true
 order: 6
 images:
