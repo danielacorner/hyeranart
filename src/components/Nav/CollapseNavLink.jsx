@@ -95,18 +95,20 @@ const CollapseNavLink = ({ type, text }) => {
       <li>{text}</li>
       <div className={`subSectionsWrapper`}>
         <animated.ul style={springCollapseExpand}>
-          {collectionsDataArr.map(({ url, title }) => {
-            const isCurrent = `/collections/${kebabCase(title)}` === path
-            return (
-              <ListItemLink
-                onClick={handleMouseLeave}
-                key={title}
-                isCurrent={isCurrent}
-                title={title}
-                type={type}
-              />
-            )
-          })}
+          {collectionsDataArr
+            .sort((a, b) => a.order - b.order)
+            .map(({ url, title }) => {
+              const isCurrent = `/collections/${kebabCase(title)}` === path
+              return (
+                <ListItemLink
+                  onClick={handleMouseLeave}
+                  key={title}
+                  isCurrent={isCurrent}
+                  title={title}
+                  type={type}
+                />
+              )
+            })}
         </animated.ul>
       </div>
     </CollapseLinkWrapperStyles>
