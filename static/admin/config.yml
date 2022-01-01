@@ -120,6 +120,12 @@ collections:
           valueType: int,
         }
       - {
+          name: isSold,
+          label: Has it been sold,
+          required: true,
+          widget: boolean,
+        }
+      - {
           name: saatchiLink,
           label: Link to Saatchi Art,
           required: false,

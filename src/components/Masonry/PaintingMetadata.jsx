@@ -59,10 +59,8 @@ export default ({ metadata, isLarge }) => {
     depthInches,
     title,
     type,
-    // TODO
-    // isSold,
+    isSold,
   } = metadata
-  const isSold = false
   const heightTrimmed = Number(heightInches.toFixed(2))
   const widthTrimmed = Number(widthInches.toFixed(2))
   const depthTrimmed = Number(depthInches.toFixed(2))

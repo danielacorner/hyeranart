@@ -30,6 +30,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
               date
               saatchiLink
               moreInfo
+              isSold
               Image
               images {
                 Image
@@ -65,7 +66,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     // collection pages
 
     if (Boolean(node.frontmatter.images)) {
-      const { saatchiLink, moreInfo, images, title, date } = node.frontmatter
+      const {
+        saatchiLink,
+        moreInfo,
+        isSold,
+        images,
+        title,
+        date,
+      } = node.frontmatter
       createPage({
         path: `/collections/${kebabCase(node.frontmatter.title)}`,
         component: collectionPageTemplate,
@@ -73,6 +81,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           title,
           images,
           saatchiLink,
+          isSold,
           moreInfo,
           date,
         }, // additional data can be passed via context
@@ -88,6 +97,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             collectionTitle: title,
             imageName,
             saatchiLink,
+            isSold,
             moreInfo,
             date,
           }, // additional data can be passed via context

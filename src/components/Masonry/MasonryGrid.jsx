@@ -68,6 +68,7 @@ const MasonryGrid = ({
             {
               id,
               Image,
+              isSold,
               caption,
               date,
               moreInfo,
@@ -104,6 +105,7 @@ const MasonryGrid = ({
                   depthInches={depth}
                   widthInches={widthInches}
                   heightInches={heightInches}
+                  isSold={isSold}
                   originalDimensions={{
                     widthInches: width,
                     heightInches: height,

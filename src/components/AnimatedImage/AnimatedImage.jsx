@@ -14,6 +14,7 @@ const AnimatedImage = ({
   widthInches,
   heightInches,
   depthInches,
+  isSold,
   gridSize,
   fullScreenLink,
   saatchiLink,
@@ -29,6 +30,7 @@ const AnimatedImage = ({
   const metadata = {
     ...originalDimensions,
     depthInches,
+    isSold,
     title,
     fullScreenLink,
     saatchiLink,

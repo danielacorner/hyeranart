@@ -13,6 +13,7 @@ export const useImagesQuery = () => {
               visible
               order
               moreInfo
+              isSold
               width
               height
               date
