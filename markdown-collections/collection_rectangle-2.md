@@ -1,8 +1,9 @@
 ---
-title: WORKS I 40 x 30
+title: WORKS I 40 H x 30 W
 visible: true
 order: 3
 images:
+  - Image: Coexistence 48
   - Image: Better Together
   - Image: Departure
   - Image: Begin Again
