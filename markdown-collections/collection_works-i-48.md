@@ -1,5 +1,5 @@
 ---
-title: WORKS I 48 +
+title: WORKS | 48 +
 visible: true
 order: 0
 images:
