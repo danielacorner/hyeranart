@@ -1,7 +1,7 @@
 ---
 title: WORKS | 40 H x 30 W
 visible: true
-order: 3
+order: 1
 images:
   - Image: Better Together
   - Image: Departure
