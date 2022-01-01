@@ -1,7 +1,7 @@
 ---
 title: WORKS I 30 H x 24 W
 visible: true
-order: 0
+order: 5
 images:
   - Image: Kiss
   - Image: One Step at a Time
