@@ -1,5 +1,5 @@
 ---
-title: WORKS I 36 H x 36 W
+title: WORKS | 36 H x 36 W
 visible: true
 order: 1
 images:
