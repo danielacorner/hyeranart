@@ -1,7 +1,7 @@
 ---
 title: WORKS | 30 H x 40 W
 visible: true
-order: 2
+order: 3
 images:
   - Image: 36th Correlation
   - Image: 35th Correlation
