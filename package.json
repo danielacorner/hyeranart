@@ -38,6 +38,7 @@
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
+    "@babel/helper-compilation-targets": "^7.16.7",
     "prettier": "^1.18.2"
   },
   "keywords": [

@@ -6,6 +6,7 @@ const MetadataStyles = styled.div`
   pointer-events: none;
   margin-top: 0.25em;
   height: auto !important;
+  position: relative;
   .title {
     margin-bottom: 0.25em;
     line-height: normal;
@@ -14,6 +15,21 @@ const MetadataStyles = styled.div`
   .details {
     line-height: 1em;
     color: hsla(0, 0%, 0%, 0.5);
+  }
+  .isSold {
+    position: absolute;
+    top: 1px;
+    right: 8px;
+    background: #e13737;
+    font-size: 8px;
+    width: 26px;
+    height: 26px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 999px;
   }
   .title,
   .details {
@@ -27,6 +43,7 @@ const MetadataStyles = styled.div`
     }
   }
 `
+
 export default ({ metadata, isLarge }) => {
   if (!metadata) {
     return (
@@ -36,7 +53,16 @@ export default ({ metadata, isLarge }) => {
       </MetadataStyles>
     )
   }
-  const { heightInches, widthInches, depthInches, title, type } = metadata
+  const {
+    heightInches,
+    widthInches,
+    depthInches,
+    title,
+    type,
+    // TODO
+    // isSold,
+  } = metadata
+  const isSold = false
   const heightTrimmed = Number(heightInches.toFixed(2))
   const widthTrimmed = Number(widthInches.toFixed(2))
   const depthTrimmed = Number(depthInches.toFixed(2))
@@ -46,6 +72,7 @@ export default ({ metadata, isLarge }) => {
       <div className="details">
         {type}, {heightTrimmed} H x {widthTrimmed} W x {depthTrimmed} in
       </div>
+      {isSold && <div className="isSold">SOLD</div>}
     </MetadataStyles>
   )
 }

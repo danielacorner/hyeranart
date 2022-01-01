@@ -23,6 +23,9 @@ const SinglePaintingPageStyles = styled.div`
   }
   .imageWrapper {
   }
+  img {
+    pointer-events: none;
+  }
 `
 export default function Template({ pageContext, transitionStatus }) {
   const { imageName } = pageContext

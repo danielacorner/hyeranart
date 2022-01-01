@@ -37,7 +37,7 @@ export const AnimatedImageContent = ({
       >
         <ImgWrapperStyles className={`${title} cube__face cube__face--front`}>
           <div>
-            <Img fluid={fluid} />
+            <Img style={{ pointerEvents: "none" }} fluid={fluid} />
           </div>
           <PaintingMetadata metadata={metadata} />
         </ImgWrapperStyles>
