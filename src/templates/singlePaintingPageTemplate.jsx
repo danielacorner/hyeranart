@@ -22,6 +22,22 @@ const SinglePaintingPageStyles = styled.div`
     }
   }
   .imageWrapper {
+    position: relative;
+    .isSold {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #e13737;
+      font-size: 16px;
+      width: 52px;
+      height: 52px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      border-radius: 999px;
+    }
   }
   img {
     pointer-events: none;
@@ -53,6 +69,7 @@ export default function Template({ pageContext, transitionStatus }) {
         <SinglePaintingPageStyles>
           <div className="imageWrapper">
             <Img fluid={imageOnThisPage.fluid} />
+            {imageOnThisPage.isSold && <div className="isSold">SOLD</div>}
           </div>
         </SinglePaintingPageStyles>
       </animated.div>
