@@ -1,7 +1,7 @@
 ---
 title: WORKS | 30 H X 30 W
 visible: true
-order: 10
+order: 4
 images:
   - Image: Tenth Correlation
   - Image: Seventeenth Correlation
