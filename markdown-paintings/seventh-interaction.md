@@ -5,6 +5,7 @@ height: 30
 width: 30
 depth: 1.5
 price: 4237
+isSold: false
 saatchiLink: >-
   https://www.saatchiart.com/art/Painting-Seventh-Interaction/189576/2513007/view
 moreInfo: >-
@@ -17,4 +18,3 @@ moreInfo: >-
   <https://www.saatchiart.com/art-collection/Painting-Photography-Sculpture/New-This-Week-6-29-2015/153961/107606/view>
 date: 2015-01-01T19:15:08.837Z
 ---
-

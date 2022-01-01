@@ -3,17 +3,18 @@ title: Interaction
 images:
   - Image: Seventh Interaction
   - Image: First Interaction
-  - Image: 'Fourth Interaction, Diptych'
-  - Image: 'Fifth Interaction, Diptych'
+  - Image: "Fourth Interaction, Diptych"
+  - Image: "Fifth Interaction, Diptych"
   - Image: Second Interaction
-  - Image: 'Thirteenth Interaction, 1'
-  - Image: 'Thirteenth Interaction, 2'
+  - Image: "Thirteenth Interaction, 1"
+  - Image: "Thirteenth Interaction, 2"
   - Image: Third Interaction
-  - Image: 'Sixth Interaction, Triptych'
+  - Image: "Sixth Interaction, Triptych"
   - Image: Tenth Interaction
   - Image: Eleventh Interaction
   - Image: Fourteenth Interaction
 date: 2015-01-01T19:34:08.793Z
+isSold: false
 saatchiLink: >-
   https://www.saatchiart.com/art-collection/Interaction-featured/189576/219786/view
 moreInfo: >-
@@ -36,4 +37,3 @@ moreInfo: >-
   effective. The process for this series has been progressive in development,
   and as a result many pieces contain different aspects of the process.
 ---
-

@@ -1,7 +1,7 @@
 ---
 title: Correlation I
 images:
-  - Image: '52nd Correlation, Diptych'
+  - Image: "52nd Correlation, Diptych"
   - Image: Eleventh Correlation
   - Image: 38th Correlation
   - Image: 32nd Correlation
@@ -15,6 +15,7 @@ images:
   - Image: Tenth Correlation
   - Image: Seventh Correlation
 date: 2018-01-01T15:47:42.147Z
+isSold: false
 saatchiLink: >-
   https://www.saatchiart.com/art-collection/Correlation-featured/189576/219787/view
 moreInfo: >-
@@ -27,4 +28,3 @@ moreInfo: >-
   used as a medium to communicate this relationship, rather than as an outcome
   of the relationship.
 ---
-

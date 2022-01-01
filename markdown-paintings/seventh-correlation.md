@@ -5,7 +5,7 @@ height: 30
 width: 30
 depth: 1.5
 price: 3577
+isSold: false
 saatchiLink: >-
   https://www.saatchiart.com/art/Painting-Seventh-Correlation/189576/3276025/view
 ---
-
