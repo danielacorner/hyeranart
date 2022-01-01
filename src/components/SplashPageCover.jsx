@@ -34,6 +34,7 @@ ${UNDERLINE_ACTIVE_CSS}
 `
 
 export const SplashPageWrapperStyles = styled.div`
+  cursor: pointer;
   opacity: 1;
   transform: translateY(0px);
   position: fixed;

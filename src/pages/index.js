@@ -95,9 +95,11 @@ export default ({ transitionStatus, entry, exit }) => {
         <SecondPage />
       </animated.div>
       <Portal>
-        <SplashPageWrapperStyles isClicked={isSplashPageClicked}>
+        <SplashPageWrapperStyles
+          onClick={handleClick}
+          isClicked={isSplashPageClicked}
+        >
           <animated.div
-            onClick={handleClick}
             className="animatedWrapper splashPage"
             style={springSplashPage}
           >
