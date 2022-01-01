@@ -1,5 +1,5 @@
 ---
-title: WORKS I 36 x 36
+title: WORKS I 36 H x 36 W
 visible: true
 images:
   - Image: 58th Correlation
