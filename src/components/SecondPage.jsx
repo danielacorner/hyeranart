@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components/macro"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { useImagesQuery } from "../utils/queries"
 import { BREAKPOINTS } from "../utils/constants"
 import { useStaticQuery, graphql } from "gatsby"
@@ -105,11 +105,11 @@ export default () => {
   const secondPageImage = (isMobileOrLarger
     ? imagesDataArr
     : imagesDataArrMobile
-  ).find(image => image.title === frontmatter.title) || { fluid: null }
+  ).find((image) => image.title === frontmatter.title) || { fluid: null }
   return (
     <SecondPageStyles>
       <div className="imageWrapper">
-        <Img fluid={secondPageImage.fluid} />
+        <GatsbyImage fluid={secondPageImage.fluid} />
       </div>
       <div className="contentWrapper">
         <h1>ENERGY & FREEDOM</h1>

@@ -4,9 +4,9 @@ import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import AboutPageTemplate from "../templates/aboutPageTemplate"
 import { animated } from "react-spring"
-import { useSpringTransitionLink } from "."
+import { useSpringTransitionLink } from "../utils/customHooks"
 
-export default ({ transitionStatus }) => {
+const About = ({ transitionStatus }) => {
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
 
   return (
@@ -18,3 +18,4 @@ export default ({ transitionStatus }) => {
     </Layout>
   )
 }
+export default About

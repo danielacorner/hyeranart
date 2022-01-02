@@ -4,9 +4,9 @@ import styled from "styled-components"
 import { useImagesQuery } from "../utils/queries"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { animated } from "react-spring"
-import { useSpringTransitionLink } from "../pages"
+import { useSpringTransitionLink } from "../utils/customHooks"
 
 const SinglePaintingPageStyles = styled.div`
   padding: 35px;
@@ -25,7 +25,7 @@ const SinglePaintingPageStyles = styled.div`
     position: relative;
     .isSold {
       position: absolute;
-      top: 8px;
+      bottom: 8px;
       right: 8px;
       background: #e13737;
       font-size: 16px;
@@ -47,10 +47,9 @@ export default function Template({ pageContext, transitionStatus }) {
   const { imageName } = pageContext
   const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
-  const imageOnThisPage = (isMobileOrLarger
-    ? imagesDataArr
-    : imagesDataArrMobile
-  ).find(imageData => imageData.title === imageName)
+  const imageOnThisPage = (
+    isMobileOrLarger ? imagesDataArr : imagesDataArrMobile
+  ).find((imageData) => imageData.title === imageName)
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
 
   // const metadata = {
@@ -68,7 +67,7 @@ export default function Template({ pageContext, transitionStatus }) {
       <animated.div style={springTransitionLink}>
         <SinglePaintingPageStyles>
           <div className="imageWrapper">
-            <Img fluid={imageOnThisPage.fluid} />
+            <GatsbyImage fluid={imageOnThisPage.fluid} />
             {imageOnThisPage.isSold && <div className="isSold">SOLD</div>}
           </div>
         </SinglePaintingPageStyles>

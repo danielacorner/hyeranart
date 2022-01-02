@@ -20,7 +20,7 @@ const MasonryStyles = styled.div`
       grid-auto-flow: dense;
       grid-template-columns: repeat(
         auto-fill,
-        minmax(${props => props.gridSize}px, 1fr)
+        minmax(${(props) => props.gridSize}px, 1fr)
       );
       justify-items: baseline;
       place-content: center center;
@@ -43,7 +43,7 @@ const MasonryGridWrapper = ({ imagesDataArr }) => {
 
   return (
     <MasonryGridMemoized
-      imagesDataArr={imagesDataArr.filter(img => Boolean(img.fluid))}
+      imagesDataArr={imagesDataArr.filter((img) => Boolean(img.fluid))}
       gridSize={gridSize}
       gridGapSpan={gridGapSpan}
       gridGap={gridGap}
@@ -64,25 +64,17 @@ const MasonryGrid = ({
     <MasonryStyles gridSize={gridSize}>
       <div className={"masonry-grid"}>
         {imagesDataArr.map(
-          (
-            {
-              id,
-              Image,
-              isSold,
-              caption,
-              date,
-              moreInfo,
-              path,
-              price,
-              title,
-              width,
-              height,
-              depth,
-              fluid,
-              saatchiLink,
-            },
-            idx
-          ) => {
+          ({
+            id,
+            Image,
+            isSold,
+            title,
+            width,
+            height,
+            depth,
+            fluid,
+            saatchiLink,
+          }) => {
             const widthInches = width * gridMultiplier
             const heightInches = height * gridMultiplier
             const xSpan = Math.ceil(widthInches + gridGapSpan)

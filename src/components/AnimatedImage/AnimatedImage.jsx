@@ -6,7 +6,24 @@ import { kebabCase } from "lodash"
 
 export const SCALE_ON_HOVER = 1.04
 
-const AnimatedImageStyles = styled.div``
+const AnimatedImageStyles = styled.div`
+  position: relative;
+  .isSold {
+    position: absolute;
+    bottom: 1px;
+    right: 8px;
+    background: #e13737;
+    font-size: 8px;
+    width: 26px;
+    height: 26px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 999px;
+  }
+`
 
 const AnimatedImage = ({
   title,
@@ -30,7 +47,6 @@ const AnimatedImage = ({
   const metadata = {
     ...originalDimensions,
     depthInches,
-    isSold,
     title,
     fullScreenLink,
     saatchiLink,
@@ -49,6 +65,7 @@ const AnimatedImage = ({
           fluid={fluid}
           metadata={metadata}
         />
+        {isSold && <div className="isSold">SOLD</div>}
       </Link>
     </AnimatedImageStyles>
   )
