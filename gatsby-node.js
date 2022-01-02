@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Implement Gatsby's Node APIs in this file.
  *
@@ -71,14 +72,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     // collection pages
 
     if (Boolean(node.frontmatter.images)) {
-      const {
-        saatchiLink,
-        moreInfo,
-        isSold,
-        images,
-        title,
-        date,
-      } = node.frontmatter
+      const { saatchiLink, moreInfo, isSold, images, title, date } =
+        node.frontmatter
       createPage({
         path: `/collections/${kebabCase(node.frontmatter.title)}`,
         component: collectionPageTemplate,

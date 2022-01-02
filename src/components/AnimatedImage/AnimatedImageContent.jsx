@@ -16,26 +16,32 @@ const ImgWrapperStyles = styled.div`
 
 export const AnimatedImageContent = ({
   title,
-  fluid,
+  image,
   width,
   height,
   depthPx,
   metadata,
-}) => (
-  <Scene3DCanvasStyles className="scene" thicknessPx={depthPx}>
-    <div
-      className="cube"
-      style={{
-        width,
-        height,
-      }}
-    >
-      <ImgWrapperStyles className={`${title} cube__face cube__face--front`}>
-        <div>
-          <GatsbyImage style={{ pointerEvents: "none" }} fluid={fluid} />
-        </div>
-        <PaintingMetadata metadata={metadata} />
-      </ImgWrapperStyles>
-    </div>
-  </Scene3DCanvasStyles>
-)
+}) => {
+  return (
+    <Scene3DCanvasStyles className="scene" thicknessPx={depthPx}>
+      <div
+        className="cube"
+        style={{
+          width,
+          height,
+        }}
+      >
+        <ImgWrapperStyles className={`${title} cube__face cube__face--front`}>
+          <div>
+            <GatsbyImage
+              image={image}
+              alt={title}
+              style={{ pointerEvents: "none" }}
+            />
+          </div>
+          <PaintingMetadata metadata={metadata} />
+        </ImgWrapperStyles>
+      </div>
+    </Scene3DCanvasStyles>
+  )
+}

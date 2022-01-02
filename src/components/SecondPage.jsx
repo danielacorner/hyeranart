@@ -109,7 +109,7 @@ export default () => {
   return (
     <SecondPageStyles>
       <div className="imageWrapper">
-        <GatsbyImage fluid={secondPageImage.fluid} />
+        <GatsbyImage image={secondPageImage.fluid} alt={frontmatter.title} />
       </div>
       <div className="contentWrapper">
         <h1>ENERGY & FREEDOM</h1>

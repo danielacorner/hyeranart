@@ -125,7 +125,7 @@ const SplashPageCover = () => {
   return (
     <SplashPageStyles>
       <div className="imageWrapper">
-        <GatsbyImage fluid={splashPageImage.fluid} />
+        <GatsbyImage image={splashPageImage.fluid} alt={""} />
       </div>
       <div className="titleWrapper">
         <h1>hyeran lee</h1>

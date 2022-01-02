@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components/macro"
 import { useStaticQuery, graphql } from "gatsby"
-import GatsbyImage from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { useImagesQuery } from "../utils/queries"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
@@ -108,7 +108,7 @@ export function AboutPageTemplate({
       <div className="imageAndTextWrapper">
         <div className="imageWrapper">
           {profileImage && (
-            <GatsbyImage fluid={profileImage} alt="Hyeran Lee" />
+            <GatsbyImage image={profileImage} alt="Hyeran Lee" />
           )}
         </div>
         <div dangerouslySetInnerHTML={{ __html: html }} />
@@ -125,7 +125,7 @@ export function AboutPageTemplate({
                 className="images-and-captions"
                 style={{
                   gridTemplateColumns: about_image_with_subtitle
-                    .map(_ => "1fr")
+                    .map(() => "1fr")
                     .join(" "),
                 }}
               >
@@ -158,7 +158,7 @@ export function AboutPageTemplate({
                       >
                         {image && (
                           <GatsbyImage
-                            fluid={image}
+                            image={image}
                             alt={about_subsection_image_subtitle}
                           />
                         )}
@@ -171,7 +171,7 @@ export function AboutPageTemplate({
                 )}
               </div>
             </div>
-            {/* <Image fluid={} */}
+            {/* <Image image={} */}
             <p className="subsection-text">{text}</p>
           </div>
         )
