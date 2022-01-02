@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
 import { useImagesQuery } from "../utils/queries"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 
@@ -46,7 +46,7 @@ export const SplashPageWrapperStyles = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  pointer-events: ${props => (props.isClicked ? "none" : "auto")};
+  pointer-events: ${(props) => (props.isClicked ? "none" : "auto")};
 `
 
 const SplashPageStyles = styled.div`
@@ -120,12 +120,12 @@ const SplashPageCover = () => {
   const splashPageImage = (isMobileOrLarger
     ? imagesDataArr
     : imagesDataArrMobile
-  ).find(image => image.title === frontmatter.title) || { fluid: null }
+  ).find((image) => image.title === frontmatter.title) || { fluid: null }
 
   return (
     <SplashPageStyles>
       <div className="imageWrapper">
-        <Img fluid={splashPageImage.fluid} />
+        <GatsbyImage image={splashPageImage.fluid} alt={""} />
       </div>
       <div className="titleWrapper">
         <h1>hyeran lee</h1>

@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import { animated } from "react-spring"
-import { useSpringTransitionLink } from "../pages"
+import { useSpringTransitionLink } from "../utils/customHooks"
 
 const SectionStyles = styled.div`
   padding-top: 70px;

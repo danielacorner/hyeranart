@@ -3,10 +3,10 @@ import React from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import Gallery from "../components/Masonry/Gallery"
-import { useSpringTransitionLink } from "."
 import { animated } from "react-spring"
+import { useSpringTransitionLink } from "../utils/customHooks"
 
-export default ({ transitionStatus }) => {
+const Artworks = ({ transitionStatus }) => {
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
 
   return (
@@ -18,3 +18,4 @@ export default ({ transitionStatus }) => {
     </Layout>
   )
 }
+export default Artworks

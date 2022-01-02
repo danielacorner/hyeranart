@@ -5,8 +5,8 @@ import MasonryGrid from "../components/Masonry/MasonryGrid"
 import { useImagesQuery } from "../utils/queries"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
-import { useSpringTransitionLink } from "../pages"
 import { animated } from "react-spring"
+import { useSpringTransitionLink } from "../utils/customHooks"
 
 const CollectionStyles = styled.div`
   padding: 15px 24px;
@@ -26,20 +26,19 @@ const CollectionStyles = styled.div`
   }
   .masonryWrapper {
     padding-bottom: 140px;
-    margin-top: ${props => (props.isGridLayout ? 38 : 64)}px;
+    margin-top: ${(props) => (props.isGridLayout ? 38 : 64)}px;
   }
 `
 
 export default function Template({ pageContext, transitionStatus }) {
   const { images /* , title, moreInfo, saatchiLink */ } = pageContext
   const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
-  const imageTitlesArr = images.map(img => img.Image)
+  const imageTitlesArr = images.map((img) => img.Image)
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
 
-  const imagesDataArrForCollection = (isMobileOrLarger
-    ? imagesDataArr
-    : imagesDataArrMobile
-  ).filter(image => imageTitlesArr.includes(image.title))
+  const imagesDataArrForCollection = (
+    isMobileOrLarger ? imagesDataArr : imagesDataArrMobile
+  ).filter((image) => imageTitlesArr.includes(image.title))
 
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
   const isGridLayout = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILELG}px)`)

@@ -1,3 +1,4 @@
+import { useSpring } from "@react-spring/core"
 import { useRef, useEffect } from "react"
 
 export function usePrevious(value) {
@@ -17,7 +18,7 @@ export function usePrevious(value) {
 export function useOnClickOutside(ref, handler) {
   useEffect(
     () => {
-      const listener = event => {
+      const listener = (event) => {
         // Do nothing if clicking ref's element or descendent elements
         if (!ref.current || ref.current.contains(event.target)) {
           return
@@ -45,5 +46,18 @@ export function useOnClickOutside(ref, handler) {
 }
 
 export function useMount(cb) {
-  useEffect(cb, [])
+  useEffect(cb, []) // eslint-disable-line react-hooks/exhaustive-deps
 }
+
+export const useSpringTransitionLink = (transitionStatus) =>
+  useSpring(
+    ["entering", "entered"].includes(transitionStatus)
+      ? {
+          opacity: 1,
+        }
+      : ["exiting", "exited"].includes(transitionStatus)
+      ? {
+          opacity: 0,
+        }
+      : { opacity: 1 }
+  )

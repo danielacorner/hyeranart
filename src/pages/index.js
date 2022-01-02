@@ -8,14 +8,9 @@ import { animated, useSpring } from "react-spring"
 import { Portal } from "@material-ui/core"
 import SecondPage from "../components/SecondPage"
 import { globalHistory } from "@reach/router"
-import { useMount } from "../utils/customHooks"
+import { useMount, useSpringTransitionLink } from "../utils/customHooks"
 
-if (process.env.NODE_ENV !== "production") {
-  const whyDidYouRender = require("@welldone-software/why-did-you-render")
-  whyDidYouRender(React)
-}
-
-const toggleOverflowHidden = isHidden => {
+const toggleOverflowHidden = (isHidden) => {
   const html = document.querySelector("html")
   if (isHidden) {
     html.classList.add("overflowHidden")
@@ -24,20 +19,7 @@ const toggleOverflowHidden = isHidden => {
   }
 }
 
-export const useSpringTransitionLink = transitionStatus =>
-  useSpring(
-    ["entering", "entered"].includes(transitionStatus)
-      ? {
-          opacity: 1,
-        }
-      : ["exiting", "exited"].includes(transitionStatus)
-      ? {
-          opacity: 0,
-        }
-      : { opacity: 1 }
-  )
-
-export default ({ transitionStatus, entry, exit }) => {
+const Pages = ({ transitionStatus }) => {
   const { location } = globalHistory
 
   const isComingFromInsideTheSite = Boolean(
@@ -110,3 +92,4 @@ export default ({ transitionStatus, entry, exit }) => {
     </Layout>
   )
 }
+export default Pages

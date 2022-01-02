@@ -2,67 +2,67 @@ import { graphql, useStaticQuery } from "gatsby"
 import { kebabCase } from "lodash"
 
 export const useImagesQuery = () => {
-  const data = useStaticQuery(graphql`
-    query AllMarkdownQuery {
-      allMarkdownRemark {
-        edges {
-          node {
-            id
-            frontmatter {
-              title
-              visible
-              order
-              moreInfo
-              isSold
-              width
-              height
-              date
-              Image
-              depth
-              saatchiLink
-              images {
-                Image
-              }
-            }
-          }
-        }
-      }
-      desktopImage: allFile(filter: { extension: { eq: "jpg" } }) {
-        edges {
-          node {
-            id
-            relativePath
-            childImageSharp {
-              fluid(maxWidth: 1240, quality: 100) {
-                ...GatsbyImageSharpFluid_tracedSVG
-              }
-            }
-          }
-        }
-      }
-      mobileImage: allFile(filter: { extension: { eq: "jpg" } }) {
-        edges {
-          node {
-            id
-            relativePath
-            childImageSharp {
-              fluid(maxWidth: 500, quality: 100) {
-                ...GatsbyImageSharpFluid_tracedSVG
-              }
-            }
+  const data = useStaticQuery(graphql`query AllMarkdownQuery {
+  allMarkdownRemark {
+    edges {
+      node {
+        id
+        frontmatter {
+          title
+          visible
+          order
+          moreInfo
+          isSold
+          width
+          height
+          date
+          Image
+          depth
+          saatchiLink
+          images {
+            Image
           }
         }
       }
     }
-  `)
+  }
+  desktopImage: allFile(filter: {extension: {eq: "jpg"}}) {
+    edges {
+      node {
+        id
+        relativePath
+        childImageSharp {
+          gatsbyImageData(quality: 100, placeholder: TRACED_SVG, layout: FULL_WIDTH)
+        }
+      }
+    }
+  }
+  mobileImage: allFile(filter: {extension: {eq: "jpg"}}) {
+    edges {
+      node {
+        id
+        relativePath
+        childImageSharp {
+          gatsbyImageData(
+            width: 500
+            quality: 100
+            placeholder: TRACED_SVG
+            layout: CONSTRAINED
+          )
+        }
+      }
+    }
+  }
+}
+`)
 
   const imagesArr = data.desktopImage.edges.map(({ node }) => ({
-    ...node.childImageSharp.fluid,
+    ...node.childImageSharp.gatsbyImageData,
     id: node.id,
     relativePath: node.relativePath,
   }))
   const imagesArrMobile = data.mobileImage.edges.map(({ node }) => ({
-    ...node.childImageSharp.fluid,
+    ...node.childImageSharp.gatsbyImageData,
     id: node.id,
     relativePath: node.relativePath,
   }))

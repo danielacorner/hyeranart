@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Implement Gatsby's Node APIs in this file.
  *
@@ -8,6 +9,11 @@
 const { kebabCase } = require("lodash")
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
+
+// convert markdown to html (e.g. moreInfo section)
+// and create a node for the profile image in about/index.md
+const remark = require("remark")
+const remarkHTML = require("remark-html")
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
@@ -66,14 +72,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     // collection pages
 
     if (Boolean(node.frontmatter.images)) {
-      const {
-        saatchiLink,
-        moreInfo,
-        isSold,
-        images,
-        title,
-        date,
-      } = node.frontmatter
+      const { saatchiLink, moreInfo, isSold, images, title, date } =
+        node.frontmatter
       createPage({
         path: `/collections/${kebabCase(node.frontmatter.title)}`,
         component: collectionPageTemplate,
@@ -106,11 +106,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
   })
 }
-
-// convert markdown to html (e.g. moreInfo section)
-// and create a node for the profile image in about/index.md
-const remark = require("remark")
-const remarkHTML = require("remark-html")
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   if (!node.frontmatter) {

@@ -1,5 +1,5 @@
 import React from "react"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import styled from "styled-components"
 import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
 import PaintingMetadata from "../Masonry/PaintingMetadata"
@@ -16,17 +16,13 @@ const ImgWrapperStyles = styled.div`
 
 export const AnimatedImageContent = ({
   title,
-  fluid,
+  image,
   width,
   height,
   depthPx,
   metadata,
-}) => (
-  <div
-    style={{
-      position: "relative",
-    }}
-  >
+}) => {
+  return (
     <Scene3DCanvasStyles className="scene" thicknessPx={depthPx}>
       <div
         className="cube"
@@ -37,11 +33,15 @@ export const AnimatedImageContent = ({
       >
         <ImgWrapperStyles className={`${title} cube__face cube__face--front`}>
           <div>
-            <Img style={{ pointerEvents: "none" }} fluid={fluid} />
+            <GatsbyImage
+              image={image}
+              alt={title}
+              style={{ pointerEvents: "none" }}
+            />
           </div>
           <PaintingMetadata metadata={metadata} />
         </ImgWrapperStyles>
       </div>
     </Scene3DCanvasStyles>
-  </div>
-)
+  )
+}
