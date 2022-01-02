@@ -17,7 +17,7 @@ export function usePrevious(value) {
 export function useOnClickOutside(ref, handler) {
   useEffect(
     () => {
-      const listener = event => {
+      const listener = (event) => {
         // Do nothing if clicking ref's element or descendent elements
         if (!ref.current || ref.current.contains(event.target)) {
           return
@@ -45,5 +45,5 @@ export function useOnClickOutside(ref, handler) {
 }
 
 export function useMount(cb) {
-  useEffect(cb, [])
+  useEffect(cb, []) // eslint-disable-line react-hooks/exhaustive-deps
 }

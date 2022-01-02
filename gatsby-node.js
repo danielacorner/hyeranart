@@ -9,6 +9,11 @@ const { kebabCase } = require("lodash")
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
+// convert markdown to html (e.g. moreInfo section)
+// and create a node for the profile image in about/index.md
+const remark = require("remark")
+const remarkHTML = require("remark-html")
+
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
 
@@ -106,11 +111,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
   })
 }
-
-// convert markdown to html (e.g. moreInfo section)
-// and create a node for the profile image in about/index.md
-const remark = require("remark")
-const remarkHTML = require("remark-html")
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   if (!node.frontmatter) {
