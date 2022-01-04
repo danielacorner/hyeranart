@@ -2,59 +2,68 @@ import { graphql, useStaticQuery } from "gatsby"
 import { kebabCase } from "lodash"
 
 export const useImagesQuery = () => {
-  const data = useStaticQuery(graphql`query AllMarkdownQuery {
-  allMarkdownRemark {
-    edges {
-      node {
-        id
-        frontmatter {
-          title
-          visible
-          order
-          moreInfo
-          isSold
-          width
-          height
-          date
-          Image
-          depth
-          saatchiLink
-          images {
-            Image
+  const data = useStaticQuery(graphql`
+    query AllMarkdownQuery {
+      allMarkdownRemark {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              visible
+              order
+              moreInfo
+              isSold
+              width
+              height
+              date
+              Image
+              depth
+              saatchiLink
+              images {
+                Image
+              }
+            }
+          }
+        }
+      }
+      desktopImage: allFile(
+        filter: { extension: { in: ["webp", "png", "jpg"] } }
+      ) {
+        edges {
+          node {
+            id
+            relativePath
+            childImageSharp {
+              gatsbyImageData(
+                quality: 100
+                placeholder: TRACED_SVG
+                layout: FULL_WIDTH
+              )
+            }
+          }
+        }
+      }
+      mobileImage: allFile(
+        filter: { extension: { in: ["webp", "png", "jpg"] } }
+      ) {
+        edges {
+          node {
+            id
+            relativePath
+            childImageSharp {
+              gatsbyImageData(
+                width: 500
+                quality: 100
+                placeholder: TRACED_SVG
+                layout: CONSTRAINED
+              )
+            }
           }
         }
       }
     }
-  }
-  desktopImage: allFile(filter: {extension: {eq: "jpg"}}) {
-    edges {
-      node {
-        id
-        relativePath
-        childImageSharp {
-          gatsbyImageData(quality: 100, placeholder: TRACED_SVG, layout: FULL_WIDTH)
-        }
-      }
-    }
-  }
-  mobileImage: allFile(filter: {extension: {eq: "jpg"}}) {
-    edges {
-      node {
-        id
-        relativePath
-        childImageSharp {
-          gatsbyImageData(
-            width: 500
-            quality: 100
-            placeholder: TRACED_SVG
-            layout: CONSTRAINED
-          )
-        }
-      }
-    }
-  }
-}
-`)
+  `)
 
   const imagesArr = data.desktopImage.edges.map(({ node }) => ({
     ...node.childImageSharp.gatsbyImageData,
@@ -95,13 +104,13 @@ export const useImagesQuery = () => {
   )
 
   // split into collections vs images
-  const imagesDataArr = allImagesDataArr.filter(d => Boolean(d.fluid))
-  const imagesDataArrMobile = allImagesDataArrMobile.filter(d =>
+  const imagesDataArr = allImagesDataArr.filter((d) => Boolean(d.fluid))
+  const imagesDataArrMobile = allImagesDataArrMobile.filter((d) =>
     Boolean(d.fluid)
   )
 
   const collectionsDataArr = allImagesDataArr
-    .filter(d => Boolean(d.visible && d.images && d.title !== "Artworks"))
+    .filter((d) => Boolean(d.visible && d.images && d.title !== "Artworks"))
     // sort by date, most recent first
     .sort((prev, next) =>
       (prev.order || prev.order === 0) && (next.order || next.order === 0)
@@ -109,10 +118,10 @@ export const useImagesQuery = () => {
         : new Date(next.date).getTime() - new Date(prev.date).getTime()
     )
 
-  const gallery = allImagesDataArr.find(d => d.title === "Artworks")
+  const gallery = allImagesDataArr.find((d) => d.title === "Artworks")
   const galleryImagesArr = gallery
     ? gallery.images.map(({ Image }) =>
-        imagesDataArr.find(d => d.title === Image)
+        imagesDataArr.find((d) => d.title === Image)
       )
     : []
 
