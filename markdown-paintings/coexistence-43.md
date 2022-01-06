@@ -1,8 +1,8 @@
 ---
 Image: images/uploads/img_7129-3.jpg
 title: Coexistence 43
-height: 20
-width: 20
+height: 24
+width: 24
 depth: 1.5
 isSold: true
 saatchiLink: https://www.saatchiart.com/art/Painting-Coexistence-43/189576/8266870/view
