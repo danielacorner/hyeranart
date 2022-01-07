@@ -1,7 +1,7 @@
 ---
 title: WORKS | 36 H x 36 W
 visible: true
-order: 2
+order: 1
 images:
   - Image: 58th Correlation
   - Image: Under the Sun
