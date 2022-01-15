@@ -7,6 +7,7 @@ import { useImagesQuery } from "../../utils/queries"
 import { getPaintingUrlFromFilePath } from "../AnimatedImage/AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { LinksUlStyles } from "./LinksUlStyles"
+import { HOVER_UNDERLINE_CSS } from "../SplashPageCover"
 
 export const DESKTOPNAV_WIDTH = 122
 
@@ -172,18 +173,12 @@ export default ({ handleNavigate }) => {
       >
         <h4>hyeran lee</h4>
       </Link>
-      <LinksUlStyles className="linksUl">
-        {shouldShowSaatchiLink ? (
-          <a
-            className="sectionLink section saatchiart"
-            href={saatchiLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <li>Available on Saatchi Art</li>
-          </a>
-        ) : (
-          sectionLinksArr.map(({ type, url, text, subSections }, idx) => (
+
+      {shouldShowSaatchiLink ? (
+        <SaatchiLink {...{ saatchiLink }} />
+      ) : (
+        <LinksUlStyles className="linksUl">
+          {sectionLinksArr.map(({ type, url, text, subSections }, idx) => (
             <NavLink
               key={url}
               idx={idx}
@@ -193,9 +188,48 @@ export default ({ handleNavigate }) => {
               subSections={subSections}
               handleNavigate={handleNavigate}
             />
-          ))
-        )}
-      </LinksUlStyles>
+          ))}
+        </LinksUlStyles>
+      )}
     </DesktopNavStyles>
   )
 }
+function SaatchiLink({ saatchiLink }) {
+  return (
+    <SaatchiLinkStyles>
+      <a href={saatchiLink} target="_blank" rel="noopener noreferrer">
+        <li>Available on Saatchi Art</li>
+      </a>
+    </SaatchiLinkStyles>
+  )
+}
+const SaatchiLinkStyles = styled.div`
+  display: flex;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: 12px;
+  @media (min-width: ${BREAKPOINTS.MOBILE}px) {
+    margin-right: 0;
+  }
+  width: fit-content;
+  a {
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    text-decoration: none;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.03);
+    color: black;
+    text-decoration: underline;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    margin-top: 0.25rem;
+  }
+  li {
+    list-style-type: none;
+    padding: 4px;
+    margin-bottom: 0.3rem;
+    ${HOVER_UNDERLINE_CSS}
+
+    &:after {
+      background: hsl(0, 0%, 60%);
+    }
+  }
+`

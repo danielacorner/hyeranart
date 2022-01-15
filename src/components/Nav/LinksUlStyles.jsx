@@ -37,10 +37,10 @@ export const LinksUlStyles = styled.ul`
     padding: 0.5rem;
     margin: -0.5rem;
     &:active,
-    &.current:not(.saatchiart) {
+    &.current {
       color: #999999;
     }
-    &.current:not(.saatchiart) {
+    &.current {
       li {
         ${UNDERLINE_ACTIVE_CSS}
       }
