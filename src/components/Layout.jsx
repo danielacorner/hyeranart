@@ -7,7 +7,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import DesktopNav from "../components/Nav/DesktopNav"
+import DesktopNav from "./Nav/DesktopNav"
 import styled from "styled-components"
 import "./layout.css"
 
@@ -21,7 +21,7 @@ const LayoutStyles = styled.div`
   .navigationWrapper,
   main {
     transition: opacity 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-    opacity: ${props => (props.isSplashPageClicked ? 1 : 0)};
+    opacity: ${(props) => (props.isSplashPageClicked ? 1 : 0)};
   }
   main {
     position: relative;

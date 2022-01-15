@@ -63,7 +63,7 @@ const DesktopNavStyles = styled.div`
   font-size: 12px;
   font-family: system-ui;
   margin-top: 1.5em;
-  padding: 0.5em ${props => (props.shouldShowSaatchiLink ? "18px" : "1em")}
+  padding: 0.5em ${(props) => (props.shouldShowSaatchiLink ? "18px" : "1em")}
     0.5em 24px;
   position: relative;
   background: white;
@@ -79,11 +79,11 @@ const DesktopNavStyles = styled.div`
     width: fit-content;
     line-height: normal;
     margin-bottom: 0;
-    text-transform: ${props =>
+    text-transform: ${(props) =>
       props.shouldShowSaatchiLink ? "none" : "uppercase"};
     display: flex;
     padding: 0;
-    font-size: ${props => (props.shouldShowSaatchiLink ? 1.2 : 1)}em;
+    font-size: ${(props) => (props.shouldShowSaatchiLink ? 1.2 : 1)}em;
   }
   h4 {
     cursor: pointer;
@@ -99,7 +99,7 @@ const DesktopNavStyles = styled.div`
     margin-top: 1.5em;
     li {
       white-space: nowrap;
-      ${props =>
+      ${(props) =>
         props.shouldShowSaatchiLink
           ? `
       margin-left: auto;
@@ -112,21 +112,22 @@ const DesktopNavStyles = styled.div`
   flex-direction: column;
 
   @media (min-width: ${BREAKPOINTS.MOBILELG}px) {
-    padding-right: ${props => (props.shouldShowSaatchiLink ? "18px" : "3em")};
+    padding-right: ${(props) => (props.shouldShowSaatchiLink ? "18px" : "3em")};
   }
-  @media (min-width: ${props => (props.shouldShowSaatchiLink ? 528 : 680)}px) {
+  @media (min-width: ${(props) =>
+      props.shouldShowSaatchiLink ? 528 : 680}px) {
     ul.linksUl {
       width: fit-content;
     }
     flex-direction: row;
   }
   @media (min-width: 768px) {
-    padding-right: ${props => (props.shouldShowSaatchiLink ? "35px" : "3em")};
+    padding-right: ${(props) => (props.shouldShowSaatchiLink ? "35px" : "3em")};
   }
   @media (min-width: 960px) {
     margin-top: 3em;
-    padding: 1em ${props => (props.shouldShowSaatchiLink ? "35px" : "6em")} 1em
-      48px;
+    padding: 1em ${(props) => (props.shouldShowSaatchiLink ? "35px" : "6em")}
+      1em 48px;
     .sectionLink li {
       font-size: 1.25vw;
     }
@@ -183,12 +184,20 @@ export default ({ handleNavigate }) => {
   const paintingNameFromUrl = location.pathname.split("/")[2]
 
   const { imagesDataArr } = useImagesQuery()
-  const paintingData = imagesDataArr.find(imageData => {
+  const paintingData = imagesDataArr.find((imageData) => {
     const filePath = imageData.Image
     const pageUrl = getPaintingUrlFromFilePath(filePath)
     return pageUrl === paintingNameFromUrl
   })
   const saatchiLink = paintingData ? paintingData.saatchiLink : null
+  console.log(
+    "🌟🚨 ~ file: DesktopNav.jsx ~ line 193 ~ saatchiLink",
+    saatchiLink
+  )
+  console.log(
+    "🌟🚨 ~ file: DesktopNav.jsx ~ line 192 ~ paintingData",
+    paintingData
+  )
   const shouldShowSaatchiLink = Boolean(isOnSinglePaintingPage && saatchiLink)
 
   const { sectionLinksArr } = useSectionCollectionLinks()
