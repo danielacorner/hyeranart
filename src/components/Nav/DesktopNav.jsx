@@ -181,6 +181,14 @@ export const useSectionCollectionLinks = () => {
 export default ({ handleNavigate }) => {
   const { location } = globalHistory
   const isOnSinglePaintingPage = location.pathname.includes("/paintings/")
+  console.log(
+    "🌟🚨 ~ file: DesktopNav.jsx ~ line 184 ~ isOnSinglePaintingPage",
+    isOnSinglePaintingPage
+  )
+  console.log(
+    "🌟🚨 ~ file: DesktopNav.jsx ~ line 184 ~ location.pathname",
+    location.pathname
+  )
   const paintingNameFromUrl = location.pathname.split("/")[2]
 
   const { imagesDataArr } = useImagesQuery()

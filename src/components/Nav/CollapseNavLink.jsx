@@ -29,7 +29,7 @@ const CollapseLinkWrapperStyles = styled.div`
       box-shadow: 0px 2px 6px #00000036;
       padding: 0 0.5rem 0.5rem;
     }
-    pointer-events: ${props => (props.isExpanded ? "auto" : "none")};
+    pointer-events: ${(props) => (props.isExpanded ? "auto" : "none")};
     li {
       margin: auto;
       padding: 0.5rem 0 0;
@@ -99,6 +99,10 @@ const CollapseNavLink = ({ type, text }) => {
             .sort((a, b) => a.order - b.order)
             .map(({ url, title }) => {
               const isCurrent = `/collections/${kebabCase(title)}` === path
+              console.log(
+                "🌟🚨 ~ file: CollapseNavLink.jsx ~ line 102 ~ .map ~ isCurrent",
+                isCurrent
+              )
               return (
                 <ListItemLink
                   onClick={handleMouseLeave}

@@ -6,7 +6,8 @@ import CollapseNavLink from "./CollapseNavLink"
 
 export function NavLink({ type, url, text, idx }) {
   const path = globalHistory.location.pathname
-  const isCurrent = `${url}` === path
+  const isCurrent = `${url}` === path && !url.includes("/paintings/")
+  console.log("🌟🚨 ~ file: NavLink.jsx ~ line 10 ~ NavLink ~ url", url)
 
   return url ? (
     <TransitionLink
