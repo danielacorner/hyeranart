@@ -213,7 +213,12 @@ export default ({ handleNavigate }) => {
       </Link>
       <LinksUlStyles className="linksUl">
         {shouldShowSaatchiLink ? (
-          <a href={saatchiLink} target="_blank" rel="noopener noreferrer">
+          <a
+            className="sectionLink section"
+            href={saatchiLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <li>Available on Saatchi Art</li>
           </a>
         ) : (
