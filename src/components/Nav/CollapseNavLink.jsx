@@ -99,10 +99,6 @@ const CollapseNavLink = ({ type, text }) => {
             .sort((a, b) => a.order - b.order)
             .map(({ url, title }) => {
               const isCurrent = `/collections/${kebabCase(title)}` === path
-              console.log(
-                "🌟🚨 ~ file: CollapseNavLink.jsx ~ line 102 ~ .map ~ isCurrent",
-                isCurrent
-              )
               return (
                 <ListItemLink
                   onClick={handleMouseLeave}

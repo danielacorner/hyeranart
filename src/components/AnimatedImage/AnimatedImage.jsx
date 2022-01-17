@@ -53,10 +53,9 @@ const AnimatedImage = ({
     type: "Painting",
   }
 
-  const paintingUrl = getPaintingUrlFromFilePath(fullScreenLink)
   return (
     <AnimatedImageStyles>
-      <Link to={`/paintings/${kebabCase(paintingUrl)}`}>
+      <Link to={`/paintings/${kebabCase(title)}`}>
         <AnimatedImageContent
           width={width}
           height={height}
@@ -72,14 +71,3 @@ const AnimatedImage = ({
 }
 
 export default AnimatedImage
-
-export function getPaintingUrlFromFilePath(filePath) {
-  if (!filePath) {
-    return null
-  }
-  const paintingFile = filePath.split("/").slice(-1)[0] // e.g. 21st-correlation.jpg
-  if (!paintingFile) {
-    return null
-  }
-  return paintingFile.split(".")[0] // e.g. 21st-correlation
-}

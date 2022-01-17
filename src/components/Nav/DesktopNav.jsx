@@ -4,10 +4,9 @@ import { NavLink } from "./NavLink"
 import { Link } from "gatsby"
 import { globalHistory } from "@reach/router"
 import { useImagesQuery } from "../../utils/queries"
-import { getPaintingUrlFromFilePath } from "../AnimatedImage/AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
 import { LinksUlStyles } from "./LinksUlStyles"
-import { HOVER_UNDERLINE_CSS } from "../SplashPageCover"
+import { kebabCase } from "lodash"
 
 export const DESKTOPNAV_WIDTH = 122
 
@@ -135,31 +134,13 @@ export const useSectionCollectionLinks = () => {
 export default ({ handleNavigate }) => {
   const { location } = globalHistory
   const isOnSinglePaintingPage = location.pathname.includes("/paintings/")
-  console.log(
-    "🌟🚨 ~ file: DesktopNav.jsx ~ line 184 ~ isOnSinglePaintingPage",
-    isOnSinglePaintingPage
-  )
-  console.log(
-    "🌟🚨 ~ file: DesktopNav.jsx ~ line 184 ~ location.pathname",
-    location.pathname
-  )
   const paintingNameFromUrl = location.pathname.split("/")[2]
 
   const { imagesDataArr } = useImagesQuery()
   const paintingData = imagesDataArr.find((imageData) => {
-    const filePath = imageData.Image
-    const pageUrl = getPaintingUrlFromFilePath(filePath)
-    return pageUrl === paintingNameFromUrl
+    return kebabCase(imageData.title) === kebabCase(paintingNameFromUrl)
   })
   const saatchiLink = paintingData ? paintingData.saatchiLink : null
-  console.log(
-    "🌟🚨 ~ file: DesktopNav.jsx ~ line 193 ~ saatchiLink",
-    saatchiLink
-  )
-  console.log(
-    "🌟🚨 ~ file: DesktopNav.jsx ~ line 192 ~ paintingData",
-    paintingData
-  )
   const shouldShowSaatchiLink = Boolean(isOnSinglePaintingPage && saatchiLink)
 
   const { sectionLinksArr } = useSectionCollectionLinks()
@@ -226,7 +207,6 @@ const SaatchiLinkStyles = styled.div`
     list-style-type: none;
     padding: 4px;
     margin-bottom: 0.3rem;
-    ${HOVER_UNDERLINE_CSS}
 
     &:after {
       background: hsl(0, 0%, 60%);
