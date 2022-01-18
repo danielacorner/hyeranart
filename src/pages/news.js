@@ -38,6 +38,7 @@ function NewsPageContent() {
               title
               Image
               content
+              date
               images {
                 Image
               }
@@ -60,14 +61,16 @@ function NewsPageContent() {
   return (
     <SecondPageStyles>
       <h1>NEWS</h1>
-      {newsNodes.map(({ title, Image, content }) => {
-        return <NewsItem key={title} {...{ title, Image, content }} />
-      })}
+      {newsNodes
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .map((node) => {
+          return <NewsItem key={node.title} {...node} />
+        })}
     </SecondPageStyles>
   )
 }
 
-function NewsItem({ title, Image, content }) {
+function NewsItem({ title, Image, content, date }) {
   const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const newsItemImage = (
@@ -85,12 +88,18 @@ function NewsItem({ title, Image, content }) {
       </div>
       <div className="contentWrapper">
         <h2>{title}</h2>
+        <div className="dateStamp">{formatDate(date)}</div>
         <div className="contentBody">
           <Markdown>{content}</Markdown>
         </div>
       </div>
     </>
   )
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString)
+  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 }
 
 const SecondPageStyles = styled.div`
@@ -102,6 +111,16 @@ const SecondPageStyles = styled.div`
   font-family: "AvenirRegular";
   * {
     font-family: inherit;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+  .dateStamp {
+    font-style: italic;
+    font-size: 0.8em;
+  }
+  .contentBody a {
+    text-decoration: underline;
   }
   li {
     list-style-type: none;
