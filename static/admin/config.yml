@@ -93,7 +93,7 @@ collections:
     label: News Items
     folder: markdown-news
     create: true
-    slug: "news"
+    slug: "news_{{slug}}"
     fields:
       - name: Image
         label: Image
