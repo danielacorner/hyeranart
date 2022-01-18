@@ -9,6 +9,9 @@ import { CUBIC_BEZIER } from "../components/SplashPageCover"
 import { BREAKPOINTS } from "../utils/constants"
 import { graphql, useStaticQuery } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
+import Markdown from "markdown-to-jsx"
+import { useImagesQuery } from "../utils/queries"
+import { useMediaQuery } from "@material-ui/core"
 
 const News = ({ transitionStatus }) => {
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
@@ -48,32 +51,45 @@ function NewsPageContent() {
   const newsItems = data.allMarkdownRemark.edges.filter(
     (d) => d.node.frontmatter.content
   )
+  const newsNodes = newsItems.map((n) => n.node.frontmatter)
   console.log(
-    "🌟🚨 ~ file: news.js ~ line 53 ~ NewsPageContent ~ newsItems",
-    newsItems
+    "🌟🚨 ~ file: news.js ~ line 57 ~ NewsPageContent ~ newsNodes",
+    newsNodes
   )
+
   return (
     <SecondPageStyles>
       <h1>NEWS</h1>
-
-      {newsItems.length <= 0 ? (
-        <>Coming soon</>
-      ) : (
-        newsItems.map(({ title, image, content }) => {
-          return (
-            <>
-              <div className="imageWrapper">
-                <GatsbyImage image={image} alt={title} />
-              </div>
-              <div className="contentWrapper">
-                <h2>{title}</h2>
-                <div className="contentBody">{content}</div>
-              </div>
-            </>
-          )
-        })
-      )}
+      {newsNodes.map(({ title, Image, content }) => {
+        return <NewsItem key={title} {...{ title, Image, content }} />
+      })}
     </SecondPageStyles>
+  )
+}
+
+function NewsItem({ title, Image, content }) {
+  const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
+  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
+  const newsItemImage = (
+    isMobileOrLarger ? imagesDataArr : imagesDataArrMobile
+  ).find((node) => node.Image === Image)
+
+  return (
+    <>
+      <div className="imageWrapper">
+        {Image?.includes("https") ? (
+          <img src={Image} />
+        ) : newsItemImage ? (
+          <GatsbyImage image={newsItemImage.fluid} />
+        ) : null}
+      </div>
+      <div className="contentWrapper">
+        <h2>{title}</h2>
+        <div className="contentBody">
+          <Markdown>{content}</Markdown>
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -99,7 +115,11 @@ const SecondPageStyles = styled.div`
       color: cornflowerblue;
     }
   }
+  img {
+    margin-bottom: 0;
+  }
   .imageWrapper {
+    margin-bottom: 1em;
   }
   .contentWrapper {
     width: 80%;
@@ -110,7 +130,7 @@ const SecondPageStyles = styled.div`
     }
   }
   h1 {
-    margin: 1.5em 0 0.6em;
+    margin: 1.5em 0 2.6em;
     font-style: italic;
     font-size: 1.6em;
     white-space: nowrap;
@@ -128,7 +148,7 @@ const SecondPageStyles = styled.div`
     margin-right: 3em;
 
     h1 {
-      margin: 1.75em 0 0.6em;
+      margin: 1.75em 0 2.6em;
     }
   }
   @media (min-width: 760px) {
@@ -139,7 +159,7 @@ const SecondPageStyles = styled.div`
     margin-top: 3em;
     margin-right: 5em;
     h1 {
-      margin: 1.5em 0 0.6em;
+      margin: 1.5em 0 2.6em;
       font-size: 2em;
     }
     .imageWrapper {
