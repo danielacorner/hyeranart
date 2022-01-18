@@ -89,6 +89,28 @@ collections:
               required: false,
             }
       - { label: Text, name: text, widget: text, required: false }
+  - name: news
+    label: News Items
+    folder: markdown-news
+    create: true
+    slug: "news"
+    fields:
+      - name: Image
+        label: Image
+        widget: image
+        default: null
+        allow_multiple: true
+        media_library:
+          config:
+            multiple: true
+      - { name: title, label: Title, required: true }
+      - { name: date, label: Date, required: true, widget: date }
+      - {
+          name: content,
+          label: Content,
+          required: true,
+          widget: markdown,
+        }
   - name: painting
     label: Single Work
     folder: markdown-paintings

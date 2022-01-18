@@ -53,6 +53,13 @@ module.exports = {
         name: `markdown-about-subsections`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/markdown-news`,
+        name: `markdown-news`,
+      },
+    },
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,

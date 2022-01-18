@@ -111,6 +111,11 @@ export const useSectionCollectionLinks = () => {
   const sectionLinksArr = [
     {
       type: "section",
+      text: "News",
+      url: "/news",
+    },
+    {
+      type: "section",
       text: "Energy & Freedom",
       url: "/",
     },
