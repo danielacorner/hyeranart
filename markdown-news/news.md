@@ -1,13 +1,11 @@
 ---
-Image: https://picsum.photos/500/500
-title: Test test news title
-date: 2022-01-18T00:55:10.927Z
-content: |-
-  Hey! I'm a news item.
+Image: images/uploads/img_7748.jpg
+title: Season's Creations 1
+date: 2022-01-25T00:55:10.927Z
+content: >-
+  Season's Creations has beed selected to be featured in the New This Week
+  collection.
 
-  ## Here's a Heading
 
-  **Some bold text** and *some italic text*
-
-  > here's a blockquote
+  [https://www.saatchiart.com/​art-collection/New-This-Week-​01-24-2022/153961/645879/view](https://www.saatchiart.com/art-collection/New-This-Week-01-24-2022/153961/645879/view)
 ---
