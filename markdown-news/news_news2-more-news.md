@@ -1,6 +1,9 @@
 ---
-Image: images/uploads/20th-correlaton-1200-72-copy-.jpg
-title: News2 - more news!
-date: 2022-01-18T02:52:11.816Z
-content: Hey, how are you today? This is a second news item.
+Image: images/uploads/img_7584.jpg
+title: It's Gonna Be
+date: 2021-12-14T02:52:11.816Z
+content: |-
+  "It's Gonna Be" has been featured in Best of 2021 : 
+
+  paintings collection.
 ---
