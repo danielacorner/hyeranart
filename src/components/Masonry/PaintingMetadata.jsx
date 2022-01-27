@@ -39,14 +39,20 @@ export default ({ metadata, isLarge }) => {
     )
   }
   const { heightInches, widthInches, depthInches, title, type } = metadata
-  const heightTrimmed = Number(heightInches.toFixed(2))
-  const widthTrimmed = Number(widthInches.toFixed(2))
-  const depthTrimmed = Number(depthInches.toFixed(2))
+  const heightTrimmed = Number((heightInches || 0).toFixed(2))
+  const widthTrimmed = Number((widthInches || 0).toFixed(2))
+  const depthTrimmed = Number((depthInches || 0).toFixed(2))
+
+  const heightText = heightTrimmed ? `${heightTrimmed} H x"` : ""
+  const widthText = widthTrimmed ? `${widthTrimmed} W"` : ""
+  const depthText = depthTrimmed ? ` x ${depthTrimmed} D"` : ""
   return (
     <MetadataStyles isLarge={isLarge}>
       <div className="title">{title}</div>
       <div className="details">
-        {type}, {heightTrimmed} H x {widthTrimmed} W x {depthTrimmed} in
+        {type}, {heightText}
+        {widthText}
+        {depthText} in
       </div>
     </MetadataStyles>
   )
