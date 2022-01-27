@@ -71,7 +71,6 @@ export default function Template({ pageContext, transitionStatus }) {
               image={imageOnThisPage.fluid}
               alt={imageOnThisPage.title}
             />
-            {imageOnThisPage.isSold && <div className="isSold">SOLD</div>}
           </div>
         </SinglePaintingPageStyles>
       </animated.div>
