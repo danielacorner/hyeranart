@@ -1,5 +1,5 @@
 ---
-Image: /images/uploads/let-it-flow.jpg
+Image: images/uploads/let-it-flow.jpg
 title: Let it flow
 height: 24
 width: 18
