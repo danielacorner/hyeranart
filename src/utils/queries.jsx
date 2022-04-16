@@ -1,6 +1,8 @@
 import { graphql, useStaticQuery } from "gatsby"
 import { kebabCase } from "lodash"
 
+// TODO replace with individual static queries https://www.qed42.com/insights/coe/javascript/querying-static-vs-dynamic-data-gatsby
+
 export const useImagesQuery = () => {
   const data = useStaticQuery(graphql`
     query AllMarkdownQuery {

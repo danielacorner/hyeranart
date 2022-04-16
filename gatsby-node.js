@@ -26,7 +26,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     `src/templates/singlePaintingPageTemplate.jsx`
   )
 
-  const result = await graphql(`
+  const allMarkdownRemarkResult = await graphql(`
     {
       allMarkdownRemark {
         edges {
@@ -49,12 +49,15 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   `)
 
   // Handle errors
-  if (result.errors) {
+  if (allMarkdownRemarkResult.errors) {
     reporter.panicOnBuild(`Error while running GraphQL query.`)
     return
   }
 
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  const nodes = allMarkdownRemarkResult.data.allMarkdownRemark.edges.map(
+    (e) => e.node
+  )
+  nodes.forEach((node) => {
     // section pages
     if (Boolean(!node.frontmatter.images && !node.frontmatter.Image)) {
       const { title, moreInfo /* pageIndex */ } = node.frontmatter
@@ -64,6 +67,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         context: {
           title,
           moreInfo,
+          // TODO have to pass in the img/images here to increase initial load time
           /* pageIndex, */
         }, // additional data can be passed via context
       })
@@ -74,18 +78,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     if (Boolean(node.frontmatter.images)) {
       const { saatchiLink, moreInfo, isSold, images, title, date } =
         node.frontmatter
-      createPage({
-        path: `/collections/${kebabCase(node.frontmatter.title)}`,
-        component: collectionPageTemplate,
-        context: {
-          title,
-          images,
-          saatchiLink,
-          isSold,
-          moreInfo,
-          date,
-        }, // additional data can be passed via context
-      })
 
       // image pages
       images.forEach(({ Image }) => {
@@ -104,6 +96,26 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         })
       })
     }
+  })
+
+  const allCollections = nodes.filter((node) => node.frontmatter.images)
+
+  allCollections.forEach((node) => {
+    const { title, images, isSold, saatchiLink, moreInfo, date } =
+      node.frontmatter
+    createPage({
+      path: `/collections/${kebabCase(node.frontmatter.title)}`,
+      component: collectionPageTemplate,
+      context: {
+        title,
+        images,
+        saatchiLink,
+        isSold,
+        moreInfo,
+        date,
+      }, // additional data can be passed via context
+      // TODO: pass Images or query on the template page
+    })
   })
 }
 

@@ -5,8 +5,7 @@ height: 40
 width: 30
 depth: 1.5
 price: 3610
-saatchiLink: 'https://www.saatchiart.com/art/Painting-Coexistence-48/189576/8823836/view'
-moreInfo: ''
-date: ''
+saatchiLink: "https://www.saatchiart.com/art/Painting-Coexistence-48/189576/8823836/view"
+moreInfo: ""
+date: ""
 ---
-

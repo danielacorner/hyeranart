@@ -5,4 +5,3 @@ height: 4.7
 width: 6.7
 depth: 0.1
 ---
-

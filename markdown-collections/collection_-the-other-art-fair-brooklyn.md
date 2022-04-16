@@ -1,15 +1,15 @@
 ---
-title: ' The Other Art Fair Brooklyn'
+title: " The Other Art Fair Brooklyn"
 visible: false
 images:
   - Image: Coexistence 19-II
   - Image: Coexistence 19-I
-  - Image: 'Coexistence 16, Diptych'
+  - Image: "Coexistence 16, Diptych"
   - Image: 45th Correlation
   - Image: Coexistence 11-II
-  - Image: 'Coexistence 10, Triptych'
+  - Image: "Coexistence 10, Triptych"
   - Image: Coexistence 12
-  - Image: 'Nineteenth Correlation, Diptych'
+  - Image: "Nineteenth Correlation, Diptych"
   - Image: 43rd Correlation
   - Image: Coexistence 11-I
   - Image: Fourteenth Correlation
@@ -22,4 +22,3 @@ moreInfo: >-
   a curated selection of over 130 independent artists and browse thousands of
   pieces to suit every budget under one roof.
 ---
-

@@ -7,4 +7,3 @@ images:
   - Image: Black Bird
 date: 2013-09-02T00:15:27.140Z
 ---
-

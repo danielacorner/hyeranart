@@ -53,10 +53,6 @@ function NewsPageContent() {
     (d) => d.node.frontmatter.content
   )
   const newsNodes = newsItems.map((n) => n.node.frontmatter)
-  console.log(
-    "🌟🚨 ~ file: news.js ~ line 57 ~ NewsPageContent ~ newsNodes",
-    newsNodes
-  )
 
   return (
     <SecondPageStyles>

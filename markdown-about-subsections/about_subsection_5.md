@@ -11,4 +11,3 @@ text: >-
   canvas and instead incorporates those points of interests in the edges of the
   canvas. Hyeran is an explorer, a challenger and a risk-taker.
 ---
-

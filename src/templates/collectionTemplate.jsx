@@ -7,6 +7,7 @@ import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 import { animated } from "react-spring"
 import { useSpringTransitionLink } from "../utils/customHooks"
+import { graphql } from "gatsby"
 
 const CollectionStyles = styled.div`
   padding: 15px 24px;
@@ -30,7 +31,7 @@ const CollectionStyles = styled.div`
   }
 `
 
-export default function Template({ pageContext, transitionStatus }) {
+export default function Template({ pageContext, transitionStatus, ...rest }) {
   const { images /* , title, moreInfo, saatchiLink */ } = pageContext
   const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
   const imageTitlesArr = images.map((img) => img.Image)
@@ -39,6 +40,18 @@ export default function Template({ pageContext, transitionStatus }) {
   const imagesDataArrForCollection = (
     isMobileOrLarger ? imagesDataArr : imagesDataArrMobile
   ).filter((image) => imageTitlesArr.includes(image.title))
+  // console.log(
+  //   "🌟🚨 ~ file: collectionTemplate.jsx ~ line 34 ~ Template ~ pageContext",
+  //   pageContext
+  // )
+  // console.log(
+  //   "🌟🚨 ~ file: collectionTemplate.jsx ~ line 34 ~ Template ~ rest",
+  //   rest
+  // )
+  //   console.log(
+  //   "🌟🚨 ~ file: collectionTemplate.jsx ~ line 44 ~ Template ~ imagesDataArrForCollection",
+  //   imagesDataArrForCollection
+  // )
 
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
   const isGridLayout = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILELG}px)`)
@@ -61,3 +74,13 @@ export default function Template({ pageContext, transitionStatus }) {
     </Layout>
   )
 }
+
+// export const query = graphql`
+//   query ($id: String!) {
+//     allCommerceProduct(filter: { drupal_id: { eq: $id } }) {
+//       nodes {
+//         title
+//       }
+//     }
+//   }
+// `

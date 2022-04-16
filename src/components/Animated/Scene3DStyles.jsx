@@ -25,28 +25,28 @@ export const Scene3DCanvasStyles = styled.div`
     /* border: 1px solid ${CANVAS_BORDER_COLOR}; */
   }
   .cube__face--front {
-    transform: rotateY(0deg) translateZ(${props => props.thicknessPx / 2}px);
+    transform: rotateY(0deg) translateZ(${(props) => props.thicknessPx / 2}px);
   }
   .cube__face--right {
     background: hsla(0, 0%, 80%);
-    width: ${props => props.thicknessPx}px;
+    width: ${(props) => props.thicknessPx}px;
   }
   .cube__face--back {
-    transform: rotateY(180deg) translateZ(${props => props.thicknessPx / 2}px);
+    transform: rotateY(180deg) translateZ(${(props) => props.thicknessPx / 2}px);
   }
   .cube__face--left {
     background: hsla(0, 0%, 94%);
-    width: ${props => props.thicknessPx}px;
-    transform: rotateY(-90deg) translateZ(${props => props.thicknessPx / 2}px);
+    width: ${(props) => props.thicknessPx}px;
+    transform: rotateY(-90deg) translateZ(${(props) => props.thicknessPx / 2}px);
   }
   .cube__face--top {
     background: hsla(0, 0%, 94%);
-    height: ${props => props.thicknessPx}px;
-    transform: rotateX(90deg) translateZ(${props => props.thicknessPx / 2}px);
+    height: ${(props) => props.thicknessPx}px;
+    transform: rotateX(90deg) translateZ(${(props) => props.thicknessPx / 2}px);
   }
   .cube__face--bottom {
     background: hsla(0, 0%, 80%);
-    height: ${props => props.thicknessPx}px;
+    height: ${(props) => props.thicknessPx}px;
   }
   .overlay {
     position: absolute;

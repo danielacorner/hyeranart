@@ -8,4 +8,3 @@ moreInfo: >-
   Etobicoke Art Group - 51st Annual Juried Exhibtion62nd Open Juried Exhibition,
   2015, Etobicoke Civic Centre Art Gallery
 ---
-

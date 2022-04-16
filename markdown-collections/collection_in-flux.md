@@ -2,12 +2,12 @@
 title: In-Flux
 images:
   - Image: In-Flux 12
-  - Image: 'In-Flux 2, Diptych'
-  - Image: 'In-Flux 7, Diptych'
-  - Image: 'In-Flux 10, Diptych'
-  - Image: 'In-Flux 9, Diptych'
-  - Image: 'In-Flux 8, Diptych'
-  - Image: 'In-Flux 6, Diptych'
+  - Image: "In-Flux 2, Diptych"
+  - Image: "In-Flux 7, Diptych"
+  - Image: "In-Flux 10, Diptych"
+  - Image: "In-Flux 9, Diptych"
+  - Image: "In-Flux 8, Diptych"
+  - Image: "In-Flux 6, Diptych"
 date: 2014-01-02T01:02:49.017Z
 moreInfo: >-
   A personal philosophy about the intricate balance and spirituality of the
@@ -20,4 +20,3 @@ moreInfo: >-
   and the contrast of value, colour, and space, it is a metaphysical reflection
   of everyday life and events.
 ---
-

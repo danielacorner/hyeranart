@@ -7,6 +7,63 @@ import { useStaticQuery, graphql } from "gatsby"
 import { HOVER_UNDERLINE_CSS, CUBIC_BEZIER } from "./SplashPageCover"
 import { useMediaQuery } from "@material-ui/core"
 
+export default () => {
+  const data = useStaticQuery(graphql`
+    query SecondPageTemplate {
+      secondPageImage: file(name: { eq: "second-page (1)" }) {
+        id
+        childImageSharp {
+          gatsbyImageData(
+            quality: 100
+            placeholder: TRACED_SVG
+            layout: FULL_WIDTH
+          )
+        }
+      }
+      markdownRemark(frontmatter: { templateKey: { eq: "second-page" } }) {
+        rawMarkdownBody
+        frontmatter {
+          title
+          contactLinks {
+            link
+            title
+          }
+        }
+      }
+    }
+  `)
+
+  const { frontmatter, rawMarkdownBody } = data.markdownRemark
+
+  const { contactLinks } = frontmatter
+
+  const secondPageImage = {
+    fluid: data.secondPageImage.childImageSharp.gatsbyImageData,
+  }
+
+  return (
+    <SecondPageStyles>
+      <div className="imageWrapper">
+        <GatsbyImage image={secondPageImage.fluid} alt={frontmatter.title} />
+      </div>
+      <div className="contentWrapper">
+        <h1>ENERGY & FREEDOM</h1>
+        <p>{rawMarkdownBody}</p>
+        <h6>CONTACT</h6>
+        <ul>
+          {contactLinks.map(({ link, title }) => (
+            <li key={title}>
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                {title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </SecondPageStyles>
+  )
+}
+
 const SecondPageStyles = styled.div`
   width: 90vw;
   max-width: 960px;
@@ -83,48 +140,3 @@ const SecondPageStyles = styled.div`
     margin-right: auto;
   }
 `
-export default () => {
-  const data = useStaticQuery(graphql`
-    query SecondPageTemplate {
-      markdownRemark(frontmatter: { templateKey: { eq: "second-page" } }) {
-        rawMarkdownBody
-        frontmatter {
-          title
-          contactLinks {
-            link
-            title
-          }
-        }
-      }
-    }
-  `)
-  const { frontmatter, rawMarkdownBody } = data.markdownRemark
-  const { contactLinks } = frontmatter
-  const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
-  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
-  const secondPageImage = (isMobileOrLarger
-    ? imagesDataArr
-    : imagesDataArrMobile
-  ).find((image) => image.title === frontmatter.title) || { fluid: null }
-  return (
-    <SecondPageStyles>
-      <div className="imageWrapper">
-        <GatsbyImage image={secondPageImage.fluid} alt={frontmatter.title} />
-      </div>
-      <div className="contentWrapper">
-        <h1>ENERGY & FREEDOM</h1>
-        <p>{rawMarkdownBody}</p>
-        <h6>CONTACT</h6>
-        <ul>
-          {contactLinks.map(({ link, title }) => (
-            <li key={title}>
-              <a href={link} target="_blank" rel="noopener noreferrer">
-                {title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </SecondPageStyles>
-  )
-}

@@ -54,7 +54,7 @@ export default () => {
   const numPages = Math.ceil(numItems / NUM_PER_PAGE)
   const allPagesNums = [...Array(numPages).keys()]
 
-  const handleChangeIndex = index => setCurrentPageIdx(index)
+  const handleChangeIndex = (index) => setCurrentPageIdx(index)
   const handleFilterToNearestSlides = () => {
     // when we switch slides, "virtualize" so that only the nearest three slides are rendered
   }
@@ -81,7 +81,7 @@ export default () => {
         enableMouseEvents={true}
         onTransitionEnd={handleFilterToNearestSlides}
       >
-        {allPagesNums.map(idx => (
+        {allPagesNums.map((idx) => (
           <div key={idx} className={`swipeable-slide slide-${idx}`}>
             <MasonryGrid imagesDataArr={imageSpreads[idx]} />
           </div>

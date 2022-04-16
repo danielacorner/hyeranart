@@ -25,8 +25,9 @@ export const SpringInOut = React.forwardRef((props, ref) => {
   const springScaleInOut = useSpring({
     from: {
       opacity: 0,
-      transform: `scale(${scaleForMaxWidth *
-        0.8}) translateY(${TRANSLATE_UP_PX}px)`,
+      transform: `scale(${
+        scaleForMaxWidth * 0.8
+      }) translateY(${TRANSLATE_UP_PX}px)`,
     },
     to: {
       opacity: open ? 1 : 0,

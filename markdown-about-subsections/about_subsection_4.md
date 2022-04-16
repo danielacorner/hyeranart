@@ -6,4 +6,3 @@ about-image-with-subtitle:
       Korean - Ten-panel Folding Screen with Scenes of Filial Piety, Section D -
       Walters
 ---
-

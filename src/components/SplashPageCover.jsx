@@ -1,10 +1,44 @@
 import React from "react"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
-import { useImagesQuery } from "../utils/queries"
 import { GatsbyImage } from "gatsby-plugin-image"
-import { useMediaQuery } from "@material-ui/core"
-import { BREAKPOINTS } from "../utils/constants"
+
+const SplashPageCover = () => {
+  const data = useStaticQuery(graphql`
+    query IndexPageTemplate {
+      splashPageImage: file(name: { eq: "life-is" }) {
+        id
+        childImageSharp {
+          gatsbyImageData(
+            quality: 100
+            placeholder: TRACED_SVG
+            layout: FULL_WIDTH
+          )
+        }
+      }
+    }
+  `)
+
+  const splashPageImage = {
+    fluid: data.splashPageImage.childImageSharp.gatsbyImageData,
+  }
+
+  return (
+    <SplashPageStyles>
+      <div className="imageWrapper">
+        <GatsbyImage image={splashPageImage.fluid} alt={""} />
+      </div>
+      <div className="titleWrapper">
+        <h1>hyeran lee</h1>
+        <div className="btnWrapper">
+          <button>info</button>
+        </div>
+      </div>
+    </SplashPageStyles>
+  )
+}
+
+export default SplashPageCover
 
 export const CUBIC_BEZIER = "cubic-bezier(0.165, 0.84, 0.44, 1)"
 
@@ -102,39 +136,3 @@ const SplashPageStyles = styled.div`
     }
   }
 `
-
-const SplashPageCover = () => {
-  const data = useStaticQuery(graphql`
-    query IndexPageTemplate {
-      markdownRemark(frontmatter: { templateKey: { eq: "landing-page" } }) {
-        frontmatter {
-          title
-        }
-      }
-    }
-  `)
-  const { frontmatter } = data.markdownRemark
-  const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
-
-  const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
-  const splashPageImage = (isMobileOrLarger
-    ? imagesDataArr
-    : imagesDataArrMobile
-  ).find((image) => image.title === frontmatter.title) || { fluid: null }
-
-  return (
-    <SplashPageStyles>
-      <div className="imageWrapper">
-        <GatsbyImage image={splashPageImage.fluid} alt={""} />
-      </div>
-      <div className="titleWrapper">
-        <h1>hyeran lee</h1>
-        <div className="btnWrapper">
-          <button>info</button>
-        </div>
-      </div>
-    </SplashPageStyles>
-  )
-}
-
-export default SplashPageCover

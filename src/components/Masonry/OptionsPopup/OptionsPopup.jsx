@@ -70,7 +70,7 @@ const OptionsPopup = ({
 
   const transitions = useTransition(
     buttonsToDisplay,
-    item => item.text + title,
+    (item) => item.text + title,
     {
       from: ({ idx }) => getInitialTransform(idx, buttonsToDisplay.length),
       enter: ({ idx }) => getInitialTransform(idx, buttonsToDisplay.length),
