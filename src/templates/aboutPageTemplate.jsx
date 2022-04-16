@@ -7,8 +7,6 @@ import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 
 const AboutPage = () => {
-  const { imagesArr } = useImagesQuery()
-
   // TODO optimize image query
 
   const data = useStaticQuery(graphql`
@@ -36,43 +34,72 @@ const AboutPage = () => {
           }
         }
       }
+      profileImage: file(name: { eq: "Profile" }) {
+        id
+        childImageSharp {
+          gatsbyImageData(
+            quality: 100
+            placeholder: TRACED_SVG
+            layout: FULL_WIDTH
+          )
+        }
+      }
+      # allFile(filter: { absolutePath: { regex: "/about-subsection.+/" } }) {
+      #   edges {
+      #     node {
+      #       childImageSharp {
+      #         gatsbyImageData(
+      #           quality: 100
+      #           placeholder: TRACED_SVG
+      #           layout: FULL_WIDTH
+      #         )
+      #       }
+      #     }
+      #   }
+      # }
     }
   `)
   const { frontmatter, html } = data.markdownRemark
   const subsections = data.allMarkdownRemark.nodes
+  // console.log(
+  //   "🌟🚨 ~ file: aboutPageTemplate.jsx ~ line 53 ~ AboutPage ~ data",
+  //   data
+  // )
 
   return (
     <AboutPageTemplate
-      html={html}
-      frontmatter={frontmatter}
-      subsections={subsections}
-      imagesArr={imagesArr}
+      {...{
+        html,
+        subsections,
+        profileImage: data.profileImage,
+      }}
     />
   )
 }
 
-export function AboutPageTemplate({
-  frontmatter,
-  html,
-  subsections,
-  imagesArr,
-}) {
-  const profileImage = imagesArr.find(({ relativePath }) => {
-    return `images/uploads/${relativePath}` === frontmatter.Image
-  })
-  const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABLET}px)`)
-
+export function AboutPageTemplate({ html, subsections, profileImage }) {
   return (
     <AboutStyles>
       <div className="imageAndTextWrapper">
         <div className="imageWrapper">
           {profileImage && (
-            <GatsbyImage image={profileImage} alt="Hyeran Lee" />
+            <GatsbyImage
+              image={profileImage.childImageSharp.gatsbyImageData}
+              alt="Hyeran Lee"
+            />
           )}
         </div>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
 
+      <AboutSubsections {...{ subsections }} />
+    </AboutStyles>
+  )
+}
+
+function AboutSubsections({ subsections }) {
+  return (
+    <>
       {subsections.map(({ frontmatter: subFrontmatter }, idx) => {
         const { title, about_image_with_subtitle, text } = subFrontmatter
 
@@ -92,41 +119,15 @@ export function AboutPageTemplate({
                   ({
                     about_subsection_image,
                     about_subsection_image_subtitle,
-                  }) => {
-                    const image = imagesArr.find(({ relativePath }) => {
-                      return (
-                        `images/uploads/${relativePath}` ===
-                        about_subsection_image
-                      )
-                    })
-                    const hasNoTitle = !title
-                    return (
-                      <div
-                        className="image-and-caption"
-                        key={about_subsection_image}
-                        style={
-                          hasNoTitle
-                            ? {
-                                width: "75%",
-                                ...(isTabletOrLarger
-                                  ? { marginLeft: "auto" }
-                                  : { margin: "auto" }),
-                              }
-                            : {}
-                        }
-                      >
-                        {image && (
-                          <GatsbyImage
-                            image={image}
-                            alt={about_subsection_image_subtitle || ""}
-                          />
-                        )}
-                        <figcaption>
-                          {about_subsection_image_subtitle}
-                        </figcaption>
-                      </div>
-                    )
-                  }
+                  }) => (
+                    <AboutImageWithSubtitle
+                      {...{
+                        about_subsection_image,
+                        about_subsection_image_subtitle,
+                        title,
+                      }}
+                    />
+                  )
                 )}
               </div>
             </div>
@@ -135,7 +136,43 @@ export function AboutPageTemplate({
           </div>
         )
       })}
-    </AboutStyles>
+    </>
+  )
+}
+function AboutImageWithSubtitle({
+  about_subsection_image,
+  about_subsection_image_subtitle,
+  title,
+}) {
+  const isTabletOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.TABLET}px)`)
+  const { imagesArr } = useImagesQuery()
+  const image = imagesArr.find(({ relativePath }) => {
+    return `images/uploads/${relativePath}` === about_subsection_image
+  })
+  const hasNoTitle = !title
+  return (
+    <div
+      className="image-and-caption"
+      key={about_subsection_image}
+      style={
+        hasNoTitle
+          ? {
+              width: "75%",
+              ...(isTabletOrLarger
+                ? { marginLeft: "auto" }
+                : { margin: "auto" }),
+            }
+          : {}
+      }
+    >
+      {image && (
+        <GatsbyImage
+          image={image}
+          alt={about_subsection_image_subtitle || ""}
+        />
+      )}
+      <figcaption>{about_subsection_image_subtitle}</figcaption>
+    </div>
   )
 }
 
