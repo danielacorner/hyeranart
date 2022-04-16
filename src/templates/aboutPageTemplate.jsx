@@ -6,52 +6,11 @@ import { useImagesQuery } from "../utils/queries"
 import { useMediaQuery } from "@material-ui/core"
 import { BREAKPOINTS } from "../utils/constants"
 
-const AboutStyles = styled.div`
-  margin: 2em 5em 0 48px;
-  .imageAndTextWrapper {
-    .imageWrapper {
-      padding-bottom: 2em;
-    }
-
-    @media (min-width: ${BREAKPOINTS.TABLET}px) {
-      margin-left: auto;
-      width: 66vw;
-    }
-  }
-  .subsectionWrapper {
-    margin-top: 4em;
-    .subsection-title {
-      font-style: italic;
-      font-weight: 100;
-      margin-bottom: 2rem;
-      width: fit-content;
-    }
-    .title-and-image-and-caption {
-      width: 100%;
-      @media (min-width: ${BREAKPOINTS.TABLET}px) {
-        margin-left: auto;
-        width: 66vw;
-      }
-      .images-and-captions {
-        margin-left: auto;
-        display: grid;
-        grid-gap: 3rem;
-        width: 100%;
-        .image-and-caption {
-          margin-bottom: 1.5em;
-          figcaption {
-            margin: 0.5em auto 0;
-            width: fit-content;
-            font-size: 0.75em;
-          }
-        }
-      }
-    }
-  }
-`
-
 const AboutPage = () => {
   const { imagesArr } = useImagesQuery()
+
+  // TODO optimize image query
+
   const data = useStaticQuery(graphql`
     query AboutPage {
       markdownRemark(frontmatter: { templateKey: { eq: "about-page" } }) {
@@ -159,7 +118,7 @@ export function AboutPageTemplate({
                         {image && (
                           <GatsbyImage
                             image={image}
-                            alt={about_subsection_image_subtitle}
+                            alt={about_subsection_image_subtitle || ""}
                           />
                         )}
                         <figcaption>
@@ -181,3 +140,47 @@ export function AboutPageTemplate({
 }
 
 export default AboutPage
+
+const AboutStyles = styled.div`
+  margin: 2em 5em 0 48px;
+  .imageAndTextWrapper {
+    .imageWrapper {
+      padding-bottom: 2em;
+    }
+
+    @media (min-width: ${BREAKPOINTS.TABLET}px) {
+      margin-left: auto;
+      width: 66vw;
+    }
+  }
+  .subsectionWrapper {
+    margin-top: 4em;
+    .subsection-title {
+      font-style: italic;
+      font-weight: 100;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+    .title-and-image-and-caption {
+      width: 100%;
+      @media (min-width: ${BREAKPOINTS.TABLET}px) {
+        margin-left: auto;
+        width: 66vw;
+      }
+      .images-and-captions {
+        margin-left: auto;
+        display: grid;
+        grid-gap: 3rem;
+        width: 100%;
+        .image-and-caption {
+          margin-bottom: 1.5em;
+          figcaption {
+            margin: 0.5em auto 0;
+            width: fit-content;
+            font-size: 0.75em;
+          }
+        }
+      }
+    }
+  }
+`
