@@ -1,11 +1,9 @@
 import React from "react"
 import styled from "styled-components/macro"
 import { GatsbyImage } from "gatsby-plugin-image"
-import { useImagesQuery } from "../utils/queries"
 import { BREAKPOINTS } from "../utils/constants"
 import { useStaticQuery, graphql } from "gatsby"
 import { HOVER_UNDERLINE_CSS, CUBIC_BEZIER } from "./SplashPageCover"
-import { useMediaQuery } from "@material-ui/core"
 
 export default () => {
   const data = useStaticQuery(graphql`

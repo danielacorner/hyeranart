@@ -161,8 +161,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 // add types for images
 exports.sourceNodes = ({ actions, schema }) => {
-  const { createTypes } = actions
-  createTypes(`
+  const { createSchemaCustomization } = actions
+  createSchemaCustomization(`
     type ImageSharpWithFluid {
       fluid: ImageSharpFluid
     }

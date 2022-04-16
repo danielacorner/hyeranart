@@ -85,6 +85,7 @@ export const SplashPageWrapperStyles = styled.div`
 
 const SplashPageStyles = styled.div`
   min-height: 200vh;
+  max-width: 100vw;
   padding-top: 9vw;
   @media (min-width: 1028px) {
     padding-top: 5em;
@@ -96,10 +97,9 @@ const SplashPageStyles = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   .imageWrapper {
     width: 80vw;
-    max-width: 1024px;
+    max-width: min(100vw, 1024px);
     max-width: 90vh;
     height: auto;
   }
