@@ -160,20 +160,21 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 }
 
 // add types for images
-exports.sourceNodes = ({ actions, schema }) => {
-  const { createSchemaCustomization } = actions
-  createSchemaCustomization(`
-    type ImageSharpWithFluid {
-      fluid: ImageSharpFluid
-    }
-    type ChildImageSharpFluid {
-      childImageSharp: ImageSharpWithFluid
-    }
-    type MarkdownRemarkFrontmatter {
-      gatsbyImage: ChildImageSharpFluid
-    }
-    type MarkdownRemark implements Node {
-      frontmatter: MarkdownRemarkFrontmatter
-    }
-  `)
+exports.createSchemaCustomization = ({ actions, schema }) => {
+  const { createTypes } = actions
+  const typeDefs = `
+  type ImageSharpWithFluid {
+    fluid: ImageSharpFluid
+  }
+  type ChildImageSharpFluid {
+    childImageSharp: ImageSharpWithFluid
+  }
+  type MarkdownRemarkFrontmatter {
+    gatsbyImage: ChildImageSharpFluid
+  }
+  type MarkdownRemark implements Node {
+    frontmatter: MarkdownRemarkFrontmatter
+  }
+`
+  createTypes(typeDefs)
 }
