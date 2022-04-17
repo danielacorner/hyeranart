@@ -40,7 +40,7 @@ export default () => {
         <h1>ENERGY & FREEDOM</h1>
         <p>{rawMarkdownBody}</p>
         <h6>CONTACT</h6>
-        <ul>
+        <ul className="contactLinks">
           {contactLinks.map(({ link, title }) => (
             <li key={title}>
               <a href={link} target="_blank" rel="noopener noreferrer">
@@ -94,7 +94,7 @@ const SecondPageStyles = styled.div`
   }
   h6 {
     font-size: 0.6em;
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
   }
   ul {
     margin: 0;
@@ -128,5 +128,14 @@ const SecondPageStyles = styled.div`
   }
   .gatsby-image-wrapper {
     margin-top: 41px;
+  }
+  ul.contactLinks {
+    li {
+      a {
+        padding: 0.5em;
+        margin: -0.5em;
+      }
+      margin-bottom: 1em;
+    }
   }
 `
