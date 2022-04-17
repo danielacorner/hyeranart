@@ -4,20 +4,11 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import { BREAKPOINTS } from "../utils/constants"
 import { useStaticQuery, graphql } from "gatsby"
 import { HOVER_UNDERLINE_CSS, CUBIC_BEZIER } from "./SplashPageCover"
+import { StaticImage } from "gatsby-plugin-image"
 
 export default () => {
   const data = useStaticQuery(graphql`
     query SecondPageTemplate {
-      secondPageImage: file(name: { eq: "second-page (1)" }) {
-        id
-        childImageSharp {
-          gatsbyImageData(
-            quality: 100
-            placeholder: TRACED_SVG
-            layout: FULL_WIDTH
-          )
-        }
-      }
       markdownRemark(frontmatter: { templateKey: { eq: "second-page" } }) {
         rawMarkdownBody
         frontmatter {
@@ -35,14 +26,15 @@ export default () => {
 
   const { contactLinks } = frontmatter
 
-  const secondPageImage = {
-    fluid: data.secondPageImage.childImageSharp.gatsbyImageData,
-  }
-
   return (
     <SecondPageStyles>
       <div className="imageWrapper">
-        <GatsbyImage image={secondPageImage.fluid} alt={frontmatter.title} />
+        <StaticImage
+          src={"../../static/images/uploads/second-page (1).jpg"}
+          layout="fullWidth"
+          placeholder="tracedSVG"
+          alt={frontmatter.title}
+        />
       </div>
       <div className="contentWrapper">
         <h1>ENERGY & FREEDOM</h1>
@@ -85,8 +77,7 @@ const SecondPageStyles = styled.div`
       color: cornflowerblue;
     }
   }
-  .imageWrapper {
-  }
+
   .contentWrapper {
     width: 80%;
     margin-right: auto;
@@ -128,13 +119,14 @@ const SecondPageStyles = styled.div`
       margin: 1.5em 0 0.6em;
       font-size: 2em;
     }
-    .imageWrapper {
-    }
     .contentWrapper {
     }
   }
   @media (min-width: ${BREAKPOINTS.DESKTOP}px) {
     margin-left: 30vw;
     margin-right: auto;
+  }
+  .gatsby-image-wrapper {
+    margin-top: 41px;
   }
 `
