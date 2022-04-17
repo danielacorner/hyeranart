@@ -6,6 +6,8 @@ import { useImagesQuery } from "../utils/queries"
 import { useMediaQuery } from "@material-ui/core"
 
 export default function NewsItem({ title, Image, content, date }) {
+  console.log("🌟🚨 ~ file: NewsItem.js ~ line 9 ~ NewsItem ~ title", title)
+  console.log("🌟🚨 ~ file: NewsItem.js ~ line 9 ~ NewsItem ~ Image", Image)
   const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const newsItemImage = (

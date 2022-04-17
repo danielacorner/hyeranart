@@ -62,8 +62,8 @@ function NewsPageContent() {
         .map((node, idx) => {
           const last = idx === newsNodes.length - 1
           return (
-            <>
-              <NewsItemLoadable key={node.title} {...node} />
+            <React.Fragment key={node.title}>
+              <NewsItemLoadable {...node} />
               {last ? (
                 <div style={{ height: "12em" }}>
                   <BtnReturnToTop />
@@ -71,7 +71,7 @@ function NewsPageContent() {
               ) : (
                 <hr />
               )}
-            </>
+            </React.Fragment>
           )
         })}
     </SecondPageStyles>
@@ -118,7 +118,8 @@ const SecondPageStyles = styled.div`
     margin-bottom: 0;
   }
   hr {
-    margin-bottom: 2em;
+    margin-top: 8em;
+    margin-bottom: 4em;
   }
   .dateStamp {
     font-size: 0.8em;
