@@ -3,11 +3,13 @@
   font-family: "AvenirLight";
   src: url("../../static/fonts/avenir/AvenirNext-UltraLight.woff")
     format("woff");
+    font-display: swap
 }
 @font-face {
   font-family: "AvenirRegular";
   src: url("../../static/fonts/avenir/AvenirNextLTPro-Regular.woff")
     format("woff");
+    font-display: swap
 }
 * {
   font-family: system-ui;
