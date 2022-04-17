@@ -16,8 +16,7 @@ const DesktopNavStyles = styled.div`
   font-size: 12px;
   font-family: system-ui;
   margin-top: 1.5em;
-  padding: 0.5em ${(props) => (props.shouldShowSaatchiLink ? "18px" : "1em")}
-    0.5em 24px;
+  padding: 0.5em 1em 0.5em 24px;
   position: relative;
   background: white;
   top: 0;
@@ -32,11 +31,10 @@ const DesktopNavStyles = styled.div`
     width: fit-content;
     line-height: normal;
     margin-bottom: 0;
-    text-transform: ${(props) =>
-      props.shouldShowSaatchiLink ? "none" : "uppercase"};
+    text-transform: uppercase;
     display: flex;
     padding: 0;
-    font-size: ${(props) => (props.shouldShowSaatchiLink ? 1.2 : 1)}em;
+    font-size: 1em;
   }
   h4 {
     cursor: pointer;
@@ -65,7 +63,7 @@ const DesktopNavStyles = styled.div`
   flex-direction: column;
 
   @media (min-width: ${BREAKPOINTS.MOBILELG}px) {
-    padding-right: ${(props) => (props.shouldShowSaatchiLink ? "18px" : "3em")};
+    padding-right: 3em;
   }
   @media (min-width: ${(props) =>
       props.shouldShowSaatchiLink ? 528 : 680}px) {
@@ -75,12 +73,11 @@ const DesktopNavStyles = styled.div`
     flex-direction: row;
   }
   @media (min-width: 768px) {
-    padding-right: ${(props) => (props.shouldShowSaatchiLink ? "35px" : "3em")};
+    padding-right: 3em;
   }
   @media (min-width: 960px) {
     margin-top: 3em;
-    padding: 1em ${(props) => (props.shouldShowSaatchiLink ? "35px" : "6em")}
-      1em 48px;
+    padding: 1em 6em 1em 48px;
     .sectionLink li {
       font-size: 1.25vw;
     }
@@ -107,51 +104,14 @@ export const SAATCHI_SECTION_LINK = {
   external: true,
 }
 
-export const useSectionCollectionLinks = () => {
-  const sectionLinksArr = [
-    {
-      type: "section",
-      text: "News",
-      url: "/news",
-    },
-    {
-      type: "section",
-      text: "Energy & Freedom",
-      url: "/",
-    },
-    {
-      type: "section",
-      text: "Artworks",
-      url: null,
-    },
-    {
-      type: "section",
-      text: "About",
-      url: "/about",
-    },
-  ]
-
-  return {
-    sectionLinksArr,
-  }
-}
-
-export default ({ handleNavigate }) => {
+export default function DesktopNav({ handleNavigate }) {
   const { location } = globalHistory
   const isOnSinglePaintingPage = location.pathname.includes("/paintings/")
   const paintingNameFromUrl = location.pathname.split("/")[2]
 
-  const { imagesDataArr } = useImagesQuery()
-  const paintingData = imagesDataArr.find((imageData) => {
-    return kebabCase(imageData.title) === kebabCase(paintingNameFromUrl)
-  })
-  const saatchiLink = paintingData ? paintingData.saatchiLink : null
-  const shouldShowSaatchiLink = Boolean(isOnSinglePaintingPage && saatchiLink)
-
-  const { sectionLinksArr } = useSectionCollectionLinks()
   const isOnHomePage = location.pathname === "/"
   return (
-    <DesktopNavStyles shouldShowSaatchiLink={shouldShowSaatchiLink}>
+    <DesktopNavStyles>
       <Link
         className="titleLink"
         to={"/"}
@@ -160,11 +120,32 @@ export default ({ handleNavigate }) => {
         <h4>hyeran lee</h4>
       </Link>
 
-      {shouldShowSaatchiLink ? (
-        <SaatchiLink {...{ saatchiLink }} />
+      {isOnSinglePaintingPage ? (
+        <SaatchiLink {...{ paintingNameFromUrl }} />
       ) : (
         <LinksUlStyles className="linksUl">
-          {sectionLinksArr.map(({ type, url, text, subSections }, idx) => (
+          {[
+            {
+              type: "section",
+              text: "News",
+              url: "/news",
+            },
+            {
+              type: "section",
+              text: "Energy & Freedom",
+              url: "/",
+            },
+            {
+              type: "section",
+              text: "Artworks",
+              url: null,
+            },
+            {
+              type: "section",
+              text: "About",
+              url: "/about",
+            },
+          ].map(({ type, url, text, subSections }, idx) => (
             <NavLink
               key={url}
               idx={idx}
@@ -180,14 +161,19 @@ export default ({ handleNavigate }) => {
     </DesktopNavStyles>
   )
 }
-function SaatchiLink({ saatchiLink }) {
-  return (
+function SaatchiLink({ paintingNameFromUrl }) {
+  const { imagesDataArr } = useImagesQuery()
+  const paintingData = imagesDataArr.find((imageData) => {
+    return kebabCase(imageData.title) === kebabCase(paintingNameFromUrl)
+  })
+  const saatchiLink = paintingData ? paintingData.saatchiLink : null
+  return saatchiLink ? (
     <SaatchiLinkStyles>
       <a href={saatchiLink} target="_blank" rel="noopener noreferrer">
         <li>Available on Saatchi Art</li>
       </a>
     </SaatchiLinkStyles>
-  )
+  ) : null
 }
 const SaatchiLinkStyles = styled.div`
   display: flex;

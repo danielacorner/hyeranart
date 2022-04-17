@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { camelCase, kebabCase } from "lodash"
 import TransitionLink from "gatsby-plugin-transition-link"
 import styled from "styled-components/macro"
@@ -45,13 +45,15 @@ const CollapseLinkWrapperStyles = styled.div`
     ${UNDERLINE_ACTIVE_CSS}
   }
 `
-
+const EXIT_DELAY = 0.5
 const ListItemLink = ({ type, isCurrent, title, onClick }) => (
   <li className={`${camelCase(title)}${isCurrent ? " current" : ""}`}>
     <TransitionLink
-      onClick={onClick}
+      onClick={() => {
+        setTimeout(onClick, EXIT_DELAY * 1000)
+      }}
       exit={{
-        length: 0.5,
+        length: EXIT_DELAY,
       }}
       entry={{
         delay: 0.3,
@@ -80,7 +82,10 @@ const CollapseNavLink = ({ type, text }) => {
     setIsExpanded(false)
   }
   const path = globalHistory.location.pathname
-
+  const collectionsSorted = useMemo(
+    () => collectionsDataArr.sort((a, b) => a.order - b.order),
+    [collectionsDataArr]
+  )
   return (
     <CollapseLinkWrapperStyles
       isExpanded={isExpanded}
@@ -95,20 +100,18 @@ const CollapseNavLink = ({ type, text }) => {
       <li>{text}</li>
       <div className={`subSectionsWrapper`}>
         <animated.ul style={springCollapseExpand}>
-          {collectionsDataArr
-            .sort((a, b) => a.order - b.order)
-            .map(({ url, title }) => {
-              const isCurrent = `/collections/${kebabCase(title)}` === path
-              return (
-                <ListItemLink
-                  onClick={handleMouseLeave}
-                  key={title}
-                  isCurrent={isCurrent}
-                  title={title}
-                  type={type}
-                />
-              )
-            })}
+          {collectionsSorted.map(({ url, title }) => {
+            const isCurrent = `/collections/${kebabCase(title)}` === path
+            return (
+              <ListItemLink
+                onClick={handleMouseLeave}
+                key={title}
+                isCurrent={isCurrent}
+                title={title}
+                type={type}
+              />
+            )
+          })}
         </animated.ul>
       </div>
     </CollapseLinkWrapperStyles>

@@ -1,5 +1,6 @@
 import { graphql, useStaticQuery } from "gatsby"
 import { kebabCase } from "lodash"
+import { useMemo } from "react"
 
 // TODO replace with individual static queries https://www.qed42.com/insights/coe/javascript/querying-static-vs-dynamic-data-gatsby
 
@@ -67,65 +68,75 @@ export const useImagesQuery = () => {
     }
   `)
 
-  const imagesArr = data.desktopImage.edges.map(({ node }) => ({
-    ...node.childImageSharp.gatsbyImageData,
-    id: node.id,
-    relativePath: node.relativePath,
-  }))
-  const imagesArrMobile = data.mobileImage.edges.map(({ node }) => ({
-    ...node.childImageSharp.gatsbyImageData,
-    id: node.id,
-    relativePath: node.relativePath,
-  }))
-
-  const allImagesDataArr = data.allMarkdownRemark.edges.map(({ node }) => ({
-    ...node.frontmatter,
-    id: node.id,
-    // find matching image in imagesArr
-    fluid: !node.frontmatter.Image
-      ? null
-      : imagesArr.find(({ relativePath }) =>
-          cleanJpgFilePathForSearch(node.frontmatter.Image).includes(
-            cleanJpgFilePathForSearch(relativePath)
-          )
-        ),
-  }))
-  const allImagesDataArrMobile = data.allMarkdownRemark.edges.map(
-    ({ node }) => ({
+  const {
+    imagesArr,
+    imagesArrMobile,
+    imagesDataArr,
+    imagesDataArrMobile,
+    collectionsDataArr,
+    gallery,
+    galleryImagesArr,
+  } = useMemo(() => {
+    const imagesArr = data.desktopImage.edges.map(({ node }) => ({
+      ...node.childImageSharp.gatsbyImageData,
+      id: node.id,
+      relativePath: node.relativePath,
+    }))
+    const imagesArrMobile = data.mobileImage.edges.map(({ node }) => ({
+      ...node.childImageSharp.gatsbyImageData,
+      id: node.id,
+      relativePath: node.relativePath,
+    }))
+    const allImagesDataArrMobile = data.allMarkdownRemark.edges.map(
+      ({ node }) => ({
+        ...node.frontmatter,
+        id: node.id,
+        // find matching image in imagesArr
+        fluid: !node.frontmatter.Image
+          ? null
+          : imagesArrMobile.find(({ relativePath }) =>
+              cleanJpgFilePathForSearch(node.frontmatter.Image).includes(
+                cleanJpgFilePathForSearch(relativePath)
+              )
+            ),
+      })
+    )
+    const allImagesDataArr = data.allMarkdownRemark.edges.map(({ node }) => ({
       ...node.frontmatter,
       id: node.id,
       // find matching image in imagesArr
       fluid: !node.frontmatter.Image
         ? null
-        : imagesArrMobile.find(({ relativePath }) =>
+        : imagesArr.find(({ relativePath }) =>
             cleanJpgFilePathForSearch(node.frontmatter.Image).includes(
               cleanJpgFilePathForSearch(relativePath)
             )
           ),
-    })
-  )
-
-  // split into collections vs images
-  const imagesDataArr = allImagesDataArr.filter((d) => Boolean(d.fluid))
-  const imagesDataArrMobile = allImagesDataArrMobile.filter((d) =>
-    Boolean(d.fluid)
-  )
-
-  const collectionsDataArr = allImagesDataArr
-    .filter((d) => Boolean(d.visible && d.images && d.title !== "Artworks"))
-    // sort by date, most recent first
-    .sort((prev, next) =>
-      (prev.order || prev.order === 0) && (next.order || next.order === 0)
-        ? prev.order - next.order
-        : new Date(next.date).getTime() - new Date(prev.date).getTime()
-    )
-
-  const gallery = allImagesDataArr.find((d) => d.title === "Artworks")
-  const galleryImagesArr = gallery
-    ? gallery.images.map(({ Image }) =>
-        imagesDataArr.find((d) => d.title === Image)
-      )
-    : []
+    }))
+    return {
+      imagesArr,
+      imagesArrMobile,
+      // split into ,collections vs images
+      imagesDataArr: allImagesDataArr.filter((d) => Boolean(d.fluid)),
+      imagesDataArrMobile: allImagesDataArrMobile.filter((d) =>
+        Boolean(d.fluid)
+      ),
+      collectionsDataArr: allImagesDataArr
+        .filter((d) => Boolean(d.visible && d.images && d.title !== "Artworks"))
+        // sort by date, most recent first
+        .sort((prev, next) =>
+          (prev.order || prev.order === 0) && (next.order || next.order === 0)
+            ? prev.order - next.order
+            : new Date(next.date).getTime() - new Date(prev.date).getTime()
+        ),
+      gallery: allImagesDataArr.find((d) => d.title === "Artworks"),
+      galleryImagesArr: gallery
+        ? gallery.images.map(({ Image }) =>
+            imagesDataArr.find((d) => d.title === Image)
+          )
+        : [],
+    }
+  }, [data])
 
   // const sectionsDataArr = data.allMarkdownRemark.edges
   //   .map(d => d.node.frontmatter)
