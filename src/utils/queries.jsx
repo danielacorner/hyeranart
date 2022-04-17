@@ -68,15 +68,7 @@ export const useImagesQuery = () => {
     }
   `)
 
-  const {
-    imagesArr,
-    imagesArrMobile,
-    imagesDataArr,
-    imagesDataArrMobile,
-    collectionsDataArr,
-    gallery,
-    galleryImagesArr,
-  } = useMemo(() => {
+  return useMemo(() => {
     const imagesArr = data.desktopImage.edges.map(({ node }) => ({
       ...node.childImageSharp.gatsbyImageData,
       id: node.id,
@@ -113,11 +105,12 @@ export const useImagesQuery = () => {
             )
           ),
     }))
+    const gallery = allImagesDataArr.find((d) => d.title === "Artworks")
+    const imagesDataArr = allImagesDataArr.filter((d) => Boolean(d.fluid))
     return {
       imagesArr,
-      imagesArrMobile,
       // split into ,collections vs images
-      imagesDataArr: allImagesDataArr.filter((d) => Boolean(d.fluid)),
+      imagesDataArr,
       imagesDataArrMobile: allImagesDataArrMobile.filter((d) =>
         Boolean(d.fluid)
       ),
@@ -129,7 +122,6 @@ export const useImagesQuery = () => {
             ? prev.order - next.order
             : new Date(next.date).getTime() - new Date(prev.date).getTime()
         ),
-      gallery: allImagesDataArr.find((d) => d.title === "Artworks"),
       galleryImagesArr: gallery
         ? gallery.images.map(({ Image }) =>
             imagesDataArr.find((d) => d.title === Image)
@@ -137,21 +129,6 @@ export const useImagesQuery = () => {
         : [],
     }
   }, [data])
-
-  // const sectionsDataArr = data.allMarkdownRemark.edges
-  //   .map(d => d.node.frontmatter)
-  //   .filter(d => Boolean(!d.images && !d.Image))
-  //   // sort by pageIndex
-  //   .sort((prev, next) => prev.pageIndex - next.pageIndex)
-
-  return {
-    imagesDataArr,
-    imagesDataArrMobile,
-    collectionsDataArr,
-    // sectionsDataArr,
-    imagesArr,
-    galleryImagesArr,
-  }
 }
 function cleanJpgFilePathForSearch(string) {
   const lowerCaseString = string.toLowerCase()
