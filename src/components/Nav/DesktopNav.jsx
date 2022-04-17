@@ -20,13 +20,14 @@ const DesktopNavStyles = styled.div`
   position: relative;
   background: white;
   top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
   .titleLink {
     text-decoration: none;
     color: black;
   }
-  .sectionLink {
-    margin-left: 1.5em;
-  }
+
   li {
     width: fit-content;
     line-height: normal;
@@ -46,8 +47,16 @@ const DesktopNavStyles = styled.div`
     font-size: 2em;
   }
   ul {
-    flex-shrink: 0;
+    flex-shrink: 1;
     margin-top: 1.5em;
+    gap: 1em;
+    width: 100%;
+    justify-content: space-evenly;
+    @media (min-width: ${406}px) {
+      width: fit-content;
+      gap: 2.3em;
+      flex-shrink: 0;
+    }
     li {
       white-space: nowrap;
       ${(props) =>
@@ -59,8 +68,6 @@ const DesktopNavStyles = styled.div`
           : ""}
     }
   }
-  display: flex;
-  flex-direction: column;
 
   @media (min-width: ${BREAKPOINTS.MOBILELG}px) {
     padding-right: 3em;
@@ -93,8 +100,6 @@ const DesktopNavStyles = styled.div`
       font-size: 2.7em;
     }
   }
-  display: flex;
-  align-items: baseline;
 `
 
 export const SAATCHI_SECTION_LINK = {

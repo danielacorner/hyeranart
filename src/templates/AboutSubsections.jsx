@@ -28,6 +28,7 @@ export function AboutSubsections({ subsections }) {
                     about_subsection_image_subtitle,
                   }) => (
                     <AboutImageWithSubtitle
+                      key={about_subsection_image_subtitle}
                       {...{
                         about_subsection_image,
                         about_subsection_image_subtitle,

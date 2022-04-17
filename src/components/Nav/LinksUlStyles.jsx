@@ -8,7 +8,7 @@ export const LinksUlStyles = styled.ul`
   margin-left: auto;
   margin-right: 12px;
   @media (min-width: ${BREAKPOINTS.MOBILE}px) {
-    margin-right: 0;
+    margin-right: 16px;
   }
   width: fit-content;
   a {
