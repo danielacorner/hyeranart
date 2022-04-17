@@ -1,32 +1,17 @@
 import React from "react"
 import styled from "styled-components"
-import { graphql, useStaticQuery } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
+import { StaticImage } from "gatsby-plugin-image"
 
 const SplashPageCover = () => {
-  const data = useStaticQuery(graphql`
-    query IndexPageTemplate {
-      splashPageImage: file(name: { eq: "life-is" }) {
-        id
-        childImageSharp {
-          gatsbyImageData(
-            quality: 100
-            placeholder: TRACED_SVG
-            layout: FULL_WIDTH
-          )
-        }
-      }
-    }
-  `)
-
-  const splashPageImage = {
-    fluid: data.splashPageImage.childImageSharp.gatsbyImageData,
-  }
-
   return (
     <SplashPageStyles>
       <div className="imageWrapper">
-        <GatsbyImage image={splashPageImage.fluid} alt={""} />
+        <StaticImage
+          src={"../../static/images/uploads/life-is.jpg"}
+          alt={""}
+          layout="fullWidth"
+          placeholder="tracedSVG"
+        />
       </div>
       <div className="titleWrapper">
         <h1>hyeran lee</h1>
@@ -76,7 +61,7 @@ export const SplashPageWrapperStyles = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 9999;
+  z-index: 999;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

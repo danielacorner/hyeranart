@@ -6,18 +6,13 @@ import SplashPageCover, {
 } from "../components/SplashPageCover"
 import { animated, useSpring } from "react-spring"
 import { Portal } from "@material-ui/core"
-import SecondPage from "../components/SecondPage"
 import { globalHistory } from "@reach/router"
-import { useMount, useSpringTransitionLink } from "../utils/customHooks"
+import { useMount } from "../utils/customHooks"
+import loadable from "@loadable/component"
 
-const toggleOverflowHidden = (isHidden) => {
-  const html = document.querySelector("html")
-  if (isHidden) {
-    html.classList.add("overflowHidden")
-  } else {
-    html.classList.remove("overflowHidden")
-  }
-}
+const LoadableAnimatedSecondPage = loadable(() =>
+  import("./AnimatedSecondPage")
+)
 
 const Pages = ({ transitionStatus }) => {
   const { location } = globalHistory
@@ -67,15 +62,19 @@ const Pages = ({ transitionStatus }) => {
   const handleClick = () => {
     setIsSplashPageClicked(true)
   }
-
-  const springTransitionLink = useSpringTransitionLink(transitionStatus)
+  const [ready, setReady] = useState(false)
+  useMount(() => {
+    setTimeout(() => {
+      setReady(true)
+    })
+  }, 1)
 
   return (
     <Layout isSplashPageClicked={isSplashPageClicked}>
       <SEO title="Home" />
-      <animated.div style={springTransitionLink}>
-        <SecondPage />
-      </animated.div>
+      {ready && (
+        <LoadableAnimatedSecondPage transitionStatus={transitionStatus} />
+      )}
       <Portal>
         <SplashPageWrapperStyles
           onClick={handleClick}
@@ -93,3 +92,12 @@ const Pages = ({ transitionStatus }) => {
   )
 }
 export default Pages
+
+const toggleOverflowHidden = (isHidden) => {
+  const html = document.querySelector("html")
+  if (isHidden) {
+    html.classList.add("overflowHidden")
+  } else {
+    html.classList.remove("overflowHidden")
+  }
+}

@@ -7,6 +7,11 @@ import { BREAKPOINTS } from "../utils/constants"
 import { GatsbyImage } from "gatsby-plugin-image"
 import { animated } from "react-spring"
 import { useSpringTransitionLink } from "../utils/customHooks"
+import { globalHistory } from "@reach/router"
+import loadable from "@loadable/component"
+const SaatchiLinkLoadable = loadable(() =>
+  import("../components/Nav/SaatchiLink")
+)
 
 const SinglePaintingPageStyles = styled.div`
   padding: 35px;
@@ -44,6 +49,7 @@ const SinglePaintingPageStyles = styled.div`
   }
 `
 export default function Template({ pageContext, transitionStatus }) {
+  const { location } = globalHistory
   const { imageName } = pageContext
   const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
@@ -62,8 +68,12 @@ export default function Template({ pageContext, transitionStatus }) {
   //   type: "Painting",
   // }
 
+  const paintingNameFromUrl = location.pathname.split("/")[2]
   return !imageOnThisPage ? null : (
     <Layout>
+      {paintingNameFromUrl ? (
+        <SaatchiLinkLoadable {...{ paintingNameFromUrl }} />
+      ) : null}
       <animated.div style={springTransitionLink}>
         <SinglePaintingPageStyles>
           <div className="imageWrapper">

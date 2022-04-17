@@ -9,22 +9,28 @@ import { globalHistory } from "@reach/router"
 import { UNDERLINE_ACTIVE_CSS } from "../SplashPageCover"
 
 const CollapseLinkWrapperStyles = styled.div`
+  &&& {
+    padding: 1rem;
+    padding-bottom: 2rem;
+    margin: -1rem;
+    margin-bottom: -2rem;
+  }
   position: relative;
   cursor: default;
   .subSectionsWrapper {
     position: absolute;
     padding: 0 0 0.75rem 0;
-    top: 2.5em;
+    top: 40px;
     @media (min-width: 1090px) {
       top: 3em;
     }
     left: 0;
     right: 0;
-    z-index: 9999;
+    z-index: 9999999;
     ul {
       margin: 0;
-      width: 200%;
-      margin-left: -50%;
+      width: 168px;
+      margin-left: -33px;
       background: white;
       box-shadow: 0px 2px 6px #00000036;
       padding: 0 0.5rem 0.5rem;
@@ -94,12 +100,12 @@ const CollapseNavLink = ({ type, text }) => {
       onMouseEnter={handleMouseEnter}
       onFocus={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onBlur={handleMouseLeave}
+      // onBlur={handleMouseLeave}
       className="sectionLink"
     >
       <li>{text}</li>
       <div className={`subSectionsWrapper`}>
-        <animated.ul style={springCollapseExpand}>
+        <animated.ul style={springCollapseExpand} onBlur={handleMouseLeave}>
           {collectionsSorted.map(({ url, title }) => {
             const isCurrent = `/collections/${kebabCase(title)}` === path
             return (

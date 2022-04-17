@@ -4,7 +4,11 @@ module.exports = {
     description: `Abstract paintings by Hyeran Lee`,
     author: `@danielacorner`,
   },
+  flags: {
+    DEV_SSR: true,
+  },
   plugins: [
+    "gatsby-plugin-loadable-components-ssr",
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

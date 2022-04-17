@@ -5,18 +5,24 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
-import DesktopNav from "./Nav/DesktopNav"
 import styled from "styled-components"
 import "./layout.css"
+import loadable from "@loadable/component"
+import { useMount } from "../utils/customHooks"
+import { globalHistory } from "@reach/router"
+
+const DesktopNavLoadable = loadable(() => import("./Nav/DesktopNav"))
 
 const LayoutStyles = styled.div`
   margin: 0 auto;
   min-height: 90vh;
   .navigationWrapper {
+    height: 45px;
+    max-width: 100vw;
     position: relative;
-    z-index: 999;
+    z-index: ${(p) => (p.showNav ? 9999 : 1)};
   }
   .navigationWrapper,
   main {
@@ -32,10 +38,15 @@ const LayoutStyles = styled.div`
 `
 
 const Layout = ({ children, isSplashPageClicked = true }) => {
+  const { location } = globalHistory
+  const showNav =
+    isSplashPageClicked && !location.pathname.includes("/paintings/")
   return (
-    <LayoutStyles isSplashPageClicked={isSplashPageClicked}>
+    <LayoutStyles {...{ isSplashPageClicked, showNav }}>
       <div className="navigationWrapper">
-        <DesktopNav />
+        <MountLater>
+          <DesktopNavLoadable />
+        </MountLater>
       </div>
       <main>{children}</main>
     </LayoutStyles>
@@ -47,3 +58,12 @@ Layout.propTypes = {
 }
 
 export default Layout
+function MountLater({ children, delay = 1 }) {
+  const [mounted, setMounted] = useState(false)
+  useMount(() => {
+    setTimeout(() => {
+      setMounted(true)
+    }, delay)
+  })
+  return mounted ? children : null
+}

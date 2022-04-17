@@ -3,10 +3,8 @@ import styled from "styled-components"
 import { NavLink } from "./NavLink"
 import { Link } from "gatsby"
 import { globalHistory } from "@reach/router"
-import { useImagesQuery } from "../../utils/queries"
 import { BREAKPOINTS } from "../../utils/constants"
 import { LinksUlStyles } from "./LinksUlStyles"
-import { kebabCase } from "lodash"
 
 export const DESKTOPNAV_WIDTH = 122
 
@@ -15,7 +13,7 @@ const DesktopNavStyles = styled.div`
   max-width: calc(980px + 30vw);
   font-size: 12px;
   font-family: system-ui;
-  margin-top: 1.5em;
+  margin-top: ${(p) => (p.isOnSinglePaintingPage ? 26 : 18)}px;
   padding: 0.5em 1em 0.5em 24px;
   position: relative;
   background: white;
@@ -59,21 +57,16 @@ const DesktopNavStyles = styled.div`
     }
     li {
       white-space: nowrap;
-      ${(props) =>
-        props.shouldShowSaatchiLink
-          ? `
+
       margin-left: auto;
       margin-bottom: -17px;
-      `
-          : ""}
     }
   }
 
   @media (min-width: ${BREAKPOINTS.MOBILELG}px) {
     padding-right: 3em;
   }
-  @media (min-width: ${(props) =>
-      props.shouldShowSaatchiLink ? 528 : 680}px) {
+  @media (min-width: ${680}px) {
     ul.linksUl {
       width: fit-content;
     }
@@ -112,11 +105,10 @@ export const SAATCHI_SECTION_LINK = {
 export default function DesktopNav({ handleNavigate }) {
   const { location } = globalHistory
   const isOnSinglePaintingPage = location.pathname.includes("/paintings/")
-  const paintingNameFromUrl = location.pathname.split("/")[2]
 
   const isOnHomePage = location.pathname === "/"
   return (
-    <DesktopNavStyles>
+    <DesktopNavStyles {...{ isOnSinglePaintingPage }}>
       <Link
         className="titleLink"
         to={"/"}
@@ -125,87 +117,42 @@ export default function DesktopNav({ handleNavigate }) {
         <h4>hyeran lee</h4>
       </Link>
 
-      {isOnSinglePaintingPage ? (
-        <SaatchiLink {...{ paintingNameFromUrl }} />
-      ) : (
-        <LinksUlStyles className="linksUl">
-          {[
-            {
-              type: "section",
-              text: "News",
-              url: "/news",
-            },
-            {
-              type: "section",
-              text: "Energy & Freedom",
-              url: "/",
-            },
-            {
-              type: "section",
-              text: "Artworks",
-              url: null,
-            },
-            {
-              type: "section",
-              text: "About",
-              url: "/about",
-            },
-          ].map(({ type, url, text, subSections }, idx) => (
-            <NavLink
-              key={url}
-              idx={idx}
-              type={type}
-              url={url}
-              text={text}
-              subSections={subSections}
-              handleNavigate={handleNavigate}
-            />
-          ))}
-        </LinksUlStyles>
-      )}
+      <LinksUlStyles className="linksUl">
+        {isOnSinglePaintingPage
+          ? null
+          : [
+              {
+                type: "section",
+                text: "News",
+                url: "/news",
+              },
+              {
+                type: "section",
+                text: "Energy & Freedom",
+                url: "/",
+              },
+              {
+                type: "section",
+                text: "Artworks",
+                url: null,
+              },
+              {
+                type: "section",
+                text: "About",
+                url: "/about",
+              },
+            ].map(({ type, url, text, subSections }, idx) => (
+              <NavLink
+                key={url}
+                idx={idx}
+                type={type}
+                url={url}
+                text={text}
+                subSections={subSections}
+                handleNavigate={handleNavigate}
+              />
+            ))}
+      </LinksUlStyles>
     </DesktopNavStyles>
   )
 }
-function SaatchiLink({ paintingNameFromUrl }) {
-  const { imagesDataArr } = useImagesQuery()
-  const paintingData = imagesDataArr.find((imageData) => {
-    return kebabCase(imageData.title) === kebabCase(paintingNameFromUrl)
-  })
-  const saatchiLink = paintingData ? paintingData.saatchiLink : null
-  return saatchiLink ? (
-    <SaatchiLinkStyles>
-      <a href={saatchiLink} target="_blank" rel="noopener noreferrer">
-        <li>Available on Saatchi Art</li>
-      </a>
-    </SaatchiLinkStyles>
-  ) : null
-}
-const SaatchiLinkStyles = styled.div`
-  display: flex;
-  margin-bottom: 0;
-  margin-left: auto;
-  margin-right: 12px;
-  @media (min-width: ${BREAKPOINTS.MOBILE}px) {
-    margin-right: 0;
-  }
-  width: fit-content;
-  a {
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    text-decoration: none;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.03);
-    color: black;
-    text-decoration: underline;
-    padding: 0.5rem;
-    margin: -0.5rem;
-    margin-top: 0.25rem;
-  }
-  li {
-    list-style-type: none;
-    padding: 4px;
-    margin-bottom: 0.3rem;
-
-    &:after {
-      background: hsl(0, 0%, 60%);
-    }
-  }
-`
