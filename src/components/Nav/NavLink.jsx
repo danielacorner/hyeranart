@@ -12,7 +12,7 @@ export function NavLink({ type, url, text, idx }) {
     (ccText === "artworks" && path.includes("/collections/"))
 
   return (
-    <li className={`${camelCase(text)}${isCurrent ? " active" : ""}`}>
+    <li className={`navLink ${camelCase(text)}${isCurrent ? " active" : ""}`}>
       {url ? (
         <TransitionLink
           // https://transitionlink.tylerbarnes.ca/docs/transitionlink/

@@ -9,6 +9,8 @@ import { CUBIC_BEZIER } from "../components/SplashPageCover"
 import { BREAKPOINTS } from "../utils/constants"
 import { graphql, useStaticQuery } from "gatsby"
 import loadable from "@loadable/component"
+import { IconButton } from "@material-ui/core"
+import { KeyboardArrowUp } from "@material-ui/icons"
 const NewsItemLoadable = loadable(() => import("../components/NewsItem"))
 
 const News = ({ transitionStatus }) => {
@@ -57,12 +59,50 @@ function NewsPageContent() {
       <h1>NEWS</h1>
       {newsNodes
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .map((node) => {
-          return <NewsItemLoadable key={node.title} {...node} />
+        .map((node, idx) => {
+          const last = idx === newsNodes.length - 1
+          return (
+            <>
+              <NewsItemLoadable key={node.title} {...node} />
+              {last ? (
+                <div style={{ height: "12em" }}>
+                  <BtnReturnToTop />
+                </div>
+              ) : (
+                <hr />
+              )}
+            </>
+          )
         })}
     </SecondPageStyles>
   )
 }
+
+function BtnReturnToTop() {
+  return (
+    <BtnReturnToTopStyles>
+      <IconButton
+        onClick={() => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          })
+        }}
+      >
+        <KeyboardArrowUp />
+      </IconButton>
+    </BtnReturnToTopStyles>
+  )
+}
+const BtnReturnToTopStyles = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
 
 const SecondPageStyles = styled.div`
   width: 90vw;
@@ -77,9 +117,12 @@ const SecondPageStyles = styled.div`
   h2 {
     margin-bottom: 0;
   }
+  hr {
+    margin-bottom: 2em;
+  }
   .dateStamp {
-    font-style: italic;
     font-size: 0.8em;
+    color: #999999;
   }
   .contentBody a {
     text-decoration: underline;

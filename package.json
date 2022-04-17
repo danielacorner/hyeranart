@@ -44,6 +44,7 @@
     "@babel/helper-compilation-targets": "^7.16.7",
     "eslint": "^8.6.0",
     "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.4.0",
     "prettier": "^2.5.1"
   },
   "resolutions": {

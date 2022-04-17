@@ -50,4 +50,9 @@ export const LinksUlStyles = styled.ul`
       pointer-events: none;
     }
   }
+  @media (min-width: 960px) {
+    li.navLink {
+      font-size: 1.25vw;
+    }
+  }
 `

@@ -88,7 +88,7 @@ const CollapseNavLink = ({ type, text, isCurrent }) => {
         onFocus={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         // onBlur={handleMouseLeave}
-        className="sectionLink"
+        className="sectionLink navLink"
       >
         <div>{text}</div>
         <div className={`subSectionsWrapper`}>
@@ -124,30 +124,32 @@ const CollapseLinkWrapperStyles = styled.div`
   cursor: pointer;
   .subSectionsWrapper {
     position: absolute;
-    padding: 0 0 0.75rem 0;
-    top: 40px;
-    @media (min-width: 1090px) {
-      top: 3em;
-    }
-    left: 0;
-    right: 0;
     z-index: 9999999;
+    padding: 0 0 0.75em 0;
+    display: flex;
+    justify-content: center;
+    width: 0;
+    left: 50%;
+    right: 50%;
+    top: 40px;
+    @media (min-width: 1200px) {
+      top: 2.5em;
+    }
     ul {
       margin: 0;
-      width: 168px;
-      margin-left: -33px;
+      width: fit-content;
       background: white;
       box-shadow: 0px 2px 6px #00000036;
-      padding: 0 0.5rem 0.5rem;
+      padding: 0 0.5em 0.5em;
     }
     pointer-events: ${(props) => (props.isExpanded ? "auto" : "none")};
     li {
       margin: auto;
-      padding: 0.5rem 0 0;
+      padding: 0.5em 0 0;
       a {
-        padding: 0.5rem 1rem;
-        margin: -0.5rem -1rem;
-        white-space: initial;
+        padding: 0.5em 1em;
+        margin: -0.5em -1em;
+        white-space: nowrap;
       }
     }
   }

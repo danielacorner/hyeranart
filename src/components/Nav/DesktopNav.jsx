@@ -149,7 +149,7 @@ const DesktopNavStyles = styled.div`
   }
   @media (min-width: ${BREAKPOINTS.DESKTOPSM}px) {
     .sectionLink li {
-      font-size: 1.35em;
+      font-size: 1.25vw;
     }
     h4 {
       font-size: 2.7em;
