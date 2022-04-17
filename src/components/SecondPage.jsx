@@ -31,9 +31,16 @@ export default () => {
       <div className="imageWrapper">
         <StaticImage
           src={"../../static/images/uploads/second-page (1).jpg"}
-          layout="fullWidth"
+          layout="constrained"
           placeholder="tracedSVG"
           alt={frontmatter.title}
+          width={958}
+          breakpoints={[360, 600, 756, 1000, 1376]}
+          sizes={`(max-width: 360px) calc(100vw - 3em),
+          (max-width: 600px) calc(100vw - 3em),
+          (max-width: 756px) calc(100vw - 6em),
+          (max-width: 1132px) 908px
+          `}
         />
       </div>
       <div className="contentWrapper">
@@ -94,7 +101,7 @@ const SecondPageStyles = styled.div`
   }
   h6 {
     font-size: 0.6em;
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
   }
   ul {
     margin: 0;
@@ -132,10 +139,10 @@ const SecondPageStyles = styled.div`
   ul.contactLinks {
     li {
       a {
-        padding: 0.5em;
+        padding: 1em 0.5em;
         margin: -0.5em;
       }
-      margin-bottom: 1em;
+      margin-bottom: 1.5em;
     }
   }
 `

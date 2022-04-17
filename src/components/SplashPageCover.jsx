@@ -7,7 +7,12 @@ const SplashPageCover = () => {
     <SplashPageStyles>
       <div className="imageWrapper">
         <StaticImage
-          breakpoints={[480, 750, 1080, 1366, 1920]}
+          breakpoints={[360, 480, 750, 1132]}
+          sizes={`(max-width: 360px) 80vw,
+          (max-width: 480px) 80vw,
+          (max-width: 750px) 80vw,
+          (max-width: 1132px) 908px
+          `}
           loading="eager"
           src={"../../static/images/uploads/life-is.jpg"}
           alt={""}

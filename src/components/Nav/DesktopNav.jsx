@@ -8,6 +8,68 @@ import { LinksUlStyles } from "./LinksUlStyles"
 
 export const DESKTOPNAV_WIDTH = 122
 
+export const SAATCHI_SECTION_LINK = {
+  type: "section",
+  text: "saatchiart",
+  url: "https://www.saatchiart.com/hyeran",
+  external: true,
+}
+
+export default function DesktopNav({ handleNavigate }) {
+  const { location } = globalHistory
+  const isOnSinglePaintingPage = location.pathname.includes("/paintings/")
+
+  const isOnHomePage = location.pathname === "/"
+  return (
+    <DesktopNavStyles {...{ isOnSinglePaintingPage }}>
+      <Link
+        className="titleLink"
+        to={"/"}
+        state={{ shouldReload: isOnHomePage, isInternal: true }}
+      >
+        <h4>hyeran lee</h4>
+      </Link>
+
+      <LinksUlStyles className="linksUl">
+        {isOnSinglePaintingPage
+          ? null
+          : [
+              {
+                type: "section",
+                text: "News",
+                url: "/news",
+              },
+              {
+                type: "section",
+                text: "Energy & Freedom",
+                url: "/",
+              },
+              {
+                type: "section",
+                text: "Artworks",
+                url: null,
+              },
+              {
+                type: "section",
+                text: "About",
+                url: "/about",
+              },
+            ].map(({ type, url, text, subSections }, idx) => (
+              <NavLink
+                key={url}
+                idx={idx}
+                type={type}
+                url={url}
+                text={text}
+                subSections={subSections}
+                handleNavigate={handleNavigate}
+              />
+            ))}
+      </LinksUlStyles>
+    </DesktopNavStyles>
+  )
+}
+
 const DesktopNavStyles = styled.div`
   height: fit-content;
   max-width: calc(980px + 30vw);
@@ -94,65 +156,3 @@ const DesktopNavStyles = styled.div`
     }
   }
 `
-
-export const SAATCHI_SECTION_LINK = {
-  type: "section",
-  text: "saatchiart",
-  url: "https://www.saatchiart.com/hyeran",
-  external: true,
-}
-
-export default function DesktopNav({ handleNavigate }) {
-  const { location } = globalHistory
-  const isOnSinglePaintingPage = location.pathname.includes("/paintings/")
-
-  const isOnHomePage = location.pathname === "/"
-  return (
-    <DesktopNavStyles {...{ isOnSinglePaintingPage }}>
-      <Link
-        className="titleLink"
-        to={"/"}
-        state={{ shouldReload: isOnHomePage, isInternal: true }}
-      >
-        <h4>hyeran lee</h4>
-      </Link>
-
-      <LinksUlStyles className="linksUl">
-        {isOnSinglePaintingPage
-          ? null
-          : [
-              {
-                type: "section",
-                text: "News",
-                url: "/news",
-              },
-              {
-                type: "section",
-                text: "Energy & Freedom",
-                url: "/",
-              },
-              {
-                type: "section",
-                text: "Artworks",
-                url: null,
-              },
-              {
-                type: "section",
-                text: "About",
-                url: "/about",
-              },
-            ].map(({ type, url, text, subSections }, idx) => (
-              <NavLink
-                key={url}
-                idx={idx}
-                type={type}
-                url={url}
-                text={text}
-                subSections={subSections}
-                handleNavigate={handleNavigate}
-              />
-            ))}
-      </LinksUlStyles>
-    </DesktopNavStyles>
-  )
-}

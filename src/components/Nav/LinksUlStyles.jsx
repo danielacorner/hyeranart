@@ -28,7 +28,10 @@ export const LinksUlStyles = styled.ul`
     padding: 4px;
     margin-bottom: 0.3rem;
     ${HOVER_UNDERLINE_CSS}
-
+    &.active {
+      ${UNDERLINE_ACTIVE_CSS}
+      color: #999999;
+    }
     &:after {
       background: hsl(0, 0%, 60%);
     }
@@ -37,10 +40,10 @@ export const LinksUlStyles = styled.ul`
     padding: 0.5rem;
     margin: -0.5rem;
     &:active,
-    &.current {
+    &.active {
       color: #999999;
     }
-    &.current {
+    &.active {
       li {
         ${UNDERLINE_ACTIVE_CSS}
       }

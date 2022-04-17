@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useEffect, useMemo } from "react"
 import { camelCase, kebabCase } from "lodash"
 import TransitionLink from "gatsby-plugin-transition-link"
 import styled from "styled-components/macro"
@@ -6,6 +6,112 @@ import { useSpring, animated } from "react-spring"
 import { useState } from "react"
 import { globalHistory } from "@reach/router"
 import { UNDERLINE_ACTIVE_CSS } from "../SplashPageCover"
+import { ClickAwayListener } from "@material-ui/core"
+
+const EXIT_DELAY = 0.5
+const ListItemLink = ({ type, isCurrent, title, onClick }) => (
+  <li className={`${camelCase(title)}${isCurrent ? " active" : ""}`}>
+    <TransitionLink
+      onClick={() => {
+        setTimeout(onClick, EXIT_DELAY * 1000)
+      }}
+      exit={{
+        length: EXIT_DELAY,
+      }}
+      entry={{
+        delay: 0.3,
+      }}
+      className={`${camelCase(title)} ${type}${isCurrent ? " active" : ""}`}
+      to={`/collections/${kebabCase(title)}`}
+      state={{
+        isInternal: true,
+      }}
+    >
+      {title}
+    </TransitionLink>
+  </li>
+)
+
+const CollapseNavLink = ({ type, text, isCurrent }) => {
+  // console.log(
+  //   "🌟🚨 ~ file: CollapseNavLink.jsx ~ line 80 ~ CollapseNavLink ~ collectionsDataArr",
+  //   collectionsDataArr
+  // )
+  const [isClicked, setIsClicked] = useState(false)
+  const [isMouseover, setIsMouseover] = useState(false)
+
+  const springCollapseExpand = useSpring({
+    opacity: isMouseover || isClicked ? 1 : 0,
+  })
+
+  const handleMouseEnter = () => {
+    setIsMouseover(true)
+  }
+  const handleMouseLeave = () => {
+    setIsMouseover(false)
+  }
+  const handleClick = () => {
+    setIsMouseover(true)
+    setIsClicked(true)
+  }
+  const handleClickAway = () => {
+    setIsMouseover(false)
+    setIsClicked(false)
+  }
+
+  const path = globalHistory.location.pathname
+  const collectionsSorted = useMemo(
+    () => COLLECTIONS_DATA_ARR.sort((a, b) => a.order - b.order),
+    [COLLECTIONS_DATA_ARR]
+  )
+
+  const isExpanded = isMouseover || isClicked
+  const ccText = camelCase(text)
+  useEffect(() => {
+    if (isCurrent) {
+      return
+    }
+    if (isClicked) {
+      document.querySelector(`li.${ccText}`)?.classList.add("active")
+    } else {
+      document.querySelector(`li.${ccText}`)?.classList.remove("active")
+    }
+  }, [isClicked, isCurrent])
+  return (
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <CollapseLinkWrapperStyles
+        isExpanded={isExpanded}
+        onClick={handleClick}
+        onPointerDown={handleClick}
+        onTouchStart={handleMouseEnter}
+        onMouseEnter={handleMouseEnter}
+        onFocus={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        // onBlur={handleMouseLeave}
+        className="sectionLink"
+      >
+        <div>{text}</div>
+        <div className={`subSectionsWrapper`}>
+          <animated.ul style={springCollapseExpand} onBlur={handleMouseLeave}>
+            {collectionsSorted.map(({ url, title }) => {
+              const isCurrent = `/collections/${kebabCase(title)}` === path
+              return (
+                <ListItemLink
+                  onClick={handleMouseLeave}
+                  key={title}
+                  isCurrent={isCurrent}
+                  title={title}
+                  type={type}
+                />
+              )
+            })}
+          </animated.ul>
+        </div>
+      </CollapseLinkWrapperStyles>
+    </ClickAwayListener>
+  )
+}
+export default CollapseNavLink
 
 const CollapseLinkWrapperStyles = styled.div`
   &&& {
@@ -15,7 +121,7 @@ const CollapseLinkWrapperStyles = styled.div`
     margin-bottom: -2rem;
   }
   position: relative;
-  cursor: default;
+  cursor: pointer;
   .subSectionsWrapper {
     position: absolute;
     padding: 0 0 0.75rem 0;
@@ -45,88 +151,14 @@ const CollapseLinkWrapperStyles = styled.div`
       }
     }
   }
-  li.current {
+  li.active {
     pointer-events: none;
     ${UNDERLINE_ACTIVE_CSS}
+    a {
+      color: #999999;
+    }
   }
 `
-const EXIT_DELAY = 0.5
-const ListItemLink = ({ type, isCurrent, title, onClick }) => (
-  <li className={`${camelCase(title)}${isCurrent ? " current" : ""}`}>
-    <TransitionLink
-      onClick={() => {
-        setTimeout(onClick, EXIT_DELAY * 1000)
-      }}
-      exit={{
-        length: EXIT_DELAY,
-      }}
-      entry={{
-        delay: 0.3,
-      }}
-      className={`${camelCase(title)} ${type}${isCurrent ? " current" : ""}`}
-      to={`/collections/${kebabCase(title)}`}
-      state={{
-        isInternal: true,
-      }}
-    >
-      {title}
-    </TransitionLink>
-  </li>
-)
-
-const CollapseNavLink = ({ type, text }) => {
-  // console.log(
-  //   "🌟🚨 ~ file: CollapseNavLink.jsx ~ line 80 ~ CollapseNavLink ~ collectionsDataArr",
-  //   collectionsDataArr
-  // )
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const springCollapseExpand = useSpring({ opacity: isExpanded ? 1 : 0 })
-
-  const handleMouseEnter = () => {
-    setIsExpanded(true)
-  }
-  const handleMouseLeave = () => {
-    setIsExpanded(false)
-  }
-  const path = globalHistory.location.pathname
-  const collectionsSorted = useMemo(
-    () => COLLECTIONS_DATA_ARR.sort((a, b) => a.order - b.order),
-    [COLLECTIONS_DATA_ARR]
-  )
-  return (
-    <CollapseLinkWrapperStyles
-      isExpanded={isExpanded}
-      onClick={handleMouseEnter}
-      onTouchStart={handleMouseEnter}
-      onMouseEnter={handleMouseEnter}
-      onFocus={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      // onBlur={handleMouseLeave}
-      className="sectionLink"
-    >
-      <li>{text}</li>
-      <div className={`subSectionsWrapper`}>
-        <animated.ul style={springCollapseExpand} onBlur={handleMouseLeave}>
-          {collectionsSorted.map(({ url, title }) => {
-            const isCurrent = `/collections/${kebabCase(title)}` === path
-            return (
-              <ListItemLink
-                onClick={handleMouseLeave}
-                key={title}
-                isCurrent={isCurrent}
-                title={title}
-                type={type}
-              />
-            )
-          })}
-        </animated.ul>
-      </div>
-    </CollapseLinkWrapperStyles>
-  )
-}
-export default CollapseNavLink
-
 const COLLECTIONS_DATA_ARR = [
   {
     title: "WORKS | 48 W +",

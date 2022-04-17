@@ -6,30 +6,35 @@ import CollapseNavLink from "./CollapseNavLink"
 
 export function NavLink({ type, url, text, idx }) {
   const path = globalHistory.location.pathname
-  const isCurrent = `${url}` === path && !url.includes("/paintings/")
+  const ccText = camelCase(text)
+  const isCurrent =
+    (`${url}` === path && !url.includes("/paintings/")) ||
+    (ccText === "artworks" && path.includes("/collections/"))
 
-  return url ? (
-    <TransitionLink
-      // https://transitionlink.tylerbarnes.ca/docs/transitionlink/
-      exit={{
-        length: 0.5,
-      }}
-      entry={
-        {
-          // delay: 0.5,
-        }
-      }
-      className={`sectionLink ${camelCase(text)} ${type}${
-        isCurrent ? " current" : ""
-      }`}
-      to={url}
-      state={{ isInternal: true }}
-    >
-      <li className={`${camelCase(text)}${isCurrent ? " current" : ""}`}>
-        {text}
-      </li>
-    </TransitionLink>
-  ) : (
-    <CollapseNavLink type={type} text={text} />
+  return (
+    <li className={`${camelCase(text)}${isCurrent ? " active" : ""}`}>
+      {url ? (
+        <TransitionLink
+          // https://transitionlink.tylerbarnes.ca/docs/transitionlink/
+          exit={{
+            length: 0.5,
+          }}
+          entry={
+            {
+              // delay: 0.5,
+            }
+          }
+          className={`sectionLink ${ccText} ${type}${
+            isCurrent ? " active" : ""
+          }`}
+          to={url}
+          state={{ isInternal: true }}
+        >
+          {text}
+        </TransitionLink>
+      ) : (
+        <CollapseNavLink {...{ type, text, isCurrent }} />
+      )}
+    </li>
   )
 }
