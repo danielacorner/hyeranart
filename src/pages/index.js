@@ -11,7 +11,7 @@ import { useMount } from "../utils/customHooks"
 import loadable from "@loadable/component"
 
 const LoadableAnimatedSecondPage = loadable(() =>
-  import("./AnimatedSecondPage")
+  import("../components/AnimatedSecondPage")
 )
 
 const Pages = ({ transitionStatus }) => {

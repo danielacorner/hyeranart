@@ -1,6 +1,6 @@
 import React from "react"
 import { animated } from "react-spring"
-import SecondPage from "../components/SecondPage"
+import SecondPage from "./SecondPage"
 import { useSpringTransitionLink } from "../utils/customHooks"
 
 export default function AnimatedSecondPage({ transitionStatus }) {
