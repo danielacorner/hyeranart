@@ -7,10 +7,14 @@ const SplashPageCover = () => {
     <SplashPageStyles>
       <div className="imageWrapper">
         <StaticImage
+          breakpoints={[480, 750, 1080, 1366, 1920]}
+          loading="eager"
           src={"../../static/images/uploads/life-is.jpg"}
           alt={""}
-          layout="fullWidth"
+          layout="constrained"
+          width={908}
           placeholder="tracedSVG"
+          // sizes="(min-width: 908px) 908px, 100vw"
         />
       </div>
       <div className="titleWrapper">
