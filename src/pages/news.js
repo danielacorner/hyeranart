@@ -79,7 +79,7 @@ function NewsItem({ title, Image, content, date }) {
         {Image?.includes("https") ? (
           <img src={Image} />
         ) : newsItemImage ? (
-          <GatsbyImage image={newsItemImage.fluid} />
+          <GatsbyImage image={newsItemImage.fluid} alt={""} />
         ) : null}
       </div>
       <div className="contentWrapper">
