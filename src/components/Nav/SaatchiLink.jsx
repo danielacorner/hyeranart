@@ -20,7 +20,7 @@ export default function SaatchiLink({ paintingNameFromUrl }) {
 }
 const SaatchiLinkStyles = styled.div`
   position: fixed;
-  top: 18px;
+  top: 54px;
   right: 20px;
   text-transform: uppercase;
   display: flex;

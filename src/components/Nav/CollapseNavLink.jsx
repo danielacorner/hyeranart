@@ -76,7 +76,7 @@ const CollapseNavLink = ({ type, text, isCurrent }) => {
     } else {
       document.querySelector(`li.${ccText}`)?.classList.remove("active")
     }
-  }, [isClicked, isCurrent])
+  }, [isClicked, isCurrent, ccText])
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <CollapseLinkWrapperStyles
@@ -140,12 +140,12 @@ const CollapseLinkWrapperStyles = styled.div`
       width: fit-content;
       background: white;
       box-shadow: 0px 2px 6px #00000036;
-      padding: 0 0.5em 0.5em;
+      padding: 0 1em 1em;
     }
     pointer-events: ${(props) => (props.isExpanded ? "auto" : "none")};
     li {
       margin: auto;
-      padding: 0.5em 0 0;
+      padding: 1em 0 0;
       a {
         padding: 0.5em 1em;
         margin: -0.5em -1em;

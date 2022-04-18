@@ -4,25 +4,29 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import Markdown from "markdown-to-jsx"
 import { useImagesQuery } from "../utils/queries"
 import { useMediaQuery } from "@material-ui/core"
+import styled from "styled-components"
 
 export default function NewsItem({ title, Image, content, date }) {
-  console.log("🌟🚨 ~ file: NewsItem.js ~ line 9 ~ NewsItem ~ title", title)
-  console.log("🌟🚨 ~ file: NewsItem.js ~ line 9 ~ NewsItem ~ Image", Image)
+  console.log("🌟🚨 ~ file: NewsItem.js ~ line 10 ~ NewsItem ~ Image", Image)
   const { imagesDataArr, imagesDataArrMobile } = useImagesQuery()
   const isMobileOrLarger = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px)`)
   const newsItemImage = (
     isMobileOrLarger ? imagesDataArr : imagesDataArrMobile
   ).find((node) => node.Image === Image)
 
+  console.log(
+    "🌟🚨 ~ file: NewsItem.js ~ line 24 ~ NewsItem ~ newsItemImage.fluid",
+    newsItemImage.fluid
+  )
   return (
     <>
-      <div className="imageWrapper">
+      <NewsItemImageStyles className="imageWrapper">
         {Image?.includes("https") ? (
           <img src={Image} />
         ) : newsItemImage ? (
           <GatsbyImage image={newsItemImage.fluid} alt={""} />
         ) : null}
-      </div>
+      </NewsItemImageStyles>
       <div className="contentWrapper">
         <h2>{title}</h2>
         <div className="dateStamp">{formatDate(date)}</div>
@@ -37,3 +41,4 @@ function formatDate(dateString) {
   const date = new Date(dateString)
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 }
+const NewsItemImageStyles = styled.div``
