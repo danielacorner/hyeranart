@@ -12,14 +12,15 @@ content: >-
 
 
 
-  \*Featured in the New This Week Collection on Saatchi Art’s homepage. 
+  https://www.saatchiart.com/art-collection/photography-painting-printmaking-drawing-new-media-collage-sculpture/New-This-Week-03-07-2022/153961/657649/view
 
-
-  https://www.saatchiart.com/art-collection/photography-painting-printmaking-drawing-new-media-collage-sculpture/New-This-Week-03-07-2022/153961/657649/view\
 
   \
 
-  *Featured in "Best of March 2022" Collection on Saatchi Art’s homepage.\
+  *Featured in "Best of March 2022" Collection on Saatchi Art’s homepage.
+
+
+  \
 
   https://www.saatchiart.com/art-collection/Best-of-March/153961/662373/view
 ---
