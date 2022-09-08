@@ -6,13 +6,7 @@ content: >-
   # Shop by Price: $5,000+
 
 
-  Invest in a new original painting, sculpture, photograph, or collage in this curated selection of works by our bestselling artists.
-
-
-  53 Artworks curated by [Megan Wright](https://www.saatchiart.com/account/profile/1012074 "View profile of Megan Wright")
-
-
-  Senior Curator at Saatchi Art
+  It has been selected  by [Megan Wright](https://www.saatchiart.com/account/profile/1012074 "View profile of Megan Wright"), Senior Curator at Saatchi Art
 
 
   https://www.saatchiart.com/art-collection/painting-sculpture-drawing-photography-collage/Shop-by-Price-5-000/1012074/677157/view
