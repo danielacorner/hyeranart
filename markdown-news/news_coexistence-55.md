@@ -3,7 +3,7 @@ Image: images/uploads/img_8468-3.jpg
 title: Coexistence 55
 date: 2022-11-03T19:16:07.942Z
 content: >-
-  "﻿Coexistence 55" has been featured 'New This Week', Nov 24, 2022' collections
+  "﻿Coexistence 55" has been featured 'New This Week', Nov 7, 2022' collections
   on Saatchi Art's home page.
 
 
