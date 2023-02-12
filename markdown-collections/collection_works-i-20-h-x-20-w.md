@@ -1,6 +1,7 @@
 ---
 title: WORKS I 16 H X 16 W
 visible: true
+order: 9
 images:
   - Image: The Beauty 2
   - Image: The Beauty 3
