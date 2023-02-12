@@ -1,5 +1,5 @@
 ---
-title: WORKS I 20 H X 20 W
+title: WORKS I 16 H X 16 W
 visible: true
 images:
   - Image: The Beauty 2
