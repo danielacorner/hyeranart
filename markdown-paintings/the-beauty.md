@@ -1,6 +1,6 @@
 ---
 Image: images/uploads/img_8874-4.jpg
-title: The Beauty
+title: The Beauty 3
 height: 16
 width: 16
 depth: 1.5
