@@ -19,7 +19,7 @@ const SplashPageCover = () => {
           layout="constrained"
           width={908}
           placeholder="tracedSVG"
-          // sizes="(min-width: 908px) 908px, 100vw"
+        // sizes="(min-width: 908px) 908px, 100vw"
         />
       </div>
       <div className="titleWrapper">
@@ -95,6 +95,8 @@ const SplashPageStyles = styled.div`
     width: 80vw;
     max-width: min(100vw, 1024px);
     max-width: 90vh;
+    display: flex;
+    justify-content: center;
     height: auto;
   }
   .titleWrapper {
