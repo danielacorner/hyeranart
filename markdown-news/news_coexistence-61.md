@@ -17,8 +17,6 @@ content: >-
 
 
 
-  \
-
   Saatchi Art Collections - Women Abstract Expressionists Inspired by Elaine de Kooning
 
 
