@@ -3,10 +3,8 @@ Image: images/uploads/img_9025-3.jpg
 title: Coexistence 61
 date: 2023-03-12T18:39:28.391Z
 content: >-
-  \*Saatchi Art Collections - Art for Wellness
+  Saatchi Art Collections - Art for Wellness
 
-
-  \
 
   "Art is known for its therapeutic benefits—boosting mood, relieving stress, and even improving memory. Embrace these healing properties with a soothing abstract painting or comforting fiber art sculpture from this curator-approved collection."
 
@@ -21,7 +19,7 @@ content: >-
 
   \
 
-  *Saatchi Art Collections - Women Abstract Expressionists Inspired by Elaine de Kooning
+  Saatchi Art Collections - Women Abstract Expressionists Inspired by Elaine de Kooning
 
 
   "Elaine de Kooning challenged the male-dominated art world of the mid-twentieth century with her enduring contributions to Abstract Expressionism. Explore the next generation of women artists using gestural brushstrokes and powerful forms influenced by her legacy."
