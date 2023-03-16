@@ -15,8 +15,6 @@ content: >-
   https://www.saatchiart.com/art-collection/photography-painting-installation-sculpture-mixed-media-collage-drawing-printmaking/Art-for-Wellness/1754780/720277/view
 
 
-
-
   Saatchi Art Collections - Women Abstract Expressionists Inspired by Elaine de Kooning
 
 
@@ -27,4 +25,15 @@ content: >-
 
 
   https://www.saatchiart.com/art-collection/painting/Women-Abstract-Expressionists-Inspired-by-Elaine-de-Kooning/1586325/721089/view
+
+
+
+
+  Saatchi Art Collections - New This Week
+
+
+  "Coexistence  61" has been chosen to be featured in the upcoming New This Week Collection on Saatchi Art’s homepage. The feature will go live on Monday, March 20th, 2023.
+
+
+  [https://www.saatchiart.com/​art-collection/New-This-Week-​03-20-2023/153961/722571/view](https://www.saatchiart.com/art-collection/New-This-Week-03-20-2023/153961/722571/view)
 ---
