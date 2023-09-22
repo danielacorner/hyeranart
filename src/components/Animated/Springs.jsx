@@ -1,6 +1,6 @@
 import React from "react"
 import { useSpring, animated } from "react-spring/web.cjs" // web.cjs is required for IE 11 support
-import { useMediaQuery } from "@material-ui/core"
+import { useMediaQuery } from "@mui/material"
 import { BREAKPOINTS } from "../../utils/constants"
 
 // https://material-ui.com/components/modal/
@@ -25,15 +25,13 @@ export const SpringInOut = React.forwardRef((props, ref) => {
   const springScaleInOut = useSpring({
     from: {
       opacity: 0,
-      transform: `scale(${
-        scaleForMaxWidth * 0.8
-      }) translateY(${TRANSLATE_UP_PX}px)`,
+      transform: `scale(${scaleForMaxWidth * 0.8
+        }) translateY(${TRANSLATE_UP_PX}px)`,
     },
     to: {
       opacity: open ? 1 : 0,
-      transform: `scale(${scaleForMaxWidth * (open ? 1 : 0.8)}) translateY(${
-        open ? 0 : TRANSLATE_UP_PX
-      }px)`,
+      transform: `scale(${scaleForMaxWidth * (open ? 1 : 0.8)}) translateY(${open ? 0 : TRANSLATE_UP_PX
+        }px)`,
     },
     onStart: () => {
       if (open && onEnter) {

@@ -1,5 +1,5 @@
 import React from "react"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import { useImagesQuery } from "../../utils/queries"
 import { BREAKPOINTS } from "../../utils/constants"
 import { kebabCase } from "lodash"

@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react"
-import Layout from "../components/Layout"
-import SEO from "../components/seo"
+import React, { useState, useEffect, lazy } from "react"
+
+import { SEO } from "../components/seo"
 import SplashPageCover, {
   SplashPageWrapperStyles,
 } from "../components/SplashPageCover"
 import { animated, useSpring } from "react-spring"
-import { Portal } from "@material-ui/core"
+import { Portal } from "@mui/material"
 import { globalHistory } from "@reach/router"
 import { useMount } from "../utils/customHooks"
-import loadable from "@loadable/component"
 
-const LoadableAnimatedSecondPage = loadable(() =>
+export const Head = () => (
+  <SEO />
+)
+
+const LoadableAnimatedSecondPage = lazy(() =>
   import("../components/AnimatedSecondPage")
 )
 
@@ -70,7 +73,7 @@ const Pages = ({ transitionStatus }) => {
   }, 1)
 
   return (
-    <Layout isSplashPageClicked={isSplashPageClicked}>
+    <>
       <SEO title="Home" />
       {ready && (
         <LoadableAnimatedSecondPage transitionStatus={transitionStatus} />
@@ -88,7 +91,7 @@ const Pages = ({ transitionStatus }) => {
           </animated.div>
         </SplashPageWrapperStyles>
       </Portal>
-    </Layout>
+    </>
   )
 }
 export default Pages

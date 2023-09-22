@@ -5,15 +5,15 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { useState } from "react"
+import React, { lazy, useState } from "react"
 import PropTypes from "prop-types"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import "./layout.css"
-import loadable from "@loadable/component"
-import { useMount } from "../utils/customHooks"
 import { globalHistory } from "@reach/router"
+import { Transition } from "react-transition-group"
+import { useMount } from "../utils/customHooks"
 
-const DesktopNavLoadable = loadable(() => import("./Nav/DesktopNav"))
+const DesktopNavLoadable = lazy(() => import("../components/Nav/DesktopNav"))
 
 const LayoutStyles = styled.div`
   margin: 0 auto;
@@ -42,14 +42,16 @@ const Layout = ({ children, isSplashPageClicked = true }) => {
   const showNav =
     isSplashPageClicked && !location.pathname.includes("/paintings/")
   return (
-    <LayoutStyles {...{ isSplashPageClicked, showNav }}>
-      <div className="navigationWrapper">
-        <MountLater>
-          <DesktopNavLoadable />
-        </MountLater>
-      </div>
-      <main>{children}</main>
-    </LayoutStyles>
+    <Transition location={location}>
+      <LayoutStyles {...{ isSplashPageClicked, showNav }}>
+        <div className="navigationWrapper">
+          <MountLater>
+            <DesktopNavLoadable />
+          </MountLater>
+        </div>
+        <main>{children}</main>
+      </LayoutStyles>
+    </Transition>
   )
 }
 
@@ -58,6 +60,7 @@ Layout.propTypes = {
 }
 
 export default Layout
+
 function MountLater({ children, delay = 1 }) {
   const [mounted, setMounted] = useState(false)
   useMount(() => {

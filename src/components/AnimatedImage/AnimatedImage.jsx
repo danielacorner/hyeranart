@@ -1,6 +1,6 @@
 import React from "react"
 import { AnimatedImageContent } from "./AnimatedImageContent"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import { Link } from "gatsby"
 import { kebabCase } from "lodash"
 

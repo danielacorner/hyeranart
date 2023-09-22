@@ -3,9 +3,10 @@ import React from "react"
 import MasonryGrid from "./MasonryGrid"
 import { useImagesQuery } from "../../utils/queries"
 import { useState } from "react"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import Pagination from "../Pagination"
-import SwipeableViews from "react-swipeable-views"
+// TODO
+// import SwipeableViews from "react-swipeable-views-fix"
 
 const GalleryStyles = styled.div`
   height: 100%;
@@ -73,7 +74,8 @@ export default () => {
           handleNext={handleNext}
         />
       </div>
-      <SwipeableViews
+      {/* TODO */}
+      {/* <SwipeableViews
         // slideStyle={{maxHeight:'200vh'}}
         className="swipeable"
         index={currentPageIdx}
@@ -86,7 +88,7 @@ export default () => {
             <MasonryGrid imagesDataArr={imageSpreads[idx]} />
           </div>
         ))}
-      </SwipeableViews>
+      </SwipeableViews> */}
       <div className="pagination-bottom">
         <Pagination
           setCurrentPageIdx={setCurrentPageIdx}

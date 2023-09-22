@@ -1,9 +1,9 @@
 import React, { useEffect } from "react"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 
-import { IconButton } from "@material-ui/core"
-import ForwardIcon from "@material-ui/icons/ArrowForwardIos"
-import MobileStepper from "@material-ui/core/MobileStepper"
+import { IconButton } from "@mui/material"
+import ForwardIcon from "@mui/icons-material/ArrowForwardIos"
+import MobileStepper from "@mui/material/MobileStepper"
 
 const PaginationStyles = styled.div`
   display: flex;

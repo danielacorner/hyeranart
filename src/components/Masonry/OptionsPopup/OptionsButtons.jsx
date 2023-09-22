@@ -1,6 +1,6 @@
 import React from "react"
-import { Fab, Tooltip } from "@material-ui/core"
-import ZoomIcon from "@material-ui/icons/ZoomIn"
+import { Fab, Tooltip } from "@mui/material"
+import ZoomIcon from "@mui/icons-material/ZoomIn"
 import SALogo from "./SALogo"
 
 const CommentsIcon = () => (

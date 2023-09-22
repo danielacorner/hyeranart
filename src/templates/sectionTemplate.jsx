@@ -1,7 +1,7 @@
 import React from "react"
-import Layout from "../components/Layout"
-import styled from "styled-components"
-import { useMediaQuery } from "@material-ui/core"
+
+import styled from "@emotion/styled"
+import { useMediaQuery } from "@mui/material"
 import { BREAKPOINTS } from "../utils/constants"
 import { animated } from "react-spring"
 import { useSpringTransitionLink } from "../utils/customHooks"
@@ -32,7 +32,7 @@ export default function Template({ pageContext, transitionStatus }) {
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
 
   return (
-    <Layout>
+    <>
       <animated.div style={springTransitionLink}>
         <SectionStyles>
           <div
@@ -57,6 +57,6 @@ export default function Template({ pageContext, transitionStatus }) {
           />
         </SectionStyles>
       </animated.div>
-    </Layout>
+    </>
   )
 }

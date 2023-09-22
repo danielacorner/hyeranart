@@ -1,9 +1,9 @@
 import React from "react"
-import Layout from "../components/Layout"
-import styled from "styled-components"
+
+import styled from "@emotion/styled"
 import MasonryGrid from "../components/Masonry/MasonryGrid"
 import { useImagesQuery } from "../utils/queries"
-import { useMediaQuery } from "@material-ui/core"
+import { useMediaQuery } from "@mui/material"
 import { BREAKPOINTS } from "../utils/constants"
 import { animated } from "react-spring"
 import { useSpringTransitionLink } from "../utils/customHooks"
@@ -57,7 +57,7 @@ export default function Template({ pageContext, transitionStatus, ...rest }) {
   const isGridLayout = useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILELG}px)`)
 
   return (
-    <Layout>
+    <>
       <CollectionStyles isGridLayout={isGridLayout}>
         <animated.div style={springTransitionLink}>
           {/* <DescriptionAndInfo
@@ -71,7 +71,7 @@ export default function Template({ pageContext, transitionStatus, ...rest }) {
           </div>
         </animated.div>
       </CollectionStyles>
-    </Layout>
+    </>
   )
 }
 

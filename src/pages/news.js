@@ -1,28 +1,28 @@
-import React from "react"
+import React, { lazy } from "react"
 
-import Layout from "../components/Layout"
-import SEO from "../components/seo"
+
+import { SEO } from "../components/seo"
 import { animated } from "react-spring"
 import { useSpringTransitionLink } from "../utils/customHooks"
 import styled from "styled-components/macro"
 import { CUBIC_BEZIER } from "../components/SplashPageCover"
 import { BREAKPOINTS } from "../utils/constants"
 import { graphql, useStaticQuery } from "gatsby"
-import loadable from "@loadable/component"
-import { IconButton } from "@material-ui/core"
-import { KeyboardArrowUp } from "@material-ui/icons"
-const NewsItemLoadable = loadable(() => import("../components/NewsItem"))
+import { IconButton } from "@mui/material"
+import { KeyboardArrowUp } from "@mui/icons-material"
+
+const NewsItemLoadable = lazy(() => import("../components/NewsItem"))
 
 const News = ({ transitionStatus }) => {
   const springTransitionLink = useSpringTransitionLink(transitionStatus)
 
   return (
-    <Layout>
+    <>
       <SEO title="News" />
       <animated.div style={springTransitionLink}>
         <NewsPageContent />
       </animated.div>
-    </Layout>
+    </>
   )
 }
 export default News
@@ -197,3 +197,5 @@ const SecondPageStyles = styled.div`
     margin-right: auto;
   }
 `
+
+export { Head } from "./index"
