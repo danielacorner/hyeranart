@@ -1,8 +1,8 @@
 import React from "react"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import AnimatedImage from "../AnimatedImage/AnimatedImage"
 import { BREAKPOINTS } from "../../utils/constants"
-import { useMediaQuery } from "@material-ui/core"
+import { useMediaQuery } from "@mui/material"
 
 const GRID_SIZE = 16
 const GRID_GAP = 16 * 5

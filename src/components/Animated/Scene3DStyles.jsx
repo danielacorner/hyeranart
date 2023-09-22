@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "@emotion/styled"
 const CANVAS_BORDER_COLOR = "hsl(0,0%,80%)"
 
 export const Scene3DCanvasStyles = styled.div`

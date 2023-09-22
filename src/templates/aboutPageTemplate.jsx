@@ -19,7 +19,7 @@ const AboutPage = () => {
       }
       allMarkdownRemark(
         filter: { fileAbsolutePath: { regex: "/about-subsection.+/" } }
-        sort: { order: ASC, fields: frontmatter___order }
+        sort: { frontmatter: { order: ASC } }
       ) {
         nodes {
           frontmatter {
@@ -43,19 +43,6 @@ const AboutPage = () => {
           )
         }
       }
-      # allFile(filter: { absolutePath: { regex: "/about-subsection.+/" } }) {
-      #   edges {
-      #     node {
-      #       childImageSharp {
-      #         gatsbyImageData(
-      #           quality: 100
-      #           placeholder: TRACED_SVG
-      #           layout: FULL_WIDTH
-      #         )
-      #       }
-      #     }
-      #   }
-      # }
     }
   `)
   const { frontmatter, html } = data.markdownRemark

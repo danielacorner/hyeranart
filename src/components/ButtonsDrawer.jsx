@@ -1,8 +1,8 @@
 import React from "react"
-import { Drawer, Button } from "@material-ui/core"
-import styled from "styled-components"
+import { Drawer, Button } from "@mui/material"
+import styled from "@emotion/styled"
 import SALogo from "./Masonry/OptionsPopup/SALogo"
-import ZoomIcon from "@material-ui/icons/ZoomIn"
+import ZoomIcon from "@mui/icons-material/ZoomIn"
 import PaintingMetadata from "./Masonry/PaintingMetadata"
 import { BREAKPOINTS } from "../utils/constants"
 

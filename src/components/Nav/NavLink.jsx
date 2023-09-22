@@ -1,8 +1,9 @@
 import React from "react"
 import { camelCase } from "lodash"
 import { globalHistory } from "@reach/router"
-import TransitionLink from "gatsby-plugin-transition-link"
 import CollapseNavLink from "./CollapseNavLink"
+import { Link } from "gatsby"
+import { CSSTransition } from "react-transition-group"
 
 export function NavLink({ type, url, text, idx }) {
   const path = globalHistory.location.pathname
@@ -14,24 +15,19 @@ export function NavLink({ type, url, text, idx }) {
   return (
     <li className={`navLink ${camelCase(text)}${isCurrent ? " active" : ""}`}>
       {url ? (
-        <TransitionLink
-          // https://transitionlink.tylerbarnes.ca/docs/transitionlink/
-          exit={{
-            length: 0.5,
-          }}
-          entry={
-            {
-              // delay: 0.5,
-            }
-          }
-          className={`sectionLink ${ccText} ${type}${
-            isCurrent ? " active" : ""
-          }`}
-          to={url}
-          state={{ isInternal: true }}
-        >
-          {text}
-        </TransitionLink>
+        <CSSTransition classNames="page-transition" timeout={500}>
+          <Link
+            to={url}
+            state={{
+              isInternal: true,
+            }}
+            className={`sectionLink ${ccText} ${type}${
+              isCurrent ? " active" : ""
+            }`}
+          >
+            {text}
+          </Link>
+        </CSSTransition>
       ) : (
         <CollapseNavLink {...{ type, text, isCurrent }} />
       )}

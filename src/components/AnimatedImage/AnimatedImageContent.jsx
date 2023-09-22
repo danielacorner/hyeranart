@@ -1,6 +1,6 @@
 import React from "react"
 import { GatsbyImage } from "gatsby-plugin-image"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import { Scene3DCanvasStyles } from "../Animated/Scene3DStyles"
 import PaintingMetadata from "../Masonry/PaintingMetadata"
 

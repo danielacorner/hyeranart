@@ -1,17 +1,14 @@
-import React from "react"
-import Layout from "../components/Layout"
-import styled from "styled-components"
+import { React, lazy } from "react"
+
+import styled from "@emotion/styled"
 import { useImagesQuery } from "../utils/queries"
-import { useMediaQuery } from "@material-ui/core"
+import { useMediaQuery } from "@mui/material"
 import { BREAKPOINTS } from "../utils/constants"
 import { GatsbyImage } from "gatsby-plugin-image"
 import { animated } from "react-spring"
 import { useSpringTransitionLink } from "../utils/customHooks"
 import { globalHistory } from "@reach/router"
-import loadable from "@loadable/component"
-const SaatchiLinkLoadable = loadable(() =>
-  import("../components/Nav/SaatchiLink")
-)
+const SaatchiLinkLoadable = lazy(() => import("../components/Nav/SaatchiLink"))
 
 const SinglePaintingPageStyles = styled.div`
   padding: 35px;
@@ -70,7 +67,7 @@ export default function Template({ pageContext, transitionStatus }) {
 
   const paintingNameFromUrl = location.pathname.split("/")[2]
   return !imageOnThisPage ? null : (
-    <Layout>
+    <>
       {paintingNameFromUrl ? (
         <SaatchiLinkLoadable {...{ paintingNameFromUrl }} />
       ) : null}
@@ -84,6 +81,6 @@ export default function Template({ pageContext, transitionStatus }) {
           </div>
         </SinglePaintingPageStyles>
       </animated.div>
-    </Layout>
+    </>
   )
 }

@@ -1,7 +1,7 @@
 import React from "react"
 import { GatsbyImage } from "gatsby-plugin-image"
 import { useImagesQuery } from "../utils/queries"
-import { useMediaQuery } from "@material-ui/core"
+import { useMediaQuery } from "@mui/material"
 import { BREAKPOINTS } from "../utils/constants"
 
 export function AboutSubsections({ subsections }) {

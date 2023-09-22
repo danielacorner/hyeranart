@@ -1,34 +1,32 @@
 import React, { useEffect, useMemo } from "react"
 import { camelCase, kebabCase } from "lodash"
-import TransitionLink from "gatsby-plugin-transition-link"
+
+import { Link } from "gatsby"
+import { CSSTransition } from "react-transition-group"
 import styled from "styled-components/macro"
 import { useSpring, animated } from "react-spring"
 import { useState } from "react"
 import { globalHistory } from "@reach/router"
 import { UNDERLINE_ACTIVE_CSS } from "../SplashPageCover"
-import { ClickAwayListener } from "@material-ui/core"
+import { ClickAwayListener } from "@mui/material"
 
 const EXIT_DELAY = 0.5
 const ListItemLink = ({ type, isCurrent, title, onClick }) => (
   <li className={`${camelCase(title)}${isCurrent ? " active" : ""}`}>
-    <TransitionLink
-      onClick={() => {
-        setTimeout(onClick, EXIT_DELAY * 1000)
-      }}
-      exit={{
-        length: EXIT_DELAY,
-      }}
-      entry={{
-        delay: 0.3,
-      }}
-      className={`${camelCase(title)} ${type}${isCurrent ? " active" : ""}`}
-      to={`/collections/${kebabCase(title)}`}
-      state={{
-        isInternal: true,
-      }}
-    >
-      {title}
-    </TransitionLink>
+    <CSSTransition classNames="page-transition" timeout={500}>
+      <Link
+        onClick={() => {
+          setTimeout(onClick, EXIT_DELAY * 1000)
+        }}
+        to={`/collections/${kebabCase(title)}`}
+        state={{
+          isInternal: true,
+        }}
+        className={`${camelCase(title)} ${type}${isCurrent ? " active" : ""}`}
+      >
+        {title}
+      </Link>
+    </CSSTransition>
   </li>
 )
 

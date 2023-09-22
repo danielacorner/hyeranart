@@ -3,8 +3,8 @@ import { BREAKPOINTS } from "../utils/constants"
 import { GatsbyImage } from "gatsby-plugin-image"
 import Markdown from "markdown-to-jsx"
 import { useImagesQuery } from "../utils/queries"
-import { useMediaQuery } from "@material-ui/core"
-import styled from "styled-components"
+import { useMediaQuery } from "@mui/material"
+import styled from "@emotion/styled"
 
 export default function NewsItem({ title, Image, content, date }) {
   console.log("🌟🚨 ~ file: NewsItem.js ~ line 10 ~ NewsItem ~ Image", Image)

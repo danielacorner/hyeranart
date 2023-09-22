@@ -1,6 +1,6 @@
 import React from "react"
 import { useTransition, animated } from "react-spring"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import { SeeInARoomButton, ZoomButton, CommentsButton } from "./OptionsButtons"
 import { SCALE_ON_HOVER } from "../../AnimatedImage/AnimatedImage"
 

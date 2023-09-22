@@ -1,5 +1,5 @@
 import React from "react"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import { StaticImage } from "gatsby-plugin-image"
 
 const SplashPageCover = () => {
@@ -19,7 +19,7 @@ const SplashPageCover = () => {
           layout="constrained"
           width={908}
           placeholder="tracedSVG"
-        // sizes="(min-width: 908px) 908px, 100vw"
+          // sizes="(min-width: 908px) 908px, 100vw"
         />
       </div>
       <div className="titleWrapper">
