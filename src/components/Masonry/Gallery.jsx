@@ -5,8 +5,8 @@ import { useImagesQuery } from "../../utils/queries"
 import { useState } from "react"
 import styled from "@emotion/styled"
 import Pagination from "../Pagination"
-// TODO
-// import SwipeableViews from "react-swipeable-views-fix"
+import SwipeableViews from "react-swipeable-views-react-18-fix"
+import { CSSTransition } from "react-transition-group"
 
 const GalleryStyles = styled.div`
   height: 100%;
@@ -75,7 +75,7 @@ export default () => {
         />
       </div>
       {/* TODO */}
-      {/* <SwipeableViews
+      <SwipeableViews
         // slideStyle={{maxHeight:'200vh'}}
         className="swipeable"
         index={currentPageIdx}
@@ -85,10 +85,12 @@ export default () => {
       >
         {allPagesNums.map((idx) => (
           <div key={idx} className={`swipeable-slide slide-${idx}`}>
-            <MasonryGrid imagesDataArr={imageSpreads[idx]} />
+            <CSSTransition classNames="page-transition" timeout={500}>
+              <MasonryGrid imagesDataArr={imageSpreads[idx]} />
+            </CSSTransition>
           </div>
         ))}
-      </SwipeableViews> */}
+      </SwipeableViews>
       <div className="pagination-bottom">
         <Pagination
           setCurrentPageIdx={setCurrentPageIdx}

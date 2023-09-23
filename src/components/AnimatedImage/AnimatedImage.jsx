@@ -1,9 +1,9 @@
 import React from "react"
 import { AnimatedImageContent } from "./AnimatedImageContent"
 import styled from "@emotion/styled"
-import { Link } from "gatsby"
 import { kebabCase } from "lodash"
-
+import TransitionLink from "gatsby-plugin-transition-link"
+import { camelCase } from "lodash"
 export const SCALE_ON_HOVER = 1.04
 
 const AnimatedImageStyles = styled.div`
@@ -24,6 +24,8 @@ const AnimatedImageStyles = styled.div`
     border-radius: 999px;
   }
 `
+
+const EXIT_DELAY = 0.5
 
 const AnimatedImage = ({
   title,
@@ -55,7 +57,16 @@ const AnimatedImage = ({
 
   return (
     <AnimatedImageStyles>
-      <Link to={`/paintings/${kebabCase(title)}`}>
+      <TransitionLink
+        // onClick={() => {
+        //   setTimeout(onClick, EXIT_DELAY * 1000)
+        // }}
+        to={`/paintings/${kebabCase(title)}`}
+        state={{
+          isInternal: true,
+        }}
+        className={`${camelCase(title)}`}
+      >
         <AnimatedImageContent
           width={width}
           height={height}
@@ -65,7 +76,7 @@ const AnimatedImage = ({
           metadata={metadata}
         />
         {isSold && <div className="isSold">SOLD</div>}
-      </Link>
+      </TransitionLink>
     </AnimatedImageStyles>
   )
 }

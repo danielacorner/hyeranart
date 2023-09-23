@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react"
 import { camelCase, kebabCase } from "lodash"
 
-import { Link } from "gatsby"
+// import { Link } from "gatsby"
 import { CSSTransition } from "react-transition-group"
 import styled from "styled-components/macro"
 import { useSpring, animated } from "react-spring"
@@ -9,26 +9,29 @@ import { useState } from "react"
 import { globalHistory } from "@reach/router"
 import { UNDERLINE_ACTIVE_CSS } from "../SplashPageCover"
 import { ClickAwayListener } from "@mui/material"
+import TransitionLink from "gatsby-plugin-transition-link"
 
 const EXIT_DELAY = 0.5
-const ListItemLink = ({ type, isCurrent, title, onClick }) => (
-  <li className={`${camelCase(title)}${isCurrent ? " active" : ""}`}>
-    <CSSTransition classNames="page-transition" timeout={500}>
-      <Link
-        onClick={() => {
-          setTimeout(onClick, EXIT_DELAY * 1000)
-        }}
-        to={`/collections/${kebabCase(title)}`}
-        state={{
-          isInternal: true,
-        }}
-        className={`${camelCase(title)} ${type}${isCurrent ? " active" : ""}`}
-      >
-        {title}
-      </Link>
-    </CSSTransition>
-  </li>
-)
+const ListItemLink = ({ type, isCurrent, title, onClick }) => {
+  return (
+    <li className={`${camelCase(title)}${isCurrent ? " active" : ""}`}>
+      <CSSTransition classNames="page-transition" timeout={500}>
+        <TransitionLink
+          onClick={() => {
+            setTimeout(onClick, EXIT_DELAY * 1000)
+          }}
+          to={`/collections/${kebabCase(title)}`}
+          state={{
+            isInternal: true,
+          }}
+          className={`${camelCase(title)} ${type}${isCurrent ? " active" : ""}`}
+        >
+          {title}
+        </TransitionLink>
+      </CSSTransition>
+    </li>
+  )
+}
 
 const CollapseNavLink = ({ type, text, isCurrent }) => {
   // console.log(
@@ -92,7 +95,18 @@ const CollapseNavLink = ({ type, text, isCurrent }) => {
         <div className={`subSectionsWrapper`}>
           <animated.ul style={springCollapseExpand} onBlur={handleMouseLeave}>
             {collectionsSorted.map(({ url, title }) => {
-              const isCurrent = `/collections/${kebabCase(title)}` === path
+              const isCurrent = [
+                `/collections/${kebabCase(title)}`,
+                `/collections/${kebabCase(title)}/`,
+              ].includes(path)
+              console.log(
+                "⭐🎈  file: CollapseNavLink.jsx:100  {collectionsSorted.map  path:",
+                path
+              )
+              console.log(
+                "⭐🎈  file: CollapseNavLink.jsx:100  {collectionsSorted.map  kebabCase(title):",
+                kebabCase(title)
+              )
               return (
                 <ListItemLink
                   onClick={handleMouseLeave}
