@@ -42,7 +42,7 @@ const Layout = ({ children, isSplashPageClicked = true }) => {
   const showNav =
     isSplashPageClicked && !location.pathname.includes("/paintings/")
   return (
-    <Transition location={location}>
+    <Transition location={location} timeout={500}>
       <LayoutStyles {...{ isSplashPageClicked, showNav }}>
         <div className="navigationWrapper">
           <MountLater>

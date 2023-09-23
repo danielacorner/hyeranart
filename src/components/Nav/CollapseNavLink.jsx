@@ -78,7 +78,7 @@ const CollapseNavLink = ({ type, text, isCurrent }) => {
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <CollapseLinkWrapperStyles
-        isExpanded={isExpanded}
+        $isExpanded={isExpanded}
         onClick={handleClick}
         onPointerDown={handleClick}
         onTouchStart={handleMouseEnter}
@@ -140,7 +140,7 @@ const CollapseLinkWrapperStyles = styled.div`
       box-shadow: 0px 2px 6px #00000036;
       padding: 0 1em 1em;
     }
-    pointer-events: ${(props) => (props.isExpanded ? "auto" : "none")};
+    pointer-events: ${(props) => (props.$isExpanded ? "auto" : "none")};
     li {
       margin: auto;
       padding: 1em 0 0;
