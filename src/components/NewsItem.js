@@ -16,7 +16,7 @@ export default function NewsItem({ title, Image, content, date }) {
 
   console.log(
     "🌟🚨 ~ file: NewsItem.js ~ line 24 ~ NewsItem ~ newsItemImage.fluid",
-    newsItemImage.fluid
+    newsItemImage?.fluid
   )
   return (
     <>
