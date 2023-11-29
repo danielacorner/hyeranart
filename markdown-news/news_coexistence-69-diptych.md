@@ -7,7 +7,5 @@ content: >-
   Saatchi Art’s homepage! 
 
 
-  \
-
   https://www.saatchiart.com/art-collection/New-This-Week-11-27-2023/153961/772987/view
 ---
